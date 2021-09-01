@@ -12,17 +12,21 @@ get_header('no-margin');
             <div class="col-12 px-0 height-200">
 
                 <div class="slick-cover">
+                    <?php
+                        if( have_rows('slider_home') ):
+                            $counter =1;
+                        while ( have_rows('slider_home') ) : the_row();
+                    ?>
 
                     <div>
-                        <img class="mw-100 mh-100 w-100" data-lazy="http://localhost/urbidermis/wp-content/uploads/2021/07/cover_home.jpg" src=""/>
+                        <?php img_with_alt_lazy_sub('imagen'); ?>
                     </div>
-                    <div>
-                        <img class="mw-100 mh-100 w-100" data-lazy="http://localhost/urbidermis/wp-content/uploads/2021/07/cover_home.jpg" src=""/>
-                    </div>
-                    <div>
-                        <img class="mw-100 mh-100 w-100" data-lazy="http://localhost/urbidermis/wp-content/uploads/2021/07/cover_home.jpg" src=""/>
-                    </div>
-                    
+
+                    <?php
+                    $counter++;
+                    endwhile;
+                    endif;
+                    ?>
                 </div>
 
                 <div class="slick-arrows w-100 position-absolute d-flex justify-content-between p-4">
@@ -30,8 +34,9 @@ get_header('no-margin');
                     <span id="slick-cover-right" class="icon-circle-bold fs-16"></span>
                 </div>
 
-                <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black">Conocimiento / Urbanidad</p>
-                
+                <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black">Conocimiento /
+                    Urbanidad</p>
+
             </div>
         </div>
     </div>
@@ -42,12 +47,21 @@ get_header('no-margin');
     <div class="container-fluid">
         <div class="row">
             <div class="section-contact bg-beige col-12 px-0 height-200">
- 
+
                 <div class="contact-content d-flex flex-column h-100">
-                    <h2 class="font-weight-bold fs-lg-3 mb-4">Urbidermis, soluciones urbanas</h2>
-                    <p class="fw-500 fs-lg-11">Colaboramos con urbanistas, arquitectos, paisajistas, iluminadores, ingenieros y múltiples profesionales de la ciudad para la mejor creación y regeneración de espacios urbanos.</p>
-                    <p class="fw-500 fs-lg-11">Asesoramos en la selección y desarrollo de elementos urbanos y hacemos realidad las soluciones específicas que se requieran.</p>
-                    
+                <?php
+                            display_tag(
+                                'title_group',
+                                'title_tag',
+                                'title_txt',
+                                'font-weight-bold fs-lg-3 mb-4'
+                            )
+                        ?>
+                   
+                    <p class="fw-500 fs-lg-11"> <?php the_field('parrafo_1'); ?></p>
+                    <p class="fw-500 fs-lg-11">Asesoramos en la selección y desarrollo de elementos urbanos y hacemos
+                        realidad las soluciones específicas que se requieran.</p>
+
                     <div class="button-wrap mt-auto">
                         <button class="contact-btn">Habla con nosotros</button>
                     </div>
@@ -63,7 +77,7 @@ get_header('no-margin');
     <div class="container-fluid">
         <div class="row">
             <div class="section-skin bg-beige-light d-flex flex-column col-12 px-0 height-200">
- 
+
                 <img src="http://localhost/urbidermis/wp-content/uploads/2021/07/home-section-skin.jpg">
 
                 <div class="row skin-content d-flex h-100">
@@ -74,7 +88,12 @@ get_header('no-margin');
 
                     <div class="body col-lg-6 d-flex flex-column">
 
-                        <p class="fw-500 fs-lg-11">También ofrecemos productos de uso frecuente diseñados por reconocidos autores, que dotan de sensatez y belleza el fondo de nuestro catálogo. Muchos de ellos forman hoy parte del entramado urbano de centenares de ciudades en todo el mundo. Nuestro catálogo de productos responde a los usos más recurrentes, pero también afrontamos situaciones específicas elaborando soluciones a medida. Tenemos experiencia urbana y podemos resolver proyectos de gran complejidad.</p>
+                        <p class="fw-500 fs-lg-11">También ofrecemos productos de uso frecuente diseñados por
+                            reconocidos autores, que dotan de sensatez y belleza el fondo de nuestro catálogo. Muchos de
+                            ellos forman hoy parte del entramado urbano de centenares de ciudades en todo el mundo.
+                            Nuestro catálogo de productos responde a los usos más recurrentes, pero también afrontamos
+                            situaciones específicas elaborando soluciones a medida. Tenemos experiencia urbana y podemos
+                            resolver proyectos de gran complejidad.</p>
                         <div class="d-flex mt-auto">
                             <button class="mr-5">Habla con nosotros</button>
                             <button>Ver galería de proyectos</button>
@@ -110,10 +129,13 @@ get_header('no-margin');
                         <div class="slick-wrapper d-flex flex-column">
 
                             <div class="slick-articles d-flex">
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
+                                <div
+                                    class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
-                                    <a href="#"><p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p></a>
-                                    
+                                    <a href="#">
+                                        <p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p>
+                                    </a>
+
                                     <div class="hline"></div>
 
                                     <div class="child-article">
@@ -125,14 +147,18 @@ get_header('no-margin');
 
                                     <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
 
-                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
+                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación
+                                        #espacios</p>
 
                                 </div>
 
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
+                                <div
+                                    class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
-                                    <a href="#"><p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p></a>
-                                    
+                                    <a href="#">
+                                        <p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p>
+                                    </a>
+
                                     <div class="hline"></div>
 
                                     <div class="child-article">
@@ -144,14 +170,18 @@ get_header('no-margin');
 
                                     <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
 
-                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
+                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación
+                                        #espacios</p>
 
                                 </div>
 
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
+                                <div
+                                    class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
-                                    <a href="#"><p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p></a>
-                                    
+                                    <a href="#">
+                                        <p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p>
+                                    </a>
+
                                     <div class="hline"></div>
 
                                     <div class="child-article">
@@ -163,14 +193,18 @@ get_header('no-margin');
 
                                     <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
 
-                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
+                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación
+                                        #espacios</p>
 
                                 </div>
 
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
+                                <div
+                                    class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
-                                    <a href="#"><p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p></a>
-                                    
+                                    <a href="#">
+                                        <p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p>
+                                    </a>
+
                                     <div class="hline"></div>
 
                                     <div class="child-article">
@@ -182,14 +216,18 @@ get_header('no-margin');
 
                                     <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
 
-                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
+                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación
+                                        #espacios</p>
 
                                 </div>
 
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
+                                <div
+                                    class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
-                                    <a href="#"><p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p></a>
-                                    
+                                    <a href="#">
+                                        <p class="fs-lg-15 fw-500">¿Cómo iluminar con catenaria?</p>
+                                    </a>
+
                                     <div class="hline"></div>
 
                                     <div class="child-article">
@@ -201,7 +239,8 @@ get_header('no-margin');
 
                                     <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
 
-                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
+                                    <p class="fs-lg-15 fw-500">#urbanidad #ciudad #edificios #suspensión #instalación
+                                        #espacios</p>
 
                                 </div>
 
@@ -215,7 +254,7 @@ get_header('no-margin');
                         </div>
 
                         <button class="btn-masPublicaciones mt-3">Ver más publicaciones</button>
-                        
+
                     </div>
 
                 </div>
