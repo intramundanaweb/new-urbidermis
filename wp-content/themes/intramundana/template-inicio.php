@@ -22,9 +22,7 @@ get_header('no-margin');
                     <div>
 
                         <?php img_with_alt_lazy_sub('imagen'); ?>
-
-                        <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black">Conocimiento / Urbanidad</p>
-                        <?php the_field('pie_de_foto'); ?>
+                        <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black"><?php the_field('pie_de_foto'); ?></p>
 
                     </div>
 
@@ -40,8 +38,6 @@ get_header('no-margin');
                     <span id="slick-cover-left" class="icon-circle-bold fs-16"></span>
                     <span id="slick-cover-right" class="icon-circle-bold fs-16"></span>
                 </div>
-
-                
 
             </div>
         </div>
@@ -64,12 +60,11 @@ get_header('no-margin');
                             )
                         ?>
                    
-                    <p class="fw-500 fs-lg-11"> <?php the_field('parrafo_1'); ?></p>
-                    <p class="fw-500 fs-lg-11">Asesoramos en la selección y desarrollo de elementos urbanos y hacemos
-                        realidad las soluciones específicas que se requieran.</p>
+                    <p class="fw-500 fs-lg-11"><?php the_field('parrafo_1'); ?></p>
+                    <p class="fw-500 fs-lg-11"><?php the_field('parrafo_2'); ?></p>
 
                     <div class="button-wrap mt-auto">
-                        <button class="contact-btn">Habla con nosotros</button>
+                        <button class="contact-btn"><?php the_field('texto_boton'); ?></button>
                     </div>
                 </div>
 
