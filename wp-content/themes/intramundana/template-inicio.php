@@ -12,6 +12,7 @@ get_header('no-margin');
             <div class="col-12 px-0 height-200">
 
                 <div class="slick-cover">
+
                     <?php
                         if( have_rows('slider_home') ):
                             $counter =1;
@@ -19,14 +20,20 @@ get_header('no-margin');
                     ?>
 
                     <div>
+
                         <?php img_with_alt_lazy_sub('imagen'); ?>
+
+                        <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black">Conocimiento / Urbanidad</p>
+                        <?php the_field('pie_de_foto'); ?>
+
                     </div>
 
                     <?php
-                    $counter++;
-                    endwhile;
-                    endif;
+                        $counter++;
+                        endwhile;
+                        endif;
                     ?>
+
                 </div>
 
                 <div class="slick-arrows w-100 position-absolute d-flex justify-content-between p-4">
@@ -34,8 +41,7 @@ get_header('no-margin');
                     <span id="slick-cover-right" class="icon-circle-bold fs-16"></span>
                 </div>
 
-                <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black">Conocimiento /
-                    Urbanidad</p>
+                
 
             </div>
         </div>
