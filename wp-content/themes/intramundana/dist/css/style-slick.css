@@ -1,0 +1,70 @@
+/*
+==============================
+Page: All
+Section: Slick Slider
+==============================
+*/
+
+.slick-dots {
+  text-align: center;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: 21;
+  visibility: hidden;
+}
+
+.slick-dots li {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.slick-dots li:last-child {
+  margin-right: 0;
+}
+
+.slick-dots li button {
+  border-color: #0038b8;
+  background-color: transparent;
+  border-radius: 100%;
+  border-width: 1px;
+  border-style: solid;
+  color: transparent;
+  height: 10px;
+  padding: 0;
+  width: 10px;
+}
+
+.slick-dots li button:hover {
+  cursor: pointer;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #0038b8;
+  border-color: #0038b8;
+}
+
+#slider-left,
+#slider-right {
+  cursor: pointer;
+}
+
+
+.control-slider {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+
+@media (min-width: 992px) {
+  .slick-dots {
+    text-align: center;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    z-index: 21;
+  }
+}

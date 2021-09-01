@@ -1,0 +1,708 @@
+/* Tema Intramundana */
+/* Custom CSS for Intramundana */
+/* HOME */
+
+
+@supports(object-fit: cover) {
+
+	.height-promo img {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		object-position: center center;
+	}
+
+}
+
+
+/*
+==============================
+Page: Home
+==============================
+*/
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1600px) {}
+
+  /*
+==============================
+Page: template-inicio.php
+==============================
+*/
+
+.conocimiento-urbanidad {
+    margin-top: -10rem;
+}
+
+.elipse-left {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    position: relative;
+    top: -50%;
+    left: 0;
+    margin-left: 3em;
+    z-index: 2;
+}
+
+.elipse-right {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    position: relative;
+    top: -50%;
+    right: 0;
+    margin-right: 3em;
+    z-index: 2;
+}
+
+/*
+==============================
+Page: ESTRUCTURA ORGANIZATIVA
+==============================
+*/
+
+
+.nav-circle .hijos .page_item a,
+.nav-circle-page .hijos .page_item a {
+	color: #003d7c;
+	display: flex;
+	align-items: center;
+}
+
+.nav-circle .hijos .page_item:first-child a::before {
+	font-family: 'icomoon' !important;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	content: "\e901";
+	padding-right: .5em;
+	font-size: 2em;
+}
+
+.nav-circle .hijos .page_item:last-child a::after {
+	font-family: 'icomoon' !important;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	content: "\e902";
+	padding-left: .5em;
+	font-size: 2em;
+}
+
+
+.nav-circle-page .hijos .page_item:first-child a::before {
+	font-family: 'icomoon' !important;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	content: "\e901";
+	padding-right: .7em;
+	font-size: 2em;
+}
+
+.nav-circle-page .hijos .page_item:last-child {
+	text-align: right;
+}
+
+.nav-circle-page .hijos .page_item:last-child a::after {
+	font-family: 'icomoon' !important;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	content: "\e902";
+	padding-left: .7em;
+	font-size: 2em;
+}
+
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1600px) {}
+
+.modal-backdrop {
+	background: transparent !important;
+}
+
+/*
+==============================
+Page: MainPage
+==============================
+*/
+.slider-container img,
+.height-column {
+	height: auto;
+}
+
+.bottomlinks {
+	position: relative;
+	bottom: -110px;
+}
+
+/*
+==============================
+Page: Template-inicio
+==============================
+*/
+
+/* Section cover */
+.conocimiento-urbanidad {
+    z-index: 1001;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.slick-arrows {
+    bottom: 50%;
+    transform: translate(0, -50%);
+}
+
+/* Section contact */
+.contact-content {
+    width: 65%;
+    padding: 4rem 0 4rem 3rem;
+}
+
+/* Section skin */
+.skin-content {
+    padding: 4rem 3rem;
+}
+
+/* Section reference */
+.slick-articles {
+    width: 150%;
+}
+
+.slick-article {
+    width: 18em!important;
+    height: 26em;
+    box-shadow: 2px 2px 0 0 #000000;
+}
+
+.tags-title {
+    text-decoration: underline;
+}
+
+.btn-masPublicaciones {
+    width: fit-content;
+}
+
+/*Styles for lateral content*/
+.sidecontent {
+	width: 70vw;
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	background-color: #003d7c;
+	overflow-x: hidden;
+	transition: 0.5s;
+	right: -70vw;
+}
+
+.sidecontent a:hover,
+.offcanvas a:focus {
+	color: silver;
+	transition: 0.5s;
+}
+
+.sidecontent .closebtn {
+	position: relative;
+	top: 0;
+	color: white;
+	font-family: auto;
+}
+
+/*Styles for Modal Presidente*/
+.sidecontent-presi {
+	width: 80vw;
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	background-color: #003d7c;
+	overflow-x: hidden;
+	transition: 0.5s;
+	right: -80vw;
+}
+
+.sidecontent-presi a:hover,
+.offcanvas a:focus {
+	color: silver;
+	transition: 0.5s;
+}
+
+/*End the Styles for Modal Presidente*/
+
+
+/*Styles for Modal VicePresidente*/
+.sidecontent-vicepresi {
+	width: 80vw;
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	background-color: #003d7c;
+	overflow-x: hidden;
+	transition: 0.5s;
+	right: -80vw;
+}
+
+.sidecontent-vicepresi a:hover,
+.offcanvas a:focus {
+	color: silver;
+	transition: 0.5s;
+}
+
+/*End for Styles for Modal VicePresidente*/
+
+/*Styles for Modal secre*/
+.sidecontent-secre {
+	width: 80vw;
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	background-color: #003d7c;
+	overflow-x: hidden;
+	transition: 0.5s;
+	right: -80vw;
+}
+
+.sidecontent-secre a:hover,
+.offcanvas a:focus {
+	color: silver;
+	transition: 0.5s;
+}
+
+/*End for Styles for Modal secre*/
+
+
+/*Styles for Modal legal*/
+.sidecontent-legal {
+	width: 80vw;
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	background-color: #003d7c;
+	overflow-x: hidden;
+	transition: 0.5s;
+	right: -80vw;
+}
+
+.sidecontent-legal a:hover,
+.offcanvas a:focus {
+	color: silver;
+	transition: 0.5s;
+}
+
+/*End for Styles for Modal legal*/
+
+/*Styles for Modal vocero*/
+.sidecontent-vocero {
+	width: 80vw;
+	top: 0;
+	left: auto;
+	background-color: #003d7c;
+	overflow-x: hidden;
+	transition: 0.5s;
+	right: -80vw;
+}
+
+.sidecontent-vocero a:hover,
+.offcanvas a:focus {
+	color: silver;
+	transition: 0.5s;
+}
+
+/*End for Styles for Modal vocero*/
+
+
+.buttom-info-photo,
+.closebtn {
+	cursor: pointer;
+}
+
+
+
+/* SCROLL and height*/
+.custom-height {
+	/*height: 200px;*/
+	overflow-y: hidden;
+	transition: scrollbar-color all 0.5s;
+	-webkit-transition: scrollbar-color all 0.5s;
+	-moz-transition: scrollbar-color all 0.5s;
+	-o-transition: scrollbar-color all 0.5s;
+	/* scrollbar-track-color: rgba(0, 61, 124, 0.5); */
+}
+
+.custom-height:hover {
+	transition: all 0.5s;
+	-webkit-transition: scrollbar-color all 0.5s;
+	-moz-transition: scrollbar-color all 0.5s;
+	-o-transition: scrollbar-color all 0.5s;
+	direction: rtl;
+	overflow-y: auto;
+	scrollbar-color: rgba(0, 61, 124, 1) rgba(0, 61, 124, .3);
+	scrollbar-width: thin;
+	scroll-behavior: smooth;
+}
+
+/* SCROLL and height*/
+.custom-height22 {
+	/*height: 200px;*/
+	overflow-y: auto;
+	transition: scrollbar-color all 0.5s;
+	-webkit-transition: scrollbar-color all 0.5s;
+	-moz-transition: scrollbar-color all 0.5s;
+	-o-transition: scrollbar-color all 0.5s;
+	scrollbar-color: rgba(0, 61, 124, 1) rgba(0, 61, 124, .3);
+	scrollbar-width: thin;
+	scroll-behavior: smooth;
+	/* scrollbar-track-color: rgba(0, 61, 124, 0.5); */
+
+}
+
+
+.custom-scroll {
+	display: flex;
+	flex-flow: column-reverse;
+	justify-content: flex-end;
+}
+
+.custom-direction {
+	direction: ltr;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+
+.custom-height::-webkit-scrollbar,
+.custom-height22::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 2px;
+	/* Tamaño del scroll en vertical */
+	/* height: 6px; */
+	/* Tamaño del scroll en horizontal */
+	background-color: rgba(0, 61, 124, 0.1);
+
+}
+
+.custom-height::-webkit-scrollbar:vertical,
+.custom-height22::-webkit-scrollbar:vertical {
+	width: 2px;
+}
+
+.custom-height::-webkit-scrollbar-button:increment,
+.custom-height::-webkit-scrollbar-button,
+.custom-height22::-webkit-scrollbar-button:increment,
+.custom-height22::-webkit-scrollbar-button {
+	display: none;
+}
+
+/* .custom-height::-webkit-scrollbar:horizontal {
+	height: 10px;
+} */
+
+.custom-height::-webkit-scrollbar-thumb,
+.custom-height22::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 61, 124, 1);
+	/* border-radius: 20px; */
+	/* border: 2px solid #f1f2f3; */
+}
+
+.custom-height::-webkit-scrollbar-track,
+.custom-height22::-webkit-scrollbar-track {
+	padding-left: 1em;
+	background-color: rgba(0, 61, 124, 0.1);
+}
+
+
+.logo-empresa .post-thumbnail img {
+	width: 200px;
+	height: auto;
+}
+
+@media (min-width: 576px) {
+
+	.slider-container img,
+	.height-column {
+		height: auto;
+	}
+
+	.bottomlinks {
+		position: relative;
+		bottom: 0px;
+	}
+
+}
+
+@media (min-width: 768px) {
+
+	.custom-height,
+	.custom-height22 {
+		height: 400px;
+	}
+}
+
+@media (min-width: 992px) {
+
+	.bottomlinks {
+		position: relative;
+		bottom: 0px;
+	}
+
+	.custom-height,
+	.custom-height22 {
+		height: 500px;
+	}
+
+	.sidecontent {
+		width: 20vw;
+		right: -20vw;
+	}
+
+	.sidecontent-presi,
+	.sidecontent-vicepresi,
+	.sidecontent-secre,
+	.sidecontent-legal,
+	.sidecontent-vocero {
+		width: 40vw;
+		right: -40vw;
+	}
+}
+
+@media (min-width: 1200px) {
+
+
+	.bottomlinks {
+		position: relative;
+		bottom: 0px;
+	}
+
+	.custom-height,
+	.custom-height22 {
+		height: 550px;
+	}
+}
+
+@media (min-width: 1400px) {}
+
+@media (min-width: 1440px) {
+
+	.slider-container img,
+	.height-column {
+		height: 550px;
+	}
+
+
+	.custom-height,
+	.custom-height22 {
+		height: 600px;
+	}
+}
+
+@media (min-width: 1600px) {
+
+	.slider-container img,
+	.height-column {
+		height: 690px;
+	}
+
+
+	.bottomlinks {
+		position: relative;
+		bottom: 0px;
+	}
+}
+
+@media (min-width: 812px) and (orientation: landscape) {}
+
+@media (min-width: 1366px) and (orientation: landscape) {}
+
+/*
+==============================
+Page:  Empresas
+==============================
+*/
+
+
+.bottomlinks-empresas {
+	position: relative;
+}
+
+.empresas-links {
+	color: #003d7c;
+	height: fit-content;
+}
+
+.empresas-links:hover {
+	background: #003d7c;
+	transition: 0.5s;
+}
+
+.empresas-links:hover div {
+	color: white !important;
+}
+
+.empresas-links div {
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	line-height: 1em;
+}
+
+.empresas-links:first-child div {
+	border-top: 1px solid;
+}
+
+.secrionscroll {
+	display: contents;
+}
+
+@media (min-width: 576px) {
+	.bottomlinks-empresas {
+		position: relative;
+		bottom: 0px;
+	}
+
+}
+
+@media (min-width: 768px) {
+	.empresas-links:nth-child(odd) div {
+		/*para impares*/
+		border-left: 1px solid;
+		border-right: 1px solid;
+		border-bottom: 1px solid;
+	}
+
+	.empresas-links:nth-child(even) div {
+		/*para pares*/
+		border-right: 1px solid;
+		border-left: 0px solid;
+		border-bottom: 1px solid;
+	}
+
+	.empresas-links:last-child div {
+		border-right: 1px solid;
+	}
+
+	.empresas-links:first-child div {
+		border-top: 1px solid;
+	}
+
+	.empresas-links:nth-child(2) div {
+		border-top: 1px solid;
+	}
+
+
+}
+
+@media (min-width: 992px) {
+	.bottomlinks-empresas {
+		position: relative;
+		bottom: 0px;
+	}
+
+
+}
+
+@media (min-width: 1200px) {
+	.bottomlinks-empresas {
+		position: relative;
+		bottom: 0px;
+	}
+}
+
+@media (min-width: 1400px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1600px) {
+	.bottomlinks-empresas {
+		position: relative;
+		bottom: 0px;
+	}
+
+
+}
+
+
+
+/*
+==============================
+Page: SINGLE EMPRESAS
+==============================
+*/
+/* ESTILOS NAVEGACIÓN CICULAR */
+
+.post-navigation .nav-links {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+}
+
+.nav-links .nav-next a,
+.nav-links .nav-previous a {
+	display: flex;
+	align-items: center;
+}
+
+.nav-links .nav-next a {
+	justify-content: flex-start;
+}
+
+.nav-links .nav-previous a {
+	justify-content: flex-end;
+}
+
+.comment-navigation .nav-previous,
+.posts-navigation .nav-previous,
+.post-navigation .nav-previous {
+	text-align: right;
+}
+
+.comment-navigation .nav-next,
+.posts-navigation .nav-next,
+.post-navigation .nav-next {
+	text-align: left;
+}
+
+
+
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1600px) {}

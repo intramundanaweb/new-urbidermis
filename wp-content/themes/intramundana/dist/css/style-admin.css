@@ -1,0 +1,17 @@
+/*
+==============================
+Admin Bar
+==============================
+*/
+
+.fc-adminbar a,
+.fc-adminbar p,
+.fc-adminbar span {
+  font-family:'DMSans';
+  color:#fff;
+  font-size:1em;
+}
+.fc-adminbar {
+  z-index:101;
+  position:relative;
+}

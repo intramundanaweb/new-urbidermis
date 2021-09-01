@@ -1,0 +1,32 @@
+/*
+==============================
+Page: All
+Section: Footer
+==============================
+*/
+footer.site-footer {
+  position: relative;
+  z-index: 1000;
+}
+
+.widgettitle{
+  font-weight: 500;
+  line-height: 1.25;
+  color: #000;
+  font-size: 1em;
+  margin-bottom: 1.2em;
+}
+
+
+/*
+==============================
+Footer - Media Queries
+==============================
+*/
+
+
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width:992px) {}

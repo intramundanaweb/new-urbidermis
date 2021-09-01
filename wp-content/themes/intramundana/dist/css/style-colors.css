@@ -1,0 +1,87 @@
+/*
+==============================
+Colors
+==============================
+*/
+
+.color-grey {
+  color: #333;
+}
+
+.color-black {
+  color: #000;
+}
+
+.color-custom-black{
+  color:#1d1d1f;
+}
+
+.color-blue {
+  color: #003d7c!important;
+}
+
+
+/*
+==============================
+Background Colors
+==============================
+*/
+
+
+
+.bg-black {
+  background-color: #000;
+}
+
+.bg-blue{
+  background-color: #003d7c;
+}
+
+.bg-beige{
+  background-color: #e5e4dc;
+}
+
+.bg-beige-light{
+  background-color: #f6f5f1;
+}
+
+.bg-green{
+  background-color: #87966e;
+}
+
+.bg-teja{
+  background-color: #b4714e;
+}
+
+.bg-grey {
+    background-color: #3b3b38;
+}
+/*
+==============================
+Border Colors
+==============================
+*/
+
+.border-blue {
+  border-color: #232F3D;
+}
+
+.border-black {
+  border-color: #000;
+}
+
+.border-light-blue {
+  border-color: #8CB4C4;
+}
+
+.border-grey{
+  border-color: #86868b !important;
+}
+
+.border-white {
+  border-color: #FFF;
+}
+
+.border-grey-categories {
+  border-bottom: 1px solid #D6D0C1;
+}

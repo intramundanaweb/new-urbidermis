@@ -1,0 +1,362 @@
+/*
+==============================
+Feature: Forms
+Section: Inputs
+==============================
+*/
+
+div.wpcf7 .ajax-loader {
+    position: absolute;
+}
+
+.form-control {
+    border-color: transparent;
+}
+
+span.wpcf7-list-item {
+    margin: 0;
+}
+
+.wpcf7-form-control.wpcf7-submit {
+    width: 100%;
+    float: none;
+    font-weight: 400;
+}
+
+
+
+form.wpcf7-form div.container-fluid div.row+p {
+    display: none;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    background: transparent;
+    color: #000;
+    padding: .5em 1.5em;
+    border-radius: 50px;
+    border: solid 1px #000000;
+    display: block;
+    -webkit-transition: all .5ms;
+    -moz-transition: all .5ms;
+    -o-transition: all .5ms;
+    transition: all .5ms;
+}
+
+button:active,
+button:focus,
+input[type="button"]:active,
+input[type="button"]:focus,
+input[type="reset"]:active,
+input[type="reset"]:focus,
+input[type="submit"]:active,
+input[type="submit"]:focus {
+    border-color: transparent !important;
+}
+
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+    color: #fff;
+    background: #000;
+    border: solid 1px #000000;
+    -webkit-transition: all .5ms;
+    -moz-transition: all .5ms;
+    -o-transition: all .5ms;
+    transition: all .5ms;
+}
+
+
+
+input[type="search"] {
+    padding: 6px 0 !important;
+    font-family: 'Futura';
+    font-size: 14px;
+}
+
+/*
+==============================
+Feature: Forms
+Section: light
+==============================
+*/
+
+
+/* Style Placeholder */
+
+#form-light .form-control::placeholder,
+#form-light ::placeholder,
+#form-light :-ms-input-placeholder,
+#form-light ::-webkit-input-placeholder,
+#form-light :-moz-placeholder,
+#form-light ::-moz-placeholder,
+#form-light .form-control:-ms-input-placeholder,
+#form-light .form-control:-ms-input-placeholder,
+#form-light .form-control::-webkit-input-placeholder,
+#form-light .form-control:-moz-placeholder,
+#form-light .form-control::-moz-placeholder {
+    color: #003d7c;
+    opacity: 1;
+    font-size: 14px;
+    letter-spacing: 0;
+    font-weight: 400 !important;
+    font-family: 'Futura';
+}
+
+.form-control::placeholder,
+::placeholder,
+:-ms-input-placeholder,
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder,
+.form-control:-ms-input-placeholder,
+.form-control:-ms-input-placeholder,
+.form-control::-webkit-input-placeholder,
+.form-control:-moz-placeholder,
+.form-control::-moz-placeholder,
+input::placeholder,
+input::placeholder,
+input:-ms-input-placeholder,
+input::-webkit-input-placeholder,
+input:-moz-placeholder,
+input::-moz-placeholder,
+input:-ms-input-placeholder,
+input:-ms-input-placeholder,
+input::-webkit-input-placeholder,
+input:-moz-placeholder,
+input::-moz-placeholder,
+input#email::placeholder,
+input#email::placeholder,
+input#email:-ms-input-placeholder,
+input#email::-webkit-input-placeholder,
+input#email:-moz-placeholder,
+input#email::-moz-placeholder,
+input#email:-ms-input-placeholder,
+input#email:-ms-input-placeholder,
+input#email::-webkit-input-placeholder,
+input#email:-moz-placeholder,
+input#email::-moz-placeholder {
+    color: #000;
+    opacity: 1;
+    font-size: 1em;
+    letter-spacing: 0;
+    font-family: 'Futura';
+}
+
+/* Fin Style Placeholder */
+
+/* Style Inputs */
+
+.form-login-custom #loginform input[type="text"],
+.form-login-custom #loginform input[type="email"],
+.form-login-custom #loginform input[type="url"],
+.form-login-custom #loginform input[type="password"],
+.form-login-custom #loginform input[type="tel"],
+.form-login-custom #loginform input[type="range"],
+.form-login-custom #loginform input[type="date"],
+.form-login-custom #loginform input[type="month"],
+.form-login-custom #loginform input[type="week"],
+.form-login-custom #loginform input[type="time"],
+.form-login-custom #loginform input[type="datetime"],
+.form-login-custom #loginform input[type="datetime-local"],
+.form-login-custom #loginform input[type="color"],
+.form-login-custom #loginform input[type="number"] {
+    background-color: transparent !important;
+    color: #003d7c !important;
+    border-bottom: 1px solid #003d7c !important;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0 !important;
+    padding: 10px 0px !important;
+    font-family: 'Futura';
+    font-size: 1em;
+    width: 100%;
+}
+
+.form-login-custom #loginform textarea,
+.form-login-custom #loginform textarea.form-control {
+    background-color: transparent !important;
+    color: #003d7c !important;
+    border: 1px solid #003d7c !important;
+    border-radius: 0 !important;
+    padding: 10px 15px !important;
+    font-family: 'Futura';
+    font-size: 14px;
+    width: 100%;
+}
+
+
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+input[type="number"] {
+    background-color: transparent !important;
+    color: #000 !important;
+    border-bottom: 1px solid #000 !important;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0 !important;
+    padding: 3px 0px !important;
+    font-family: 'Futura';
+    font-size: 1em;
+    width: 100%;
+    opacity: 1;
+}
+
+textarea,
+textarea.form-control {
+    background-color: transparent !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+    border-radius: 0 !important;
+    padding: 3px 15px !important;
+    font-family: 'Futura';
+    font-size: 1em;
+    width: 100%;
+}
+
+
+
+
+.form-login-custom #loginform label {
+    font-family: 'Futura';
+    font-size: 1.25em;
+    color: #003d7c;
+    line-height: 1.3;
+}
+
+.form-login-custom #loginform p {
+    margin-bottom: 1rem;
+}
+
+.form-login-custom #loginform .form-control:disabled,
+.form-login-custom #loginform .form-control[readonly] {
+    background-color: #003d7c;
+    opacity: 1;
+}
+
+.form-login-custom #loginform #user_login_submit {
+    background: transparent;
+    font-size: 1.25em;
+    line-height: 1.3em;
+    color: #003d7c;
+    text-decoration: underline;
+    border: 0;
+    padding: 0;
+}
+
+/* Fin Style Inputs */
+
+/* FOCUS */
+
+.form-login-custom #loginform textarea:focus,
+#form-ligh .wpcf7-form-control-wrap.your-message textarea.wpcf7-form-control.wpcf7-textarea.form-control:focus {
+    background-color: transparent;
+    box-shadow: none !important;
+    border-bottom: 1px solid #003d7c !important;
+    border-top: 1px solid transparent !important;
+    border-left: 1px solid transparent !important;
+    border-right: 1px solid transparent !important;
+    color: #003d7c;
+}
+
+.form-login-custom #loginform input.form-control:focus {
+    background-color: transparent;
+    box-shadow: none !important;
+    border-bottom: 1px solid #edeae4 !important;
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    color: #003d7c;
+}
+
+/* FIN FOCUS */
+
+input[type="checkbox"]+label {
+    width: 19px;
+    height: 19px;
+    position: relative;
+}
+
+input[type="checkbox"]+label::before {
+    content: "";
+    width: 19px;
+    height: 19px;
+    float: left;
+    border: 2px solid #000;
+    background: transparent;
+    border-radius: 100%;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked+label::after {
+    content: "";
+    width: 19px;
+    height: 19px;
+    border: 4px solid #000;
+    float: left;
+    border-radius: 100%;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {
+
+    /* Style Inputs */
+
+    .form-login-custom #loginform input[type="text"],
+    .form-login-custom #loginform input[type="email"],
+    .form-login-custom #loginform input[type="url"],
+    .form-login-custom #loginform input[type="password"],
+    .form-login-custom #loginform input[type="tel"],
+    .form-login-custom #loginform input[type="range"],
+    .form-login-custom #loginform input[type="date"],
+    .form-login-custom #loginform input[type="month"],
+    .form-login-custom #loginform input[type="week"],
+    .form-login-custom #loginform input[type="time"],
+    .form-login-custom #loginform input[type="datetime"],
+    .form-login-custom #loginform input[type="datetime-local"],
+    .form-login-custom #loginform input[type="color"],
+    .form-login-custom #loginform input[type="number"] {
+        background-color: transparent !important;
+        color: #003d7c !important;
+        border-bottom: 1px solid #003d7c !important;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0 !important;
+        padding: 10px 0px !important;
+        font-family: 'Futura';
+        font-size: 1em;
+        width: 100%;
+    }
+
+    .form-login-custom #loginform p {
+        margin-bottom: 3rem;
+    }
+
+}
