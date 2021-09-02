@@ -209,7 +209,7 @@ Page: Template-inicio
     width: fit-content;
 }
 
-.section-home button:hover {
+section button:hover {
     color: #e5e4dc;
     background: #000;
     border-color: #000;
