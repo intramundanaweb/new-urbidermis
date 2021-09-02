@@ -40,16 +40,17 @@ jQuery(document).ready(function ($) {
         //autoplaySpeed: 3500,
         //autoplay: true,
         slidesToScroll: 1,
-        slidesToShow: 3,
+        slidesToShow: 2,
         arrows: false,
         fade: false,
-        dots: true,
+        dots: false,
         centerMode: false,
-        variableWidth: false,
+        variableWidth: true,
         responsive: [{
             breakpoint: 992,
             settings: {
                 arrows: false,
+                dots: true,
                 slidesToShow: 2,
                 slidesToScroll: 1
             }

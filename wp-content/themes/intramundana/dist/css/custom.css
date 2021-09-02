@@ -190,13 +190,11 @@ Page: Template-inicio
 }
 
 /* Section reference */
-.slick-articles {
-    width: 150%;
-}
+
 
 .slick-article {
-    width: 18em!important;
-    height: 26em;
+    width: 14em;
+    height: 19em;
     box-shadow: 2px 2px 0 0 #000000;
 }
 
@@ -471,6 +469,12 @@ section button:hover {
 }
 
 @media (min-width: 992px) {
+
+	.slick-article {
+		width: 18em;
+		height: 26em;
+		box-shadow: 2px 2px 0 0 #000000;
+	}
 
 	.bottomlinks {
 		position: relative;
