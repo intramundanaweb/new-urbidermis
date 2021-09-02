@@ -459,15 +459,40 @@ jQuery(document).ready(function ($) {
 
     /** Template-inicio scripts */
 
-    jQuery(".contact-btn").mouseenter(function() {
+    // Change section-contact background on hovering button
+    jQuery(".contact-btn").mouseenter(function () {
         jQuery(".section-contact").animate({
             backgroundColor: '#87966e'
         })
-    }).mouseleave(function() {
+    }).mouseleave(function () {
         jQuery(".section-contact").animate({
             backgroundColor: '#e5e4dc'
         })
     })
+
+    // Change section-skin background on hovering buttons 
+    jQuery(".skin-buttons>button").mouseenter(function () {
+        jQuery(".section-skin").animate({
+            backgroundColor: '#b4714e'
+        })
+    }).mouseleave(function () {
+        jQuery(".section-skin").animate({
+            backgroundColor: '#f6f5f1'
+        })
+    })
+
+    // Change section-reference background on hovering button
+    jQuery(".btn-masPublicaciones").mouseenter(function () {
+        jQuery(".section-reference").animate({
+            backgroundColor: '#9dbfcc'
+        })
+    }).mouseleave(function () {
+        jQuery(".section-reference").animate({
+            backgroundColor: '#f6f5f1'
+        })
+    })
+
+
     
 });
 
