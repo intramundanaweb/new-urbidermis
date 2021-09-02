@@ -207,7 +207,12 @@ Page: Template-inicio
 .btn-masPublicaciones {
     width: max-content;
     width: fit-content;
-    
+}
+
+.section-home button:hover {
+    color: #e5e4dc;
+    background: #000;
+    border-color: #000;
 }
 
 /*Styles for lateral content*/
