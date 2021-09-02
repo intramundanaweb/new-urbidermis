@@ -212,7 +212,10 @@ Page: Template-inicio
 section button {
     border-color: #000;
 }
-/**/
+
+section button:hover {
+    border-color: #000;
+}
 
 /*Styles for lateral content*/
 .sidecontent {
