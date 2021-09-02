@@ -98,7 +98,7 @@ get_header('no-margin');
                     <div class="body col-lg-6 d-flex flex-column">
 
                         <p class="fw-500 fs-lg-11"><?php the_field('parrafo_intermedio'); ?></p>
-                        <div class="d-flex mt-auto">
+                        <div class="skin-buttons d-flex mt-auto">
                             <button class="mr-5"><?php the_field('texto_boton_1'); ?></button>
                             <button><?php the_field('texto_boton_2'); ?></button>
                         </div>
