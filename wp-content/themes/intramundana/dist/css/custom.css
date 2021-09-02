@@ -66,6 +66,11 @@ Page: template-inicio.php
     z-index: 2;
 }
 
+.btn-masPublicaciones {
+    width: max-content;
+    width: fit-content;
+}
+
 /*
 ==============================
 Page: ESTRUCTURA ORGANIZATIVA
