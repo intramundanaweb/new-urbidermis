@@ -22,7 +22,7 @@ get_header('no-margin');
                     <div>
 
                         <?php img_with_alt_lazy_sub('imagen'); ?>
-                        <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black"><?php the_field('pie_de_foto'); ?></p>
+                        <p class="conocimiento-urbanidad fs-lg-15 position-absolute font-weight-bold color-black"><?php the_sub_field('pie_de_foto'); ?></p>
 
                     </div>
 
@@ -80,7 +80,7 @@ get_header('no-margin');
         <div class="row">
             <div class="section-skin bg-beige-light d-flex flex-column col-12 px-0 height-200">
 
-                <?php img_with_alt_lazy_sub('imagen_seccion'); ?>
+                <?php img_with_alt_lazy('imagen_seccion'); ?>
 
                 <div class="row skin-content d-flex h-100">
 

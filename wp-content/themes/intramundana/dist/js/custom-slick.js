@@ -44,6 +44,8 @@ jQuery(document).ready(function ($) {
         arrows: false,
         fade: false,
         dots: true,
+        centerMode: false,
+        variableWidth: true,
         responsive: [{
             breakpoint: 992,
             settings: {

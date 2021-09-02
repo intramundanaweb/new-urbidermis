@@ -209,9 +209,7 @@ Page: Template-inicio
     width: fit-content;
 }
 
-section button:hover {
-    color: #e5e4dc;
-    background: #000;
+section button {
     border-color: #000;
 }
 
