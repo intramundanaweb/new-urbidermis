@@ -80,7 +80,7 @@ get_header('no-margin');
         <div class="row">
             <div class="section-skin bg-beige-light d-flex flex-column col-12 px-0 height-200">
 
-                <?php img_with_alt_lazy('imagen_seccion'); ?>
+                <?php img_with_alt('imagen_seccion'); ?>
 
                 <div class="row skin-content d-flex h-100">
 
