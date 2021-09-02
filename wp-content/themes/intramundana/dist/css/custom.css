@@ -148,7 +148,7 @@ Page: Template-inicio
     bottom: 1rem;
     left: 50%;
     transform: translate(-50%, 0);
-    margin-top: -10rem;
+    bottom: 10rem;
 }
 
 .slick-arrows {
