@@ -51,14 +51,15 @@ get_header('no-margin');
             <div class="section-contact bg-beige col-12 px-0 height-200">
 
                 <div class="contact-content d-flex flex-column h-100">
-                <?php
-                            display_tag(
-                                'title_group',
-                                'title_tag',
-                                'title_txt',
-                                'font-weight-bold fs-lg-3 mb-4'
-                            )
-                        ?>
+
+                    <?php
+                        display_tag(
+                            'titulo_intermedio',
+                            'title_tag',
+                            'title_txt',
+                            'font-weight-bold fs-lg-3 mb-4'
+                        )
+                    ?>
                    
                     <p class="fw-500 fs-lg-11"><?php the_field('parrafo_1'); ?></p>
                     <p class="fw-500 fs-lg-11"><?php the_field('parrafo_2'); ?></p>
@@ -79,25 +80,27 @@ get_header('no-margin');
         <div class="row">
             <div class="section-skin bg-beige-light d-flex flex-column col-12 px-0 height-200">
 
-                <img src="http://localhost/urbidermis/wp-content/uploads/2021/07/home-section-skin.jpg">
+                <?php img_with_alt_lazy_sub('imagen_seccion'); ?>
 
                 <div class="row skin-content d-flex h-100">
 
                     <div class="title pl-0 col-lg-6">
-                        <h2 class="font-weight-bold fs-lg-3">La piel de la ciudad</h2>
+                        <?php
+                            display_tag(
+                                'title_group',
+                                'title_tag',
+                                'title_txt',
+                                'font-weight-bold fs-lg-3'
+                            )
+                        ?>
                     </div>
 
                     <div class="body col-lg-6 d-flex flex-column">
 
-                        <p class="fw-500 fs-lg-11">También ofrecemos productos de uso frecuente diseñados por
-                            reconocidos autores, que dotan de sensatez y belleza el fondo de nuestro catálogo. Muchos de
-                            ellos forman hoy parte del entramado urbano de centenares de ciudades en todo el mundo.
-                            Nuestro catálogo de productos responde a los usos más recurrentes, pero también afrontamos
-                            situaciones específicas elaborando soluciones a medida. Tenemos experiencia urbana y podemos
-                            resolver proyectos de gran complejidad.</p>
+                        <p class="fw-500 fs-lg-11"><?php the_field('parrafo_intermedio'); ?></p>
                         <div class="d-flex mt-auto">
-                            <button class="mr-5">Habla con nosotros</button>
-                            <button>Ver galería de proyectos</button>
+                            <button class="mr-5"><?php the_field('texto_boton_1'); ?></button>
+                            <button><?php the_field('texto_boton_2'); ?></button>
                         </div>
 
                     </div>
@@ -116,13 +119,29 @@ get_header('no-margin');
             <div class="section-reference bg-beige-light col-12 px-0 height-200">
 
                 <div class="big-title-section bg-beige py-5 px-5">
-                    <h1 class="fs-lg-45">Vienen tiempos de revolución urbana</h1>
+                    <?php
+                        display_tag(
+                            'titulo_final',
+                            'title_tag',
+                            'title_txt',
+                            'fs-lg-45'
+                        )
+                    ?>
+                    <!--<h1 class="fs-lg-45">Vienen tiempos de revolución urbana</h1>-->
                 </div>
 
-                <div class="row d-flex h-100 p-5">
+                <div class="row height-200 p-5">
 
                     <div class="title col-lg-6">
-                        <h2 class="font-weight-bold fs-lg-3">Descubre nuestros artículos de referencia</h2>
+                        <?php
+                            display_tag(
+                                'subtitulo_final',
+                                'title_tag',
+                                'title_txt',
+                                'font-weight-bold fs-lg-3'
+                            )
+                        ?>
+                        <!--<h2 class="font-weight-bold fs-lg-3">Descubre nuestros artículos de referencia</h2>-->
                     </div>
 
                     <div class="body col-lg-6 d-flex flex-column">
@@ -254,7 +273,7 @@ get_header('no-margin');
 
                         </div>
 
-                        <button class="btn-masPublicaciones mt-3">Ver más publicaciones</button>
+                        <button class="btn-masPublicaciones mt-3"><?php the_field('texto_boton_final'); ?></button>
 
                     </div>
 
