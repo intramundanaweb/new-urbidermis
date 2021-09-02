@@ -54,7 +54,7 @@ get_header('no-margin');
 
                     <?php
                         display_tag(
-                            'titulo_intermedio',
+                            'title_group',
                             'title_tag',
                             'title_txt',
                             'font-weight-bold fs-lg-3 mb-4'
@@ -87,7 +87,7 @@ get_header('no-margin');
                     <div class="title pl-0 col-lg-6">
                         <?php
                             display_tag(
-                                'title_group',
+                                'titulo_intermedio',
                                 'title_tag',
                                 'title_txt',
                                 'font-weight-bold fs-lg-3'
