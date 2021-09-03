@@ -71,20 +71,36 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12 px-lg-3 px-0">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <a class="navbar-toggler-right navbar-icon-menu" type="button"
-                                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                                        aria-label="Toggle navigation" href="#">
-                                        <span class="icon-plus color-black fs-lg-3 fs-2"></span>
-                                    </a>
+                                <div class="container-fluid">
+                                    <div class="row align-items-center justify-content-between">
 
-                                    <!-- <a href="#" class="close-menu collapse closed">
+                                        <div class="col-4 text-left pl-0">
+                                            <a class="navbar-toggler-right navbar-icon-menu" type="button"
+                                                data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                                                aria-label="Toggle navigation" href="#">
+                                                <span class="icon-plus color-black fs-lg-3 fs-2"></span>
+                                            </a>
+                                        </div>
+                                        <div class="col-4 text-center">
+                                            <div class="navbar-brand m-0 py-0">
+                                                <?php the_custom_logo(); ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 pr-0">
+                                            <div class="menu-secondary">
+                                                <?php
+                                            if ( !function_exists('dynamic_sidebar')
+                                            || !dynamic_sidebar('Nav_header') ) : 
+                                        ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+
+                                        <!-- <a href="#" class="close-menu collapse closed">
                                         <span aria-hidden="true" class="color-black icon-close color-black fs-3"></span>
                                     </a> -->
-                                    <div class="navbar-brand m-0 py-0 pl-lg-5 pl-4">
-                                        <?php the_custom_logo(); ?>
-                                    </div>
-                                    <?php
+
+                                        <?php
                                       wp_nav_menu([
                                       'menu'	         => 'primary',
                                       'theme_location'   => 'primary',
@@ -99,12 +115,7 @@
                                       ]);
                                     ?>
 
-                                    <div class="menu-secondary">
-                                        <?php
-                                            if ( !function_exists('dynamic_sidebar')
-                                            || !dynamic_sidebar('Nav_header') ) : 
-                                        ?>
-                                        <?php endif; ?>
+
                                     </div>
                                 </div>
                             </div>
