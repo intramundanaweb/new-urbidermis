@@ -28,6 +28,7 @@ function include_styles() {
   wp_enqueue_style('style-navbar', get_template_directory_uri() . '/dist/css/style-navbar.css' );
   wp_enqueue_style('style-slick', get_template_directory_uri() . '/dist/css/style-slick.css' );
   wp_enqueue_style('style-header', get_template_directory_uri() . '/dist/css/style-header.css' );
+  wp_enqueue_style('style-tabs', get_template_directory_uri() . '/dist/css/style-tabs.css' );
   wp_enqueue_style('custom-css', get_template_directory_uri() . '/dist/css/custom.css' );
 }
 add_action( 'wp_enqueue_scripts', 'include_styles' );

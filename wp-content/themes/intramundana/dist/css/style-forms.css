@@ -320,6 +320,73 @@ input[type="checkbox"]:checked+label::after {
     left: 0;
 }
 
+/* CUSTOM INPUTS RADIO Y CHECKBOX DE BOOTSTRAP */
+.custom-control-input{
+    width: .8em;
+    height: .8em;
+}
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #b4714e;
+    background-color: #b4714e;
+    box-shadow: none;
+    outline: none;
+}
+
+.custom-radio .custom-control-label::before {
+    border-radius: 100%;
+}
+
+.custom-control-label::before,
+.custom-file-label,
+.custom-select {
+    transition: background-color .15s ease-in-out;
+}
+
+.custom-control-label::before {
+    position: absolute;
+    top: .30rem;
+    left: -1.5rem;
+    display: block;
+    width: .8em;
+    height: .8em;
+    pointer-events: none;
+    content: "";
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.custom-control-label::after {
+    position: absolute;
+    top: .30rem;
+    left: -1.5rem;
+    display: block;
+    width: .8em;
+    height: .8em;
+    content: "";
+    background: no-repeat 50%/50% 50%;
+    border: #000 solid 1px;
+    border-radius: 100%;
+
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+    /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e"); */
+    background-image: none;
+}
+
+.custom-control-label::before:focus,.custom-control-label::after:focus{
+    border: none;
+    box-shadow: none;
+    border-color: transparent;
+    outline: none;
+}
+:focus-visible {
+    outline: none;
+}
+
 @media (min-width: 576px) {}
 
 @media (min-width: 768px) {}
