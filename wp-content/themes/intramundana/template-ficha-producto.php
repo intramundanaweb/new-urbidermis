@@ -37,8 +37,8 @@ get_header('top-bar-classy');
                                 <div class="seleccion-2 mb-3">
                                     <p class="lead">2. Configura tu producto</p>
 
-                                    <nav class="tabs-style-one">
-                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <nav class="tabs-style-one pr-3">
+                                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                                             <a class="nav-link active" id="nav-altura-tab" data-toggle="tab"
                                                 href="#nav-altura" role="tab" aria-controls="nav-altura"
                                                 aria-selected="true">Altura</a>
