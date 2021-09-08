@@ -558,6 +558,12 @@ section button:hover {
 
 @media (min-width: 992px) {
 
+    /*
+    ==============================
+    Page: Template-inicio
+    ==============================
+    */
+
     /* Section cover */
     .conocimiento-urbanidad {
         z-index: 1001;
@@ -681,20 +687,24 @@ section button:hover {
         cursor: pointer;
     }
 
-    .slick-article p {
-        font-weight: 500;
-    }
-
-    .tags {
-        font-weight: 500;
-    }
-
     .btn-masPublicaciones {
         margin: 1.5em 0em 0em 0em!important;
     }
 
+    /*
+    ==============================
+    Page: Single-proyecto
+    ==============================
+    */
 
-    /* Intra-Proyectos */
+    h1 {
+        font-weight: 900;
+        font-size: 3.75em;
+    }
+
+    h2 {
+        font-size: 3.75em;
+    }
 
     .wrapper-proj {
         padding-top: 6.6em;
@@ -703,13 +713,13 @@ section button:hover {
         padding-right: 6.4em;
     }
 
-    .section-history .wrapper-proj {
-        height: 80vh;
-    }
-
+    /* Sección introducción */
     .texto-resaltado {
         width: 75%;
     }
+
+    
+    /********/
 
 	.bottomlinks {
 		position: relative;
