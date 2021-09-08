@@ -492,6 +492,48 @@ jQuery(document).ready(function ($) {
         })
     })
 
+    // Parallax effect 'revolución urbana' (try)
+    /*let big = jQuery(".big-title-section")
+
+    const html = document.documentElement;
+    const canvas = document.getElementById("myCanvas");
+    const context = canvas.getContext("2d");
+
+    const frameCount = 4;
+    const currentFrame = index => (
+    `/new-urbidermis/wp-content/themes/intramundana/vienen_${index.toString().padStart(0, '0')}.png`
+    )
+
+    const preloadImages = () => {
+    for (let i = 1; i < frameCount; i++) {
+        const img = new Image();
+        img.src = currentFrame(i);
+    }
+    };
+
+    const img = new Image()
+    img.src = currentFrame(1);
+    canvas.width=1903;
+    canvas.height=168;
+    img.onload=function(){
+    context.drawImage(img, 0, 0);
+    }
+
+    const updateImage = index => {
+    img.src = currentFrame(index);
+    context.drawImage(img, 0, 0);
+    }
+
+    window.addEventListener('scroll', () => {  
+    const scrollTop = big.scrollTop();
+    const maxScrollTop = big.height() - window.innerHeight;
+    const scrollFraction = scrollTop / maxScrollTop;
+    const frameIndex = Math.min(frameCount - 1, Math.ceil(scrollFraction * frameCount));
+    
+    requestAnimationFrame(() => updateImage(frameIndex + 1))
+    });
+
+    preloadImages()*/
 
     
 });

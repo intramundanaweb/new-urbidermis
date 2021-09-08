@@ -148,6 +148,18 @@ Font Size
   font-size: 1.5em;
 }
 
+.fs-16 {
+    font-size: 1.6em;
+}
+
+.fs-17 {
+    font-size: 1.7em;
+}
+
+.fs-18 {
+    font-size: 1.8em;
+}
+
 .fs-2 {
   font-size: 2em;
 }
