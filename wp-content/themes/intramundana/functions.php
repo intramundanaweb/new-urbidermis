@@ -320,3 +320,17 @@ function print_r2($val) {
 	print_r($val);
 	echo  '</pre>';
 }
+
+/* permitir un subconjunto controlado de extensiones */
+
+add_filter( 'upload_mimes', 'my_myme_types', 1, 1 );
+function my_myme_types( $mime_types ) {
+	if ( current_user_can('administrator') ){
+  $mime_types['svg'] = 'image/svg+xml';     // Adding .svg extension
+  $mime_types['webp'] = 'image/webp'; // Adding .webP extension
+  
+  //unset( $mime_types['xls'] );  // Remove .xls extension
+  //unset( $mime_types['xlsx'] ); // Remove .xlsx extension
+	}
+  return $mime_types;
+}

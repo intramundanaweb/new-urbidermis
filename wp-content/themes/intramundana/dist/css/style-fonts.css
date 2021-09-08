@@ -290,6 +290,71 @@ Font Sizes - Media Queries
 @media (min-width: 768px) {}
 
 @media (min-width: 992px) {
+
+  @font-face {
+    font-family: 'Futura Condensada';
+    src: url(fonts/FuturaStd-Condensed.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Futura';
+    src: url(fonts/FuturaStd-Light.ttf);
+    font-weight: 100;
+  }
+  
+  @font-face {
+    font-family: 'Futura';
+    src: url(fonts/FuturaStd-Book.ttf);
+    font-weight: 300;
+  }
+  
+  
+  @font-face {
+    font-family: 'Futura';
+    src: url(fonts/FuturaStd-Medium.ttf);
+    font-weight: 400;
+  }
+  
+  @font-face {
+    font-family: 'Futura';
+    src: url(fonts/FuturaStd-Heavy.ttf);
+    font-weight: 500;
+  }
+  
+  @font-face {
+    font-family: 'Futura';
+    src: url(fonts/FuturaStd-Bold.ttf);
+    font-weight: 600;
+  }
+  
+  
+  
+  
+  .ff-dms {
+    font-family: 'Futura'
+  }
+  
+  .ff-ebg {
+    font-family: 'Futura';
+  }
+  
+  body {
+    font-family: 'Futura';
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a {
+    /* font-family: 'Futura'; */
+    font-family: 'Futura';
+  }
   
   p,
   a,
@@ -302,82 +367,300 @@ Font Sizes - Media Queries
   table tr,
   table tr td {
     font-family: 'Futura';
-    font-size: 1em;
+    font-size: 14px;
     letter-spacing: 0;
-    line-height: 1.43;
+    line-height: 20px;
   }
-
-  .fs-lg-07 {
-    font-size: 0.7em;
-  }
-
-  .fs-lg-08 {
-    font-size: 0.8em;
-  }
-
-  .fs-lg-09 {
+  
+  /*
+  ==============================
+  Cookies Notice
+  ==============================
+  */
+  
+  .cc-banner .cc-message {
+    font-family: 'Futura';
     font-size: 0.9em;
   }
-
-  .fs-lg-1 {
+  
+  .cc-banner .cc-link {
+    font-size: 1em;
+    font-weight: bold;
+    color: #CDAC01 !important;
+  }
+  
+  /*
+  ==============================
+  Font Size
+  ==============================
+  */
+  
+  .fs-07 {
+    font-size: 0.7em;
+  }
+  
+  .fs-08 {
+    font-size: 0.8em;
+  }
+  
+  .fs-09 {
+    font-size: 0.9em;
+  }
+  
+  .fs-1 {
     font-size: 1em;
   }
-
-  .fs-lg-11 {
+  
+  .fs-11 {
     font-size: 1.1em;
   }
-
-  .fs-lg-12 {
+  
+  .fs-12 {
     font-size: 1.2em;
   }
-
-  .fs-lg-13 {
+  
+  .fs-13 {
     font-size: 1.3em;
   }
-
-  .fs-lg-14 {
+  
+  .fs-14 {
     font-size: 1.4em;
   }
-
-  .fs-lg-15 {
+  
+  .fs-15 {
     font-size: 1.5em;
   }
-
-  .fs-lg-16 {
-    font-size: 1.6em;
+  
+  .fs-16 {
+      font-size: 1.6em;
   }
-
-  .fs-lg-17 {
-    font-size: 1.7em;
+  
+  .fs-17 {
+      font-size: 1.7em;
   }
-
-  .fs-lg-18 {
-    font-size: 1.8em;
+  
+  .fs-18 {
+      font-size: 1.8em;
   }
-
-  .fs-lg-19 {
-    font-size: 1.9em;
-  }
-
-  .fs-lg-2 {
+  
+  .fs-2 {
     font-size: 2em;
   }
-
-  .fs-lg-25 {
+  
+  .fs-25 {
     font-size: 2.5em;
   }
-
-  .fs-lg-3 {
+  
+  .fs-3 {
     font-size: 3em;
   }
-
-  .fs-lg-4 {
+  
+  .fs-4 {
     font-size: 4em;
   }
-
-  .fs-lg-45 {
-    font-size: 4.5em;
+  
+  /*
+  ==============================
+  Font Weight
+  ==============================
+  */
+  
+  .fw-900 {
+    font-weight: 900;
   }
-
-
-}
+  
+  .fw-800 {
+    font-weight: 800;
+  }
+  
+  .fw-700 {
+    font-weight: 700;
+  }
+  
+  .fw-600 {
+    font-weight: 600;
+  }
+  
+  .fw-500 {
+    font-weight: 500;
+  }
+  
+  .fw-400 {
+    font-weight: 400;
+  }
+  
+  .fw-300 {
+    font-weight: 300;
+  }
+  
+  .fw-200 {
+    font-weight: 200;
+  }
+  
+  /*
+  ==============================
+  Font Style
+  ==============================
+  */
+  
+  b,
+  strong {
+    font-weight: 700;
+  }
+  
+  /*
+  ==============================
+  Header Sizes
+  ==============================
+  */
+  
+  h1 {
+    font-size: 1.8em;
+    line-height: 1em;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    line-height: 1em;
+  }
+  
+  h3 {
+    font-size: 1.3em;
+    line-height: 1em;
+  }
+  
+  h4 {
+    font-size: 1.1em;
+    line-height: 1em;
+  }
+  
+  h5 {
+    font-size: 1em;
+    line-height: 1em;
+  }
+  
+  ul.style-list {
+    margin-left: 15px;
+    margin-bottom: 1em;
+  }
+  
+  ul.style-list li {
+    list-style: none;
+    font-size: 1em;
+    line-height: 1.43;
+  }
+  
+  ul.style-list li::before {
+    content: "-";
+    color: #1d1d1f;
+    padding: 0px 5px 0 0;
+    display: inline-block;
+    margin-left: -1em;
+    margin-top: -7px;
+    vertical-align: middle;
+  }
+  
+  
+  
+  /*
+  ==============================
+  Font Sizes - Media Queries
+  ==============================
+  */
+  
+  @media (min-width: 576px) {}
+  
+  @media (min-width: 768px) {}
+  
+  @media (min-width: 992px) {
+    
+    p,
+    a,
+    input,
+    textarea,
+    ul li,
+    ol li,
+    span,
+    table,
+    table tr,
+    table tr td {
+      font-family: 'Futura';
+      font-size: 1em;
+      letter-spacing: 0;
+      line-height: 1.43;
+    }
+  
+    .fs-lg-07 {
+      font-size: 0.7em;
+    }
+  
+    .fs-lg-08 {
+      font-size: 0.8em;
+    }
+  
+    .fs-lg-09 {
+      font-size: 0.9em;
+    }
+  
+    .fs-lg-1 {
+      font-size: 1em;
+    }
+  
+    .fs-lg-11 {
+      font-size: 1.1em;
+    }
+  
+    .fs-lg-12 {
+      font-size: 1.2em;
+    }
+  
+    .fs-lg-13 {
+      font-size: 1.3em;
+    }
+  
+    .fs-lg-14 {
+      font-size: 1.4em;
+    }
+  
+    .fs-lg-15 {
+      font-size: 1.5em;
+    }
+  
+    .fs-lg-16 {
+      font-size: 1.6em;
+    }
+  
+    .fs-lg-17 {
+      font-size: 1.7em;
+    }
+  
+    .fs-lg-18 {
+      font-size: 1.8em;
+    }
+  
+    .fs-lg-19 {
+      font-size: 1.9em;
+    }
+  
+    .fs-lg-2 {
+      font-size: 2em;
+    }
+  
+    .fs-lg-25 {
+      font-size: 2.5em;
+    }
+  
+    .fs-lg-3 {
+      font-size: 3em;
+    }
+  
+    .fs-lg-4 {
+      font-size: 4em;
+    }
+  
+    .fs-lg-45 {
+      font-size: 4.5em;
+    }
+  
+  
+  }}
