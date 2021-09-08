@@ -16,7 +16,7 @@ Register CPT
 function registration_cpt() {
 
 /* ------------- First CPT */
-  register_post_type('intra-autores',
+  register_post_type('autor',
        array(
            'labels' => array(
                'name'              => __('autores'),
@@ -31,7 +31,7 @@ function registration_cpt() {
 
 
     /* ------------- Second CPT */
-  register_post_type('intra-proyectos',
+  register_post_type('proyecto',
   array(
       'labels' => array(
           'name'              => __('proyectos'),
@@ -40,7 +40,7 @@ function registration_cpt() {
       'has_archive' => true,
       'menu_icon'   => 'dashicons-portfolio',
       'supports' => array( 'title','thumbnail' ),
-      'rewrite' => array( 'slug' => 'proyecto', 'with_front' => false ),
+      'rewrite' => array('with_front' => false ),
   )
 );
 
@@ -60,7 +60,7 @@ function registration_cpt() {
 
 add_action( 'init', 'change_cpt_label' );
 function change_cpt_label() {
-    $get_post_type = get_post_type_object('intra-autores');
+    $get_post_type = get_post_type_object('autor');
     $labels = $get_post_type->labels;
     $labels->name = 'autores';
     $labels->singular_name = 'autor';
@@ -74,7 +74,7 @@ function change_cpt_label() {
     $labels->all_items = 'Todos los autores';
     $labels->menu_name = 'Autores';
     $labels->name_admin_bar = 'Autores';
-    $get_post_type = get_post_type_object('intra-proyectos');
+    $get_post_type = get_post_type_object('proyecto');
     $labels = $get_post_type->labels;
     $labels->name = 'proyectos';
     $labels->singular_name = 'proyectos';
@@ -119,7 +119,7 @@ function registration_taxonomy() {
     //'meta_box_cb'       => 'post_categories_meta_box',
     'rewrite'           => ['slug' => 'tipo-autor'],
   ];
-  register_taxonomy('tipo-autor',  'intra-autores', $args);
+  register_taxonomy('tipo-autor',  'autor', $args);
 }
 add_action('init', 'registration_taxonomy');
 

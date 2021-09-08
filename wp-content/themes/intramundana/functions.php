@@ -334,3 +334,15 @@ function my_myme_types( $mime_types ) {
 	}
   return $mime_types;
 }
+
+function delete_post_type(){
+    unregister_post_type( 'intra-proyectos' );
+}
+add_action('init','delete_post_type');
+
+
+function delete_post_type2(){
+    unregister_post_type( 'intra-autores' );
+}
+add_action('init','delete_post_type');
+	

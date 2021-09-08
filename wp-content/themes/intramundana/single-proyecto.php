@@ -17,7 +17,7 @@ get_header();
         <div class="row">
             <div class="col-12">
 
-                <!-- the_title() -->
+                <h1><?php the_title();?></h1>
                 <p>Caso práctico, 8 min</p>
                 <!-- the_tag() -->
                 <p>#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
