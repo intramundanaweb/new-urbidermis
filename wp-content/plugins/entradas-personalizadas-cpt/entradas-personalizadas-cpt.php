@@ -40,7 +40,7 @@ function registration_cpt() {
       'has_archive' => true,
       'menu_icon'   => 'dashicons-portfolio',
       'supports' => array( 'title','thumbnail' ),
-      'rewrite' => array( 'with_front' => false ),
+      'rewrite' => array( 'slug' => 'proyecto', 'with_front' => false ),
   )
 );
 

@@ -83,6 +83,13 @@ FIguras
   justify-content: center;
 }
 
+.rectangulo{
+  width: 105px; 
+  height: 50px; 
+  border: 1px solid #707070;
+  background: transparent;
+}
+
 .rectangulo-gris-claro {
   width: 105px; 
   height: 50px; 

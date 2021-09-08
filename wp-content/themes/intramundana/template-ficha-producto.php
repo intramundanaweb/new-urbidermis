@@ -79,8 +79,9 @@ get_header('top-bar-classy');
                                                     <label class="custom-control-label" for="customRadio4">5,80m</label>
                                                 </div>
                                             </fieldset>
-                                            <div class="controls pt-4">
-                                                <span class="siguiente-tab btn btn-round">Siguiente</span>
+                                            <div class="controls pt-4 d-flex">
+                                                <span
+                                                    class="siguiente-tab btn btn-round px-5 py-1 mr-4 d-flex align-items-center">Siguiente</span>
                                             </div>
 
                                         </div>
@@ -172,9 +173,12 @@ get_header('top-bar-classy');
 
                                             </div>
 
-                                            <div class="controls pt-4">
-                                                <span class="anterior-tab btn btn-round">Atrás</span>
-                                                <span class="siguiente-tab btn btn-round">Siguiente</span>
+                                            <div class="controls pt-4 d-flex">
+
+                                                <span
+                                                    class="anterior-tab btn btn-round px-5 py-1 mr-4 d-flex align-items-center">Atrás</span>
+                                                <span
+                                                    class="siguiente-tab btn btn-round px-5 py-1 mr-4 d-flex align-items-center">Siguiente</span>
 
                                             </div>
                                         </div>
@@ -184,13 +188,13 @@ get_header('top-bar-classy');
                                             aria-labelledby="nav-acabado-tab">
                                             <legend class="d-block mb-3 fs-14">Inyección de aluminio</legend>
                                             <fieldset class="inputs-radio d-inline-block">
-                                                <div class="custom-control custom-radio">
+                                                <div class="custom-control custom-radio px-0 mb-3">
                                                     <input type="radio" id="customAcabado1" name="customRadioAcabado"
                                                         class="custom-control-input">
 
                                                     <div class="container-fluid container-custom-radio">
                                                         <div class="row align-items-center">
-                                                            <div class="col-6">
+                                                            <div class="col-6 pl-0">
                                                                 <span>Gris claro</span>
                                                             </div>
 
@@ -204,13 +208,13 @@ get_header('top-bar-classy');
                                                     </div>
 
                                                 </div>
-                                                <div class="custom-control custom-radio d-flex align-items-center">
+                                                <div class="custom-control custom-radio px-0 mb-3">
                                                     <input type="radio" id="customAcabado2" name="customRadioAcabado"
                                                         class="custom-control-input">
 
                                                     <div class="container-fluid container-custom-radio">
                                                         <div class="row align-items-center">
-                                                            <div class="col-6">
+                                                            <div class="col-6 pl-0">
                                                                 <span>Gris medio</span>
                                                             </div>
 
@@ -224,13 +228,13 @@ get_header('top-bar-classy');
                                                     </div>
 
                                                 </div>
-                                                <div class="custom-control custom-radio d-flex align-items-center">
+                                                <div class="custom-control custom-radio px-0 mb-3">
                                                     <input type="radio" id="customAcabado3" name="customRadioAcabado"
                                                         class="custom-control-input">
 
                                                     <div class="container-fluid container-custom-radio">
                                                         <div class="row align-items-center">
-                                                            <div class="col-6">
+                                                            <div class="col-6 pl-0">
                                                                 <span>Gris oscuro</span>
                                                             </div>
 
@@ -244,15 +248,31 @@ get_header('top-bar-classy');
                                                     </div>
 
                                                 </div>
-                                                <div class="custom-control custom-radio d-flex align-items-center">
+                                                <div class="custom-control custom-radio px-0 d-flex align-items-center">
                                                     <input type="radio" id="customAcabado4" name="customRadioAcabado"
                                                         class="custom-control-input">
-                                                    <label class="custom-control-label px-3"
-                                                        for="customAcabado4">Otros</label>
+
+                                                    <div class="container-fluid container-custom-radio">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-6 pl-0">
+                                                                <span>Otros</span>
+                                                            </div>
+
+                                                            <div class="col-6">
+
+                                                                <label class="custom-control-label px-3 rectangulo"
+                                                                    for="customAcabado4">
+                                                                
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </fieldset>
-                                            <div class="controls pt-4">
-                                                <span class="anterior-tab btn btn-round">Atrás</span>
+                                            <div class="controls pt-4 d-flex">
+                                                <span
+                                                    class="anterior-tab btn btn-round px-5 py-1 mr-4 d-flex align-items-center">Atrás</span>
                                             </div>
                                         </div>
                                     </div>
