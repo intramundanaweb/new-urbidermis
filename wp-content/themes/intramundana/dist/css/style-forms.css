@@ -324,13 +324,26 @@ input[type="checkbox"]:checked+label::after {
 .custom-control-input{
     width: .8em;
     height: .8em;
+    cursor: pointer;
 }
+
 .custom-control-input:checked~.custom-control-label::before {
     color: #fff;
     border-color: #b4714e;
     background-color: #b4714e;
     box-shadow: none;
     outline: none;
+    cursor: pointer;
+}
+
+/* RADIOS DE ACABADOS */
+.custom-control-input:checked~.container-custom-radio .custom-control-label::before {
+    color: #fff;
+    border-color: #b4714e;
+    background-color: #b4714e;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
 }
 
 .custom-radio .custom-control-label::before {
@@ -369,8 +382,41 @@ input[type="checkbox"]:checked+label::after {
     background: no-repeat 50%/50% 50%;
     border: #000 solid 1px;
     border-radius: 100%;
+    cursor: pointer;
+}
+
+.container-custom-radio .custom-control-label::before {
+    position: absolute;
+    top: .30rem;
+    right: -1.5rem;
+    left: auto;
+    display: block;
+    width: .8em;
+    height: .8em;
+    pointer-events: none;
+    content: "";
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.container-custom-radio .custom-control-label::after {
+    position: absolute;
+    top: .30rem;
+    right: -1.5rem;
+    left: auto;
+    display: block;
+    width: .8em;
+    height: .8em;
+    content: "";
+    background: no-repeat 50%/50% 50%;
+    border: #000 solid 1px;
+    border-radius: 100%;
+    cursor: pointer;
 
 }
+
 
 .custom-radio .custom-control-input:checked~.custom-control-label::after {
     /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e"); */
