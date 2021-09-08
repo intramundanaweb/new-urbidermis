@@ -2,6 +2,12 @@
 
 jQuery(document).ready(function ($) {
 
+    /*
+    ==============================
+    Page: Template-inicio
+    ==============================
+    */
+
     /** Slick cover - Cover section*/
     jQuery('.slick-cover').slick({
         infinite: true,
@@ -64,5 +70,44 @@ jQuery(document).ready(function ($) {
     jQuery('#slick-article-right').on('click', function (e) {
         jQuery('.slick-articles').slick('slickNext');
     });
+
+
+    /*
+    ==============================
+    Page: Single-proyecto
+    ==============================
+    */
+
+    /** Slick products - Section products */
+    jQuery('.slick-productos').slick({
+        infinite: true,
+        speed: 300,
+        //autoplaySpeed: 3500,
+        //autoplay: true,
+        slidesToScroll: 1,
+        slidesToShow: 2,
+        arrows: false,
+        fade: false,
+        dots: false,
+        centerMode: false,
+        variableWidth: true,
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                dots: true,
+                slidesToShow: 2,
+                slidesToScroll: 1
+            }
+        }]
+    });
+    
+    /*jQuery('#slick-article-left').on('click', function (e) {
+        jQuery('.slick-articles').slick('slickPrev');
+    });
+    
+    jQuery('#slick-article-right').on('click', function (e) {
+        jQuery('.slick-articles').slick('slickNext');
+    });*/
 
 });
