@@ -2,6 +2,25 @@
 
 jQuery(document).ready(function ($) {
 
+    /* OCULTAR HEADER EN SCROLL DOWN */
+    var lastScrollTop = 0;
+	window.addEventListener("scroll", function(){
+	   var st = window.pageYOffset || document.documentElement.scrollTop; 
+	   if(st > lastScrollTop && st > 0){
+		   	if (screen.width > 768) {//Para desktop
+		   		jQuery("#masthead").css({"top" : "-85px"});
+		   	}
+		   	if (screen.width < 768) {//Para moviles
+		   		jQuery("#masthead").css({"top" : "0px"});
+					
+		   	}
+	   }else{
+	     	jQuery("#masthead").css({"top" : "0px"});
+	   }
+	   lastScrollTop = st;
+	},false);
+    
+
     // Menu Interaction
 
     if ($(window).width() > 769) {
@@ -126,3 +145,4 @@ jQuery(document).ready(function ($) {
     }
 
 });
+

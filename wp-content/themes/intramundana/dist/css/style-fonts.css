@@ -277,6 +277,10 @@ ul.style-list li::before {
   vertical-align: middle;
 }
 
+.text-standard{
+  font-size: 1.125em;
+  line-height: 1.11;
+}
 
 /*
   ==============================
@@ -378,5 +382,28 @@ ul.style-list li::before {
     font-size: 4.5em;
   }
 
+  .text-standard{
+    font-size: 1.438em;
+    line-height: 1.13;
+  }
+
+}
+
+
+@media (min-width: 1200px) {
+
+  .text-standard{
+    font-size: 1.438em;
+    line-height: 1.13;
+  }
+
+}
+
+@media (min-width: 1600px) {
+
+  .text-standard{
+    font-size: 1.438em;
+    line-height: 1.13;
+  }
 
 }

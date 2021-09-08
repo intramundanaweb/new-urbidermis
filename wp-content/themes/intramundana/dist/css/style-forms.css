@@ -56,6 +56,18 @@ input[type="submit"]:focus {
     border-color: transparent !important;
 }
 
+.form-control:focus{
+    border:0px transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.form-control.otrocolor{
+    border-color: transparent !important;
+    height: 100%;
+}
+
+
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
