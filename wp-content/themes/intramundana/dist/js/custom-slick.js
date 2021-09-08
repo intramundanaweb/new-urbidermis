@@ -12,7 +12,7 @@ jQuery(document).ready(function ($) {
         slidesToShow: 1,
         arrows: false,
         fade: false,
-        dots: true,
+        dots: false,
         lazyLoad: 'ondemand',
         responsive: [{
             breakpoint: 992,

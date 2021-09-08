@@ -3,3 +3,17 @@
 Page: 404
 ==============================
 */
+
+.btn-round {
+    border-radius: 50px;
+    border: 1px solid black;
+    padding: 0.5em 1.5em;
+    display: block;
+    color: #000;
+    background: transparent;
+    transition: all 0.5ms;
+}
+
+.btn-round:hover {
+    border-color: #000;
+}
