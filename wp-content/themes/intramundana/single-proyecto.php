@@ -27,7 +27,7 @@ get_header();
 
                     <?php if ( !wp_is_mobile() ) : ?>
 
-                        <div class="my-5 mb-lg-0 mt-lg-auto ">
+                        <div class="mt-5 mb-lg-0 mt-lg-auto ">
                             <p class="fw-500 fs-12 d-inline">Información técnica</p>
                             <span><i class="icon-plus d-inline ml-3"></i></span>
                         </div>
@@ -42,7 +42,7 @@ get_header();
 
                 <?php if (wp_is_mobile()): ?>
 
-                    <div class="order-2 my-5 mt-lg-auto">
+                    <div class="mt-5 mt-lg-auto">
                         <p class="fw-500 fs-12 d-inline">Información técnica</p>
                         <span><i class="icon-plus d-inline ml-3"></i></span>
                     </div>
@@ -113,7 +113,7 @@ get_header();
                             'titulo_historia',
                             'etiqueta_titulo',
                             'texto_titulo',
-                            'titulo-historia mb-4 mb-lg-0'
+                            'titulo-historia mb-4'
                         )
                     ?>
 
@@ -126,7 +126,7 @@ get_header();
                     
                 <div class="col-lg-6 d-lg-flex flex-lg-column">
                     <p class="fw-500 fs-12 mb-5 mb-lg-3"><?php the_field('texto_historia_1'); ?></p>
-                    <p class="fw-500 fs-12 mb-5 mb-lg-0"><?php the_field('texto_historia_2'); ?></p>
+                    <p class="fw-500 fs-12"><?php the_field('texto_historia_2'); ?></p>
                 </div>
 
             </div>
@@ -152,7 +152,7 @@ get_header();
                             'titulo_productos',
                             'etiqueta_titulo',
                             'texto_titulo',
-                            'titulo-producto mb-4 mb-lg-0'
+                            'titulo-producto mb-4'
                         )
                     ?>
 
