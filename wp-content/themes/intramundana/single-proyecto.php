@@ -212,6 +212,14 @@ get_header();
 
 </section>
 
+<div class="d-none">
+    <div>
+        <h3>Información técnica</h3>
+        <span><i class=""</span>
+    </div>
+    
+</div>
+
 
 <?php
 
