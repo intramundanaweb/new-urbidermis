@@ -45,17 +45,22 @@
 
 .tabs-style-one .nav-tabs #nav-altura-tab.nav-link.active {
     padding-right: 3em !important;
-    width: 33.33%;
+    width: 25%;
 }
 
 .tabs-style-one .nav-tabs #nav-luminaria-tab.nav-link.active {
     padding-right: 3em !important;
-    width: 66.66%;
+    width: 50%;
 }
 
 .tabs-style-one .nav-tabs #nav-acabado-tab.nav-link.active {
     padding-right: 3em !important;
-    width: 99.99%;
+    width: 75%;
+}
+
+.tabs-style-one .nav-tabs #nav-unidades-tab.nav-link.active {
+    padding-right: 3em !important;
+    width: 100%;
 }
 
 .tabs-style-one~#nav-tabContent .tab-pane.active {
