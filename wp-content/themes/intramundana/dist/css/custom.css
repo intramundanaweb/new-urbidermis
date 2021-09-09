@@ -718,7 +718,11 @@ section button:hover {
         width: 75%;
     }
 
-    
+    .icon-plus {
+        cursor: pointer;
+    }
+
+
     /********/
 
 	.bottomlinks {
