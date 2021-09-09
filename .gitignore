@@ -9,7 +9,10 @@ Thumbs.db
 # wordpress specific
 wp-config.php
 .htaccess
+/.vscode
 wp-content/uploads/
+wp-content/.vscode/
+wp-content/themes/.vscode/
 
 # large/disallowed file types
 # a CDN should be used for these

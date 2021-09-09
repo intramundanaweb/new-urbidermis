@@ -66,6 +66,10 @@ padding-right: 0px !important;
 
 #masthead.site-header.fixed-top{
   border-bottom: solid black 1px;
+  -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
 }
 
 .widget.widget_nav_menu{
