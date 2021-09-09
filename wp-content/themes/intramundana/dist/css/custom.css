@@ -221,6 +221,55 @@ h1 {
     transform: translate(-50%, -50%);
 }*/
 
+
+/*
+==============================
+Page: Single-proyecto
+==============================
+*/
+
+h2 {
+    font-size: 2em;
+}
+
+/* Section cover */
+.section-cover p {
+    line-height: 1.39em;
+}
+
+/* Section introducción */
+.texto-resaltado {
+    line-height: 1.26em;
+}
+
+.texto-introduccion {
+    line-height: 1.39em;
+}
+
+/* Section historia */
+.section-history p {
+    line-height: 1.39em;
+}
+
+/* Section producto */
+.section-product p {
+    line-height: 1.39em;
+}
+
+.ver-ficha {
+    margin-top: 4em;
+    margin-bottom: 4.5em;
+}
+
+.wrapper-proj {
+    padding-top: 5.8em;
+    padding-bottom: 3.6em;
+    padding-left: 1.5em;
+    padding-right: 2.1em;
+}
+
+
+
 /* Width has to depend of how many articles there are */
 .slick-dots li button {
     border-radius: 0;
@@ -509,6 +558,12 @@ section button:hover {
 
 @media (min-width: 992px) {
 
+    /*
+    ==============================
+    Page: Template-inicio
+    ==============================
+    */
+
     /* Section cover */
     .conocimiento-urbanidad {
         z-index: 1001;
@@ -632,17 +687,43 @@ section button:hover {
         cursor: pointer;
     }
 
-    .slick-article p {
-        font-weight: 500;
-    }
-
-    .tags {
-        font-weight: 500;
-    }
-
     .btn-masPublicaciones {
         margin: 1.5em 0em 0em 0em!important;
     }
+
+    /*
+    ==============================
+    Page: Single-proyecto
+    ==============================
+    */
+
+    h1 {
+        font-weight: 900;
+        font-size: 3.75em;
+    }
+
+    h2 {
+        font-size: 3.75em;
+    }
+
+    .wrapper-proj {
+        padding-top: 6.6em;
+        padding-bottom: 5.25em; 
+        padding-left: 3.25em;
+        padding-right: 6.4em;
+    }
+
+    /* Sección introducción */
+    .texto-resaltado {
+        width: 75%;
+    }
+
+    .icon-plus {
+        cursor: pointer;
+    }
+
+
+    /********/
 
 	.bottomlinks {
 		position: relative;

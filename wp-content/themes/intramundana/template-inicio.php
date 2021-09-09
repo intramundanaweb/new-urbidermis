@@ -163,120 +163,33 @@ get_header('no-margin');
                         <div class="col-lg-6 pr-0 d-flex flex-column">
 
                             <div class="slick-articles d-flex">
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
-                                    <a href="#">
-                                        <p class="fs-15 fs-lg-11 fw-400">¿Cómo iluminar con catenaria?</p>
-                                    </a>
+                                <?php for ($i = 0; $i < 5; $i++) { ?>
+                                    
+                                    <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
-                                    <div class="hline"></div>
+                                        <a href="#">
+                                            <p class="fs-15 fs-lg-11 fw-500">¿Cómo iluminar con catenaria?</p>
+                                        </a>
 
-                                    <div class="child-article">
-                                        <p class="fs-11 fs-lg-11 fw-400 mb-0">Artículo</p>
-                                        <p class="fs-11 fs-lg-11 fw-400">12 min</p>
+                                        <div class="hline"></div>
+
+                                        <div class="child-article">
+                                            <p class="fs-11 fs-lg-11 fw-500 mb-0">Artículo</p>
+                                            <p class="fs-11 fs-lg-11 fw-500">12 min</p>
+                                        </div>
+
+                                        <div class="hline"></div>
+
+                                        <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
+
+                                        <p class="tags fs-15 fs-lg-11 fw-500">#urbanidad #ciudad #edificios #suspensión
+                                            #instalación
+                                            #espacios</p>
+
                                     </div>
 
-                                    <div class="hline"></div>
-
-                                    <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
-
-                                    <p class="tags fs-15 fs-lg-11 fw-400">#urbanidad #ciudad #edificios #suspensión
-                                        #instalación
-                                        #espacios</p>
-
-                                </div>
-
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
-
-                                    <a href="#">
-                                        <p class="fs-15 fs-lg-11 fw-400">¿Cómo iluminar con catenaria?</p>
-                                    </a>
-
-                                    <div class="hline"></div>
-
-                                    <div class="child-article">
-                                        <p class="fs-11 fs-lg-11 fw-400 mb-0">Artículo</p>
-                                        <p class="fs-11 fs-lg-11 fw-400">12 min</p>
-                                    </div>
-
-                                    <div class="hline"></div>
-
-                                    <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
-
-                                    <p class="tags fs-15 fs-lg-11 fw-400">#urbanidad #ciudad #edificios #suspensión
-                                        #instalación
-                                        #espacios</p>
-
-                                </div>
-
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
-
-                                    <a href="#">
-                                        <p class="fs-15 fs-lg-11 fw-400">¿Cómo iluminar con catenaria?</p>
-                                    </a>
-
-                                    <div class="hline"></div>
-
-                                    <div class="child-article">
-                                        <p class="fs-11 fs-lg-11 fw-400 mb-0">Artículo</p>
-                                        <p class="fs-11 fs-lg-11 fw-400">12 min</p>
-                                    </div>
-
-                                    <div class="hline"></div>
-
-                                    <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
-
-                                    <p class="tags fs-15 fs-lg-11 fw-400">#urbanidad #ciudad #edificios #suspensión
-                                        #instalación
-                                        #espacios</p>
-
-                                </div>
-
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
-
-                                    <a href="#">
-                                        <p class="fs-15 fs-lg-11 fw-400">¿Cómo iluminar con catenaria?</p>
-                                    </a>
-
-                                    <div class="hline"></div>
-
-                                    <div class="child-article">
-                                        <p class="fs-11 fs-lg-11 fw-400 mb-0">Artículo</p>
-                                        <p class="fs-11 fs-lg-11 fw-400">12 min</p>
-                                    </div>
-
-                                    <div class="hline"></div>
-
-                                    <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
-
-                                    <p class="tags fs-15 fs-lg-11 fw-400">#urbanidad #ciudad #edificios #suspensión
-                                        #instalación
-                                        #espacios</p>
-
-                                </div>
-
-                                <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
-
-                                    <a href="#">
-                                        <p class="fs-15 fs-lg-11 fw-400">¿Cómo iluminar con catenaria?</p>
-                                    </a>
-
-                                    <div class="hline"></div>
-
-                                    <div class="child-article">
-                                        <p class="fs-11 fs-lg-11 fw-400 mb-0">Artículo</p>
-                                        <p class="fs-11 fs-lg-11 fw-400">12 min</p>
-                                    </div>
-
-                                    <div class="hline"></div>
-
-                                    <p class="tags-title font-weight-bold fs-lg-07">TAGS</p>
-
-                                    <p class="tags fs-15 fs-lg-11 fw-400">#urbanidad #ciudad #edificios #suspensión
-                                        #instalación
-                                        #espacios</p>
-
-                                </div>
+                                <?php } ?>
 
                             </div>
 

@@ -17,3 +17,8 @@ Page: 404
 .btn-round:hover {
     border-color: #000;
 }
+
+.hline {
+    border-bottom: 2px solid black;
+    width: 100%;
+}
