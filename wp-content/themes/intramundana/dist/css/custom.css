@@ -192,7 +192,7 @@ h1 {
     bottom: -25px!important;
     background: lightgrey!important;
     position: absolute;
-    width: 19em!important;
+    width: 100%!important;
     padding: 0!important;
     height: 3px!important;
     text-align:inherit;
@@ -226,68 +226,7 @@ h1 {
 }
 
 
-/*
-==============================
-Page: Single-proyecto
-==============================
-*/
 
-h2 {
-    font-size: 2em;
-}
-
-.p-text {
-    line-height: 1.05em;
-}
-
-/* Section cover */
-.section-cover p {
-    line-height: 1.39em;
-}
-
-.infoTec {
-    width: 100%;;
-    /*top: 2.5em!important;*/
-    display: none;
-    z-index: 1;
-    top: 0em;
-}
-
-/* Section introducción */
-.texto-resaltado {
-    line-height: 1.26em;
-}
-
-.texto-introduccion {
-    line-height: 1.39em;
-}
-
-/* Section historia */
-.section-history p {
-    line-height: 1.39em;
-}
-
-/* Section producto */
-.slick-imagen {
-    width: 19em;
-    height: auto;
-}
-
-.section-product p {
-    line-height: 1.39em;
-}
-
-.ver-ficha {
-    margin-top: 4em;
-    margin-bottom: 4.5em;
-}
-
-.wrapper-proj {
-    padding-top: 5.8em;
-    padding-bottom: 3.6em;
-    padding-left: 1.5em;
-    padding-right: 2.1em;
-}
 
 /**/
 
@@ -539,6 +478,15 @@ section button:hover {
 	height: auto;
 }
 
+@media (max-width: 321px) {
+
+	.slick-article {
+        width: 15em;
+        height: 22em;
+    }
+
+}
+
 @media (min-width: 576px) {
 
 	.slider-container img,
@@ -569,9 +517,8 @@ section button:hover {
     ==============================
     */
 
-    .section {
+    .section-contact, .section-skin, .section-reference {
         padding-top: 5.6em;
-        padding-left: 3.3em;
     }
 
     .section .hline {
@@ -648,7 +595,6 @@ section button:hover {
 
     /* Section skin */
     .section-skin {
-        margin-left: 0em!important;
         padding-right: 6em;
     }
 
@@ -692,49 +638,6 @@ section button:hover {
         height: 100%!important;
     }
 
-    /*
-    ==============================
-    Page: Single-proyecto
-    ==============================
-    */   
-
-    h1 {
-        font-weight: 900;
-        font-size: 3.75em;
-    }
-
-    h2 {
-        font-size: 3.75em;
-    }
-
-    .wrapper-proj {
-        padding-top: 6.6em;
-        padding-bottom: 5.25em; 
-        padding-left: 3.25em;
-        padding-right: 6.4em;
-    }
-
-    /* Sección cover */
-    .infoTec {
-        width: 30%;
-        display: none;
-        z-index: 1;
-        top: 0em;
-    }
-
-    .slick-list.draggable {
-        height: 100vh;
-    }
-
-    /* Sección introducción */
-    .texto-resaltado {
-        width: 75%;
-    }
-
-    .icon-plus, .icon-close, .icon-arrow-left {
-        cursor: pointer;
-    }
-
 
     /********/
 
@@ -761,6 +664,20 @@ section button:hover {
 		width: 40vw;
 		right: -40vw;
 	}
+}
+
+/* Ipad Pro */
+@media (min-width: 769px) and (max-width: 1025px) {
+    
+    /*
+    ==============================
+    Page: Template-inicio
+    ==============================
+    */
+
+    .slick-cover img {
+        height: 100vh!important;
+    }
 }
 
 @media (min-width: 1200px) {

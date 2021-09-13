@@ -1,0 +1,147 @@
+/*
+==============================
+Page: Single-proyecto
+==============================
+*/
+
+h2 {
+    font-size: 2em;
+}
+
+.p-text {
+    line-height: 1.05em;
+}
+
+/* Section cover */
+.section-cover p {
+    line-height: 1.39em;
+}
+
+.infoTec {
+    width: 100%;
+    height: 100vh;
+    display: none;
+    z-index: 1001;
+    top: 0em;
+    overflow-y: auto;
+}
+
+@-moz-document url-prefix() {
+    .infoTec {
+        top: 2em !important;
+    }
+}
+
+/* Section introducción */
+.texto-resaltado {
+    line-height: 1.26em;
+}
+
+.texto-introduccion {
+    line-height: 1.39em;
+}
+
+/* Section historia */
+.section-history p {
+    line-height: 1.39em;
+}
+
+/* Section producto */
+.slick-imagen {
+    width: 19em;
+    height: auto;
+}
+
+.img-wrap {
+    width: 30em;
+    height: auto;
+}
+
+.section-product p {
+    line-height: 1.39em;
+}
+
+.ver-ficha {
+    margin-top: 4em;
+    margin-bottom: 4.5em;
+}
+
+.wrapper-proj {
+    padding-top: 5.8em;
+    padding-bottom: 3.6em;
+}
+
+/* Ipad */
+@media (min-width: 767px) and (max-width: 1023px) {
+    .infoTec {
+        top: 2em;
+    }
+    .section-intro .img-wrap {
+        width: inherit;
+    }
+    .img-fluid {
+        margin-bottom: 2em;
+    }
+}
+
+/* Ipad Pro */
+@media (min-width: 1000px) and (max-width: 1050px) {
+    .infoTec {
+        width: 60%!important;
+    }
+    .texto-resaltado {
+        line-height: 40px!important;
+    }
+    .section-product .img-wrap {
+        width: 25em;
+        margin-bottom: auto;
+    }
+}
+
+@media (min-width: 992px) {
+
+    /*
+    ==============================
+    Page: Single-proyecto
+    ==============================
+    */
+
+    h1 {
+        font-weight: 900;
+        font-size: 3.75em;
+        line-height: 60px;
+    }
+
+    h2 {
+        font-size: 3.75em;
+    }
+
+    .wrapper-proj {
+        padding-top: 6.6em;
+        padding-bottom: 5.25em;
+    }
+
+    /* Sección cover */
+    .infoTec {
+        width: 35%;
+        display: none;
+        z-index: 1030;
+        top: 0em;
+        height: 100vh;
+    }
+
+    .slick-list.draggable {
+        height: 100vh;
+    }
+
+    /* Sección introducción */
+    .texto-resaltado {
+        width: 75%;
+    }
+
+    .icon-plus,
+    .icon-close,
+    .icon-arrow-left {
+        cursor: pointer;
+    }
+}
