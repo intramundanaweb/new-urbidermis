@@ -427,8 +427,12 @@ ul.style-list li::before {
         line-height: 25px;
     }
 
-    .lh-lg-28 {
-        line-height: 28px;
+    .lh-lg-30 {
+        line-height: 30px;
+    }
+
+    .lh-lg-40 {
+        line-height: 40px;
     }
 
 }

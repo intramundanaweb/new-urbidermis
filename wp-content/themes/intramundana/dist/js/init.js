@@ -553,6 +553,18 @@ jQuery(document).ready(function ($) {
 		jQuery(".infoTec").hide('slide', {direction: 'left'}, 500)
 	});
 
+    // Revisar, no funciona
+    if (jQuery("html").width() < 769) {
+        jQuery("body").click(function() {
+            if (jQuery(".infoTec").css('display') == 'block') {
+                jQuery("body").css("overflow", "hidden")
+            } else {
+                jQuery("body").css("overflow", "auto")
+            }
+        })
+    }
+
+
     /*let html = document.documentElement
     if (jQuery(".infoTec").width() > 411) {
         jQuery(document).scroll(function() {

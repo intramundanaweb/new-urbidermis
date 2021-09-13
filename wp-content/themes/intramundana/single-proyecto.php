@@ -8,7 +8,7 @@
  * @package Intramundana
  */
 
-get_header();
+get_header('no-margin');
 /* $page_id = get_queried_object_id(); */
 ?>
         
@@ -19,7 +19,7 @@ get_header();
                 <div class="col-12 wrapper-proj d-flex flex-column flex-lg-row">
 
                     <div class="d-lg-flex flex-lg-column col-lg-6 p-0">
-                        <h1 class="mt-5 fs-25 fs-lg-375 mt-lg-0 mb-lg-4"><?php the_title();?></h1>
+                        <h1 class="mt-5 fw-500 fs-25 fs-lg-375 lh-lg-40 mt-lg-0 mb-lg-4"><?php the_title();?></h1>
                         <p class="fw-500 fs-11 fs-lg-14 lh-lg-25 mb-lg-0">Caso práctico, 8 min</p>
                         
                         <!-- the_tag() -->
@@ -72,25 +72,25 @@ get_header();
             <div class="infoContent mt-5">
 
                 <p class="infoTitle fw-500 fs-lg-11 mb-0">Localización</p>
-                <p class="infoText fs-lg-11 mb-3">Barcelona, distrito Sants - Montjuïc</p>
+                <p class="infoText fs-lg-11 mb-3"><?php the_field('infoTec_localizacion'); ?></p>
 
                 <p class="infoTitle fw-500 fs-lg-11 mb-0">Autor</p>
-                <p class="infoText fs-lg-11 mb-3">Sergi Godia & Ana Molina Arch., Barcelona Regional</p>
+                <p class="infoText fs-lg-11 mb-3"><?php the_field('infoTec_autor'); ?></p>
 
                 <p class="infoTitle fw-500 fs-lg-11 mb-0">Consultor de iluminación</p>
-                <p class="infoText fs-lg-11 mb-3">Urbidermis</p>
+                <p class="infoText fs-lg-11 mb-3"><?php the_field('infoTec_consultor'); ?></p>
 
                 <p class="infoTitle fw-500 fs-lg-11 mb-0">Cliente</p>
-                <p class="infoText fs-lg-11 mb-3">Ayuntamiento de Barcelona</p>
+                <p class="infoText fs-lg-11 mb-3"><?php the_field('infoTec_cliente'); ?></p>
 
                 <p class="infoTitle fw-500 fs-lg-11 mb-0">Superfície Total</p>
-                <p class="infoText fs-lg-11 mb-3">33.740 m^2</p>
+                <p class="infoText fs-lg-11 mb-3"><?php the_field('infoTec_superficie'); ?></p>
 
                 <p class="infoTitle fw-500 fs-lg-11 mb-0">Proyecto</p>
-                <p class="infoText fs-lg-11 mb-3">Marzo 2014 - Agosto 2016</p>
+                <p class="infoText fs-lg-11 mb-3"><?php the_field('infoTec_proyecto'); ?></p>
 
                 <p class="infoTitle fw-500 fs-lg-11 mb-0">Fotografia</p>
-                <p class="infoText fs-lg-11 mb-3">Meritxell Arjalaguer y Adrià Goula</p>
+                <p class="infoText fs-lg-11 mb-3"><?php the_field('infoTec_fotografia'); ?></p>
 
             </div>
 
@@ -126,10 +126,10 @@ get_header();
                     </div>
 
                     <div class="col-lg-6 px-0 d-lg-flex flex-lg-column justify-content-between">
-                        <p class="texto-resaltado fw-500 fs-14 fs-lg-22 lh-28 lh-lg-28 mb-4"><?php the_field('texto_resaltado'); ?></p>
-                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-28"><?php the_field('texto_introduccion_1'); ?></p>
-                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-28"><?php the_field('texto_introduccion_2'); ?></p>
-                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-28 mb-lg-0"><?php the_field('texto_introduccion_3'); ?></p>
+                        <p class="texto-resaltado fw-500 fs-14 fs-lg-22 lh-28 lh-lg-40 mb-4"><?php the_field('texto_resaltado'); ?></p>
+                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-30"><?php the_field('texto_introduccion_1'); ?></p>
+                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-30"><?php the_field('texto_introduccion_2'); ?></p>
+                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-30 mb-lg-0"><?php the_field('texto_introduccion_3'); ?></p>
                     </div>
 
                 </div>
