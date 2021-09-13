@@ -143,8 +143,7 @@ Page: Template-inicio
 */
 
 /* Section cover */
-.conocimiento-urbanidad {
-    z-index: 1001;
+.pie-de-foto {
     bottom: 1rem;
     width: 100%;
     text-align: center;
@@ -159,19 +158,10 @@ Page: Template-inicio
     object-fit: cover;
 }
 
-/* Section contact */
-.contact-content p {
-    line-height: 26px;
-}
-
 /* Section skin */
 .section-skin img {
     height: 25em;
     object-fit: cover;
-}
-
-.skin-content p {
-    line-height: 26px;
 }
 
 /* Section reference */
@@ -221,6 +211,20 @@ h1 {
     transform: translate(-50%, -50%);
 }*/
 
+/* Width has to depend of how many articles there are */
+.slick-dots li button {
+    border-radius: 0;
+    border-width: 0;
+    height: 2px!important;
+    width: 45px!important;
+}
+
+.slick-active button {
+    position: relative;
+    top: -2px;
+    background: #000!important;
+}
+
 
 /*
 ==============================
@@ -232,9 +236,21 @@ h2 {
     font-size: 2em;
 }
 
+.p-text {
+    line-height: 1.05em;
+}
+
 /* Section cover */
 .section-cover p {
     line-height: 1.39em;
+}
+
+.infoTec {
+    width: 100%;;
+    /*top: 2.5em!important;*/
+    display: none;
+    z-index: 1;
+    top: 0em;
 }
 
 /* Section introducción */
@@ -252,6 +268,11 @@ h2 {
 }
 
 /* Section producto */
+.slick-imagen {
+    width: 19em;
+    height: auto;
+}
+
 .section-product p {
     line-height: 1.39em;
 }
@@ -268,29 +289,13 @@ h2 {
     padding-right: 2.1em;
 }
 
-
-
-/* Width has to depend of how many articles there are */
-.slick-dots li button {
-    border-radius: 0;
-    border-width: 0;
-    height: 2px!important;
-    width: 45px!important;
-}
-
-.slick-active button {
-    position: relative;
-    top: -2px;
-    background: #000!important;
-}
-
 /**/
 
 .tags-title {
     text-decoration: underline;
 }
 
-.btn-masPublicaciones {
+.section-reference button {
     width: max-content;
     width: fit-content;
 }
@@ -564,14 +569,32 @@ section button:hover {
     ==============================
     */
 
+    .section {
+        padding-top: 5.6em;
+        padding-left: 3.3em;
+    }
+
+    .section .hline {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    .p-text {
+        line-height: 1.13em;
+    }
+
     /* Section cover */
-    .conocimiento-urbanidad {
-        z-index: 1001;
-        bottom: 1rem;
+    .pie-de-foto {
         left: 50%;
         transform: translate(-50%, 0);
         bottom: 7rem;
         font-weight: bold;
+    }
+
+    @-moz-document url-prefix() { 
+        .pie-de-foto {
+           bottom: 6.5em;
+        }
     }
 
     .slick-cover img {
@@ -611,36 +634,22 @@ section button:hover {
 
     /* Section contact */
     .section-contact {
-        padding-top: 1em!important;
-    }
-
-    .contact-content {
         width: 65%;
-        padding: 3em!important;
     }
 
-    .contact-content button {
-        margin: 0!important;
+    .section-contact button {
+        margin-left: 0!important;
         margin-right: auto!important;
     }
 
-    .contact-content p {
+    .section-contact p {
         font-weight: 500;
     }
 
     /* Section skin */
-    .skin-content {
+    .section-skin {
         margin-left: 0em!important;
-        padding: 4em 3em 3em 3em!important;
-    }
-
-    .skin-content p {
-        font-weight: 500;
-        font-size: 1.1em;
-    }
-
-    .title {
-        padding: 0!important;
+        padding-right: 6em;
     }
 
     .skin-buttons {
@@ -648,11 +657,7 @@ section button:hover {
     }
 
     .habla-con-nos {
-        margin: 0!important;
-    }
-
-    .ver-galeria {
-        margin: 0em 0em 0em 2em!important;
+        margin-left: 0!important;
     }
 
     /* Section reference */
@@ -669,13 +674,9 @@ section button:hover {
         margin-left: 16px;
     }
 
-    .reference-wrap {
-        padding: 3em 0em 3em 3em!important;
-    }
-
 	.slick-article {
-		width: 18em;
-		height: 26em;
+		width: 22em;
+		height: max-content;
 		box-shadow: 2px 2px 0 0 #000000;
 	}
 
@@ -687,15 +688,15 @@ section button:hover {
         cursor: pointer;
     }
 
-    .btn-masPublicaciones {
-        margin: 1.5em 0em 0em 0em!important;
+    .slick-articles .slick-list {
+        height: 100%!important;
     }
 
     /*
     ==============================
     Page: Single-proyecto
     ==============================
-    */
+    */   
 
     h1 {
         font-weight: 900;
@@ -713,12 +714,24 @@ section button:hover {
         padding-right: 6.4em;
     }
 
+    /* Sección cover */
+    .infoTec {
+        width: 30%;
+        display: none;
+        z-index: 1;
+        top: 0em;
+    }
+
+    .slick-list.draggable {
+        height: 100vh;
+    }
+
     /* Sección introducción */
     .texto-resaltado {
         width: 75%;
     }
 
-    .icon-plus {
+    .icon-plus, .icon-close, .icon-arrow-left {
         cursor: pointer;
     }
 

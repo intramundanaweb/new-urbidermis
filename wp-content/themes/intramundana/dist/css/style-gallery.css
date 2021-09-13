@@ -10,7 +10,7 @@ Section: Image gallery
 }
 
 .height-200 {
-    height: 100vh;
+    height: 100vh!important;
 }
 
 

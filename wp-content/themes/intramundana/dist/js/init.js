@@ -444,39 +444,46 @@ jQuery(document).ready(function ($) {
     }
   
 
-    /** Template-inicio scripts */
+    /*
+    ==============================
+    Page: Template-Inicio
+    ==============================
+    */
 
     // Change section-contact background on hovering button
-    jQuery(".contact-btn").mouseenter(function () {
-        jQuery(".section-contact").animate({
+    jQuery(".section-contact button").mouseenter(function () {
+        jQuery(".wrapper.contact").animate({
             backgroundColor: '#87966e'
-        })
+        }, 200)
+        jQuery(".section-contact button").css('color', '#000')
     }).mouseleave(function () {
-        jQuery(".section-contact").animate({
+        jQuery(".wrapper.contact").animate({
             backgroundColor: '#e5e4dc'
-        })
+        }, 200)
     })
 
     // Change section-skin background on hovering buttons 
-    jQuery(".skin-buttons>button").mouseenter(function () {
+    jQuery(".skin-buttons button").mouseenter(function () {
         jQuery(".section-skin").animate({
             backgroundColor: '#b4714e'
-        })
+        }, 200)
+        jQuery(".section-skin button").css('color', '#000')
     }).mouseleave(function () {
         jQuery(".section-skin").animate({
             backgroundColor: '#f6f5f1'
-        })
+        }, 200)
     })
 
     // Change section-reference background on hovering button
-    jQuery(".btn-masPublicaciones").mouseenter(function () {
-        jQuery(".section-reference").animate({
+    jQuery(".section-reference button").mouseenter(function () {
+        jQuery(".wrapper.reference").animate({
             backgroundColor: '#9dbfcc'
-        })
+        }, 200)
+        jQuery(".section-reference button").css('color', '#000')
     }).mouseleave(function () {
-        jQuery(".section-reference").animate({
+        jQuery(".wrapper.reference").animate({
             backgroundColor: '#f6f5f1'
-        })
+        }, 200)
     })
 
     // Parallax effect 'revolución urbana' (try)
@@ -521,6 +528,46 @@ jQuery(document).ready(function ($) {
     });
 
     preloadImages()*/
+
+
+    /*
+    ==============================
+    Page: Single-proyecto
+    ==============================
+    */
+
+    jQuery(".icon-plus").click(function(e) {
+        e.stopPropagation()
+        jQuery(".infoTec").toggle('slide', {direction: 'left'}, 500)
+    })
+
+    jQuery(".icon-close,.icon-arrow-left").click(function() {
+        jQuery(".infoTec").toggle('slide', {direction: 'left'}, 500)
+    })
+
+    jQuery(".infoTec").click(function(e){
+		e.stopPropagation()
+	})
+	
+	jQuery(document).on('click', function(){
+		jQuery(".infoTec").hide('slide', {direction: 'left'}, 500)
+	});
+
+    /*let html = document.documentElement
+    if (jQuery(".infoTec").width() > 411) {
+        jQuery(document).scroll(function() {
+        
+            if (jQuery("#masthead").css('top') > '0' ) {
+                //console.log('epep')
+                jQuery(".infoTec").css('top', '63.3px')
+            } else {
+                jQuery(".infoTec").css('top', '0px')
+                //console.log('ipip')
+            }
+        })
+    }*/
+    
+    
     
 });
 

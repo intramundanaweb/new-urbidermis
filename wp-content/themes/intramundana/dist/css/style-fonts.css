@@ -374,12 +374,20 @@ ul.style-list li::before {
     font-size: 3em;
   }
 
+  .fs-lg-375 {
+    font-size: 3.75em;
+  }
+
   .fs-lg-4 {
     font-size: 4em;
   }
 
   .fs-lg-45 {
     font-size: 4.5em;
+  }
+
+  .fs-lg-56 {
+      font-size: 5.6em;
   }
 
   .text-standard{

@@ -96,7 +96,7 @@ jQuery(document).ready(function ($) {
             settings: {
                 arrows: false,
                 dots: true,
-                slidesToShow: 2,
+                slidesToShow: 1,
                 slidesToScroll: 1
             }
         }]
