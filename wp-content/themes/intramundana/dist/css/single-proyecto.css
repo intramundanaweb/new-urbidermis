@@ -13,8 +13,8 @@ h2 {
 }
 
 /* Section cover */
-.section-cover p {
-    line-height: 1.39em;
+.section-cover {
+    padding-top: 2.5em;
 }
 
 .infoTec {
@@ -106,14 +106,8 @@ h2 {
     ==============================
     */
 
-    h1 {
-        font-weight: 900;
-        font-size: 3.75em;
-        line-height: 60px;
-    }
-
-    h2 {
-        font-size: 3.75em;
+    .section-cover {
+        padding-top: 5em;
     }
 
     .wrapper-proj {
@@ -137,6 +131,7 @@ h2 {
     /* Sección introducción */
     .texto-resaltado {
         width: 75%;
+        line-height: 40px;
     }
 
     .icon-plus,
