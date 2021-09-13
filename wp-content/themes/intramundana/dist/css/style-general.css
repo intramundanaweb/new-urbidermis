@@ -159,6 +159,10 @@ a:hover {
   transition: all .5s;
 }
 
+.accordion button.btn.text-standard.btn-block:hover{
+  border-color: transparent;
+}
+
 /*
 ==============================
 General Styles - Media Queries

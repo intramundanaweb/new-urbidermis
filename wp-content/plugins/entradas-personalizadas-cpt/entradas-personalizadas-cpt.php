@@ -120,6 +120,102 @@ function registration_taxonomy() {
     'rewrite'           => ['slug' => 'tipo-autor'],
   ];
   register_taxonomy('tipo-autor',  'autor', $args);
+
+
+  /* ------------- Second Taxonomy */
+  $labels = [
+    'name'              => _x('Pais', 'taxonomy general name'),
+    'singular_name'     => _x('Pais', 'taxonomy singular name'),
+    'search_items'      => __('Buscar Pais'),
+    'all_items'         => __('Todos los Paises'),
+    'edit_item'         => __('Editar Pais'),
+    'update_item'       => __('Actualizar Pais'),
+    'add_new_item'      => __('Añadir Nuevo Pais'),
+    'new_item_name'     => __('Nombre de Pais'),
+    'menu_name'         => __('Pais'),
+  ];
+  $args = [
+    'hierarchical'      => true, // make it hierarchical (like categories)
+    'labels'            => $labels,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    //'meta_box_cb'       => 'post_categories_meta_box',
+    'rewrite'           => ['slug' => 'pais'],
+  ];
+  register_taxonomy('pais',  'proyecto', $args);
+
+  /* ------------- tree Taxonomy */
+  $labels = [
+    'name'              => _x('Ciudad', 'taxonomy general name'),
+    'singular_name'     => _x('Ciudad', 'taxonomy singular name'),
+    'search_items'      => __('Buscar Ciudad'),
+    'all_items'         => __('Todos los Ciudades'),
+    'edit_item'         => __('Editar Ciudad'),
+    'update_item'       => __('Actualizar Ciudad'),
+    'add_new_item'      => __('Añadir Nuevo Ciudad'),
+    'new_item_name'     => __('Nombre de Ciudad'),
+    'menu_name'         => __('Ciudad'),
+  ];
+  $args = [
+    'hierarchical'      => true, // make it hierarchical (like categories)
+    'labels'            => $labels,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    //'meta_box_cb'       => 'post_categories_meta_box',
+    'rewrite'           => ['slug' => 'cuidad'],
+  ];
+  register_taxonomy('ciudad',  'proyecto', $args);
+
+   /* ------------- Four Taxonomy */
+   $labels = [
+    'name'              => _x('Tipologia', 'taxonomy general name'),
+    'singular_name'     => _x('Tipologia', 'taxonomy singular name'),
+    'search_items'      => __('Buscar Tipologia'),
+    'all_items'         => __('Todos los Tipologias'),
+    'edit_item'         => __('Editar Tipologia'),
+    'update_item'       => __('Actualizar Tipologia'),
+    'add_new_item'      => __('Añadir Nuevo Tipologia'),
+    'new_item_name'     => __('Nombre de Tipologia'),
+    'menu_name'         => __('Tipologia'),
+  ];
+  $args = [
+    'hierarchical'      => true, // make it hierarchical (like categories)
+    'labels'            => $labels,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    //'meta_box_cb'       => 'post_categories_meta_box',
+    'rewrite'           => ['slug' => 'tipo'],
+  ];
+  register_taxonomy('tipo',  'proyecto', $args);
+
+
+  /* ------------- Five Taxonomy */
+  $labels = [
+    'name'              => _x('Producto', 'taxonomy general name'),
+    'singular_name'     => _x('Producto', 'taxonomy singular name'),
+    'search_items'      => __('Buscar Producto'),
+    'all_items'         => __('Todos los Productos'),
+    'edit_item'         => __('Editar Producto'),
+    'update_item'       => __('Actualizar Producto'),
+    'add_new_item'      => __('Añadir Nuevo Producto'),
+    'new_item_name'     => __('Nombre de Producto'),
+    'menu_name'         => __('Producto'),
+  ];
+  $args = [
+    'hierarchical'      => true, // make it hierarchical (like categories)
+    'labels'            => $labels,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    //'meta_box_cb'       => 'post_categories_meta_box',
+    'rewrite'           => ['slug' => 'producto'],
+  ];
+  register_taxonomy('producto',  'proyecto', $args);
+
+
 }
 add_action('init', 'registration_taxonomy');
 

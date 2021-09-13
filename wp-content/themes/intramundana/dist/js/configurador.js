@@ -23,5 +23,8 @@ jQuery(document).ready(function ($) {
     }
   });
 
+  $("input[name='customRadioAcabado']").change(function(){
+    
+  });
 
 });
