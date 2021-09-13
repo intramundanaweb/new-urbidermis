@@ -51,8 +51,51 @@ get_header();
                 
 
             </div>
+
+            <div class="infoTec h-200 bg-beige-light position-fixed mt-5 mt-lg-0">
+            <div class="infoTec-wrap px-4 py-4 px-lg-5 py-lg-5">
+
+                <div class="d-flex justify-content-between">
+                    <h3>Información técnica</h3>
+                    <?php if( !wp_is_mobile() ) : ?>
+                        <span><i class="icon-close"></i></span>
+                    <?php else: ?>
+                        <span><i class="icon-arrow-left"></i></span>
+                    <?php endif; ?>
+                </div>
+
+                <div class="infoContent mt-5">
+
+                    <p class="infoTitle fw-500 mb-0">Localización</p>
+                    <p class="infoText mb-3">Barcelona, distrito Sants - Montjuïc</p>
+
+                    <p class="infoTitle fw-500 mb-0">Autor</p>
+                    <p class="infoText mb-3">Sergi Godia & Ana Molina Arch., Barcelona Regional</p>
+
+                    <p class="infoTitle fw-500 mb-0">Consultor de iluminación</p>
+                    <p class="infoText mb-3">Urbidermis</p>
+
+                    <p class="infoTitle fw-500 mb-0">Cliente</p>
+                    <p class="infoText mb-3">Ayuntamiento de Barcelona</p>
+
+                    <p class="infoTitle fw-500 mb-0">Superfície Total</p>
+                    <p class="infoText mb-3">33.740 m^2</p>
+
+                    <p class="infoTitle fw-500 mb-0">Proyecto</p>
+                    <p class="infoText mb-3">Marzo 2014 - Agosto 2016</p>
+
+                    <p class="infoTitle fw-500 mb-0">Fotografia</p>
+                    <p class="infoText mb-3">Meritxell Arjalaguer y Adrià Goula</p>
+
+                </div>
+
+            </div>
+        </div>
             <?php img_with_alt('imagen_portada'); ?>
         </div>
+
+        
+
     </div>
 </section>
 
@@ -181,11 +224,11 @@ get_header();
 
                         <?php
                             if( have_rows('slider_productos') ):
-                                $counter =1;
+                                $counter = 1;
                             while ( have_rows('slider_productos') ) : the_row();
                         ?>
 
-                            <div>
+                            <div class="slick-imagen">
                                 <?php img_with_alt_lazy_sub('imagen_producto'); ?>
                             </div>
 
@@ -197,11 +240,7 @@ get_header();
 
                     </div>
 
-                    <?php if ( wp_is_mobile() ) : ?>
-
-                        <button class="ver-ficha btn btn-round ml-auto mr-auto mb-0 my-lg-0 mr-lg-auto ml-lg-0"><?php the_field('texto_boton_producto'); ?></button>
-
-                    <?php endif; ?>
+                    <button class="ver-ficha btn btn-round ml-auto mr-auto mb-0 my-lg-0 mr-lg-auto ml-lg-0"><?php the_field('texto_boton_producto'); ?></button>
 
                 <?php endif; ?>
 
@@ -212,12 +251,6 @@ get_header();
 
 </section>
 
-<div class="d-none">
-    <div>
-        <h3>Información técnica</h3>
-        <span><i class=""</span>
-    </div>
-    
 </div>
 
 
