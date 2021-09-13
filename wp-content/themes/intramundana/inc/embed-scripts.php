@@ -19,6 +19,31 @@ function include_scripts() {
   wp_enqueue_script ('intra-init', get_template_directory_uri() . '/dist/js/init.js', array('jquery'), '', true);
   wp_enqueue_script ('intra-nav', get_template_directory_uri() . '/dist/js/nav.js', array('jquery'), '', true);
   wp_enqueue_script ('intra-config', get_template_directory_uri() . '/dist/js/configurador.js', array('jquery'), '', true);
+  
+  
   //wp_enqueue_script ('bsm-js', get_template_directory_uri() . '/dist/js/bootstrap.bundle.min.js', array('jquery'), '', true);
 }
 add_action( 'wp_enqueue_scripts', 'include_scripts' );
+
+/* ------------- Embed JS Scripts urls */
+
+add_action( 'wp_enqueue_scripts', 'include_scripts_cdn' );
+function include_scripts_cdn(){
+  wp_enqueue_script ('intra-font-awesome', 'https://kit.fontawesome.com/89a11451ca.js', array(), null, true);
+
+  // Add filters to catch and modify the styles and scripts as they're loaded.
+  add_filter( 'script_loader_tag', __NAMESPACE__ . '\wpdocs_my_add_sri_crossorigin', 10, 2 );
+}
+
+/**
+* Add SRI attributes based on defined script/style handles.
+*/
+function wpdocs_my_add_sri_crossorigin( $html, $handle ) : string {
+
+  switch( $handle ) {
+      case 'intra-font-awesome':
+          $html = str_replace( '></script>', ' crossorigin="anonymous"></script>', $html );
+          break;
+  } 
+  return $html;
+}
