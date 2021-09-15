@@ -22,3 +22,8 @@ Page: 404
     border-bottom: 2px solid black;
     width: 100%;
 }
+
+.hline-grey {
+    border-bottom: 2px solid lightgrey;
+    width: 100%;
+}

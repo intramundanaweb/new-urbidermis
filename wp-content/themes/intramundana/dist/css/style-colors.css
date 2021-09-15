@@ -37,6 +37,10 @@ Background Colors
   background-color: #003d7c;
 }
 
+.bg-blue-light {
+    background-color: #9dbfcc
+}
+
 .bg-beige{
   background-color: #e5e4dc;
 }
@@ -56,6 +60,11 @@ Background Colors
 .bg-grey {
     background-color: #3b3b38;
 }
+
+.bg-white {
+    background: #fff;
+}
+
 /*
 ==============================
 Border Colors
