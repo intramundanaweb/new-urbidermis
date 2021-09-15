@@ -29,7 +29,7 @@ get_header('no-margin');
 
                             <div class="mt-5 mb-lg-0 mt-lg-auto ">
                                 <p class="fw-500 fs-14 d-inline">Información técnica</p>
-                                <span><i class="icon-plus d-inline ml-3"></i></span>
+                                <span><i class="icon-plus icon-plus-modal d-inline ml-3"></i></span>
                             </div>
 
                         <?php endif; ?>
@@ -44,7 +44,7 @@ get_header('no-margin');
 
                         <div class="mt-5 mt-lg-auto">
                             <p class="fw-500 fs-11 lh-25 d-inline">Información técnica</p>
-                            <span><i class="icon-plus d-inline ml-3"></i></span>
+                            <span><i class="icon-plus icon-plus-modal d-inline ml-3"></i></span>
                         </div>
 
                     <?php endif; ?>

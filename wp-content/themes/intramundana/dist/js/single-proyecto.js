@@ -6,7 +6,7 @@ jQuery(document).ready(function ($) {
     ==============================
     */
 
-    $(".icon-plus").click(function (e) {
+    $(".icon-plus-modal").click(function (e) {
         e.stopPropagation()
         $(".infoTec").toggle('slide', {
             direction: 'left'
