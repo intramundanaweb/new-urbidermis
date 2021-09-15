@@ -2,25 +2,7 @@
 
 jQuery(document).ready(function ($) {
 
-    /* OCULTAR HEADER EN SCROLL DOWN */
-    var lastScrollTop = 0;
-	window.addEventListener("scroll", function(){
-	   var st = window.pageYOffset || document.documentElement.scrollTop; 
-	   if(st > lastScrollTop && st > 0){
-		   	if (screen.width > 768) {//Para desktop
-		   		jQuery("#masthead").css({"top" : "-85px"});
-		   	}
-		   	if (screen.width < 768) {//Para moviles
-		   		jQuery("#masthead").css({"top" : "0px"});
-					
-		   	}
-	   }else{
-	     	jQuery("#masthead").css({"top" : "0px"});
-	   }
-	   lastScrollTop = st;
-	},false);
     
-
     // Menu Interaction
 
     if ($(window).width() > 769) {
@@ -29,11 +11,13 @@ jQuery(document).ready(function ($) {
            "right": "-20vw"
          }); */
 
-        $('.navbar-toggler-right').on('click', function (e) {
+        $('a[data-target="#navbar"]').on('click', function (e) {
             e.preventDefault();
+            alert('entro');
             $('#navbar').stop().animate({
                 "left": "0"
             });
+            
         });
 
         $('.close-menu').on('click', function (e) {
@@ -146,3 +130,20 @@ jQuery(document).ready(function ($) {
 
 });
 
+/* OCULTAR HEADER EN SCROLL DOWN */
+var lastScrollTop = 0;
+window.addEventListener("scroll", function(){
+   var st = window.pageYOffset || document.documentElement.scrollTop; 
+   if(st > lastScrollTop && st > 0){
+           if (screen.width > 768) {//Para desktop
+               jQuery("#masthead").css({"top" : "-85px"});
+           }
+           if (screen.width < 768) {//Para moviles
+               jQuery("#masthead").css({"top" : "0px"});
+                
+           }
+   }else{
+         jQuery("#masthead").css({"top" : "0px"});
+   }
+   lastScrollTop = st;
+},false);
