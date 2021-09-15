@@ -23,8 +23,19 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  $("input[name='customRadioAcabado']").change(function(){
-    
+  $("input[name='customRadio0']").change(function(){
+    $('#collapseTwo').collapse('show');
+  });
+
+  /* $("input[name='unidades']").on('click', function(){
+    if ($(this).val() !== 0) {
+      $('#collapseThree').collapse('show');
+    }
+  }); */
+
+    $("input#unidades").bind('keyup mouseup', function () {
+      $('#collapseThree').collapse('show');  
+      $('input#proyecto').trigger('focus');        
   });
 
 });

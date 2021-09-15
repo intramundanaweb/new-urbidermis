@@ -373,7 +373,7 @@ get_header('top-bar-classy');
                                                                 class="input-number d-flex align-items-end position-relative">
 
                                                                 <input type="number" id="unidades" name="unidades"
-                                                                    class="form-control text-center" placeholder="0" required>
+                                                                    class="form-control text-center" placeholder="0" step="1" min="1" value="0" required >
                                                                 <div
                                                                     class="d-flex flex-column align-items-center justify-content-center ">
                                                                     <button class="btn py-0 btn-plus">
@@ -381,7 +381,7 @@ get_header('top-bar-classy');
                                                                     </button>
 
                                                                     <button class="btn py-0 btn-minus">
-                                                                        <i class="icon-arrow-down"></i>
+                                                                        <span class="icon-arrow-down"></span>
                                                                     </button>
                                                                 </div>
 
@@ -720,7 +720,7 @@ get_header('top-bar-classy');
                                         </div>
                                     </fieldset> -->
                                 </div>
-                                <div class="col-lg-5 text-center">
+                                <div class="col-5 d-lg-block d-none text-center">
 
                                     <img src="http://localhost/new-urbidermis/wp-content/uploads/2021/09/test_web.svg"
                                         alt="" class="img-fluid" style="width:400px;">
