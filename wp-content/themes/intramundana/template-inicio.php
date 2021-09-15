@@ -7,40 +7,38 @@ get_header('no-margin');
 
 <!-- Section cover -->
 <section>
-    <div class="wrapper px-0 p-lg-0">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 px-0 height-200">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-0 height-200">
 
-                    <div class="slick-cover">
+                <div class="slick-cover">
 
-                        <?php
-                            if( have_rows('slider_home') ):
-                                $counter =1;
-                            while ( have_rows('slider_home') ) : the_row();
-                        ?>
+                    <?php
+                        if( have_rows('slider_home') ):
+                            $counter =1;
+                        while ( have_rows('slider_home') ) : the_row();
+                    ?>
 
-                        <div class="position-relative">
+                    <div class="position-relative">
 
-                            <?php img_with_alt_lazy_sub('imagen'); ?>
-                            <p class="pie-de-foto fw-500 fs-14 fs-lg-15 position-absolute color-black"><?php the_sub_field('pie_de_foto'); ?></p>
-
-                        </div>
-
-                        <?php
-                            $counter++;
-                            endwhile;
-                            endif;
-                        ?>
+                        <?php img_with_alt_lazy_sub('imagen'); ?>
+                        <p class="pie-de-foto fw-500 fs-14 fs-lg-15 position-absolute color-black"><?php the_sub_field('pie_de_foto'); ?></p>
 
                     </div>
 
-                    <div class="slick-arrows w-100 position-absolute d-flex justify-content-between p-4">
-                        <span id="slick-cover-left" class="icon-circle-bold"></span>
-                        <span id="slick-cover-right" class="icon-circle-bold"></span>
-                    </div>
+                    <?php
+                        $counter++;
+                        endwhile;
+                        endif;
+                    ?>
 
                 </div>
+
+                <div class="slick-arrows w-100 position-absolute d-flex justify-content-between p-4">
+                    <span id="slick-cover-left" class="icon-circle-bold"></span>
+                    <span id="slick-cover-right" class="icon-circle-bold"></span>
+                </div>
+
             </div>
         </div>
     </div>
@@ -48,36 +46,34 @@ get_header('no-margin');
 
 <!-- Section contact -->
 <section>
-    <div class="wrapper contact px-lg-0 px-0 bg-beige">
+    <div class="wrapper contact bg-beige">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 height-200">
 
-                <div class="section section-contact px-4 mt-5 mt-lg-0 mb-5 mb-lg-0 d-flex flex-column height-200">
+                    <div class="section section-contact mt-5 mt-lg-0 pt-lg-56 mb-5 mb-lg-6 d-flex flex-column">
 
-                    <div class="mb-4">
-                        <?php
-                            display_tag(
-                                'title_group',
-                                'title_tag',
-                                'title_txt',
-                                'font-weight-bold fs-25 fs-lg-375'
-                            )
-                        ?>
+                        <div class="mb-4">
+                            <?php
+                                display_tag(
+                                    'title_group',
+                                    'title_tag',
+                                    'title_txt',
+                                    'font-weight-bold fs-25 fs-lg-375'
+                                )
+                            ?>
+                        </div>
+                        
+                        <div>
+                            <p class="fw-500 fs-11 fs-lg-14"><?php the_field('parrafo_1'); ?></p>
+                            <p class="fw-500 fs-11 fs-lg-14"><?php the_field('parrafo_2'); ?></p>
+                        </div>
+
+                        <div class="button-wrap mt-auto ml-auto ml-lg-0 mr-auto ">
+                            <button class="btn btn-round"><?php the_field('texto_boton'); ?></button>
+                        </div>
+
                     </div>
-                    
-                    <div>
-                        <p class="fw-500 fs-13 fs-lg-25 p-text"><?php the_field('parrafo_1'); ?></p>
-                        <p class="fw-500 fs-13 fs-lg-25 p-text"><?php the_field('parrafo_2'); ?></p>
-                    </div>
-
-                    <div class="button-wrap mt-auto">
-                        <button class="btn btn-round mt-auto ml-auto mr-auto mb-lg-6"><?php the_field('texto_boton'); ?></button>
-                    </div>
-
-                </div>
-
-                    
 
                 </div>
             </div>
@@ -87,16 +83,17 @@ get_header('no-margin');
 
 <!-- Section skin -->
 <section>
-    <div class="wrapper px-lg-0 px-0">
+
+    <?php img_with_alt('imagen_seccion'); ?>
+
+    <div class="wrapper bg-beige-light">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 bg-beige-light p-0">
+                <div class="col-12">
 
-                    <?php img_with_alt('imagen_seccion'); ?>
-
-                    <div class="section section-skin px-4 pt-5 pb-5 pb-lg-0 d-flex flex-column flex-lg-row">
+                    <div class="section section-skin pt-5 pt-lg-56 pb-5 pb-lg-0 d-flex flex-column flex-lg-row">
                     
-                        <div class="title pl-3 col-lg-6 mb-4">
+                        <div class="title col-lg-6 mb-4 px-0">
                             <?php
                                 display_tag(
                                     'titulo_intermedio',
@@ -107,7 +104,7 @@ get_header('no-margin');
                             ?>
                         </div>
 
-                        <div class="body col-lg-6 d-flex flex-column">
+                        <div class="body col-lg-6 px-0 d-flex flex-column">
 
                             <p class="fw-500 fs-13 fs-lg-25 p-text"><?php the_field('parrafo_intermedio_1'); ?></p>
                             <p class="fw-500 fs-13 fs-lg-25 p-text"><?php the_field('parrafo_intermedio_2'); ?></p>
@@ -129,10 +126,10 @@ get_header('no-margin');
 
 <!-- Section BIG TITLE -->
 <section>
-    <div class="wrapper px-lg-0 px-0 bg-beige">
+    <div class="wrapper bg-beige">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 big-title-section py-5 px-5">
+                <div class="col-12 big-title-section py-5">
                     <?php
                         display_tag(
                             'titulo_final',
@@ -160,12 +157,12 @@ get_header('no-margin');
 
 <!-- Section Reference -->
 <section>
-    <div class="wrapper reference px-lg-0 px-0 bg-beige-light">
+    <div class="wrapper reference bg-beige-light">
         <div class="container-fluid pr-lg-0">
             <div class="row">
                 <div class="col-12">
 
-                    <div class="section section-reference px-4 pt-5 pb-5 pb-lg-0">
+                    <div class="section section-reference pt-5 pt-lg-56 pb-5 pb-lg-0">
                         <div class="row reference-wrap pr-0">
 
                             <div class="title col-lg-6 mb-4">
@@ -179,7 +176,7 @@ get_header('no-margin');
                                 ?>
                             </div>
 
-                            <div class="col-lg-6 pr-0 d-flex flex-column">
+                            <div class="col-lg-6 pr-0 d-flex mt-lg-5 flex-column">
 
                                 <div class="slick-articles d-flex">
 
