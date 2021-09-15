@@ -217,12 +217,12 @@ input[type="datetime-local"],
 input[type="color"] {
     background-color: transparent !important;
     color: #000 !important;
-    border-bottom: 1px solid #000 !important;
+    border-bottom: 1px solid #000;/*important deleted*/
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-radius: 0 !important;
-    padding: 3px 0px !important;
+    padding: 3px 0px;/*important deleted*/
     font-family: 'Futura';
     font-size: 1em;
     width: 100%;
