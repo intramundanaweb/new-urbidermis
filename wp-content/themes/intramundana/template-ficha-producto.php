@@ -725,16 +725,16 @@ get_header('top-bar-classy');
                                     <img src="http://localhost/new-urbidermis/wp-content/uploads/2021/09/test_web.svg"
                                         alt="" class="img-fluid" style="width:400px;">
                                 </div>
-                                <div class="col-12">
-                                    <div class="controls pt-4 d-flex">
+                                <div class="col-12 mt-lg-4 mt-2 px-0" id="control-parent">
+                                    <div class="controls d-flex">
 
                                         <span
-                                            class="anterior-tab btn btn-round px-5 py-1 mr-4 d-flex align-items-center">Atrás</span>
+                                            class="anterior-tab btn btn-round px-lg-5 px-4 py-1 mr-4 d-flex align-items-center">Atrás</span>
                                         <span
-                                            class="siguiente-tab btn btn-round px-5 py-1 mr-4 d-flex align-items-center">Siguiente</span>
+                                            class="siguiente-tab btn btn-round px-lg-5 px-4 py-1 mr-4 d-flex align-items-center">Siguiente</span>
 
                                         <input type="submit"
-                                            class="btn btn-round px-5 py-1 mr-4 d-flex align-items-center"
+                                            class="btn btn-round px-lg-5 px-4 py-1 mr-4 d-flex align-items-center"
                                             value="Enviar">
 
                                     </div>
