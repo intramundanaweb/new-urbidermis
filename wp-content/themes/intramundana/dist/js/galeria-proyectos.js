@@ -4,10 +4,10 @@
     ==============================
     */
 
-    $(document).ready(function () {
+    jQuery(document).ready(function ($) {
 
         /** Switch button - Change opacity of selected option */
-        $(".switch-imagen").toggleClass('switch-color')
+        $(".switch-imagen").toggleClass('switch-color');
         
         $(".slider").on('click', function () {
         

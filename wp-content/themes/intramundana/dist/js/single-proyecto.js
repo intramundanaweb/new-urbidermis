@@ -1,3 +1,5 @@
+jQuery(document).ready(function ($) {
+
 /*
     ==============================
     Page: Single-proyecto
@@ -52,3 +54,5 @@
             }
         })
     }*/
+
+});

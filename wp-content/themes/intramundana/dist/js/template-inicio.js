@@ -1,4 +1,5 @@
-/*
+jQuery(document).ready(function ($) {
+    /*
     ==============================
     Page: Template-Inicio
     ==============================
@@ -82,3 +83,5 @@
     });
 
     preloadImages()*/
+
+});
