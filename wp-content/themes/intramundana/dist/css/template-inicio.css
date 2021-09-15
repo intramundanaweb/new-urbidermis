@@ -215,3 +215,18 @@ h1 {
     .slick-articles .slick-list {
         height: 100%!important;
     }
+}
+
+/* Ipad Pro */
+@media (min-width: 769px) and (max-width: 1025px) {
+
+	/*
+    ==============================
+    Page: Template-inicio
+    ==============================
+    */
+
+	.slick-cover img {
+		height: 100vh !important;
+	}
+}
