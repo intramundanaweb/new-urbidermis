@@ -6,24 +6,38 @@ get_header('no-margin');
 ?>
 
 <?php
+    // WP QUERIES AND TAXONOMIES INFO
+ 
 
-    $intro = 'El banco constituye una parte fundamental del equipamiento del entorno urbano.  Es el elemento urbano de descanso por excelencia, de contemplación e interacción.
-    Un elemento que debe ser universalmente inclusivo y fabricado con materiales sostenibles. Un banco requiere de gran resistencia frente al uso continuado y las adversidades
-    climatológicas. Se dispone en las zonas que no dificulten la circulación del viandante, alejadas del tráfico intenso, alrededor de espacios idóneos para su función,
-    principalmente en los espacios verdes y zonas de esparcimiento como de zonas de juegos infantiles, parques, paradas de.
-    El banco constituye una parte fundamental del equipamiento del entorno urbano. Es el elemento urbano de descanso por excelencia, de contemplación e interacción.
-    Un elemento que debe ser universalmente inclusivo y fabricado con materiales sostenibles. Un banco requiere de gran resistencia frente al uso continuado y las adversidades
-    climatológicas. Se dispone en las zonas que no dificulten la circulación del viandante, alejadas del tráfico intenso, alrededor de espacios idóneos para su función,
-    principalmente en los espacios verdes y zonas de esparcimiento como de zonas de juegos infantiles, parques, paradas de.
-    El banco constituye una parte fundamental del equipamiento del entorno urbano. Es el elemento urbano de descanso por excelencia, de contemplación e interacción.
-    Un elemento que debe ser universalmente inclusivo y fabricado con materiales sostenibles. Un banco requiere de gran resistencia frente al uso continuado y las adversidades
-    climatológicas. Se dispone en las zonas que no dificulten la circulación del viandante, alejadas del tráfico intenso, alrededor de espacios idóneos para su función,
-    principalmente en los espacios verdes y zonas de esparcimiento como de zonas de juegos infantiles, parques, paradas de.
-    El banco constituye una parte fundamental del equipamiento del entorno urbano. Es el elemento urbano de descanso por excelencia, de contemplación e interacción.
-    Un elemento que debe ser universalmente inclusivo y fabricado con materiales sostenibles. Un banco requiere de gran resistencia frente al uso continuado y las adversidades
-    climatológicas. Se dispone en las zonas que no dificulten la circulación del viandante, alejadas del tráfico intenso, alrededor de espacios idóneos para su función,
-    principalmente en los espacios verdes y zonas de esparcimiento como de zonas de juegos infantiles, parques, paradas de.';
+    // The Query
+    $args = array(
+        'post_type' => 'proyecto',
+    );
 
+    $projects_query = new WP_Query( $args );
+
+
+    // The Taxnonomies
+    $paises = get_terms( array(
+        'taxonomy' => 'pais',
+        'hide_empty' => false
+    ) );
+
+    $ciudades = get_terms( array(
+        'taxonomy' => 'ciudad',
+        'hide_empty' => false
+    ) );
+
+    $tipologias = get_terms( array(
+        'taxonomy' => 'tipo',
+        'hide_empty' => false
+    ) );
+
+    $productos = get_terms( array(
+        'taxonomy' => 'producto',
+        'hide_empty' => false
+    ) );
+    
 ?>
 
 <!-- Section header -->
@@ -34,11 +48,18 @@ get_header('no-margin');
                 <div class="col-12 d-lg-flex">
 
                     <div class="header-title col-12 col-lg-6">
-                        <h2 class="fs-lg-375">Galería de proyectos</h2>
+                        <?php
+                            display_tag(
+                                'titulo_pagina',
+                                'etiqueta_titulo',
+                                'texto_titulo',
+                                'fs-lg-375'
+                            )
+                        ?>
                     </div>
 
                     <div class="header-introduction col-12 col-lg-6">
-                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php echo $intro; ?></p>
+                        <p class="fw-500 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php the_field("texto_introduccion"); ?></p>
                     </div>
 
                 </div>                
@@ -55,47 +76,43 @@ get_header('no-margin');
 
         <div class="custom-select mt-5 mb-4 position-relative text-dark border-dark">
             <select name="country" id="sel-country" class="d-none">
-                <option value="País">País</option>
-                <option value="Portugal">Portugal</option>
-                <option value="Francia">Uganda</option>
-                <option value="Francia">Belgica</option>
-                <option value="Francia">Portugal</option>
-                <option value="Francia">Suiza</option>
-                <option value="Francia">Eslovenia</option>
-                <option value="Francia">Islandia</option>
-                <option value="Francia">Mexico</option>
-                <option value="Francia">Argentina</option>
-                <option value="Francia">Afghanistan</option>
-                <option value="Francia">Spain</option>
+                <option>País</option>
+                <?php foreach($paises as $pais) { ?>    
+                    <option><?php echo $pais->name; ?></option>
+                <?php } ?>
             </select>
         </div>
 
         <div class="custom-select  mb-4 position-relative text-dark border-dark">
             <select name="city" id="sel-city" class="d-none">
-                <option class="fw-500 fs-11 fs-lg-14" value="Ciudad">Ciudad</option>
-                <option value="Barcelona">Barcelona</option>
-                <option value="Madrid">Madrid</option>
+                <option>Ciudad</option>
+                <?php foreach($ciudades as $ciudad) { ?>    
+                    <option><?php echo $ciudad->name; ?></option>
+                <?php } ?>
             </select>
         </div>
 
         <div class="custom-select mb-4 position-relative text-dark border-dark">
             <select name="typology" id="sel-typology" class="d-none">
-                <option class="fw-500 fs-11 fs-lg-14" value="Tipologia">Tipologia</option>
-                <option value="Catalogado">Catalogado</option>
-                <option value="Redaccion">Redacción</option>
+                <option>Tipologia</option>
+                <?php foreach($tipologias as $tipologia) { ?>    
+                    <option><?php echo $tipologia->name; ?></option>
+                <?php } ?>
             </select>
         </div>
 
         <div class="custom-select mb-4 position-relative text-dark border-dark">
             <select name="product" id="sel-product" class="d-none">
-                <option class="fw-500 fs-11 fs-lg-14" value="Producto">Producto</option>
-                <option value="Silvestrina">Silvestrina</option>
-                <option value="Cestita">Cestita</option>
+                <option>Producto</option>
+                <?php foreach($productos as $producto) { ?>    
+                    <option><?php echo $producto->name; ?></option>
+                <?php } ?>
             </select>
         </div>
 
     </div>
 <?php endif; ?>
+
 
 <!-- Section grid -->
 <section class="section-grid">
@@ -104,10 +121,10 @@ get_header('no-margin');
             <div class="row">
                 <div class="col-12">
 
-                    <!-- Upper menu -->
+                    <!-- UPPER MENU -->
                     <div class="upper-menu col-12 d-flex justify-content-between my-5">
 
-                        <!-- Switch button -->
+                        <!-- SWITCH BUTTON -->
                         <div class="switch-wrapper d-flex d-lg-flex">
                             <span class="switch-imagen fw-500 fs-11 fs-lg-14">Imágenes</span>
                             <span class="switch-wrap">
@@ -119,7 +136,7 @@ get_header('no-margin');
                             <span class="switch-lista fw-500 fs-11 fs-lg-14">Lista</span>
                         </div>
 
-                        <!-- Filter label -->
+                        <!-- FILTER LABEL -->
                         <div class="filter-label">
                             <p class="fw-500 fs-11 fs-lg-14">Filtrar <span class="fa fa-chevron-down"></span></p>
                         </div>
@@ -130,7 +147,7 @@ get_header('no-margin');
                         <input type="range" min="1" max="100" value="0" class="range mt-3 mb-5 bg-black w-100 p-0"></input>
                     <?php endif; ?>
 
-                    <!-- Filter box -->
+                    <!-- FILTER BOX -->
                     <?php if(! wp_is_mobile() ) : ?>
                         <div class="container-fluid filter-box">
                             <div class="row">
@@ -140,42 +157,45 @@ get_header('no-margin');
 
                                         <div class="custom-select mb-4 mb-lg-0 position-relative text-dark border-dark">
                                             <select name="country" id="sel-country" class="d-none">
-                                                <option value="País">País</option>
-                                                <option value="Portugal">Portugal</option>
-                                                <option value="Francia">Uganda</option>
-                                                <option value="Francia">Belgica</option>
-                                                <option value="Francia">Portugal</option>
-                                                <option value="Francia">Suiza</option>
-                                                <option value="Francia">Eslovenia</option>
-                                                <option value="Francia">Islandia</option>
-                                                <option value="Francia">Mexico</option>
-                                                <option value="Francia">Argentina</option>
-                                                <option value="Francia">Afghanistan</option>
-                                                <option value="Francia">Spain</option>
+
+                                                <option>País</option>
+                                                <?php foreach($paises as $pais) { ?>    
+                                                    <option><?php echo $pais->name; ?></option>
+                                                <?php } ?>
+
                                             </select>
                                         </div>
 
                                         <div class="custom-select position-relative text-dark border-dark">
                                             <select name="city" id="sel-city" class="d-none">
-                                                <option value="Ciudad">Ciudad</option>
-                                                <option value="Barcelona">Barcelona</option>
-                                                <option value="Madrid">Madrid</option>
+                                                
+                                                <option>Ciudad</option>
+                                                <?php foreach($ciudades as $ciudad) { ?>
+                                                    <option><?php echo $ciudad->name; ?></option>
+                                                <?php } ?>
+
                                             </select>
                                         </div>
 
                                         <div class="custom-select position-relative text-dark border-dark">
                                             <select name="typology" id="sel-typology" class="d-none">
-                                                <option value="Tipologia">Tipologia</option>
-                                                <option value="Catalogado">Catalogado</option>
-                                                <option value="Redaccion">Redacción</option>
+                                                
+                                                <option>Tipologia</option>
+                                                <?php foreach($tipologias as $tipologia) { ?>
+                                                    <option><?php echo $tipologia->name; ?></option>
+                                                <?php } ?>
+
                                             </select>
                                         </div>
 
                                         <div class="custom-select position-relative text-dark border-dark">
                                             <select name="product" id="sel-product" class="d-none">
-                                                <option value="Producto">Producto</option>
-                                                <option value="Silvestrina">Silvestrina</option>
-                                                <option value="Cestita">Cestita</option>
+                                                
+                                                <option>Producto</option>
+                                                <?php foreach($productos as $producto) { ?>
+                                                    <option><?php echo $producto->name; ?></option>
+                                                <?php } ?>
+
                                             </select>
                                         </div>
 
@@ -187,30 +207,45 @@ get_header('no-margin');
                     <?php endif; ?>
 
                     
-
                     <!-- GRID -->
-                    <div class="grid-flex container-fluid p-0">
-                        <div class="row">
+                    <?php if ( $projects_query->have_posts() ) { ?>
+                        <div class="grid-flex container-fluid p-0">
+                            <div class="row grid-row">
 
-                            <?php for ($i = 0; $i < 11; $i++) { ?>
+                                <?php while ( $projects_query->have_posts() ) {
 
-                                <div class="grid-project-wrap col-12 col-lg-2">
-                                    <div class="grid-project flex-column mb-4" data-pais="Spain" data-ciudad="Madrid" data-tipologia="Catalogado" data-producto="Cestita">
-                                        <div class="project-title">
-                                            <p class="d-inline-block mb-2 fw-500 fs-11 fs-lg-14">Museo del diseño HUB</p>
-                                            <span class="fal fa-plus-circle"></span>
-                                        </div>
-                                        <div class="image-wrap">
-                                            <img class="project-image" src="/urbidermis/wp-content/themes/intramundana/img/img1.png" alt="project-cover">
+                                    $projects_query->the_post();
+                                    $pais = get_the_term_list( $projects_query->ID, 'pais' );
+                                    $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
+                                    $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
+                                    $producto = get_the_term_list( $projects_query->ID, 'producto' );
+                                    $img = get_the_post_thumbnail( $projects_query->ID ); ?>
+                
+                                    <div class="grid-project-wrap col-12 col-lg-2">
+                                        <div class="grid-project flex-column mb-5 mb-lg-0" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
+                                            <div class="project-title position-absolute">
+                                                <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?></p>
+                                                <span class="fal fa-plus-circle"></span>
+                                                <p></p>
+                                            </div>
+                                            <div class="image-wrap">
+                                                <?php echo $img; ?>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            <?php } ?>
+                                <?php } ?>
 
+                            </div>
                         </div>
-                    </div>
+   
+                    <?php } else {
+                        // no posts found
+                    }
+                    /* Restore original Post Data */
+                    wp_reset_postdata(); ?>
 
+                    
                     <!-- LIST -->
                     <div class="list-flex container-fluid">
                         <div class="row">
@@ -240,101 +275,64 @@ get_header('no-margin');
 
                                 <?php endif; ?>
 
-                                <div class="list-wrap d-lg-flex flex-wrap">
+                                <?php if ( $projects_query->have_posts() ) { ?>
+                                    <div class="list-wrap d-lg-flex flex-wrap">
 
-                                    <?php for ($i = 0; $i < 4; $i++) { ?>
+                                        <?php while ( $projects_query->have_posts() ) {
+                                            $projects_query->the_post();
+                                            $pais = get_the_term_list( $projects_query->ID, 'pais' );
+                                            $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
+                                            $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
+                                            $producto = get_the_term_list( $projects_query->ID, 'producto' );
+                                            $img = get_the_post_thumbnail( $projects_query->ID ); ?>
 
-                                        <?php if ( !wp_is_mobile() ) : ?>
-                                            <div class="list-project justify-content-between" data-tipologia="Catalogado">
-                                                
-                                                <p class="col Proyecto m-0 p-0">Plaza Mayor</p>
-                                                <p class="col Ciudad m-0 p-0">Madrid</p>
-                                                <p class="col Pais m-0 p-0">EJPAÑA</p>
-                                                <p class="col Ano m-0 p-0">1995</p>
-                                                <p class="col Producto m-0 p-0">TMM, NeoRomántico Liviano</p>
+                                            <!-- If Desktop -->
+                                            <?php if ( !wp_is_mobile() ) : ?>
 
-                                            </div>
+                                                <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                    
+                                                    <p class="col Proyecto m-0 p-0"><?php the_title(); ?></p>
+                                                    <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
+                                                    <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
+                                                    <p class="col Ano m-0 p-0">1995</p>
+                                                    <p class="col Producto m-0 p-0"><?php echo strip_tags($producto); ?></p>
 
-                                            <div class="list-project justify-content-between bg-blue-light" data-tipologia="Redacción">
-                                                
-                                                <p class="col Proyecto m-0 p-0">Museo del diseño HUB <span class="fal fa-plus-circle"></span></p>
-                                                <p class="col Ciudad m-0 p-0">Barcelona</p>
-                                                <p class="col Pais m-0 p-0">Spain</p>
-                                                <p class="col Ano m-0 p-0">2019</p>
-                                                <p class="col Producto m-0 p-0">Rama, NeoRomántico Liviano</p>
+                                                </div>
 
-                                            </div>
+                                            <!-- If Mobile -->
+                                            <?php else: ?>
 
-                                            <div class="list-project justify-content-between" data-tipologia="Redacción">
-                                                
-                                                <p class="col Proyecto m-0 p-0">Fontana di Trevi</p>
-                                                <p class="col Ciudad m-0 p-0">Roma</p>
-                                                <p class="col Pais m-0 p-0">Italy</p>
-                                                <p class="col Ano m-0 p-0">2021</p>
-                                                <p class="col Producto m-0 p-0">SíSíSí, NeoRomántico Liviano</p>
+                                                <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                    
+                                                    <p class="col-6 Proyecto m-0 p-0">
+                                                        <?php the_title(); ?><br>
+                                                        <span class="fw-500"><?php echo strip_tags($producto); ?></span>
+                                                        <!--<span class="fal fa-plus-circle"></span>-->
+                                                    </p>
+                                                    <p class="col-3 Pais m-0 p-0">
+                                                        <?php echo strip_tags($pais); ?>,<br>
+                                                        <span><?php echo strip_tags($ciudad); ?></span>
+                                                    </p>
+                                                    <p class="col-3 Ano m-0 p-0">1995</p>
+                                                    
+                                                </div>
 
-                                            </div>
+                                                <div class="hline-grey my-3"></div>
 
-                                        <?php else: ?>
+                                            <?php endif; ?>
 
-                                            <div class="list-project justify-content-between" data-tipologia="Catalogado">
-                                                
-                                                <p class="col-6 Proyecto m-0 p-0">
-                                                    Plaza Mayor<br>
-                                                    <span class="fw-500">TMM, NeoRomántico Liviano</span> 
-                                                    <span class="fal fa-plus-circle"></span>
-                                                </p>
-                                                <p class="col-3 Pais m-0 p-0">
-                                                    EJPAÑA,<br>
-                                                    <span>Madrid</span>
-                                                </p>
-                                                <p class="col-3 Ano m-0 p-0">1995</p>
+                                        <?php } ?>
 
-                                            </div>
+                                    </div>
 
-                                            <div class="hline-grey my-3"></div>
-
-                                            <div class="list-project justify-content-between" data-tipologia="Redacción">
-                                                
-                                                <p class="col-6 Proyecto m-0 p-0">
-                                                    Museo del diseño HUB
-                                                    <span class="fw-500">Rama, NeoRomántico Liviano</span>
-                                                    <span class="fal fa-plus-circle"></span>
-                                                </p>
-                                                <p class="col-3 Pais m-0 p-0">
-                                                    Spain,<br>
-                                                    <span>Barcelona</span>
-                                                </p>
-                                                <p class="col-3 Ano m-0 p-0">2019</p>
-
-                                            </div>
-
-                                            <div class="hline-grey my-3"></div>
-
-                                            <div class="list-project justify-content-between" data-tipologia="Redacción">
-                                                
-                                                <p class="col-6 Proyecto m-0 p-0">
-                                                    Fontana di Trevi
-                                                    <span class="fw-500">SíSíSí, NeoRomántico Liviano</span>
-                                                    <span class="fal fa-plus-circle"></span>
-                                                </p>
-                                                <p class="col-3 Pais m-0 p-0">
-                                                    Italy,<br>
-                                                    <span>Roma</span>
-                                                </p>
-                                                <p class="col-3 Ano m-0 p-0">2021</p>
-                                                
-                                            </div>
-
-                                            <div class="hline-grey my-3"></div>
-
-                                        <?php endif; ?>
-
-                                    <?php } ?>
-
-                                </div>
+                                <?php } else {
+                                    // no posts found
+                                }
+                                /* Restore original Post Data */
+                                wp_reset_postdata(); ?>
 
                             </div>
+
                         </div>
                     </div>
 

@@ -145,7 +145,7 @@ function registration_taxonomy() {
   ];
   register_taxonomy('pais',  'proyecto', $args);
 
-  /* ------------- tree Taxonomy */
+  /* ------------- three Taxonomy */
   $labels = [
     'name'              => _x('Ciudad', 'taxonomy general name'),
     'singular_name'     => _x('Ciudad', 'taxonomy singular name'),

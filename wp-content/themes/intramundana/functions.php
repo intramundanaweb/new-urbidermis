@@ -345,4 +345,9 @@ function delete_post_type2(){
     unregister_post_type( 'intra-autores' );
 }
 add_action('init','delete_post_type');
-	
+
+function console_log( $data ){
+    echo '<script>';
+    echo 'console.log('. json_encode( $data ) .')';
+    echo '</script>';
+}

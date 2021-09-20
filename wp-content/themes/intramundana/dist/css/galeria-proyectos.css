@@ -20,7 +20,8 @@ input:checked+.slider:before {
 }
 
 .project-title {
-    top: 1.5em;
+    top: -25px;
+    position: absolute;
 }
 
 .range {
@@ -307,6 +308,12 @@ body {
 
     .grid-project-wrap {
         transition: 0.4s;
+        padding: 2.5em;
+        margin-bottom: 2.5em;
+    }
+
+    .special {
+        background: lightblue;
     }
 
     /*.grid-project-wrap:hover {
@@ -319,12 +326,8 @@ body {
     }
 
     .project-title {
-        /* position: absolute;
-    top: 0.5em; */
-    }
-
-    .image-wrap {
-        border: 1px solid grey;
+        position: absolute;
+        top: 6px;
     }
 
     img {
