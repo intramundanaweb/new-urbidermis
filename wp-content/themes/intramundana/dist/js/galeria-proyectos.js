@@ -22,38 +22,12 @@
             apply_filter()
         })
         
-        /** Hover grid project */
-        /*$(".grid-project").mouseenter(function () {
-            $(this).find('.bi').css('opacity', '1')
-        })
-        $(".grid-project").mouseleave(function () {
-            $(this).find('.bi').css('opacity', '0')
-        })*/
-        
-        /** Hover list project */
-        /*function project_hover() {
-            $(".list-project").mouseenter(function () {
-                $(this).find('.bi').css('opacity', '1')
-            })
-            $(".list-project").mouseleave(function () {
-                $(this).find('.bi').css('opacity', '0')
-            })
-        }
-        
-        project_hover()
-        
-        $(".order").click(function () {
-            project_hover()
-        })*/
-        
         
         /** Toggle the filter box */
         $(".filter-label").click(function () {
         
             if (window.mobileCheck()) {
-                $(".filter-box").show()
-                console.log('epep')
-                //$(".filterBox-mobile-wrap").toggle('slide', {direction: 'up'}, 500)
+                $(".filter-box").toggle('slide', {direction: 'up'}, 500);
             } else {
                 $(this).find(".fa").toggleClass("fa-chevron-down fa-chevron-up")
                 $(".filter-box").toggle('slide', {direction: 'up'}, 500);
@@ -76,8 +50,8 @@
         
             // Comprovem si estem en el format Grid | Llista
             if ($(".switch-imagen").hasClass("switch-color")) {
-                elements = $(".grid-project")
                 grid = true
+                elements = $(".grid-project-wrap")
             } else {
                 elements = $(".list-project")
             }
@@ -86,7 +60,7 @@
             let filters = $(".select-selected")
         
             // Guardem a l'array filter_selections la selecció actual de cada filtre
-            let filter_selections = {}
+            let filter_selections = []
             for (let i = 0; i < 4; i++) {
                 filter_selections[i] = filters[i].innerText
             }
@@ -103,24 +77,24 @@
                 // Si no coincideix amb els noms per defecte vol dir que s'ha escollit alguna altra opció diferent (filtrat)
                 if (filter_selections[1] != 'Ciudad') {
                     if (grid) {
-                        result = (element.dataset.ciudad == filter_selections[1])
+                        result = element.childNodes[1].dataset.ciudad == filter_selections[1]
                     } else {
-                        result = (element.children[1].innerText == filter_selections[1])
+                        result = element.dataset.ciudad == filter_selections[1]
                     }
                     // Afegim a l'array de resultats si la ciutat del projecte coincideix amb la ciutat del filtre
                     results.push(result)
                 }
                 if (filter_selections[0] != 'País') {
                     if (grid) {
-                        result = element.dataset.pais == filter_selections[0]
+                        result = element.childNodes[1].dataset.pais == filter_selections[0]
                     } else {
-                        result = element.children[2].innerText == filter_selections[0]
+                        result = element.dataset.pais == filter_selections[0]
                     }
                     results.push(result)
                 }
                 if (filter_selections[2] != 'Tipologia') {
                     if (grid) {
-                        result = element.dataset.tipologia == filter_selections[2]
+                        result = element.childNodes[1].dataset.tipologia == filter_selections[2]
                     } else {
                         result = element.dataset.tipologia == filter_selections[2]
                     }
@@ -128,21 +102,116 @@
                 }
                 if (filter_selections[3] != 'Producto') {
                     if (grid) {
-                        result = element.dataset.producto == filter_selections[3]
+                        result = element.childNodes[1].dataset.producto == filter_selections[3]
                     } else {
-                        result = element.children[4].innerText == filter_selections[3]
+                        result = element.dataset.producto == filter_selections[3]
                     }
                     results.push(result)
                 }
-        
+                $(".grid-row").css('width', '100%')
+
+                // Afegir o esborrar les línies separatòries entre projectes en versió mòvil i format llista
+                if (!grid) {
+                    if (window.mobileCheck()) {
+                        element.nextElementSibling.hidden = false
+
+                        if (results.includes(false)) {
+                            element.nextElementSibling.hidden = true
+                        }
+                    }
+                }
+
                 // Si l'array inclou algun 'false', retorna 'true' i doncs, amaga (.hide()) l'element/projecte
                 return results.includes(false)
         
             }).hide()
+
+            // Mostrem missatge si no es troba cap projecte que coincideixi amb els filtres seleccionats
+            check_empty_projects()
+
+            let default_filters = ['Ciudad', 'País', 'Tipologia', 'Producto']
+
+            // Mostrem els filtres actius quan el filter-box està ocult
+            $(".active-filters").empty()
+            filter_selections.forEach(element => {
+                if (!default_filters.includes(element)) {
+                    $(".active-filters").append(`<p class="active-filter ml-3 fs-09 fw-500">${element}<span class="fal fa-times"></span></p>`)
+                }
+            });
+        };
+
+        $(".active-filters").on("click", ".active-filter", function() {
+
+            $(this)[0].style.display = 'none'
+            remove_filter($(this)[0].innerText)
+        });
+        
+        /*$(".active-filter").click(function() {
+            
+        });*/
+
+        function remove_filter(filter_txt) {
+            
+            // Agafem els elements (divs) que contenen els strings de les seleccions
+            let filters = $(".select-selected")
+        
+            for (let i = 0; i < 4; i++) {
+                if (filter_txt == filters[i].innerText) {
+                    reset_filter(i)
+                }
+            }
+            apply_filter()
+        };
+
+        function reset_filter(n_filter) {
+            switch(n_filter) {
+                case 0:
+                    $(".select-selected")[0].innerText = 'País'
+                    break
+                case 1:
+                    $(".select-selected")[1].innerText = 'Ciudad'
+                    break
+                case 2:
+                    $(".select-selected")[2].innerText = 'Tipologia'
+                    break
+                case 3:
+                    $(".select-selected")[3].innerText = 'Producto'
+                    break
+            }
+        }
+
+        /** CHECK EMPTY PROJECTS */
+        function check_empty_projects() {
+
+            jQuery(".not-found").remove()
+
+            // Si el format actual és de llista
+            if ($(".switch-lista").hasClass('switch-color')) {
+
+                let visible = $(".list-project").filter(function() {
+                    return $(this).css('display') === 'flex';
+                }).length;
+
+                if (visible == 0) {
+                    $(".list-wrap").append('<p class="not-found">No se han encontrado proyectos con los filtros seleccionados</p>')
+                }
+            // Si el format actual és de graella
+            } else {
+                $(".range").css('opacity', '1')
+                
+                let visible = $(".grid-project-wrap").filter(function() {
+                    return $(this).css('display') === 'block';
+                }).length;
+
+                if (visible == 0) {
+                    $(".grid-row").append('<p class="not-found ml-3 ml-lg-3">No se han encontrado proyectos con los filtros seleccionados</p>')
+                    $(".range").css('opacity', '0')
+                }
+            }
         }
         
-        /** CUSTOM DROP-DOWN MENUS */
         
+        /** CUSTOM DROP-DOWN MENUS */
         let count = 0;
         
         // Mirem quants customs selects hi ha a la pàgina
@@ -198,13 +267,12 @@
             customs[i].append(options[0])
         }
         
-        $(".item").click(function () {
+        $(".item").click(function() {
         
             // Agafem el contingut del item clicat i separem el text del número
             let selected_item = $(this)[0].innerText
             let item_text = selected_item.split(' ')[0]
         
-            console.log('epepepeppe ' + $(this).parent().get(1))
             $(this).parent().parent().prev().html(item_text)
             
             $(this).parent().parent().prev().append('<i class="fa fa-chevron-down"></i>')
@@ -253,8 +321,6 @@
         
             $(this).find(".fa").toggleClass("fa-chevron-down fa-chevron-up")
         
-            console.log($(this).parent().data('value'))
-        
             let filter = undefined
             switch ($(this).parent().data('value')) {
                 case 'project': 
@@ -274,10 +340,8 @@
             let ordered_elements = elements.sort(function (a, b) {
                 
                 if (descendent) {
-                    console.log('des ' + $(a).find(filter).text())
                     return $(a).find(filter).text() < $(b).find(filter).text();
                 } else {
-                    console.log('asc ' + $(a).find(filter).text())
                     return $(a).find(filter).text() > $(b).find(filter).text();
                 }
             })
@@ -287,6 +351,15 @@
             $(".fa").not($(this).find(".fa")).removeClass("fa-chevron-up")
             $(".fa").not($(this).find(".fa")).addClass("fa-chevron-down")
             descendent = false
+
+            if (window.mobileCheck()) {
+                $(".list-project").each(function() {
+                    if ($(this).css('display') !== 'none') {
+                        $(this).after('<div class="hline-grey my-3"></div>')
+                    }
+                })
+            }
+
         })
         
         /** RANGE SLIDER */
@@ -295,14 +368,20 @@
             if ($(".range").val() < 33) {
         
                 $(".grid-project-wrap").removeClass("col-6 col-4").addClass("col-12")
+
                 $(".project-title").css('display', 'block')
+                $(".project-title").css('font-size', '1.1em')
+                $(".project-title").css('top', '-25px')
             }
         
             if ($(".range").val() >= 33) {
         
                 $(".grid-project-wrap").removeClass("col-4 col-12").addClass("col-6")
                 $(".grid-project-wrap").css('padding', '0')
+
                 $(".project-title").css('display', 'block')
+                $(".project-title").css('font-size', '.75em')
+                $(".project-title").css('top', '-15px')
         
                 $(".grid-flex").removeClass("p-0")
                 $(".grid-project").css('padding', '10px')
