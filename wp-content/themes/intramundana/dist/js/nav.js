@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
 
         $('a[data-target="#navbar"]').on('click', function (e) {
             e.preventDefault();
-            alert('entro');
+            
             $('#navbar').stop().animate({
                 "left": "0"
             });
