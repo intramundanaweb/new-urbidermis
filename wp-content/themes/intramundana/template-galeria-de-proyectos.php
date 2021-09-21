@@ -223,7 +223,7 @@ get_header('no-margin');
                                     $producto = get_the_term_list( $projects_query->ID, 'producto' ); ?>
                                     
                                     <div class="grid-project-wrap col-12 col-lg-2">
-                                        <a class="d-block p-3 bg-blue-light" href="<?php the_permalink(); ?>">
+                                        <a class="d-block p-3" href="<?php the_permalink(); ?>">
                                             <div class="grid-project flex-column mb-5 mb-lg-0" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
                                                 <div class="project-title pb-lg-2">
                                                     <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?></p>

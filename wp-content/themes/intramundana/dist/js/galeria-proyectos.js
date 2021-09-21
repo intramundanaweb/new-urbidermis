@@ -77,7 +77,7 @@
                 // Si no coincideix amb els noms per defecte vol dir que s'ha escollit alguna altra opció diferent (filtrat)
                 if (filter_selections[1] != 'Ciudad') {
                     if (grid) {
-                        result = element.childNodes[1].dataset.ciudad == filter_selections[1]
+                        result = element.childNodes[1].childNodes[1].dataset.ciudad == filter_selections[1]
                     } else {
                         result = element.dataset.ciudad == filter_selections[1]
                     }
@@ -86,7 +86,7 @@
                 }
                 if (filter_selections[0] != 'País') {
                     if (grid) {
-                        result = element.childNodes[1].dataset.pais == filter_selections[0]
+                        result = element.childNodes[1].childNodes[1].dataset.pais == filter_selections[0]
                     } else {
                         result = element.dataset.pais == filter_selections[0]
                     }
@@ -94,7 +94,7 @@
                 }
                 if (filter_selections[2] != 'Tipologia') {
                     if (grid) {
-                        result = element.childNodes[1].dataset.tipologia == filter_selections[2]
+                        result = element.childNodes[1].childNodes[1].dataset.tipologia == filter_selections[2]
                     } else {
                         result = element.dataset.tipologia == filter_selections[2]
                     }
@@ -102,7 +102,7 @@
                 }
                 if (filter_selections[3] != 'Producto') {
                     if (grid) {
-                        result = element.childNodes[1].dataset.producto == filter_selections[3]
+                        result = element.childNodes[1].childNodes[1].dataset.producto == filter_selections[3]
                     } else {
                         result = element.dataset.producto == filter_selections[3]
                     }
@@ -146,9 +146,6 @@
             remove_filter($(this)[0].innerText)
         });
         
-        /*$(".active-filter").click(function() {
-            
-        });*/
 
         function remove_filter(filter_txt) {
             
