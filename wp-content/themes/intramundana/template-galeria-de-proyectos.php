@@ -221,17 +221,19 @@ get_header('no-margin');
                                     $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
                                     $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
                                     $producto = get_the_term_list( $projects_query->ID, 'producto' ); ?>
-                
+                                    
                                     <div class="grid-project-wrap col-12 col-lg-2">
-                                        <div class="grid-project flex-column mb-5 mb-lg-0" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
-                                            <div class="project-title position-absolute">
-                                                <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?></p>
-                                                <!--<span class="fal fa-plus-circle"></span>-->
+                                        <a class="d-block" href="<?php the_permalink(); ?>">
+                                            <div class="grid-project flex-column mb-5 mb-lg-0" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
+                                                <div class="project-title position-absolute">
+                                                    <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?></p>
+                                                    <!--<span class="fal fa-plus-circle"></span>-->
+                                                </div>
+                                                <div class="image-wrap">
+                                                    <?php img_with_alt_featured(); ?>
+                                                </div>
                                             </div>
-                                            <div class="image-wrap">
-                                                <?php img_with_alt_featured(); ?>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </div>
 
                                 <?php } ?>
@@ -289,33 +291,37 @@ get_header('no-margin');
                                             <!-- If Desktop -->
                                             <?php if ( !wp_is_mobile() ) : ?>
 
-                                                <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
-                                                    
-                                                    <p class="col Proyecto m-0 p-0"><?php the_title(); ?></p>
-                                                    <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
-                                                    <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
-                                                    <p class="col Ano m-0 p-0">1995</p>
-                                                    <p class="col Producto m-0 p-0"><?php echo strip_tags($producto); ?></p>
+                                                <a class="w-100" href="<?php the_permalink(); ?>">
+                                                    <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                        
+                                                        <p class="col Proyecto m-0 p-0"><?php the_title(); ?></p>
+                                                        <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
+                                                        <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
+                                                        <p class="col Ano m-0 p-0">1995</p>
+                                                        <p class="col Producto m-0 p-0"><?php echo strip_tags($producto); ?></p>
 
-                                                </div>
+                                                    </div>
+                                                </a>
 
                                             <!-- If Mobile -->
                                             <?php else: ?>
 
-                                                <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
-                                                    
-                                                    <p class="col-6 Proyecto m-0 p-0">
-                                                        <?php the_title(); ?><br>
-                                                        <span class="fw-500"><?php echo strip_tags($producto); ?></span>
-                                                        <!--<span class="fal fa-plus-circle"></span>-->
-                                                    </p>
-                                                    <p class="col-3 Pais m-0 p-0">
-                                                        <?php echo strip_tags($pais); ?>,<br>
-                                                        <span><?php echo strip_tags($ciudad); ?></span>
-                                                    </p>
-                                                    <p class="col-3 Ano m-0 p-0">1995</p>
-                                                    
-                                                </div>
+                                                <a class="w-100" href="<?php the_permalink(); ?>">
+                                                    <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                        
+                                                        <p class="col-6 Proyecto m-0 p-0">
+                                                            <?php the_title(); ?><br>
+                                                            <span class="fw-500"><?php echo strip_tags($producto); ?></span>
+                                                            <!--<span class="fal fa-plus-circle"></span>-->
+                                                        </p>
+                                                        <p class="col-3 Pais m-0 p-0">
+                                                            <?php echo strip_tags($pais); ?>,<br>
+                                                            <span><?php echo strip_tags($ciudad); ?></span>
+                                                        </p>
+                                                        <p class="col-3 Ano m-0 p-0">1995</p>
+                                                        
+                                                    </div>
+                                                </a>
 
                                                 <div class="hline-grey my-3"></div>
 

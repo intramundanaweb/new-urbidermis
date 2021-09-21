@@ -1,3 +1,7 @@
+a:visited {
+    color: inherit;
+}
+
 .section-header {
     border: none;
 }
@@ -162,7 +166,6 @@ input:checked+.slider:before {
 
 .list-menu {
     display: flex;
-
 }
 
 .order-ciudad, .order-producto, .order-proyecto i, .order-ano i, .order-pais i, .Ciudad, .Producto {
@@ -385,18 +388,15 @@ body {
 
     .list-project {
         display: flex;
-        border-top: 1px solid black;
+        border-bottom: 1px solid black;
         width: 100%;
         padding: 0.5em 0;
         transition: 0.4s;
     }
 
-    /*.list-project:hover {
-        background: #9dbfcc;
-    }*/
-
     .list-menu {
         padding: 1em 0;
+        border-bottom: 1px solid black;
     }
 
     .list-menu div {
@@ -407,10 +407,6 @@ body {
     .list-flex {
         /* d-none no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: block' al hacer el toggle (.show() / .hide()) */
         display: none;
-    }
-
-    .list-project:nth-last-child(1) {
-        border-bottom: 1px solid black;
     }
 
     .order span {
