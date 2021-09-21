@@ -305,4 +305,7 @@ General Styles - Media Queries
     .w-lg-100 {
         width: 100%;
     }
+    .d-lg-none {
+        display: none;
+    }
 }

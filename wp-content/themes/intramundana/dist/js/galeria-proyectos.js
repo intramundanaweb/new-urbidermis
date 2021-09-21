@@ -20,8 +20,6 @@
             $(".range").toggle()
         
             apply_filter()
-
-            //check_empty_projects()
         })
         
         
@@ -29,7 +27,7 @@
         $(".filter-label").click(function () {
         
             if (window.mobileCheck()) {
-                $(".filter-box").show()
+                $(".filter-box").toggle('slide', {direction: 'up'}, 500);
             } else {
                 $(this).find(".fa").toggleClass("fa-chevron-down fa-chevron-up")
                 $(".filter-box").toggle('slide', {direction: 'up'}, 500);
@@ -62,7 +60,7 @@
             let filters = $(".select-selected")
         
             // Guardem a l'array filter_selections la selecció actual de cada filtre
-            let filter_selections = {}
+            let filter_selections = []
             for (let i = 0; i < 4; i++) {
                 filter_selections[i] = filters[i].innerText
             }
@@ -75,7 +73,7 @@
         
                 // Array de booleans, si conté un 'false', dit element (projecte) no coincideix amb el filtre i s'ha d'amagar
                 let results = []
-                console.log('start')
+                
                 // Si no coincideix amb els noms per defecte vol dir que s'ha escollit alguna altra opció diferent (filtrat)
                 if (filter_selections[1] != 'Ciudad') {
                     if (grid) {
@@ -127,32 +125,88 @@
                 return results.includes(false)
         
             }).hide()
+
+            // Mostrem missatge si no es troba cap projecte que coincideixi amb els filtres seleccionats
+            check_empty_projects()
+
+            let default_filters = ['Ciudad', 'País', 'Tipologia', 'Producto']
+
+            // Mostrem els filtres actius quan el filter-box està ocult
+            $(".active-filters").empty()
+            filter_selections.forEach(element => {
+                if (!default_filters.includes(element)) {
+                    $(".active-filters").append(`<p class="active-filter ml-3 fs-09 fw-500">${element}<span class="fal fa-times"></span></p>`)
+                }
+            });
+        };
+
+        $(".active-filters").on("click", ".active-filter", function() {
+
+            $(this)[0].style.display = 'none'
+            remove_filter($(this)[0].innerText)
+        });
+        
+        /*$(".active-filter").click(function() {
+            
+        });*/
+
+        function remove_filter(filter_txt) {
+            
+            // Agafem els elements (divs) que contenen els strings de les seleccions
+            let filters = $(".select-selected")
+        
+            for (let i = 0; i < 4; i++) {
+                if (filter_txt == filters[i].innerText) {
+                    reset_filter(i)
+                }
+            }
+            apply_filter()
+        };
+
+        function reset_filter(n_filter) {
+            switch(n_filter) {
+                case 0:
+                    $(".select-selected")[0].innerText = 'País'
+                    break
+                case 1:
+                    $(".select-selected")[1].innerText = 'Ciudad'
+                    break
+                case 2:
+                    $(".select-selected")[2].innerText = 'Tipologia'
+                    break
+                case 3:
+                    $(".select-selected")[3].innerText = 'Producto'
+                    break
+            }
         }
 
         /** CHECK EMPTY PROJECTS */
         function check_empty_projects() {
-            if (window.mobileCheck()) {
 
-                // Si el format actual és de llista
-                if ($(".switch-lista").hasClass('switch-color')) {
-    
-                    if ($($(".list-project").css('display') != 'none').length == 0) {
+            jQuery(".not-found").remove()
 
-                        if ($(".not-found").length < 2) {
-                            $(".list-wrap").append('<p class="not-found">No se han encontrado proyectos con los filtros seleccionados</p>')
-                        }
-                    }
-                // Si el format actual és de graella
-                } else {
-                    $(".range").css('opacity', '1')
-                    if ($($(".grid-project-wrap").css('display') != 'none').length == 0) {
-                        $(".range").css('opacity', '0')
-                        
-                        if ($(".not-found").length < 2) {
-                            $(".grid-flex").append('<p class="not-found">No se han encontrado proyectos con los filtros seleccionados</p>')
-                        }
-                    }
-                } 
+            // Si el format actual és de llista
+            if ($(".switch-lista").hasClass('switch-color')) {
+
+                let visible = $(".list-project").filter(function() {
+                    return $(this).css('display') === 'flex';
+                }).length;
+
+                if (visible == 0) {
+                    $(".list-wrap").append('<p class="not-found">No se han encontrado proyectos con los filtros seleccionados</p>')
+                }
+            // Si el format actual és de graella
+            } else {
+                $(".range").css('opacity', '1')
+                
+                let visible = $(".grid-project-wrap").filter(function() {
+                    return $(this).css('display') === 'block';
+                }).length;
+
+                if (visible == 0) {
+                    $(".grid-row").append('<p class="not-found ml-3 ml-lg-3">No se han encontrado proyectos con los filtros seleccionados</p>')
+                    $(".range").css('opacity', '0')
+                }
             }
         }
         
@@ -213,7 +267,7 @@
             customs[i].append(options[0])
         }
         
-        $(".item").click(function () {
+        $(".item").click(function() {
         
             // Agafem el contingut del item clicat i separem el text del número
             let selected_item = $(this)[0].innerText
@@ -224,9 +278,6 @@
             $(this).parent().parent().prev().append('<i class="fa fa-chevron-down"></i>')
             
             apply_filter()
-
-            // Mostrem missatge si no es troba cap projecte que coincideixi amb els filtres seleccionats
-            check_empty_projects()            
         })
         
         $(".select-selected").click(function (e) {
@@ -317,14 +368,20 @@
             if ($(".range").val() < 33) {
         
                 $(".grid-project-wrap").removeClass("col-6 col-4").addClass("col-12")
+
                 $(".project-title").css('display', 'block')
+                $(".project-title").css('font-size', '1.1em')
+                $(".project-title").css('top', '-25px')
             }
         
             if ($(".range").val() >= 33) {
         
                 $(".grid-project-wrap").removeClass("col-4 col-12").addClass("col-6")
                 $(".grid-project-wrap").css('padding', '0')
+
                 $(".project-title").css('display', 'block')
+                $(".project-title").css('font-size', '.75em')
+                $(".project-title").css('top', '-15px')
         
                 $(".grid-flex").removeClass("p-0")
                 $(".grid-project").css('padding', '10px')

@@ -192,6 +192,10 @@ body {
     overflow-x: hidden;
 }
 
+.switch-color {
+    color: #9dbfcc;
+}
+
 
 @media screen and (min-width: 992px) {
 
@@ -289,6 +293,21 @@ body {
 
     /** Page content */
 
+    /* Chrome scrollbar */
+    .header-introduction::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .header-introduction::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: lightgrey;
+    }
+
+    .header-introduction::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: black;
+    }
+
     /*boot*/
     .section-grid {
         background: #f6f5f1;
@@ -296,7 +315,7 @@ body {
     }
 
     .switch-color {
-        color: grey;
+        color: #9dbfcc;
     }
 
     .grid-flex {
@@ -307,6 +326,7 @@ body {
     }
 
     .grid-project-wrap {
+        display: block;
         transition: 0.4s;
         padding: 2.5em;
         margin-bottom: 2.5em;
@@ -315,10 +335,6 @@ body {
     .special {
         background: lightblue;
     }
-
-    /*.grid-project-wrap:hover {
-        background: #9dbfcc;
-    }*/
 
     .grid-project {
         /* d-flex no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: none' al hacer el filtraje de proyectos (.hide()) */
@@ -351,7 +367,7 @@ body {
     }
 
     .selects-wrap {
-        top: -2em;
+        margin-bottom: 1em;
         border-radius: 15px;
     }
 
@@ -482,4 +498,15 @@ body {
 
 .item span {
     color: lightgrey;
+}
+
+.fa-times:before {
+    vertical-align: bottom;
+    margin-left: .5em;
+    color: #9dbfcc;
+}
+
+.active-filter {
+    cursor: pointer;
+    color: #9dbfcc;
 }

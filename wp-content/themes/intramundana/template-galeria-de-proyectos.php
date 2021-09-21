@@ -122,7 +122,7 @@ get_header('no-margin');
                 <div class="col-12">
 
                     <!-- UPPER MENU -->
-                    <div class="upper-menu col-12 d-flex justify-content-between my-5">
+                    <div class="upper-menu col-12 d-flex justify-content-between mt-5 mb-3">
 
                         <!-- SWITCH BUTTON -->
                         <div class="switch-wrapper d-flex d-lg-flex">
@@ -142,6 +142,8 @@ get_header('no-margin');
                         </div>
 
                     </div>
+
+                    <div class="active-filters w-100 d-flex flex-wrap justify-content-end d-lg-none"></div>
 
                     <?php if( wp_is_mobile() ) : ?>
                         <input type="range" min="1" max="100" value="0" class="range mt-3 mb-5 bg-black w-100 p-0"></input>
@@ -218,18 +220,16 @@ get_header('no-margin');
                                     $pais = get_the_term_list( $projects_query->ID, 'pais' );
                                     $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
                                     $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
-                                    $producto = get_the_term_list( $projects_query->ID, 'producto' );
-                                    $img = get_the_post_thumbnail( $projects_query->ID ); ?>
+                                    $producto = get_the_term_list( $projects_query->ID, 'producto' ); ?>
                 
                                     <div class="grid-project-wrap col-12 col-lg-2">
                                         <div class="grid-project flex-column mb-5 mb-lg-0" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
                                             <div class="project-title position-absolute">
                                                 <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?></p>
-                                                <span class="fal fa-plus-circle"></span>
-                                                <p></p>
+                                                <!--<span class="fal fa-plus-circle"></span>-->
                                             </div>
                                             <div class="image-wrap">
-                                                <?php echo $img; ?>
+                                                <?php img_with_alt_featured(); ?>
                                             </div>
                                         </div>
                                     </div>
