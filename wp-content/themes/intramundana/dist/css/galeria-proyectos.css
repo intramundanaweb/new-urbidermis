@@ -23,11 +23,6 @@ input:checked+.slider:before {
     transform: translateX(22px);
 }
 
-.project-title {
-    top: -25px;
-    position: absolute;
-}
-
 .range {
     height: 0px;
     border-bottom: 2px solid black!important;
@@ -342,11 +337,6 @@ body {
     .grid-project {
         /* d-flex no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: none' al hacer el filtraje de proyectos (.hide()) */
         display: flex;
-    }
-
-    .project-title {
-        position: absolute;
-        top: 6px;
     }
 
     img {
