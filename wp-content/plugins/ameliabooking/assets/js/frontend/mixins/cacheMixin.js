@@ -31,6 +31,7 @@ export default {
           this.cacheData.request.queryParams.recurring = parseInt(this.cacheData.request.queryParams.recurring)
 
           this.cacheData.request.queryParams.tag = this.cacheData.request.queryParams.tag ? this.cacheData.request.queryParams.tag : null
+          this.cacheData.request.queryParams.locationId = this.cacheData.request.queryParams.locationId ? this.cacheData.request.queryParams.locationId : null
         }
       }
 

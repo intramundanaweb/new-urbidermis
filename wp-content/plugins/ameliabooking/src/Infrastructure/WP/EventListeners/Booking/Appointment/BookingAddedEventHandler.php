@@ -115,32 +115,6 @@ class BookingAddedEventHandler
 
         $reservation = $reservationObject->toArray();
 
-        /** @var IcsApplicationService $icsService */
-        $icsService = $container->get('application.ics.service');
-
-        $recurringBookingIds = [];
-
-        $icsFiles = [];
-
-        foreach ($recurringData as $recurringReservation) {
-            $recurringBookingIds[] = $recurringReservation[Entities::BOOKING]['id'];
-        }
-
-        foreach ($reservation['bookings'] as $index => $reservationBooking) {
-            if ($reservationBooking['id'] === $booking['id'] && $booking['status'] === BookingStatus::APPROVED) {
-                $icsFiles = $icsService->getIcsData(
-                    $type,
-                    $booking['id'],
-                    $recurringBookingIds,
-                    true
-                );
-
-                $reservation['bookings'][$index]['icsFiles'] = $icsFiles;
-            }
-
-            $reservation['bookings'][$index]['isLastBooking'] = $booking['id'] === $reservationBooking['id'];
-        }
-
         if ($type === Entities::APPOINTMENT) {
             $bookingApplicationService->setReservationEntities($reservationObject);
 
@@ -163,6 +137,9 @@ class BookingAddedEventHandler
                 if ($reservationObject->getGoogleCalendarEventId() !== null) {
                     $reservation['googleCalendarEventId'] = $reservationObject->getGoogleCalendarEventId()->getValue();
                 }
+            }
+            if ($reservationObject->getGoogleMeetUrl() !== null) {
+                $reservation['googleMeetUrl'] = $reservationObject->getGoogleMeetUrl();
             }
 
             if ($outlookCalendarService) {
@@ -213,6 +190,10 @@ class BookingAddedEventHandler
                     $recurringData[$key][$type]['googleCalendarEventId'] =
                         $recurringReservationObject->getGoogleCalendarEventId()->getValue();
                 }
+                if ($recurringReservationObject->getGoogleMeetUrl() !== null) {
+                    $recurringData[$key][$type]['googleMeetUrl'] =
+                        $recurringReservationObject->getGoogleMeetUrl();
+                }
             }
 
             if ($outlookCalendarService) {
@@ -226,6 +207,32 @@ class BookingAddedEventHandler
                         $recurringReservationObject->getOutlookCalendarEventId()->getValue();
                 }
             }
+        }
+
+        /** @var IcsApplicationService $icsService */
+        $icsService = $container->get('application.ics.service');
+
+        $recurringBookingIds = [];
+
+        $icsFiles = [];
+
+        foreach ($recurringData as $recurringReservation) {
+            $recurringBookingIds[] = $recurringReservation[Entities::BOOKING]['id'];
+        }
+
+        foreach ($reservation['bookings'] as $index => $reservationBooking) {
+            if ($reservationBooking['id'] === $booking['id'] && $booking['status'] === BookingStatus::APPROVED) {
+                $icsFiles = $icsService->getIcsData(
+                    $type,
+                    $booking['id'],
+                    $recurringBookingIds,
+                    true
+                );
+
+                $reservation['bookings'][$index]['icsFiles'] = $icsFiles;
+            }
+
+            $reservation['bookings'][$index]['isLastBooking'] = $booking['id'] === $reservationBooking['id'];
         }
 
         $reservation['recurring'] = $recurringData;

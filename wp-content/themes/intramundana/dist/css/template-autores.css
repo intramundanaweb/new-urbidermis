@@ -1,0 +1,22 @@
+.img-wrap-autor img {
+    max-height: 30em;
+}
+
+.autor-info {
+    border: 1px solid black;
+}
+
+.tags {
+    margin-top: 12em;
+}
+
+.slick-arrows-autors {
+    width: 102%;
+    top: 22em;
+    right: -1em;
+}
+
+.slick-arrows-autors span {
+    font-size: 2em;
+    cursor: pointer;
+}

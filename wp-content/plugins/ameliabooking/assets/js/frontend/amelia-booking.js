@@ -194,7 +194,17 @@ function ameliaLoading (element, selector, ids, isAutoLoading) {
             eventId: 'eventId' in bookingData && bookingData.eventId ? parseInt(bookingData.eventId) : null,
             eventTag: 'eventTag' in bookingData ? bookingData.eventTag : null,
             eventRecurring: 'eventRecurring' in bookingData ? bookingData.eventRecurring : null
-          } : null
+          } : {
+            show: null,
+            package: null,
+            category: null,
+            service: null,
+            employee: null,
+            location: null,
+            eventId: null,
+            eventTag: null,
+            eventRecurring: null
+          }
 
           this.hasApiCall = 'hasApiCall' in bookingData && manuallyLoadedData === null ? bookingData.hasApiCall : 1
 

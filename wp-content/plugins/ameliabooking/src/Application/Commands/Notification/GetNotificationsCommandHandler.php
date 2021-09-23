@@ -6,10 +6,12 @@ use AmeliaBooking\Application\Commands\CommandResult;
 use AmeliaBooking\Application\Commands\CommandHandler;
 use AmeliaBooking\Application\Common\Exceptions\AccessDeniedException;
 use AmeliaBooking\Domain\Collection\AbstractCollection;
+use AmeliaBooking\Domain\Collection\Collection;
 use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
 use AmeliaBooking\Domain\Entity\Entities;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use AmeliaBooking\Infrastructure\Repository\Notification\NotificationRepository;
+use AmeliaBooking\Infrastructure\Repository\Notification\NotificationsToEntitiesRepository;
 
 /**
  * Class GetNotificationsCommandHandler
@@ -36,8 +38,16 @@ class GetNotificationsCommandHandler extends CommandHandler
 
         /** @var NotificationRepository $notificationRepo */
         $notificationRepo = $this->container->get('domain.notification.repository');
+        /** @var NotificationsToEntitiesRepository $notificationEntitiesRepo */
+        $notificationEntitiesRepo = $this->container->get('domain.notificationEntities.repository');
 
+        /** @var Collection $notifications */
         $notifications = $notificationRepo->getAll();
+        foreach ($notifications->getItems() as $key => $notification) {
+            if ($notification->getCustomName()) {
+                $notification->setEntityIds($notificationEntitiesRepo->getEntities($notification->getId()->getValue()));
+            }
+        }
 
         if (!$notifications instanceof AbstractCollection) {
             $result->setResult(CommandResult::RESULT_ERROR);
@@ -48,9 +58,11 @@ class GetNotificationsCommandHandler extends CommandHandler
 
         $result->setResult(CommandResult::RESULT_SUCCESS);
         $result->setMessage('Successfully retrieved notifications.');
-        $result->setData([
+        $result->setData(
+            [
             Entities::NOTIFICATIONS => $notifications->toArray()
-        ]);
+            ]
+        );
 
         return $result;
     }

@@ -30,10 +30,10 @@
       <div v-if="!selectedLanguage">
         <!-- Quill Editor -->
         <quill-editor
-          v-model="appointmentsSettings[name]"
-          v-if="type === 'email'"
-          :options="editorOptions"
-          @change="parseQuillEditorContent"
+            v-model="appointmentsSettings[name]"
+            v-if="type === 'email'"
+            :options="editorOptions"
+            @change="parseQuillEditorContent"
         >
         </quill-editor>
         <!-- /Quill Editor -->
@@ -52,7 +52,7 @@
       <div v-else>
         <!-- Quill Editor -->
         <quill-editor
-            v-model="appointmentsSettings['translations'][name][selectedLanguage]"
+            v-model="appointmentsSettings[name]"
             v-if="type === 'email'"
             :options="editorOptions"
             @change="parseQuillEditorContent"
@@ -87,6 +87,16 @@
 
       <div v-if="entity === 'appointment'">
         <p>{{ $root.labels.use_placeholder }} %recurring_appointments_details%</p>
+
+        <el-alert
+            type="warning"
+            show-icon
+            title=""
+            :description="$root.labels.recurring_ph_warning"
+            :closable="false"
+        >
+        </el-alert>
+
       </div>
     </div>
 

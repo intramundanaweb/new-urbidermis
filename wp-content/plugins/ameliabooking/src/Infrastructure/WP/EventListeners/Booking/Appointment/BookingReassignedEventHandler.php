@@ -159,6 +159,9 @@ class BookingReassignedEventHandler
                 if ($oldAppointmentObject->getGoogleCalendarEventId() !== null) {
                     $oldAppointment['googleCalendarEventId'] = $oldAppointmentObject->getGoogleCalendarEventId()->getValue();
                 }
+                if ($oldAppointmentObject->getGoogleMeetUrl() !== null) {
+                    $oldAppointment['googleMeetUrl'] = $oldAppointmentObject->getGoogleMeetUrl();
+                }
             }
 
             if ($outlookCalendarService) {

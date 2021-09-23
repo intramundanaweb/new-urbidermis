@@ -519,3 +519,16 @@ if ( ! function_exists( 'gdpr_get_display_language_by_locale' ) ) :
 		return isset( $language_codes[ $_locale ] ) ? $language_codes[ $_locale ] . ' [' . $locale . ']' : $locale;
 	}
 endif;
+
+add_action( 'gdpr_modal_base_module', 'gdpr_copyscape_cc_remove_hidden_elements', 10, 1 ); 
+add_action( 'gdpr_infobar_base_module', 'gdpr_copyscape_cc_remove_hidden_elements', 10, 1 );
+add_action( 'gdpr_branding_styles_module', 'gdpr_copyscape_cc_remove_hidden_elements', 10, 1 );
+add_action( 'gdpr_floating_button_module', 'gdpr_copyscape_cc_remove_hidden_elements', 10, 1 );
+
+/**
+ * Disable showing HTML content if ?justtext=1 query parameter is part of the URL
+ * @param string $modal_html Modal HTML.
+ */
+function gdpr_copyscape_cc_remove_hidden_elements( $modal_html ) {
+	return isset( $_GET['justtext'] ) && sanitize_text_field( wp_unslash( $_GET['justtext'] ) ) ? '' : $modal_html;
+};

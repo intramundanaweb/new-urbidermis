@@ -23,6 +23,7 @@
                 :customFields="options.entities.customFields"
                 :categories="options.entities.categories"
                 :coupons="options.entities.coupons"
+                :events="options.entities.events"
                 type="email"
                 :pageUrl="getPageUrl()"
                 :languagesData="languagesData"
@@ -40,6 +41,7 @@
                 :categories="options.entities.categories"
                 :customFields="options.entities.customFields"
                 :coupons="options.entities.coupons"
+                :events="options.entities.events"
                 :languagesData="languagesData"
                 :passed-used-languages="options.settings.general.usedLanguages"
                 @manageLanguages="manageLanguages = true"
@@ -138,7 +140,8 @@
       getEntities () {
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
           params: {
-            types: ['settings']
+            types: ['settings'],
+            getAllEvents: true
           }
         }).then(response => {
           this.options.entities = response.data.data

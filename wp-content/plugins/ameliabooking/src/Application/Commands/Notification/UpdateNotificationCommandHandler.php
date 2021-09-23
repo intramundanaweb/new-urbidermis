@@ -5,16 +5,16 @@ namespace AmeliaBooking\Application\Commands\Notification;
 use AmeliaBooking\Application\Commands\CommandHandler;
 use AmeliaBooking\Application\Commands\CommandResult;
 use AmeliaBooking\Application\Common\Exceptions\AccessDeniedException;
+use AmeliaBooking\Application\Services\Notification\NotificationHelperService;
 use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
 use AmeliaBooking\Domain\Entity\Entities;
 use AmeliaBooking\Domain\Entity\Notification\Notification;
 use AmeliaBooking\Domain\Factory\Notification\NotificationFactory;
-use AmeliaBooking\Domain\ValueObjects\String\Token;
 use AmeliaBooking\Infrastructure\Common\Exceptions\NotFoundException;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
+use AmeliaBooking\Infrastructure\Repository\Booking\Event\EventRepository;
 use AmeliaBooking\Infrastructure\Repository\Notification\NotificationRepository;
-use DOMDocument;
-use DOMElement;
+use AmeliaBooking\Infrastructure\Repository\Notification\NotificationsToEntitiesRepository;
 use \Interop\Container\Exception\ContainerException;
 use Slim\Exception\ContainerValueNotFoundException;
 
@@ -55,38 +55,28 @@ class UpdateNotificationCommandHandler extends CommandHandler
 
         /** @var NotificationRepository $notificationRepo */
         $notificationRepo = $this->container->get('domain.notification.repository');
+        /** @var NotificationsToEntitiesRepository $notificationEntitiesRepo */
+        $notificationEntitiesRepo = $this->container->get('domain.notificationEntities.repository');
+        /** @var EventRepository $eventRepo */
+        $eventRepo = $this->container->get('domain.booking.event.repository');
+        /** @var NotificationHelperService $notificationHelper */
+        $notificationHelper = $this->container->get('application.notificationHelper.service');
 
         $currentNotification = $notificationRepo->getById($notificationId);
+        $currentEntityList   = $notificationEntitiesRepo->getEntities($notificationId);
 
-        $content = $command->getField('content');
+        $contentRes = $notificationHelper->parseAndReplace($command->getField('content'));
+        $parsedContent = $contentRes[0];
+        $content = $contentRes[1];
 
-        $parsedContent = null;
+        $isCustom = $command->getField('customName') !== null ;
 
-        try {
-            $parsedContent = class_exists('DOMDocument') ? $this->parseContent($content) : $content;
-        } catch (\Exception $e) {
-            $content = $command->getField('content');
-        }
-
-        $content = str_replace(
+        $notification = NotificationFactory::create(
             [
-                'class="ql-align-center"',
-                'class="ql-align-right"',
-                'class="ql-align-left"',
-                'class="ql-align-justify"'
-            ],
-            [
-                'style="text-align: center;"',
-                'style="text-align: right;"',
-                'style="text-align: left;"',
-                'class="text-align: justify"'
-            ],
-            $parsedContent ?: $content
-        );
-
-        $notification = NotificationFactory::create([
-            'name'         => $currentNotification->getName()->getValue(),
-            'status'       => $currentNotification->getStatus()->getValue(),
+            'id'           => $notificationId,
+            'name'         => $isCustom ? $command->getField('name') : $currentNotification->getName()->getValue(),
+            'customName'   => $command->getField('customName'),
+            'status'       => $command->getField('status') ?: $currentNotification->getStatus()->getValue(),
             'type'         => $currentNotification->getType()->getValue(),
             'time'         => $command->getField('time'),
             'timeBefore'   => $command->getField('timeBefore'),
@@ -96,7 +86,10 @@ class UpdateNotificationCommandHandler extends CommandHandler
             'entity'       => $command->getField('entity'),
             'content'      => $content,
             'translations' => $command->getField('translations'),
-        ]);
+            'entityIds'    => $command->getField('entityIds'),
+            'sendOnlyMe'   => $command->getField('sendOnlyMe')
+            ]
+        );
 
         if (!$notification instanceof Notification) {
             $result->setResult(CommandResult::RESULT_ERROR);
@@ -108,67 +101,33 @@ class UpdateNotificationCommandHandler extends CommandHandler
         if ($notificationRepo->update($notificationId, $notification)) {
             $result->setResult(CommandResult::RESULT_SUCCESS);
             $result->setMessage('Successfully updated notification.');
-            $result->setData([
+            $result->setData(
+                [
                 Entities::NOTIFICATION => $notification->toArray(),
                 'update'               => $parsedContent !== null
-            ]);
+                ]
+            );
         }
 
-        return $result;
-    }
+        if ($notification->getCustomName()) {
+            $removeEntities = array_diff($currentEntityList, $notification->getEntityIds());
+            $addEntities    = array_diff($notification->getEntityIds(), $currentEntityList);
 
-    /**
-     * @param $content
-     * @return string
-     */
-    private function parseContent($content)
-    {
-        $html = new DOMDocument();
-        $html->loadHTML($content);
-
-        $html->preserveWhiteSpace = false;
-
-        $hasParsedContent = false;
-
-        /** @var DOMElement $image */
-        foreach ($html->getElementsByTagName('img') as $image) {
-            $src = $image->getAttribute('src');
-
-            if (strpos($src, 'data:image/') === 0) {
-                $hasParsedContent = true;
-
-                $parts = explode(',', substr($src, 5), 2);
-
-                $mimeSplitWithoutBase64 = explode(';', $parts[0], 2);
-                $mimeSplit = explode('/', $mimeSplitWithoutBase64[0], 2);
-
-                $outputFile = '';
-
-                if (count($mimeSplit) === 2) {
-                    $token = new Token();
-
-                    $outputFile = $token->getValue() . '.' . (($mimeSplit[1] === 'jpeg') ? 'jpg' : $mimeSplit[1]);
+            foreach ($removeEntities as $removeEntity) {
+                $notificationEntitiesRepo->removeEntity($notificationId, $removeEntity, $notification->getEntity()->getValue());
+            }
+            foreach ($addEntities as $addEntity) {
+                $recurringMain = null;
+                if ($notification->getEntity()->getValue() === Entities::EVENT) {
+                    $recurring = $eventRepo->isRecurring($addEntity);
+                    if ($recurring['event_recurringOrder'] !== null) {
+                        $recurringMain = $recurring['event_recurringOrder'] === 1 ? $addEntity : $recurring['event_parentId'];
+                    }
                 }
-
-                $outputPath = UPLOADS_PATH . '/amelia/mail/';
-
-                !is_dir($outputPath) && !mkdir($outputPath, 0755, true) && !is_dir($outputPath);
-
-                file_put_contents($outputPath . $outputFile, base64_decode($parts[1]));
-
-                $content = preg_replace(
-                    '/<img(.*?)src="data:image(.*?)"(.*?)>/',
-                    '<IMG src="' . UPLOADS_URL . '/amelia/mail/' . $outputFile . '">',
-                    $content,
-                    1
-                );
+                $notificationEntitiesRepo->addEntity($notificationId, $recurringMain ?: $addEntity, $notification->getEntity()->getValue());
             }
         }
 
-        if ($hasParsedContent) {
-            return str_replace('<IMG src="', '<img src="', $content);
-        }
-
-        return null;
+        return $result;
     }
 }

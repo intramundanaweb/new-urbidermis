@@ -51,6 +51,8 @@ use AmeliaBooking\Infrastructure\Repository\Booking\Appointment\CustomerBookingE
 use AmeliaBooking\Infrastructure\Repository\Booking\Appointment\CustomerBookingRepository;
 use AmeliaBooking\Infrastructure\Repository\Coupon\CouponServiceRepository;
 use AmeliaBooking\Infrastructure\Repository\CustomField\CustomFieldServiceRepository;
+use AmeliaBooking\Infrastructure\Repository\Notification\NotificationRepository;
+use AmeliaBooking\Infrastructure\Repository\Notification\NotificationsToEntitiesRepository;
 use AmeliaBooking\Infrastructure\Repository\Payment\PaymentRepository;
 use AmeliaBooking\Infrastructure\Repository\Schedule\PeriodServiceRepository;
 use AmeliaBooking\Infrastructure\Repository\Schedule\SpecialDayPeriodServiceRepository;
@@ -753,6 +755,9 @@ class BookableApplicationService
         /** @var AppointmentApplicationService $appointmentApplicationService */
         $appointmentApplicationService = $this->container->get('application.booking.appointment.service');
 
+        /** @var NotificationsToEntitiesRepository $notificationEntitiesRepo */
+        $notificationEntitiesRepo = $this->container->get('domain.notificationEntities.repository');
+
         /** @var PackageServiceRepository $packageServiceRepository */
         $packageServiceRepository = $this->container->get('domain.bookable.package.packageService.repository');
 
@@ -786,6 +791,10 @@ class BookableApplicationService
             if (!$appointmentApplicationService->delete($appointment)) {
                 return false;
             }
+        }
+
+        if (!$notificationEntitiesRepo->removeIfOnly($service->getId()->getValue())) {
+            return false;
         }
 
         /** @var Extra $extra */

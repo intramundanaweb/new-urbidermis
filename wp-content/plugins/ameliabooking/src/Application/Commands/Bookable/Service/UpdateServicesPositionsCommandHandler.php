@@ -7,12 +7,12 @@ use AmeliaBooking\Application\Commands\CommandResult;
 use AmeliaBooking\Application\Common\Exceptions\AccessDeniedException;
 use AmeliaBooking\Domain\Collection\Collection;
 use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
-use AmeliaBooking\Domain\Entity\Bookable\Service\Service;
 use AmeliaBooking\Domain\Entity\Entities;
 use AmeliaBooking\Domain\Services\Settings\SettingsService;
-use AmeliaBooking\Domain\ValueObjects\Number\Integer\PositiveInteger;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use AmeliaBooking\Infrastructure\Repository\Bookable\Service\ServiceRepository;
+use Interop\Container\Exception\ContainerException;
+use Slim\Exception\ContainerValueNotFoundException;
 
 /**
  * Class UpdateServicesPositionsCommandHandler
@@ -25,10 +25,10 @@ class UpdateServicesPositionsCommandHandler extends CommandHandler
      * @param UpdateServicesPositionsCommand $command
      *
      * @return CommandResult
-     * @throws \Slim\Exception\ContainerValueNotFoundException
+     * @throws ContainerValueNotFoundException
      * @throws AccessDeniedException
      * @throws QueryExecutionException
-     * @throws \Interop\Container\Exception\ContainerException
+     * @throws ContainerException
      * @throws InvalidArgumentException
      */
     public function handle(UpdateServicesPositionsCommand $command)
@@ -42,22 +42,39 @@ class UpdateServicesPositionsCommandHandler extends CommandHandler
         /** @var ServiceRepository $serviceRepository */
         $serviceRepository = $this->container->get('domain.bookable.service.repository');
 
-        $servicesPositions = [];
-
-        foreach ($command->getFields()['services'] as $key => $value) {
-            $servicesPositions[$value['id']] = $value['position'];
-        }
-
         /** @var Collection $services */
-        $services = $serviceRepository->getAll();
+        $services = $serviceRepository->getFiltered(['sort' => $command->getFields()['sorting']]);
+
+        $servicesArray = $services->toArray();
+
+        if ($command->getFields()['sorting'] === 'custom' &&
+            $customSortedServicesArray = $command->getFields()['services']
+        ) {
+            $customSortedServicesIds = array_column($customSortedServicesArray, 'id');
+
+            $sortedServicesArray = [];
+
+            foreach ($servicesArray as $serviceArray) {
+                if (in_array($serviceArray['id'], $customSortedServicesIds, false)) {
+                    $sortedServicesArray[] = null;
+                } else {
+                    $sortedServicesArray[] = $serviceArray;
+                }
+            }
+
+            foreach ($sortedServicesArray as $index => $serviceArray) {
+                if ($serviceArray === null) {
+                    $sortedServicesArray[$index] = array_shift($customSortedServicesArray);
+                }
+            }
+
+            $servicesArray = $sortedServicesArray;
+        }
 
         $serviceRepository->beginTransaction();
 
-        /** @var Service $service */
-        foreach ($services->getItems() as $service) {
-            $service->setPosition(new PositiveInteger($servicesPositions[$service->getId()->getValue()]));
-
-            $serviceRepository->update($service->getId()->getValue(), $service);
+        foreach ($servicesArray as $index => $serviceArray) {
+            $serviceRepository->updateFieldById($serviceArray['id'], $index + 1, 'position');
         }
 
         $serviceRepository->commit();

@@ -7,7 +7,7 @@
       <!-- User Type Tabs -->
       <el-col :md="8" class="">
         <div class="am-section am-gray-section">
-          <el-tabs v-model="userTypeTab" @tab-click="onChangeUserTypeTab">
+          <el-tabs v-model="userTypeTab" @tab-click="onChangeUserTypeTab" :active-name="notification.sendTo">
 
             <!-- To Customer -->
             <el-tab-pane :label="$root.labels.to_customer" name="customer">
@@ -18,18 +18,34 @@
                   {{$root.labels[entity]}} {{$root.labels.notifications}}
                 </div>
 
+                <!-- Create Notification Button -->
+                <div class="am-button-checkbox">
+
+                  <el-button
+                      size="large"
+                      class='am-active-create'
+                      style="position:relative;"
+                      @click="createNew(entity, true)"
+                      v-if="entity !== 'customer_other_notifications'"
+                      :disabled="$root.isLite"
+                  >
+                    <img :src="$root.getUrl+'public/img/am-plus.svg'" style="position: absolute; left:16px"/>
+                    {{ $root.labels.create_notification }}
+                  </el-button>
+                </div>
+                <!-- /Create Notification Button -->
+
                 <!-- Customer's Notifications -->
                 <div v-for="(item, index) in customerNotifications(entity)" class="am-button-checkbox" v-if="isNotificationVisible(item)">
-
                   <!-- Customer's Notification Button -->
                   <el-button
                       size="large"
                       :key="index"
                       @click="getNotification(item.id)"
-                      :class="{ 'am-active': item.id === notification.id, 'am-lite-disabled': isDisabled('customer', item) }"
+                      :class="{ 'am-active': item.id === notification.id && showActiveClass, 'text-margin': item.customName && (item.time || item.timeBefore || item.timeAfter) }"
                       :disabled="isDisabled('customer', item)"
                   >
-                    {{ $root.labels[item.name] }}
+                    {{ item.customName ? item.customName : $root.labels[item.name] }}
                   </el-button>
                   <!-- /Customer's Notification Button -->
 
@@ -44,6 +60,20 @@
                   </el-checkbox>
                   <!-- /Customer's Notification Status Checkbox -->
 
+                  <!-- Customer's Notification Tooltip For Custom Notifications -->
+                  <el-tooltip
+                      v-if="item.customName"
+                      class="item"
+                      effect="dark"
+                      :content="$root.labels.edit_notification"
+                      placement="top"
+                  >
+                    <span class="am-cron-icon" :class="{ 'active': item.id === notification.id && showActiveClass , 'right': item.time || item.timeBefore || item.timeAfter }">
+                      <img class="svg" :src="$root.getUrl+'public/img/am-edit-notification.svg'"/>
+                    </span>
+                  </el-tooltip>
+                  <!-- /Customer's Notification Tooltip For Custom Notifications -->
+
                   <!-- Customer's Notification Tooltip For Scheduled Notifications -->
                   <el-tooltip
                       v-if="item.time || item.timeBefore || item.timeAfter"
@@ -52,7 +82,7 @@
                       :content="$root.labels.requires_scheduling_setup"
                       placement="top"
                   >
-                    <span class="am-cron-icon" :class="{ 'active': item.id === notification.id }">
+                    <span class="am-cron-icon" :class="{ 'active': item.id === notification.id && showActiveClass }">
                       <img class="svg" :src="$root.getUrl+'public/img/cron-job.svg'"/>
                     </span>
                   </el-tooltip>
@@ -76,6 +106,23 @@
                   {{$root.labels[entity]}} {{$root.labels.notifications}}
                 </div>
 
+                <!-- Create Notification Button -->
+                <div class="am-button-checkbox">
+
+                  <el-button
+                      size="large"
+                      class='am-active-create'
+                      style="position:relative;"
+                      @click="createNew(entity, false)"
+                      v-if="entity !== 'provider_other_notifications'"
+                      :disabled="$root.isLite"
+                  >
+                    <img :src="$root.getUrl+'public/img/am-plus.svg'" style="position: absolute; left:16px"/>
+                    {{ $root.labels.create_notification }}
+                  </el-button>
+                </div>
+                <!-- /Create Notification Button -->
+
                 <!-- Employees's Notifications -->
                 <div v-for="(item, index) in employeeNotifications(entity)" class="am-button-checkbox" v-if="isNotificationVisible(item)">
 
@@ -84,10 +131,10 @@
                       size="large"
                       :key="index"
                       @click="getNotification(item.id)"
-                      :class="{ 'am-active': item.id === notification.id, 'am-lite-disabled': isDisabled('provider', item) }"
+                      :class="{ 'am-active': item.id === notification.id && showActiveClass, 'text-margin': item.customName && (item.time || item.timeBefore || item.timeAfter) }"
                       :disabled="isDisabled('provider', item)"
                   >
-                    {{ $root.labels[item.name] }}
+                    {{ item.customName ? item.customName : $root.labels[item.name] }}
                   </el-button>
                   <!-- /Employees's Notification Button -->
 
@@ -101,6 +148,20 @@
                   >
                   </el-checkbox>
                   <!-- /Employees's Notification Status Checkbox -->
+
+                  <!-- Employee's Notification Tooltip For Custom Notifications -->
+                  <el-tooltip
+                      v-if="item.customName"
+                      class="item"
+                      effect="dark"
+                      :content="$root.labels.edit_notification"
+                      placement="top"
+                  >
+                    <span class="am-cron-icon" :class="{ 'active': item.id === notification.id && showActiveClass , 'right': item.time || item.timeBefore || item.timeAfter }">
+                      <img class="svg" :src="$root.getUrl+'public/img/am-edit-notification.svg'"/>
+                    </span>
+                  </el-tooltip>
+                  <!-- /Employee's Notification Tooltip For Custom Notifications -->
 
                   <!-- Employee's Notification Tooltip For Scheduled Notifications -->
                   <el-tooltip
@@ -134,20 +195,242 @@
         <!-- Content -->
         <div class="am-section am-email-form-settings">
           <transition name="fadeIn">
-            <el-form :model="notification" ref="notification">
+            <el-form :model="notification" ref="notification" :rules="rules" @submit.prevent="createNotification">
+
+              <BlockLite v-if="createNewContent"/>
+              <div v-if="createNewContent" :class="{'am-lite-disabled': ($root.isLite)}">
+
+                <el-row :gutter="16">
+                  <!-- Create Notification -->
+                  <el-col :lg="12" :md="12" :sm="12" :xs="24">
+                    <div>
+                      <h2 v-if="!showActiveClass">{{ $root.labels.create_notification }}</h2>
+                      <h2 v-else>{{ this.notification.customName }}</h2>
+                    </div>
+                  </el-col>
+
+                  <el-col :lg="12" :md="12" :sm="12" :xs="24" style="display: flex; justify-content: flex-end">
+                    <el-button v-if="!showActiveClass" size="small" @click="getNotification(null)">
+                      {{ $root.labels.discard }}
+                    </el-button>
+                    <el-select
+                        v-if="showActiveClass"
+                        class="duplicate"
+                        :value="$root.labels.duplicate"
+                        @change="duplicateNotification($event)"
+                    >
+                      <el-option
+                          v-for="option in duplicateOptions"
+                          :key="option.value"
+                          :label="option.label"
+                          :value="option.value">
+                      </el-option>
+                    </el-select>
+                    <div v-if="showActiveClass">
+                      <el-button size="small" @click="showDelete = !showDelete" :loading="!fetchedDelete" style="position: relative">
+                        <img :src="$root.getUrl+'public/img/am-trashcan-red.svg'" style="vertical-align: text-bottom">
+                        <span class="red">{{ $root.labels.delete }}</span>
+                      </el-button>
+                      <div v-if="showDelete" class="deleteModal">
+                        <p v-html="$root.labels.delete_message">
+                        </p>
+                        <div style="display: flex; justify-content: flex-end">
+                          <el-button size="small" @click="showDelete = false">{{ $root.labels.cancel }}</el-button>
+                          <el-button size="small" type="danger" @click="deleteNotification">{{ $root.labels.delete }}</el-button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </el-col>
+                  <!-- /Create Notification -->
+                </el-row>
+
+                <el-row>
+                  <el-col :md="12" :lg="12" :sm="24">
+                    <p style="margin:0">{{ $root.labels.name }}</p>
+                    <el-form-item prop="notificationCustomName">
+                      <el-input
+                          v-model="notificationName"
+                          ref="notificationName"/>
+                    </el-form-item>
+
+                  </el-col>
+                </el-row>
+
+                <!-- Enable New Notification -->
+                <el-row>
+                  <el-col :md="10" :lg="12">
+                    <el-switch v-model="notificationEnabled" />
+                    <p style="display: inline-block; margin:0; margin-left: 10px">
+                      {{ $root.labels.notification_enabled }}
+                    </p>
+                  </el-col>
+                </el-row>
+                <!-- /Enable New Notification -->
+                <hr style="margin-top: 16px; margin-bottom: 16px"/>
+
+                <el-row>
+                  <el-col>
+                    <p>{{ $root.labels.notification_type }}</p>
+                    <el-radio v-model="notificationType" label="triggered">{{ $root.labels.notification_triggered }}</el-radio>
+                    <el-radio v-model="notificationType" label="scheduled">{{ $root.labels.notification_scheduled }}</el-radio>
+                  </el-col>
+                </el-row>
+
+                <el-row v-if="notificationType === 'triggered' && notificationEntity === 'appointment'">
+                  <el-col>
+                    <p>{{ $root.labels.notification_appointment_status }}</p>
+                    <el-radio v-model="notificationTrigger" label="approved">{{ $root.labels.approved }}</el-radio>
+                    <el-radio v-model="notificationTrigger" label="pending">{{ $root.labels.pending }}</el-radio>
+                    <el-radio v-model="notificationTrigger" label="canceled">{{ $root.labels.canceled }}</el-radio>
+                    <el-radio v-model="notificationTrigger" label="rejected">{{ $root.labels.rejected }}</el-radio>
+                    <el-radio v-model="notificationTrigger" label="rescheduled">{{ $root.labels.rescheduled }}</el-radio>
+                  </el-col>
+                </el-row>
+
+                <el-row v-if="notificationType === 'triggered' && notificationEntity === 'event'">
+                  <el-col>
+                    <p>{{ $root.labels.notification_event_action }}</p>
+                    <el-radio v-model="notificationTrigger" label="approved">{{ $root.labels.booked }}</el-radio>
+                    <el-radio v-model="notificationTrigger" label="rejected">{{ $root.labels.canceled_by_admin }}</el-radio>
+                    <el-radio v-model="notificationTrigger" label="canceled">{{ $root.labels.canceled_by_attendee }}</el-radio>
+                    <el-radio v-model="notificationTrigger" label="rescheduled">{{ $root.labels.rescheduled }}</el-radio>
+                  </el-col>
+                </el-row>
+
+                <el-row v-if="notificationEntity === 'appointment'">
+                  <el-col :lg="12" :md="12" :sm="24">
+                    <p>{{ $root.labels.services }}</p>
+                    <el-select
+                        v-model="selectedServices"
+                        value-key="id"
+                        :placeholder="$root.labels.all_services"
+                        multiple
+                        filterable
+                        collapse-tags
+                    >
+                      <el-option
+                          v-for="service in services"
+                          :key="service.id"
+                          :label="service.name"
+                          :value="service.id">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+                </el-row>
+
+                <el-row v-if="notificationEntity === 'event'">
+                  <el-col :lg="12" :md="12" :sm="24">
+                    <p>{{ $root.labels.events }}</p>
+                    <el-select
+                        v-model="selectedEvents"
+                        value-key="id"
+                        :placeholder="$root.labels.all_events"
+                        multiple
+                        filterable
+                        collapse-tags
+                    >
+                      <el-option
+                          v-for="event in events"
+                          :key="event.id"
+                          :label="event.name"
+                          :value="event.id">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+                </el-row>
+
+                <!-- Send Only New Notification -->
+                <el-row v-if="notificationType !== 'scheduled' || notificationTimed !== 'sameDay'">
+                  <el-col :md="10" :lg="12">
+                    <el-switch v-model="sendOnlyMe" />
+                    <p style="display: inline-block; margin:0; margin-left: 10px">
+                      {{ $root.labels.send_only_this }}
+                    </p>
+                    <el-tooltip placement="top">
+                      <div slot="content" v-if="entity === 'appointment'" v-html="$root.labels.send_only_this_tooltip"></div>
+                      <div slot="content" v-if="entity === 'event'" v-html="$root.labels.send_only_this_tooltip_event"></div>
+                      <i class="el-icon-question am-tooltip-icon"></i>
+                    </el-tooltip>
+                  </el-col>
+                </el-row>
+                <!-- /Send Only New Notification -->
+
+                <hr style="margin-top: 16px; margin-bottom: 16px"/>
+
+                <div v-if="notificationType === 'scheduled'">
+                  <el-row>
+                    <el-col>
+                      <p>{{ $root.labels.schedule }}</p>
+                      <el-radio v-model="notificationTimed" label="before">{{ $root.labels.before }}</el-radio>
+                      <el-radio v-model="notificationTimed" label="after">{{ $root.labels.after }}</el-radio>
+                      <el-radio v-model="notificationTimed" label="sameDay">{{ $root.labels.same_day }}</el-radio>
+                    </el-col>
+                  </el-row>
+
+                  <el-row>
+                    <el-col>
+                      <p v-if="notificationTimed !== 'sameDay'">{{ $root.labels.choose_when }}</p>
+                      <p v-else>{{ $root.labels.time }}</p>
+                    </el-col>
+                  </el-row>
+
+                  <el-row v-if="notificationTimed !== 'sameDay'" :gutter="10">
+                    <el-col :lg="6" :md="6" :sm="24">
+                      <el-input
+                          type="number"
+                          min="0"
+                          v-model="amountTime"
+                      />
+                    </el-col>
+                    <el-col :lg="6" :md="6" :sm="24">
+                      <el-select
+                          v-model="intervalTime"
+                          value-key="id"
+                      >
+                        <el-option
+                            v-for="interval in intervalTimes"
+                            :key="interval.value"
+                            :label="interval.label"
+                            :value="interval.value">
+                        </el-option>
+                      </el-select>
+
+                    </el-col>
+                  </el-row>
+
+                  <el-row v-else>
+                    <el-col :lg="8" :md="8" :sm="24">
+                      <el-form-item>
+                        <el-time-select
+                            :picker-options="getTimeSelectOptionsWithLimits(null, null)"
+                            v-model="onTime"/>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+
+                  <hr style="margin-top: 16px; margin-bottom: 16px"/>
+
+                </div>
+
+              </div>
 
               <!-- Name & Show Email Codes -->
-              <el-row :gutter="16">
+              <el-row :gutter="16" :class="{'am-lite-disabled': ($root.isLite && createNewContent)}">
 
                 <!-- Notification Name -->
-                <el-col :span="12">
+                <el-col :span="12" v-if="!createNewContent">
                   <div>
                     <h2>{{ $root.labels[notification.name] }}</h2>
+                    <h3 v-if="notificationTimeBased">
+                      {{ $root.labels['notification_scheduled'] }}
+                    </h3>
+                    <h3 v-if="notification.customName">{{ $root.labels[notification.name] }}</h3>
                   </div>
                 </el-col>
                 <!-- /Notification Name -->
 
-                <el-col :span="12">
+                <el-col :span="!createNewContent ? 12 : 24">
                   <!-- Show Email Codes Button -->
                   <div class="align-right">
                     <p class="am-blue-link" @click="showDialogPlaceholders">
@@ -192,11 +475,12 @@
               </el-row>
               <!-- /Name & Show Email Codes -->
 
+
               <!-- Inputs -->
-              <el-row :gutter="16">
+              <el-row :gutter="16" :class="{'am-lite-disabled': ($root.isLite && createNewContent)}">
 
                 <!-- Subject -->
-                <el-col :span="notificationTimeBased ? 18 : 24" v-if="type === 'email'">
+                <el-col :span="notificationTimeBased && !createNewContent ? 18 : 24" v-if="type === 'email'">
                   <el-form-item :label="$root.labels.subject + ':'">
                     <el-input type="text" v-model="notificationSubject"></el-input>
                   </el-form-item>
@@ -204,7 +488,7 @@
                 <!-- /Subject -->
 
                 <!-- Time -->
-                <el-col v-if="notificationTime" :span="6">
+                <el-col v-if="notificationTime && !createNewContent" :span="6">
                   <el-form-item :label="$root.labels.scheduled_for + ':'">
                     <el-time-select
                         v-model="notificationTime"
@@ -217,7 +501,7 @@
                 <!-- /Time -->
 
                 <!-- Time Before -->
-                <el-col v-if="notification.timeBefore" :span="6">
+                <el-col v-if="notification.timeBefore && !createNewContent" :span="6">
                   <el-form-item :label="$root.labels.scheduled_before + ':'">
                     <el-select v-model="notification.timeBefore">
                       <el-option
@@ -233,7 +517,7 @@
                 <!-- /Time Before -->
 
                 <!-- Time After -->
-                <el-col v-if="notification.timeAfter" :span="6">
+                <el-col v-if="notification.timeAfter && !createNewContent" :span="6">
                   <el-form-item :label="(notification.entity === 'appointment' ? $root.labels.scheduled_after_appointment : $root.labels.scheduled_after_event) + ':'">
                     <el-select v-model="notification.timeAfter">
                       <el-option
@@ -252,10 +536,11 @@
               <!-- /Inputs -->
 
               <!-- Message -->
-              <el-form-item :label="$root.labels.message_colon">
+              <el-form-item :label="$root.labels.message_colon" :class="{'am-lite-disabled': ($root.isLite && createNewContent)}">
 
                 <!-- Quill Editor -->
                 <quill-editor
+                    ref="notificationContent"
                     v-model="notificationContent" v-if="type === 'email'"
                     :options="editorOptions"
                     @change="parseQuillEditorContent"
@@ -265,6 +550,7 @@
 
                 <!-- Textarea -->
                 <el-input
+                    ref="notificationContent"
                     v-if="type === 'sms'"
                     v-model="notificationContent"
                     type="textarea"
@@ -278,7 +564,7 @@
               <!-- /Message -->
 
               <!-- Insert email placeholders -->
-              <el-form-item>
+              <el-form-item :class="{'am-lite-disabled': ($root.isLite && createNewContent)}">
                   {{ $root.labels.insert_email_placeholders }}:
                 <el-tooltip placement="top">
                   <div slot="content" v-html="$root.labels.insert_email_placeholders_tooltip"></div>
@@ -318,10 +604,13 @@
               </el-row>
 
               <el-row class="am-customize-notifications-combined"
-                      v-if="notification.name === 'customer_appointment_approved' ||
+                      :class="{'am-lite-disabled': ($root.isLite && createNewContent)}"
+                      v-if="entity === 'appointment' && (!notification.customName &&
+                      (notification.name === 'customer_appointment_approved' ||
                       notification.name === 'provider_appointment_approved' ||
                       notification.name === 'customer_appointment_pending' ||
-                      notification.name === 'provider_appointment_pending'"
+                      notification.name === 'provider_appointment_pending') ||
+                       (notification.customName && notificationType === 'triggered' && (notificationTrigger === 'approved' || notificationTrigger === 'pending')))"
               >
                 <el-col :span="16">
                   <div :style="{'opacity': $root.isLite ? 0.5 : 1}" class="am-customize-notifications-combined-tooltip">
@@ -344,7 +633,7 @@
 
               <!-- Cron Message -->
               <el-alert
-                  v-if="notificationTimeBased === true"
+                  v-if="showActiveClass && notificationTimeBased || !showActiveClass && notificationType === 'scheduled'"
                   class="am-alert"
                   :title="$root.labels.cron_instruction + ':'"
                   type="info"
@@ -357,7 +646,7 @@
               <hr/>
 
               <!-- Cancel & Save Buttons -->
-              <el-row :gutter="16" class="am-email-form-settings__cancel-save">
+              <el-row :gutter="16" class="am-email-form-settings__cancel-save" :class="{'am-lite-disabled': ($root.isLite && createNewContent)}">
 
                 <!-- Cancel Button -->
                 <el-col :span="12">
@@ -372,8 +661,11 @@
                 <!-- Save Button -->
                 <el-col :span="12">
                   <div class="align-right">
-                    <el-button @click="updateNotification()" :loading="!fetchedUpdate" size="small" type="primary">
+                    <el-button v-if="showActiveClass" @click="updateNotification()" :loading="!fetchedUpdate" size="small" type="primary">
                       {{ $root.labels.save }}
+                    </el-button>
+                    <el-button v-else @click="createNotification()" :loading="!fetchedUpdate" size="small" type="primary">
+                      {{ $root.labels.create }}
                     </el-button>
                   </div>
                 </el-col>
@@ -392,6 +684,8 @@
 
     </el-row>
     <!-- /Customize Notifications -->
+
+    <DialogLite/>
 
     <!-- Dialog Placeholders -->
     <transition name="slide">
@@ -463,7 +757,7 @@
 
       <!-- SMS Balance Warning -->
       <el-alert
-          v-if="true === true && type === 'sms' && type === 'sms' && !user.balance"
+          v-if="type === 'sms' && type === 'sms' && !user.balance"
           type="warning"
           show-icon
           title=""
@@ -512,8 +806,8 @@
             <el-option
                 v-for="notification in notifications.filter(n => n.type === type)"
                 :key="notification.id"
-                :label="notification.sendTo === 'provider' ? $root.labels.employee + ' ' + $root.labels[notification.name] : $root.labels.customer + ' ' + $root.labels[notification.name]"
-                :value="notification.name"
+                :label="notification.customName ? notification.customName : notification.sendTo === 'provider' ? $root.labels.employee + ' ' + $root.labels[notification.name] : $root.labels.customer + ' ' + $root.labels[notification.name]"
+                :value="notification.id"
                 :disabled="$root.isLite && !(notification.name === 'customer_appointment_approved' || notification.name === 'provider_appointment_approved' || notification.name === 'customer_appointment_pending' || notification.name === 'provider_appointment_pending' || notification.name === 'customer_event_approved' || notification.name === 'provider_event_approved')"
             >
             </el-option>
@@ -566,9 +860,10 @@
   import PhoneInput from '../../../parts/PhoneInput.vue'
   import notificationMixin from '../../../../js/backend/mixins/notificationMixin'
   import InlinePlaceholders from './InlinePlaceholders.vue'
+  import entitiesMixin from '../../../../js/common/mixins/entitiesMixin'
 
   export default {
-    mixins: [quillMixin, durationMixin, notifyMixin, imageMixin, notificationMixin],
+    mixins: [quillMixin, durationMixin, notifyMixin, imageMixin, notificationMixin, entitiesMixin],
 
     props: {
       categories: {
@@ -580,6 +875,10 @@
         type: Array
       },
       coupons: {
+        default: () => [],
+        type: Array
+      },
+      events: {
         default: () => [],
         type: Array
       },
@@ -606,6 +905,14 @@
     },
 
     data () {
+      let isCustomNameRequired = (rule, input, callback) => {
+        if (this.createNewContent && !this.notificationName) {
+          callback(new Error(this.$root.labels.enter_name_warning))
+        } else {
+          callback()
+        }
+      }
+
       let validatePhone = (rule, input, callback) => {
         if (input !== '' && !input.startsWith('+')) {
           callback(new Error(this.$root.labels.enter_valid_phone_warning))
@@ -615,12 +922,42 @@
       }
 
       return {
+        notificationContentText: '',
+        showDelete: false,
+        newNotification: {},
+        notificationName: '',
+        notificationEnabled: true,
+        amountTime: 1,
+        intervalTime: 'hours',
+        createNewContent: false,
+        notificationType: 'triggered',
+        notificationTrigger: 'approved',
+        notificationEntity: 'appointment',
+        notificationTimed: 'before',
+        onTime: '00:00',
+        services: [],
+        selectedServices: [],
+        selectedEvents: [],
+        sendOnlyMe: false,
+        showActiveClass: true,
+        duplicateOptions: [
+          {
+            label: this.$root.labels.to_employee,
+            value: 'employee'
+          },
+          {
+            label: this.$root.labels.to_customer,
+            value: 'customer'
+          }
+        ],
         dialogPlaceholders: false,
         dialogCombinedPlaceholder: false,
+        fetchedDelete: true,
         fetchedUpdate: true,
         form: new Form(),
         notification: {},
         entity: 'appointment',
+        sendTo: 'customer',
         rules: {
           recipientEmail: [
             {required: true, message: this.$root.labels.enter_recipient_email_warning, trigger: 'submit'},
@@ -632,28 +969,88 @@
           ],
           notificationTemplate: [
             {required: true, message: this.$root.labels.select_email_template_warning, trigger: 'submit'}
+          ],
+          notificationCustomName: [
+            {validator: isCustomNameRequired, trigger: 'submit'}
           ]
         },
         testNotification: {
           recipientEmail: '',
           recipientPhone: '',
-          notificationTemplate: 'customer_appointment_approved',
+          notificationTemplate: 0,
           type: null
         },
         testNotificationLoading: false,
         testNotificationModal: false,
         userTypeTab: 'customer',
         selectedLanguage: null,
-        usedLanguages: []
+        usedLanguages: [],
+        intervalTimes: [
+          {
+            label: this.$root.labels.hours,
+            value: 'hours'
+          },
+          {
+            label: this.$root.labels.days,
+            value: 'days'
+          },
+          {
+            label: this.$root.labels.weeks,
+            value: 'weeks'
+          },
+          {
+            label: this.$root.labels.months,
+            value: 'months'
+          }
+        ]
       }
     },
 
     mounted () {
+      this.notifications = this.notifications.sort(this.sortNotifications)
+      this.entity = 'appointment'
       this.getNotification(null)
       this.usedLanguages = this.passedUsedLanguages
+      this.services = this.getServicesFromCategories(this.categories)
     },
 
     methods: {
+      deleteNotification () {
+        this.showDelete = false
+        this.fetchedDelete = false
+        this.form.post(
+          `${this.$root.getAjaxUrl}/notifications/delete/` + this.notification.id
+        ).then((response) => {
+          this.fetchedDelete = true
+          const index = this.notifications.map(n => n.id).indexOf(this.notification.id)
+          if (index > -1) {
+            this.notifications.splice(index, 1)
+            let id = this.notifications.find(n => n.sendTo === this.notification.sendTo && n.entity === this.notification.entity &&
+                n.type === this.notification.type).id
+            this.getNotification(id)
+          }
+          this.notify(this.$root.labels.success, this.$root.labels.notification_deleted, 'success')
+        }).catch(() => {
+          this.fetchedDelete = true
+          this.notify(this.$root.labels.error, this.$root.labels.notification_not_deleted, 'error')
+        })
+      },
+
+      duplicateNotification (event) {
+        if (this.notification.customName) {
+          this.notification = this.getNotificationEntity()
+          if (event === 'employee') {
+            this.notification.name = this.notification.name.replace('customer', 'provider')
+            this.notification.sendTo = 'provider'
+          } else if (event === 'customer') {
+            this.notification.name = this.notification.name.replace('provider', 'customer')
+            this.notification.sendTo = 'customer'
+          }
+          this.notification.customName = this.$root.labels.duplicate_of + this.notification.customName
+          this.callInsert(this.notification)
+        }
+      },
+
       manageLanguages () {
         this.$emit('manageLanguages')
       },
@@ -845,45 +1242,110 @@
 
       onChangeUserTypeTab (tab) {
         this.inlineSVG()
-        this.entity = 'appointment'
-        if (this.notification.type !== tab.name) {
-          this.notification = this.notifications.find(
-            notification => notification.type === this.type && notification.sendTo === tab.name
-          )
+        if (this.showActiveClass) {
+          this.entity = 'appointment'
+          if (this.notification.type !== tab.name) {
+            this.notification = this.notifications.find(
+              notification => notification.type === this.type && notification.sendTo === tab.name && notification.entity === this.entity
+            )
+            this.sendTo = this.notification.sendTo
+            if (this.notification.customName) {
+              this.setCustomNotificationFields()
+              this.createNewContent = true
+            } else {
+              this.createNewContent = false
+            }
+            this.focusOnName()
+          }
         }
       },
 
       getNotification (id) {
+        this.$refs.notification.clearValidate()
+        this.createNewContent = false
+        this.showActiveClass = true
         if (id === null) {
-          this.notification = this.notifications.find(notification => notification.type === this.type)
+          this.notification = this.notifications.find(notification => notification.type === this.type && notification.entity === this.entity &&
+              notification.sendTo === this.sendTo)
         } else {
           this.notification = this.notifications.find(notification => notification.id === id)
         }
 
+        if (this.notification.customName) {
+          this.createNewContent = true
+          this.setCustomNotificationFields()
+        }
+
         this.entity = this.notification.entity
         this.testNotification.type = this.notification.entity
-        this.testNotification.notificationTemplate = this.notification.name
+        this.testNotification.notificationTemplate = this.notification.id
 
         if (this.notification.name === 'customer_package_purchased' || this.notification.name === 'provider_package_purchased') {
           this.entity = 'package'
           this.testNotification.type = 'package'
         }
+        this.focusOnName()
       },
 
-      updateNotification () {
-        this.fetchedUpdate = false
+      createNotification () {
+        this.$refs.notification.clearValidate()
+        this.$refs.notification.validate((valid) => {
+          if (valid) {
+            let notification = this.getNotificationEntity()
+            this.callInsert(notification)
+          } else {
+            return false
+          }
+        })
+      },
 
-        this.form.post(
-          `${this.$root.getAjaxUrl}/notifications/${this.notification.id}`, this.notification
+      callInsert (notification) {
+        this.fetchedUpdate = false
+        this.form.post(`${this.$root.getAjaxUrl}/notifications`, notification
         ).then((response) => {
           if (response.data.update) {
             this.notification.content = response.data.notification.content
           }
           this.fetchedUpdate = true
+          notification.id = response.data.id
+          this.notifications.unshift(notification)
+          this.getNotification(notification.id)
           this.notify(this.$root.labels.success, this.$root.labels.notification_saved, 'success')
         }).catch(() => {
           this.fetchedUpdate = true
           this.notify(this.$root.labels.error, this.$root.labels.notification_not_saved, 'error')
+        })
+      },
+
+      updateNotification () {
+        this.$refs.notification.clearValidate()
+        this.$refs.notification.validate((valid) => {
+          if (valid) {
+            this.fetchedUpdate = false
+            if (this.notification.customName) {
+              let id = this.notification.id
+              this.notification = this.getNotificationEntity()
+              this.notification.id = id
+            }
+            this.form.post(
+              `${this.$root.getAjaxUrl}/notifications/${this.notification.id}`, this.notification
+            ).then((response) => {
+              if (response.data.update) {
+                this.notification.content = response.data.notification.content
+              }
+              this.notification = response.data.notification
+              this.setCustomNotificationFields()
+              let index = this.notifications.map(n => n.id).indexOf(this.notification.id)
+              if (index !== -1) this.notifications[index] = this.notification
+              this.fetchedUpdate = true
+              this.notify(this.$root.labels.success, this.$root.labels.notification_saved, 'success')
+            }).catch(() => {
+              this.fetchedUpdate = true
+              this.notify(this.$root.labels.error, this.$root.labels.notification_not_saved, 'error')
+            })
+          } else {
+            return false
+          }
         })
       },
 
@@ -893,8 +1355,10 @@
           `${this.$root.getAjaxUrl}/notifications/status/${notification.id}`, notification
         ).then(() => {
           this.fetchedUpdate = true
+          this.notify(this.$root.labels.success, this.$root.labels.notification_saved, 'success')
         }).catch(() => {
           this.fetchedUpdate = true
+          this.notify(this.$root.labels.error, this.$root.labels.notification_not_saved, 'error')
         })
       },
 
@@ -966,7 +1430,7 @@
         return {
           recipientEmail: '',
           recipientPhone: '',
-          notificationTemplate: this.notification.name,
+          notificationTemplate: this.notification.id,
           type: this.entity
         }
       },

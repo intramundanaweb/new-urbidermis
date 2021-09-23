@@ -112,7 +112,7 @@ class NotificationLogRepository extends AbstractRepository
     /**
      * Return a collection of tomorrow appointments where customer notification is not sent and should be.
      *
-     * @param $notificationType
+     * @param $notificationId
      *
      * @return Collection
      *
@@ -120,21 +120,26 @@ class NotificationLogRepository extends AbstractRepository
      * @throws QueryExecutionException
      * @throws \Exception
      */
-    public function getCustomersNextDayAppointments($notificationType)
+    public function getCustomersNextDayAppointments($notificationId, $nextDay = true)
     {
         $couponsTable = CouponsTable::getTableName();
         $customerBookingsExtrasTable = CustomerBookingsToExtrasTable::getTableName();
         $paymentsTable = PaymentsTable::getTableName();
 
-        $startCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        $startDate = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
+        );
+        $endDate   = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
+        );
 
-        $endCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        if ($nextDay) {
+            $startDate = $startDate->modify('+1 day');
+            $endDate   = $endDate->modify('+1 day');
+        }
+        $startCurrentDate = "STR_TO_DATE('" . $startDate->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+
+        $endCurrentDate = "STR_TO_DATE('" . $endDate->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
 
         try {
             $statement = $this->connection->query(
@@ -149,6 +154,7 @@ class NotificationLogRepository extends AbstractRepository
                     a.internalNotes AS appointment_internalNotes,
                     a.status AS appointment_status,
                     a.zoomMeeting AS appointment_zoom_meeting,
+                    a.googleMeetUrl AS appointment_google_meet_url,
                     
                     cb.id AS booking_id,
                     cb.customerId AS booking_customerId,
@@ -194,7 +200,7 @@ class NotificationLogRepository extends AbstractRepository
                     SELECT nl.appointmentId 
                     FROM {$this->table} nl 
                     INNER JOIN {$this->notificationsTable} n ON nl.notificationId = n.id 
-                    WHERE n.name = 'customer_appointment_next_day_reminder' AND n.type = '{$notificationType}'
+                    WHERE n.id = {$notificationId}
                 )"
             );
 
@@ -209,7 +215,7 @@ class NotificationLogRepository extends AbstractRepository
     /**
      * Return a collection of tomorrow events where customer notification is not sent and should be.
      *
-     * @param $notificationType
+     * @param $notificationId
      *
      * @return Collection
      *
@@ -217,7 +223,7 @@ class NotificationLogRepository extends AbstractRepository
      * @throws QueryExecutionException
      * @throws \Exception
      */
-    public function getCustomersNextDayEvents($notificationType)
+    public function getCustomersNextDayEvents($notificationId, $nextDay = true)
     {
         $couponsTable = CouponsTable::getTableName();
         $paymentsTable = PaymentsTable::getTableName();
@@ -229,15 +235,20 @@ class NotificationLogRepository extends AbstractRepository
 
         $eventsProvidersTable = EventsProvidersTable::getTableName();
 
-        $startCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        $startDate = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
+        );
+        $endDate   = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
+        );
 
-        $endCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        if ($nextDay) {
+            $startDate = $startDate->modify('+1 day');
+            $endDate   = $endDate->modify('+1 day');
+        }
+
+        $startCurrentDate = "STR_TO_DATE('" . $startDate->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        $endCurrentDate   = "STR_TO_DATE('" . $endDate->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
 
         try {
             $statement = $this->connection->query(
@@ -320,7 +331,7 @@ class NotificationLogRepository extends AbstractRepository
                     SELECT nl.eventId 
                     FROM {$this->table} nl 
                     INNER JOIN {$this->notificationsTable} n ON nl.notificationId = n.id 
-                    WHERE n.name = 'customer_event_next_day_reminder' AND n.type = '{$notificationType}'
+                    WHERE n.id = {$notificationId}
                 )"
             );
 
@@ -335,28 +346,34 @@ class NotificationLogRepository extends AbstractRepository
     /**
      * Return a collection of tomorrow appointments where provider notification is not sent and should be.
      *
-     * @param $notificationType
+     * @param $notificationId
      *
      * @return Collection
      * @throws InvalidArgumentException
      * @throws QueryExecutionException
      * @throws \Exception
      */
-    public function getProvidersNextDayAppointments($notificationType)
+    public function getProvidersNextDayAppointments($notificationId, $nextDay)
     {
         $couponsTable = CouponsTable::getTableName();
         $customerBookingsExtrasTable = CustomerBookingsToExtrasTable::getTableName();
         $paymentsTable = PaymentsTable::getTableName();
 
-        $startCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        $startDate = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
+        );
+        $endDate   = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
+        );
 
-        $endCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        if ($nextDay) {
+            $startDate = $startDate->modify('+1 day');
+            $endDate   = $endDate->modify('+1 day');
+        }
+
+        $startCurrentDate = "STR_TO_DATE('" . $startDate->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        $endCurrentDate   = "STR_TO_DATE('" . $endDate->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+
 
         try {
             $statement = $this->connection->query(
@@ -371,7 +388,8 @@ class NotificationLogRepository extends AbstractRepository
                     a.internalNotes AS appointment_internalNotes,
                     a.status AS appointment_status,
                     a.zoomMeeting AS appointment_zoom_meeting,
-                    
+                    a.googleMeetUrl AS appointment_google_meet_url,
+       
                     cb.id AS booking_id,
                     cb.customerId AS booking_customerId,
                     cb.status AS booking_status,
@@ -412,7 +430,7 @@ class NotificationLogRepository extends AbstractRepository
                     SELECT nl.appointmentId 
                     FROM {$this->table} nl 
                     INNER JOIN {$this->notificationsTable} n ON nl.notificationId = n.id 
-                    WHERE n.name = 'provider_appointment_next_day_reminder' AND n.type = '{$notificationType}'
+                    WHERE n.id = {$notificationId}
                 )"
             );
 
@@ -427,14 +445,14 @@ class NotificationLogRepository extends AbstractRepository
     /**
      * Return a collection of tomorrow events where provider notification is not sent and should be.
      *
-     * @param $notificationType
+     * @param $notificationId
      *
      * @return Collection
      * @throws InvalidArgumentException
      * @throws QueryExecutionException
      * @throws \Exception
      */
-    public function getProvidersNextDayEvents($notificationType)
+    public function getProvidersNextDayEvents($notificationId, $nextDay)
     {
         $couponsTable = CouponsTable::getTableName();
         $eventsTable = EventsTable::getTableName();
@@ -443,15 +461,21 @@ class NotificationLogRepository extends AbstractRepository
         $eventsProvidersTable = EventsProvidersTable::getTableName();
         $paymentsTable = PaymentsTable::getTableName();
 
-        $startCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        $startDate = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(0, 0, 0)->format('Y-m-d H:i:s')
+        );
+        $endDate   = DateTimeService::getCustomDateTimeObjectInUtc(
+            DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
+        );
 
-        $endCurrentDate = "STR_TO_DATE('" .
-            DateTimeService::getCustomDateTimeObjectInUtc(
-                DateTimeService::getNowDateTimeObject()->setTime(23, 59, 59)->format('Y-m-d H:i:s')
-            )->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        if ($nextDay) {
+            $startDate = $startDate->modify('+1 day');
+            $endDate   = $endDate->modify('+1 day');
+        }
+
+        $startCurrentDate = "STR_TO_DATE('" . $startDate->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+        $endCurrentDate   = "STR_TO_DATE('" . $endDate->modify('+1 day')->format('Y-m-d H:i:s') . "', '%Y-%m-%d %H:%i:%s')";
+
 
         try {
             $statement = $this->connection->query(
@@ -530,7 +554,7 @@ class NotificationLogRepository extends AbstractRepository
                     SELECT nl.eventId 
                     FROM {$this->table} nl 
                     INNER JOIN {$this->notificationsTable} n ON nl.notificationId = n.id 
-                    WHERE n.name = 'provider_event_next_day_reminder' AND n.type = '{$notificationType}'
+                    WHERE n.id = {$notificationId}
                 )"
             );
 
@@ -551,16 +575,25 @@ class NotificationLogRepository extends AbstractRepository
      * @throws InvalidArgumentException
      * @throws QueryExecutionException
      */
-    public function getFollowUpAppointments($notification)
+    public function getScheduledAppointments($notification)
     {
         $couponsTable = CouponsTable::getTableName();
         $customerBookingsExtrasTable = CustomerBookingsToExtrasTable::getTableName();
         $paymentsTable = PaymentsTable::getTableName();
 
         try {
-            $notificationType = $notification->getType()->getValue();
-
             $currentDateTime = "STR_TO_DATE('" . DateTimeService::getNowDateTimeInUtc() . "', '%Y-%m-%d %H:%i:%s')";
+
+            $where = '';
+            if ($notification->getTimeAfter()) {
+                $timeAfter = $notification->getTimeAfter()->getValue();
+                $lastTime  = $timeAfter + 259200;
+                $where     = "{$currentDateTime} BETWEEN DATE_ADD(a.bookingEnd, INTERVAL {$timeAfter} SECOND) AND DATE_ADD(a.bookingEnd, INTERVAL {$lastTime} SECOND)";
+            } else if ($notification->getTimeBefore()) {
+                $timeBefore = $notification->getTimeBefore()->getValue();
+                $where      = "{$currentDateTime} BETWEEN DATE_SUB(a.bookingStart, INTERVAL {$timeBefore} SECOND) AND a.bookingStart";
+            }
+
 
             $statement = $this->connection->query(
                 "SELECT
@@ -573,6 +606,7 @@ class NotificationLogRepository extends AbstractRepository
                     a.locationId AS appointment_locationId,
                     a.internalNotes AS appointment_internalNotes,
                     a.status AS appointment_status,
+                    a.googleMeetUrl AS appointment_google_meet_url,
                     
                     cb.id AS booking_id,
                     cb.customerId AS booking_customerId,
@@ -610,17 +644,14 @@ class NotificationLogRepository extends AbstractRepository
                 LEFT JOIN {$paymentsTable} p ON p.customerBookingId = cb.id
                 LEFT JOIN {$customerBookingsExtrasTable} cbe ON cbe.customerBookingId = cb.id
                 LEFT JOIN {$couponsTable} c ON c.id = cb.couponId
-                WHERE a.bookingEnd BETWEEN DATE_SUB({$currentDateTime}, INTERVAL 172800 SECOND) AND {$currentDateTime}
-                AND DATE_ADD(a.bookingEnd, INTERVAL {$notification->getTimeAfter()->getValue()} SECOND)
-                  < {$currentDateTime}
+                WHERE {$where} 
                 AND a.notifyParticipants = 1 
                 AND cb.status = 'approved' 
                 AND a.id NOT IN (
                     SELECT nl.appointmentId 
                     FROM {$this->table} nl 
                     INNER JOIN {$this->notificationsTable} n ON nl.notificationId = n.id 
-                    WHERE n.name = 'customer_appointment_follow_up' 
-                    AND n.type = '{$notificationType}'
+                    WHERE n.id = {$notification->getId()->getValue()}
                 )"
             );
 
@@ -641,7 +672,7 @@ class NotificationLogRepository extends AbstractRepository
      * @throws InvalidArgumentException
      * @throws QueryExecutionException
      */
-    public function getFollowUpEvents($notification)
+    public function getScheduledEvents($notification)
     {
         $couponsTable = CouponsTable::getTableName();
         $eventsTable = EventsTable::getTableName();
@@ -651,8 +682,6 @@ class NotificationLogRepository extends AbstractRepository
         $paymentsTable = PaymentsTable::getTableName();
 
         try {
-            $notificationType = $notification->getType()->getValue();
-
             $statement = $this->connection->query(
                 "SELECT
                     e.id AS event_id,
@@ -720,8 +749,7 @@ class NotificationLogRepository extends AbstractRepository
                     SELECT nl.eventId 
                     FROM {$this->table} nl 
                     INNER JOIN {$this->notificationsTable} n ON nl.notificationId = n.id 
-                    WHERE n.name = 'customer_event_follow_up' 
-                    AND n.type = '{$notificationType}'
+                    WHERE n.id = {$notification->getId()->getValue()}
                 )"
             );
 

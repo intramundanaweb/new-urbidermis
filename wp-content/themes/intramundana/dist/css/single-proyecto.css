@@ -26,12 +26,6 @@ h2 {
     overflow-y: auto;
 }
 
-@-moz-document url-prefix() {
-    .infoTec {
-        top: 2em !important;
-    }
-}
-
 /* Section introducción */
 .texto-resaltado {
     line-height: 1.26em;
@@ -52,7 +46,7 @@ h2 {
     height: auto;
 }
 
-.img-wrap {
+.section-product .img-wrap, .section-intro .img-wrap {
     width: 30em;
     height: auto;
 }
@@ -124,7 +118,7 @@ h2 {
         height: 100vh;
     }
 
-    .slick-list.draggable {
+    .slick-productos .slick-list.draggable {
         height: 100vh;
     }
 

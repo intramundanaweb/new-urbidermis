@@ -56,7 +56,8 @@ class AmeliaShortcodeService
                 'amelia_booking_scripts',
                 AMELIA_URL . 'public/js/frontend/amelia-booking.js',
                 [],
-                AMELIA_VERSION
+                AMELIA_VERSION,
+                true
             );
         }
 

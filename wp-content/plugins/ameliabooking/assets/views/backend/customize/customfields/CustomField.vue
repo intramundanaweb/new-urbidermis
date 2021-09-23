@@ -224,9 +224,10 @@
   import imageMixin from '../../../../js/common/mixins/imageMixin'
   import DialogTranslate from '../../parts/DialogTranslate'
   import notifyMixin from '../../../../js/backend/mixins/notifyMixin'
+  import stashMixin from '../../../../js/backend/mixins/stashMixin'
 
   export default {
-    mixins: [imageMixin, notifyMixin],
+    mixins: [imageMixin, notifyMixin, stashMixin],
 
     props: {
       customField: {
@@ -307,6 +308,8 @@
               this.loading = false
               this.loadingOption = false
               this.activeOptionIndex = null
+              this.notify(this.$root.labels.success, this.$root.labels.custom_field_saved, 'success')
+              this.updateStashEntities({})
 
               this.$emit('updateCustomField', response.data.data.customField)
             })

@@ -408,6 +408,10 @@ ul.style-list li::before {
         font-size: 4.5em;
     }
 
+    .fs-lg-5 {
+        font-size: 5em;
+    }
+
     .fs-lg-56 {
         font-size: 5.6em;
     }

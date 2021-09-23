@@ -11,7 +11,7 @@ mix
   .js('assets/js/frontend/amelia-booking.js', 'public/js/frontend')
   .less('assets/less/backend/amelia-booking.less', 'public/css/backend')
   .less('assets/less/external/vendor.less', 'public/css/frontend')
-  .less('assets/less/frontend/amelia-booking.less', 'public/css/frontend/amelia-booking-1-0-34.css')
+  .less('assets/less/frontend/amelia-booking.less', 'public/css/frontend/amelia-booking-1-0-36.css')
   .less('assets/less/backend/elementor.less', 'public/css/frontend')
   .copyDirectory('assets/img', 'public/img')
   .copyDirectory('assets/js/tinymce', 'public/js/tinymce')

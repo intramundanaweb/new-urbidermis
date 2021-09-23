@@ -168,6 +168,9 @@ class AppointmentEditedEventHandler
         if ($reservationObject->getGoogleCalendarEventId() !== null) {
             $appointment['googleCalendarEventId'] = $reservationObject->getGoogleCalendarEventId()->getValue();
         }
+        if ($reservationObject->getGoogleMeetUrl() !== null) {
+            $appointment['googleMeetUrl'] = $reservationObject->getGoogleMeetUrl();
+        }
 
         if (!$appointmentEmployeeChanged && $outlookCalendarService) {
             try {
@@ -220,10 +223,12 @@ class AppointmentEditedEventHandler
                     );
                 }
             }
-            $emailNotificationService->sendAppointmentRescheduleNotifications($appointment);
+            if (!AMELIA_LITE_VERSION) {
+                $emailNotificationService->sendAppointmentRescheduleNotifications($appointment);
 
-            if ($settingsService->getSetting('notifications', 'smsSignedIn') === true) {
-                $smsNotificationService->sendAppointmentRescheduleNotifications($appointment);
+                if ($settingsService->getSetting('notifications', 'smsSignedIn') === true) {
+                    $smsNotificationService->sendAppointmentRescheduleNotifications($appointment);
+                }
             }
         }
 

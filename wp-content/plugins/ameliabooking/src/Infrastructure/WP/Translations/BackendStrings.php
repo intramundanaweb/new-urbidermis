@@ -27,12 +27,16 @@ class BackendStrings
             'all_locations'             => __('All Locations', 'wpamelia'),
             'all_packages'              => __('All Packages', 'wpamelia'),
             'all_services'              => __('All Services', 'wpamelia'),
+            'all_events'                => __('All events', 'wpamelia'),
             'appointment'               => __('Appointment', 'wpamelia'),
             'appointments'              => __('Appointments', 'wpamelia'),
             'approved'                  => __('Approved', 'wpamelia'),
             'apply_coupon'              => __('Apply Coupon:', 'wpamelia'),
+            'booked'                    => __('Booked', 'wpamelia'),
             'cancel'                    => __('Cancel', 'wpamelia'),
             'canceled'                  => __('Canceled', 'wpamelia'),
+            'canceled_by_admin'         => __('Canceled By Admin', 'wpamelia'),
+            'canceled_by_attendee'      => __('Canceled By Attendee', 'wpamelia'),
             'capacity'                  => __('Spots', 'wpamelia'),
             'close'                     => __('Close', 'wpamelia'),
             'closed'                    => __('Closed', 'wpamelia'),
@@ -43,6 +47,7 @@ class BackendStrings
             'coupon'                    => __('Coupon', 'wpamelia'),
             'customer'                  => __('Customer', 'wpamelia'),
             'date_specific'             => __('Specific Date', 'wpamelia'),
+            'hours'                     => __('Hours', 'wpamelia'),
             'day'                       => __('Day', 'wpamelia'),
             'days'                      => __('Days', 'wpamelia'),
             'week'                      => __('Week', 'wpamelia'),
@@ -56,8 +61,10 @@ class BackendStrings
             'description'               => __('Description', 'wpamelia'),
             'details'                   => __('Details', 'wpamelia'),
             'disabled'                  => __('Disabled', 'wpamelia'),
+            'discard'                   => __('Discard', 'wpamelia'),
             'discount'                  => __('Discount (%)', 'wpamelia'),
             'duration'                  => __('Duration', 'wpamelia'),
+            'duplicate'                 => __('Duplicate', 'wpamelia'),
             'edit'                      => __('Edit', 'wpamelia'),
             'email_placeholder'         => __('example@mail.com', 'wpamelia'),
             'employee'                  => __('Employee', 'wpamelia'),
@@ -70,6 +77,7 @@ class BackendStrings
             'export'                    => __('Export', 'wpamelia'),
             'extras'                    => __('Extras', 'wpamelia'),
             'google_calendar'           => __('Google Calendar', 'wpamelia'),
+            'google_meet_join'          => __('Join With Google Meet', 'wpamelia'),
             'outlook_calendar'          => __('Outlook Calendar', 'wpamelia'),
             'h'                         => __('h', 'wpamelia'),
             'id'                        => __('ID', 'wpamelia'),
@@ -78,6 +86,7 @@ class BackendStrings
             'locations'                 => __('Locations', 'wpamelia'),
             'min'                       => __('min', 'wpamelia'),
             'name'                      => __('Name', 'wpamelia'),
+            'enter_name_warning'        => __('Please enter name', 'wpamelia'),
             'name_ascending'            => __('Name Ascending', 'wpamelia'),
             'name_descending'           => __('Name Descending', 'wpamelia'),
             'need_help'                 => __('Need Help', 'wpamelia'),
@@ -116,9 +125,11 @@ class BackendStrings
             'recurring_type_weekly'     => __('Weekly', 'wpamelia'),
             'recurring_type_yearly'     => __('Yearly', 'wpamelia'),
             'rejected'                  => __('Rejected', 'wpamelia'),
+            'rescheduled'               => __('Rescheduled', 'wpamelia'),
             'package_appointments'      => __('Package Appointments', 'wpamelia'),
             'save'                      => __('Save', 'wpamelia'),
             'recurring_every'           => __('Every:', 'wpamelia'),
+            'schedule'                  => __('Schedule', 'wpamelia'),
             'select_date_warning'       => __('Please select date', 'wpamelia'),
             'select_cycle_warning'      => __('Please select repeat period', 'wpamelia'),
             'select_interval_warning'   => __('Please select repeat interval', 'wpamelia'),
@@ -132,6 +143,8 @@ class BackendStrings
             'status'                    => __('Status', 'wpamelia'),
             'status_colon'              => __('Status:', 'wpamelia'),
             'success'                   => __('Success', 'wpamelia'),
+            'text_mode'                 => __('Text Mode', 'wpamelia'),
+            'html_mode'                 => __('HTML Mode', 'wpamelia'),
             'to'                        => __('to', 'wpamelia'),
             'today'                     => __('Today', 'wpamelia'),
             'tomorrow'                  => __('Tomorrow', 'wpamelia'),
@@ -211,6 +224,9 @@ class BackendStrings
             'bcc_email'                              => __('Send all notifications to additional addresses', 'wpamelia'),
             'bcc_email_placeholder'                  => __('Please enter email address', 'wpamelia'),
             'bcc_email_tooltip'                      => __('Here you can enter additional email addresses where all notifications will be sent.<br/>To add an address click Enter.', 'wpamelia'),
+            'bcc_sms'                                => __('Send all SMS messages to additional numbers', 'wpamelia'),
+            'bcc_sms_placeholder'                    => __('Please enter phone number', 'wpamelia'),
+            'bcc_sms_tooltip'                        => __('Here you can enter additional phone numbers where all SMS messages will be sent.<br/>To add a number click Enter.', 'wpamelia'),
             'before'                                 => __('Before', 'wpamelia'),
             'before_with_space'                      => __('Before with space', 'wpamelia'),
             'buffer_time_in_slot'                    => __('Include service buffer time in time slots', 'wpamelia'),
@@ -371,7 +387,6 @@ class BackendStrings
             'mollie_live_api_key_error'              => __('Please enter live API Key', 'wpamelia'),
             'months3'                                => __('3 months', 'wpamelia'),
             'months6'                                => __('6 months', 'wpamelia'),
-            'name'                                   => __('Name', 'wpamelia'),
             'notifications_settings'                 => __('Notification Settings', 'wpamelia'),
             'notifications_settings_description'     => __('Use these settings to set your mail settings which will be used to notify your customers and employees', 'wpamelia'),
             'notify_customers_default'               => __('Notify the customer(s) by default', 'wpamelia'),
@@ -536,19 +551,23 @@ class BackendStrings
     {
         return [
             'accepted'                               => __('Accepted', 'wpamelia'),
+            'after'                                  => __('After', 'wpamelia'),
             'already_have_an_account'                => __('Already have an account?', 'wpamelia'),
             'amelia_sms'                             => __('Amelia SMS', 'wpamelia'),
             'amount_colon'                           => __('Amount:', 'wpamelia'),
             'balance_colon'                          => __('Balance:', 'wpamelia'),
             'balance_recharged'                      => __('Your balance has been recharged', 'wpamelia'),
+            'before'                                 => __('Before', 'wpamelia'),
             'cant_checkout'                          => __('This payment cannot be completed', 'wpamelia'),
             'cant_recharge_balance'                  => __('This payment cannot be completed and your account has not been charged', 'wpamelia'),
             'carrier'                                => __('Carrier:', 'wpamelia'),
             'change_alpha_sender_id'                 => __('Change Alpha Sender ID', 'wpamelia'),
             'change_password'                        => __('Change Password', 'wpamelia'),
+            'choose_when'                            => __('Choose when', 'wpamelia'),
             'configure_placeholder'                  => __('Configure placeholder', 'wpamelia'),
             'configure_placeholder_here'             => __('Configure placeholder here', 'wpamelia'),
             'cost_colon'                             => __('Cost:', 'wpamelia'),
+            'create_notification'                    => __('Create New Notification', 'wpamelia'),
             'cron_instruction'                       => __('To send this notification please add the following line in your cron', 'wpamelia'),
             'current_password_colon'                 => __('Current Password:', 'wpamelia'),
             'current_password_requred'               => __('Please enter current password', 'wpamelia'),
@@ -573,8 +592,21 @@ class BackendStrings
             'customer_package_purchased'             => __('Package Purchased', 'wpamelia'),
             'customize_sms'                          => __('Customize SMS', 'wpamelia'),
             'date_colon'                             => __('Date:', 'wpamelia'),
+            'default_content_customer'               => __('Dear <b>%customer_full_name%</b>, <br><br>Thank you for choosing our company, <br> <b>%company_name%</b>'),
+            'default_content_customer_sms'           => __('Dear %customer_full_name%, 
+            
+Thank you for choosing our company, 
+%company_name%'),
+            'default_content_employee'               => __('Hi <b>%employee_full_name%</b>, <br><br>Thank you, <br> <b>%company_name%</b>'),
+            'default_content_employee_sms'           => __('Hi %employee_full_name%, 
+            
+Thank you, 
+%company_name%'),
             'delivered'                              => __('Delivered', 'wpamelia'),
+            'delete_message'                         => __('Are you sure you want to delete this notification? <br> You can\'t undo this action', 'wpamelia'),
             'dont_have_an_account'                   => __('Don\'t have an account?', 'wpamelia'),
+            'duplicate_of'                           => __('Duplicate of ', 'wpamelia'),
+            'edit_notification'                      => __('Edit Notification', 'wpamelia'),
             'email'                                  => __('Email', 'wpamelia'),
             'email_colon'                            => __('Email:', 'wpamelia'),
             'email_notifications'                    => __('Email Notifications', 'wpamelia'),
@@ -600,9 +632,17 @@ class BackendStrings
             'new_password_colon'                     => __('New Password:', 'wpamelia'),
             'new_password_requred'                   => __('Please enter new password', 'wpamelia'),
             'no_messages'                            => __('There are no SMS messages...', 'wpamelia'),
+            'notification_enabled'                   => __('Notification is enabled', 'wpamelia'),
             'notification_not_saved'                 => __('Notification has not been saved', 'wpamelia'),
             'notification_saved'                     => __('Notification has been saved', 'wpamelia'),
+            'notification_not_deleted'               => __('Notification has not been deleted', 'wpamelia'),
+            'notification_deleted'                   => __('Notification has been deleted', 'wpamelia'),
+            'notification_scheduled'                 => __('Scheduled notification', 'wpamelia'),
+            'notification_appointment_status'        => __('Appointment status', 'wpamelia'),
+            'notification_event_action'              => __('Event action', 'wpamelia'),
             'notification_template'                  => __('Notification Template', 'wpamelia'),
+            'notification_triggered'                 => __('Action triggered notification', 'wpamelia'),
+            'notification_type'                      => __('Notification Type', 'wpamelia'),
             'notifications'                          => __('Notifications', 'wpamelia'),
             'package_placeholder_label'              => __('Package Appointments List', 'wpamelia'),
             'paddle'                                 => __('Paddle', 'wpamelia'),
@@ -697,6 +737,7 @@ class BackendStrings
             'ph_zoom_join_url'                       => __('Zoom Join Meeting (Participants) Link', 'wpamelia'),
             'ph_zoom_join_url_date'                  => __('Date periods of the event with Zoom join links', 'wpamelia'),
             'ph_zoom_join_url_date_date'             => __('Date & Time periods of the event with Zoom join links', 'wpamelia'),
+            'ph_google_meet_url'                     => __('Google Meet Join Link', 'wpamelia'),
             'phone_colon'                            => __('Phone:', 'wpamelia'),
             'companyPlaceholders'                    => __('Company', 'wpamelia'),
             'customerPlaceholders'                   => __('Customer', 'wpamelia'),
@@ -736,10 +777,12 @@ class BackendStrings
             'recipient_email'                        => __('Recipient Email', 'wpamelia'),
             'recipient_phone'                        => __('Recipient Phone', 'wpamelia'),
             'recovery_email_sent'                    => __('Account recovery email has been sent', 'wpamelia'),
+            'recurring_ph_warning'                   => __('Once set, this placeholder applies to all types of notifications where it is added', 'wpamelia'),
             'refresh'                                => __('Refresh', 'wpamelia'),
             'requires_scheduling_setup'              => __('Requires Scheduling Setup', 'wpamelia'),
             'reset_password'                         => __('Reset Password', 'wpamelia'),
             'retype_new_password_colon'              => __('Re-type New Password:', 'wpamelia'),
+            'same_day'                               => __('On the same day', 'wpamelia'),
             'scheduled_after_appointment'            => __('Scheduled After Appointment', 'wpamelia'),
             'scheduled_after_event'                  => __('Scheduled After Event', 'wpamelia'),
             'scheduled_before'                       => __('Scheduled For Before Appointment', 'wpamelia'),
@@ -748,6 +791,9 @@ class BackendStrings
             'segments_colon'                         => __('Segments:', 'wpamelia'),
             'select_email_template_warning'          => __('Please select email template', 'wpamelia'),
             'send'                                   => __('Send', 'wpamelia'),
+            'send_only_this'                         => __('Send only this notification', 'wpamelia'),
+            'send_only_this_tooltip'                 => __('If this is selected the default notification will not be sent for the selected services', 'wpamelia'),
+            'send_only_this_tooltip_event'           => __('If this is selected the default notification will not be sent for the selected events', 'wpamelia'),
             'send_recovery_email'                    => __('Send Recovery Email', 'wpamelia'),
             'send_test_email'                        => __('Send Test Email', 'wpamelia'),
             'send_test_sms'                          => __('Send Test SMS', 'wpamelia'),
@@ -888,7 +934,6 @@ class BackendStrings
     {
         return [
             'delete'          => __('Delete', 'wpamelia'),
-            'duplicate'       => __('Duplicate', 'wpamelia'),
             'loader_message'  => __('Please Wait', 'wpamelia'),
             'visibility_hide' => __('Hide', 'wpamelia'),
             'visibility_show' => __('Show', 'wpamelia'),
@@ -976,7 +1021,6 @@ class BackendStrings
             'enter_extra_name_warning'           => __('Please enter extra name', 'wpamelia'),
             'enter_extra_price_warning'          => __('Please enter extra price', 'wpamelia'),
             'enter_non_negative_price_warning'   => __('Price must be non-negative number', 'wpamelia'),
-            'enter_name_warning'                 => __('Please enter name', 'wpamelia'),
             'enter_service_price_warning'        => __('Please enter price', 'wpamelia'),
             'extra_delete_fail'                  => __('Unable to delete extra', 'wpamelia'),
             'gallery'                            => __('Gallery', 'wpamelia'),
@@ -1426,6 +1470,7 @@ class BackendStrings
             'event_deleted'               => __('Event has been deleted', 'wpamelia'),
             'event_duplicate'             => __('Duplicate Event', 'wpamelia'),
             'event_name'                  => __('Name:', 'wpamelia'),
+            'event_location'              => __('Location:', 'wpamelia'),
             'event_booking_closes'        => __('Booking closes:', 'wpamelia'),
             'event_booking_opens'         => __('Booking opens:', 'wpamelia'),
             'event_booking_closes_on'     => __('Closes on:', 'wpamelia'),
@@ -1521,7 +1566,30 @@ class BackendStrings
     }
 
     /**
+     * Returns the array for the Customize page (additional)
+     *
+     * @return array
+     */
+    public static function getAdditionalCustomizeStrings()
+    {
+        return [];
+    }
+
+    /**
      * Returns the array for the Customize page
+     *
+     * @return array
+     */
+    public static function getCustomizeStrings()
+    {
+        return array_merge(
+            self::getMainCustomizeStrings(),
+            self::getAdditionalCustomizeStrings()
+        );
+    }
+
+    /**
+     * Returns the array for the Customize page (main)
      *
      * @return array
      */
@@ -1549,6 +1617,7 @@ class BackendStrings
             'radio'                              => __('Radio Buttons', 'wpamelia'),
             'reset'                              => __('Reset', 'wpamelia'),
             'select'                             => __('Selectbox', 'wpamelia'),
+            'global_customize_settings_notice'   => __('Global Settings apply only to the Event Calendar and Search Booking forms, to customize other booking forms use the settings on the right.', 'wpamelia'),
             'text'                               => __('Text', 'wpamelia'),
             'text-area'                          => __('Text Area', 'wpamelia'),
             'text_color'                         => __('Text Color', 'wpamelia'),
@@ -1564,29 +1633,6 @@ class BackendStrings
             'form_type_step_by_step'             => __('Step By Step Booking Form', 'wpamelia'),
             'form_block_service'                 => __('Service', 'wpamelia'),
         ];
-    }
-
-    /**
-     * Returns the array for the Customize page
-     *
-     * @return array
-     */
-    public static function getAdditionalCustomizeStrings()
-    {
-        return [];
-    }
-
-    /**
-     * Returns the array for the Customize page
-     *
-     * @return array
-     */
-    public static function getCustomizeStrings()
-    {
-        return array_merge(
-            self::getMainCustomizeStrings(),
-            self::getAdditionalCustomizeStrings()
-        );
     }
 
     /**
@@ -1631,6 +1677,12 @@ class BackendStrings
             'show_tag'                         => __('Show tag', 'wpamelia'),
             'show_service'                     => __('Show specific service', 'wpamelia'),
             'recurring_event'                  => __('Show recurring events', 'wpamelia'),
+            'search_divi'                      => __('AM - Search view', 'wpamelia'),
+            'booking_divi'                     => __('AM - Booking view', 'wpamelia'),
+            'catalog_divi'                     => __('AM - Catalog view', 'wpamelia'),
+            'events_divi'                      => __('AM - Events view', 'wpamelia'),
+            'customer_cabinet_divi'            => __('AM - Customer Panel', 'wpamelia'),
+            'employee_cabinet_divi'            => __('AM - Employee Panel', 'wpamelia'),
             'search_gutenberg_block'           => [
                 'title'       => __('Amelia - Search view', 'wpamelia'),
                 'description' => __('Front-end Booking Search is shortcode that give your customers the possibility to search for appointment by selecting several filters so that they could find the best time slots and services for their needs.', 'wpamelia'),

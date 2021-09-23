@@ -50,36 +50,10 @@ class UpdateNotificationStatusCommandHandler extends CommandHandler
         /** @var NotificationRepository $notificationRepo */
         $notificationRepo = $this->container->get('domain.notification.repository');
 
-        $currentNotification = $notificationRepo->getById($notificationId);
-
-        $notification = NotificationFactory::create([
-            'name'       => $currentNotification->getName()->getValue(),
-            'status'     => $command->getField('status'),
-            'type'       => $currentNotification->getType()->getValue(),
-            'sendTo'     => $currentNotification->getSendTo()->getValue(),
-            'subject'    => $currentNotification->getSubject()->getValue(),
-            'content'    => $currentNotification->getContent()->getValue(),
-            'time'       => $currentNotification->getTime() ? $currentNotification->getTime()->getValue() : null,
-            'entity'     => $command->getField('entity'),
-            'timeBefore' => $currentNotification->getTimeBefore() ?
-                $currentNotification->getTimeBefore()->getValue() : null,
-            'timeAfter'  => $currentNotification->getTimeAfter() ?
-                $currentNotification->getTimeAfter()->getValue() : null
-        ]);
-
-        if (!$notification instanceof Notification) {
-            $result->setResult(CommandResult::RESULT_ERROR);
-            $result->setMessage('Could not update notification entity.');
-
-            return $result;
-        }
-
-        if ($notificationRepo->update($notificationId, $notification)) {
+        if ($notificationRepo->updateFieldById($notificationId, $command->getField('status'), 'status')) {
             $result->setResult(CommandResult::RESULT_SUCCESS);
             $result->setMessage('Successfully updated notification.');
-            $result->setData([
-                Entities::NOTIFICATION => $notification->toArray()
-            ]);
+            $result->setData(true);
         }
 
         return $result;

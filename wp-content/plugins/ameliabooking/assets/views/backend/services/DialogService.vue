@@ -1087,6 +1087,7 @@
           if (this.service.id in this.futureAppointments) {
             this.appointmentsEmployees = this.futureAppointments[this.service.id]
           }
+          this.service.extras.sort((a, b) => (a.position > b.position) ? 1 : -1)
 
           this.dialogLoading = false
           this.executeUpdate = false

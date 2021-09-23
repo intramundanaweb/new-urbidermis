@@ -234,6 +234,10 @@ export default {
             label: this.$root.labels.ph_zoom_join_url
           },
           {
+            value: '%google_meet_url%',
+            label: this.$root.labels.ph_google_meet_url
+          },
+          {
             value: '%reservation_name%',
             label: this.$root.labels.ph_reservation_name
           },
@@ -539,6 +543,7 @@ export default {
         '%event_cancel_url%',
         '%customer_panel_url%',
         '%employee_panel_url%',
+        '%google_meet_url%',
         '%zoom_join_url%',
         '%zoom_host_url%',
         '%zoom_host_url_date%',

@@ -6,7 +6,7 @@ Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.0.34
+Stable tag: 1.0.36
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,21 @@ Installing Amelia Lite is as easy as 1-2-3!
 
 
 == Changelog ==
+
+V1.0.36
+* Added new Spanish translation
+* Small bug fixes and stability improvements
+
+V1.0.35
+* Feature: Integration with Divi Builder
+* Feature: Added option in the Notifications Settings to set additional numbers on which all SMS messages will be sent
+* Improvement: Optimized Services page on back-end for large number of services
+* BugFix: Fixed issue with searching attendees in the Events
+* BugFix: Fixed conflicts with SEO plugins
+* BugFix: Fixed conflict with Guzzle HTTP Library
+* Fixed issue with scrolling (Divi and other themes)
+* Fixed issue with sorting services
+* Other small bug fixes and stability improvements
 
 V1.0.34
 * BugFix: Fixed RTL issues

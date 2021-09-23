@@ -103,8 +103,12 @@ class GetEntitiesCommandHandler extends CommandHandler
             /** @var EventRepository $eventRepository */
             $eventRepository = $this->container->get('domain.booking.event.repository');
 
+            $dateFilter = [];
+            if (!isset($params['getAllEvents'])) {
+                $dateFilter = ['dates' => [DateTimeService::getNowDateTime()]];
+            }
             /** @var Collection $events */
-            $events = $eventRepository->getFiltered(['dates' => [DateTimeService::getNowDateTime()]]);
+            $events = $eventRepository->getFiltered($dateFilter);
 
             $resultData['events'] = $events->toArray();
 

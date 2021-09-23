@@ -86,10 +86,6 @@
       //color: @color-dark-gray;
     }
 
-    .am-event-filter {
-
-    }
-
     .am-event-list {
       margin-top: @margin-big;
       .am-event {
@@ -407,7 +403,46 @@
         }
       }
     }
+  }
 
+  .am-events-filter {
+    .el-input__prefix {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img, svg {
+        width: 16px;
+
+        path {
+          fill: @color-text-prime
+        }
+      }
+    }
+
+    .v-calendar-column {
+      margin-bottom: 22px;
+
+      .el-input__prefix {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 16px;
+
+          path {
+            fill: @color-text-prime;
+          }
+        }
+      }
+
+      .am-calendar-picker {
+        &:after {
+          content: none;
+        }
+      }
+    }
   }
 
   .am-lite-footer {

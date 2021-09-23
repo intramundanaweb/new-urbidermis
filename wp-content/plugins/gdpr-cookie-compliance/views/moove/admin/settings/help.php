@@ -31,9 +31,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="gdpr-faq-accordion-content" >
 				<p><?php esc_html_e( 'You can use the following to display the Cookie Settings Screen window:', 'gdpr-cookie-compliance' ); ?></p>
-				<p><?php esc_html_e( '[Relative Path – RECOMMENDED]', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'Relative Path (RECOMMENDED)', 'gdpr-cookie-compliance' ); ?></p>
 				<code>/#gdpr_cookie_modal</code>
-				<p><?php esc_html_e( '[Absolute Path]', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'Absolute Path', 'gdpr-cookie-compliance' ); ?></p>
 				<code><?php echo esc_url( home_url() ); ?>/#gdpr_cookie_modal</code><br />
 				<code><?php echo esc_url( home_url() ); ?>/your-internal-page/#gdpr_cookie_modal</code>
 			</div>
@@ -97,11 +97,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
-				<h3><?php esc_html_e( 'Does the plugin support subdomains?', 'gdpr-cookie-compliance' ); ?></h3>
+				<h3><?php esc_html_e( 'Does the plugin support subdomains or subfolders on multisite network?', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
-				<p><?php esc_html_e( 'Unfortunately not, subdomains are treated as separate domains by browsers and the plugin is unable to alter cookies stored by another domain.', 'gdpr-cookie-compliance' ); ?></p>
-				<p><?php esc_html_e( 'If your multisite setup uses subdomain version, each subsite will be recognised as a separate domain by browsers and will create separate cookies for each subdomain.', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'Yes, the plugin supports subdomains on the same WordPress Multisite Network as part of our Premium Add-on', 'gdpr-cookie-compliance' ); ?></p>
+				<p><?php esc_html_e( 'We can sync users consent across your multisite network as long as your subsites are using the same domain and either folder or subdomain structure.' ); ?></p>
+				<p><?php esc_html_e( 'For example, if user agrees to cookies on one subsite (example.com/one/ or one.example.com), then we can automatically sync their consent and cookies will be accepted on the other subsites too (example.com/two/ or two.example.com).' ); ?></p>
+				<p><?php esc_html_e( 'There is only one exception where we cannot sync users consent between subsites and that’s when you’re using different domains (subdomains are fine). Browsers will treat each domain as separate entity and our plugin will be unable to alter cookies stored by the other domain. This is a security feature in browsers to prevent hacking.' ); ?></p>  
       </div>
 			<!--  .gdpr-faq-accordion-content -->
 		</div>
@@ -129,25 +131,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<!--  .gdpr-faq-toggle -->
 
-		<div class="gdpr-faq-toggle">
-			<div class="gdpr-faq-accordion-header">
-				<h3><?php esc_html_e( 'Does this plugin stop all cookies from being stored?', 'gdpr-cookie-compliance' ); ?></h3>
-			</div>
-			<div class="gdpr-faq-accordion-content" >
-				<p><?php esc_html_e( 'This plugin only restricts cookies for scripts that you have setup using this plugin. If you want to block all cookies, you have to add all scripts that use cookies into the settings of this plugin.', 'gdpr-cookie-compliance' ); ?></p>
-			</div>
-			<!--  .gdpr-faq-accordion-content -->
-		</div>
-		<!--  .gdpr-faq-toggle -->
-
-    		<div class="gdpr-faq-toggle">
+    	<div class="gdpr-faq-toggle">
 			<div class="gdpr-faq-accordion-header">
 				<h3><?php esc_html_e( 'What information does the Consent Log store and where is it stored?', 'gdpr-cookie-compliance' ); ?></h3>
 			</div>
 			<div class="gdpr-faq-accordion-content" >
 				<p><?php esc_html_e( 'The Consent Log features stores all data in your WordPress website database.', 'gdpr-cookie-compliance' ); ?></p>
 				<p><?php esc_html_e( 'The data stored includes: Consent Date, User IP address, Cookies Accepted and User Email (for logged-in users).', 'gdpr-cookie-compliance' ); ?></p>
-				<p><?php esc_html_e( 'You can see the preview of', 'gdpr-cookie-compliance' ); ?> <a href="https://ps.w.org/gdpr-cookie-compliance/assets/screenshot-36.png?rev=2263873" class="gdpr_admin_link" target="_blank"><?php esc_html_e( 'Consent Log here', 'gdpr-cookie-compliance' ); ?></a> .</p>
+				<p><?php esc_html_e( 'You can see the preview of', 'gdpr-cookie-compliance' ); ?> <a href="https://ps.w.org/gdpr-cookie-compliance/assets/screenshot-36.png?rev=2263873" class="gdpr_admin_link" target="_blank"><?php esc_html_e( 'Consent Log here', 'gdpr-cookie-compliance' ); ?></a>.</p>
 			</div>
 			<!--  .gdpr-faq-accordion-content -->
 		</div>

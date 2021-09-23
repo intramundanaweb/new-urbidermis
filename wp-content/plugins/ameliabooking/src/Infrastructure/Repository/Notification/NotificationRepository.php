@@ -2,12 +2,15 @@
 
 namespace AmeliaBooking\Infrastructure\Repository\Notification;
 
+use AmeliaBooking\Domain\Collection\Collection;
+use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
 use AmeliaBooking\Domain\Entity\Notification\Notification;
 use AmeliaBooking\Domain\Factory\Notification\NotificationFactory;
 use AmeliaBooking\Domain\Repository\Notification\NotificationRepositoryInterface;
-use AmeliaBooking\Infrastructure\Common\Exceptions\NotFoundException;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use AmeliaBooking\Infrastructure\Repository\AbstractRepository;
+use AmeliaBooking\Infrastructure\Repository\Booking\Event\EventRepository;
+use AmeliaBooking\Infrastructure\WP\InstallActions\DB\Notification\NotificationsToEntitiesTable;
 
 /**
  * Class NotificationRepository
@@ -22,7 +25,7 @@ class NotificationRepository extends AbstractRepository implements NotificationR
     /**
      * @param Notification $entity
      *
-     * @return bool|mixed
+     * @return bool
      * @throws QueryExecutionException
      */
     public function add($entity)
@@ -31,17 +34,27 @@ class NotificationRepository extends AbstractRepository implements NotificationR
 
         $params = [
             ':name'         => $data['name'],
-            ':sendToType'   => $data['sendToType'],
+            ':customName'   => $data['customName'],
+            ':sendTo'       => $data['sendTo'],
+            ':status'       => $data['status'],
+            ':type'         => $data['type'],
+            ':entity'       => $data['entity'],
+            ':time'         => $data['time'],
+            ':timeBefore'   => $data['timeBefore'],
+            ':timeAfter'    => $data['timeAfter'],
             ':subject'      => $data['subject'],
             ':content'      => $data['content'],
             ':translations' => $data['translations'],
+            ':sendOnlyMe'   => $data['sendOnlyMe'] ? 1 : 0,
         ];
 
         try {
             $statement = $this->connection->prepare(
                 "INSERT INTO {$this->table} 
-                (`name`, `sendToType`, `subject`, `content`, `translations`)
-                VALUES (:name, :sendToType, :subject, :content, :translations)"
+                (`name`, `customName`, `sendTo`, `status`, `type`, `entity`, `time`, `timeBefore`,
+                 `timeAfter`, `subject`, `content`, `translations`, `sendOnlyMe`)
+                VALUES (:name, :customName, :sendTo, :status, :type, :entity, :time, :timeBefore,
+                        :timeAfter, :subject, :content, :translations, :sendOnlyMe)"
             );
 
             $res = $statement->execute($params);
@@ -49,7 +62,7 @@ class NotificationRepository extends AbstractRepository implements NotificationR
                 throw new QueryExecutionException('Unable to add data in ' . __CLASS__);
             }
 
-            return $res;
+            return $this->connection->lastInsertId();
         } catch (\Exception $e) {
             throw new QueryExecutionException('Unable to add data in ' . __CLASS__, $e->getCode(), $e);
         }
@@ -67,6 +80,8 @@ class NotificationRepository extends AbstractRepository implements NotificationR
         $data = $entity->toArray();
 
         $params = [
+            ':name'         => $data['name'],
+            ':customName'   => $data['customName'],
             ':status'       => $data['status'],
             ':time'         => $data['time'],
             ':timeBefore'   => $data['timeBefore'],
@@ -74,19 +89,23 @@ class NotificationRepository extends AbstractRepository implements NotificationR
             ':subject'      => $data['subject'],
             ':content'      => $data['content'],
             ':translations' => $data['translations'],
+            ':sendOnlyMe'   => $data['sendOnlyMe'] ? 1 : 0,
             ':id'           => $id,
         ];
 
         try {
             $statement = $this->connection->prepare(
                 "UPDATE {$this->table} SET 
+                `name` = :name,
+                `customName` = :customName,
                 `status` = :status,
                 `time` = :time,
                 `timeBefore` = :timeBefore,
                 `timeAfter` = :timeAfter,
                 `subject` = :subject,
                 `content` = :content,
-                `translations` = :translations
+                `translations` = :translations,
+                `sendOnlyMe` = :sendOnlyMe
                 WHERE id = :id"
             );
 
@@ -106,14 +125,15 @@ class NotificationRepository extends AbstractRepository implements NotificationR
      * @param $name
      * @param $type
      *
-     * @return Notification
+     * @return Collection
      * @throws QueryExecutionException
+     * @throws InvalidArgumentException
      */
     public function getByNameAndType($name, $type)
     {
         try {
             $statement = $this->connection->prepare(
-                $this->selectQuery() . " WHERE {$this->table}.name = :name AND {$this->table}.type = :type"
+                $this->selectQuery() . " WHERE {$this->table}.name LIKE :name AND {$this->table}.type = :type"
             );
 
             $params = [
@@ -123,15 +143,50 @@ class NotificationRepository extends AbstractRepository implements NotificationR
 
             $statement->execute($params);
 
-            $row = $statement->fetch();
+            $rows = $statement->fetchAll();
+
         } catch (\Exception $e) {
-            throw new QueryExecutionException('Unable to find by id in ' . __CLASS__, $e->getCode(), $e);
+            throw new QueryExecutionException('Unable to find by name and type in ' . __CLASS__, $e->getCode(), $e);
         }
 
-        if (!$row) {
-            return null;
+        $items = new Collection();
+        foreach ($rows as $row) {
+            $items->addItem(call_user_func([static::FACTORY, 'create'], $row), $row['id']);
         }
 
-        return call_user_func([static::FACTORY, 'create'], $row);
+        return $items;
     }
+
+
+    /**
+     * @param int $notificationId
+     *
+     * @return bool
+     * @throws QueryExecutionException
+     * @throws InvalidArgumentException
+     */
+    public function delete($notificationId)
+    {
+        $notificationsToEntities = NotificationsToEntitiesTable::getTableName();
+        $params = [
+            ':id'  => $notificationId,
+        ];
+
+        try {
+            $statement = $this->connection->prepare(
+                "DELETE FROM {$this->table} WHERE id = :id"
+            );
+            $success1  = $statement->execute($params);
+            $statement = $this->connection->prepare(
+                "DELETE FROM {$notificationsToEntities} WHERE notificationId = :id"
+            );
+            $success2  = $statement->execute($params);
+
+            return $success1 && $success2;
+        } catch (\Exception $e) {
+            throw new QueryExecutionException('Unable to delete data from ' . __CLASS__, $e->getCode(), $e);
+        }
+    }
+
+
 }

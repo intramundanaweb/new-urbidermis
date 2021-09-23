@@ -38,6 +38,7 @@ use AmeliaBooking\Infrastructure\WP\InstallActions\DB\Notification\Notifications
 use AmeliaBooking\Infrastructure\WP\InstallActions\DB\Notification\NotificationsSMSHistoryTable;
 use AmeliaBooking\Infrastructure\WP\InstallActions\DB\Notification\NotificationsTable;
 use AmeliaBooking\Infrastructure\WP\InstallActions\DB\Notification\NotificationsTableInsertRows;
+use AmeliaBooking\Infrastructure\WP\InstallActions\DB\Notification\NotificationsToEntitiesTable;
 use AmeliaBooking\Infrastructure\WP\InstallActions\DB\Payment\PaymentsTable;
 use AmeliaBooking\Infrastructure\WP\InstallActions\DB\User\Provider\ProvidersEventTable;
 use AmeliaBooking\Infrastructure\WP\InstallActions\DB\User\Provider\ProvidersGoogleCalendarTable;
@@ -156,6 +157,8 @@ class DeleteDatabaseHook
         NotificationsTableInsertRows::delete();
 
         NotificationsTable::delete();
+
+        NotificationsToEntitiesTable::delete();
 
         LocationsTable::delete();
 

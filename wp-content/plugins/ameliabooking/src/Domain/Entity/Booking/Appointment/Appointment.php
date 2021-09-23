@@ -50,6 +50,9 @@ class Appointment extends AbstractBooking
     /** @var Token */
     private $googleCalendarEventId;
 
+    /** @var string */
+    private $googleMeetUrl;
+
     /** @var Label */
     private $outlookCalendarEventId;
 
@@ -201,6 +204,22 @@ class Appointment extends AbstractBooking
     }
 
     /**
+     * @return string
+     */
+    public function getGoogleMeetUrl()
+    {
+        return $this->googleMeetUrl;
+    }
+
+    /**
+     * @param string $googleMeetUrl
+     */
+    public function setGoogleMeetUrl($googleMeetUrl)
+    {
+        $this->googleMeetUrl = $googleMeetUrl;
+    }
+
+    /**
      * @return Label
      */
     public function getOutlookCalendarEventId()
@@ -321,6 +340,7 @@ class Appointment extends AbstractBooking
                 'location'               => null !== $this->getLocation() ? $this->getLocation()->toArray() : null,
                 'googleCalendarEventId'  => null !== $this->getGoogleCalendarEventId() ?
                     $this->getGoogleCalendarEventId()->getValue() : null,
+                'googleMeetUrl'          => null !== $this->getGoogleMeetUrl() ? $this->getGoogleMeetUrl() : null,
                 'outlookCalendarEventId' => null !== $this->getOutlookCalendarEventId() ?
                     $this->getOutlookCalendarEventId()->getValue() : null,
                 'zoomMeeting'            => $this->getZoomMeeting() ? $this->getZoomMeeting()->toArray() : null,

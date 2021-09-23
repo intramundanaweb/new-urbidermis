@@ -1093,9 +1093,11 @@
             background-color: @elf-input-color;
           }
 
-          .am-calendar-picker {
-            &:after {
-              background-color: transparent;
+          .@{input}__prefix {
+            svg {
+              path {
+                fill: @elf-input-text-color;
+              }
             }
           }
         }
@@ -1691,6 +1693,14 @@
           &__inner {
             color: @elf-input-text-color;
             background-color: @elf-input-color;
+          }
+
+          &__prefix {
+            img, svg {
+              path {
+                fill: @elf-input-text-color
+              }
+            }
           }
 
           &.is-disabled {

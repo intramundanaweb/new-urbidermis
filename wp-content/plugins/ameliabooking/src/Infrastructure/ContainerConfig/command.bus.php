@@ -85,6 +85,8 @@ $entries['command.bus'] = function ($c) {
         Notification\GetNotificationsCommand::class               => new Notification\GetNotificationsCommandHandler($c),
         Notification\SendTestEmailCommand::class                  => new Notification\SendTestEmailCommandHandler($c),
         Notification\UpdateNotificationCommand::class             => new Notification\UpdateNotificationCommandHandler($c),
+        Notification\AddNotificationCommand::class                => new Notification\AddNotificationCommandHandler($c),
+        Notification\DeleteNotificationCommand::class             => new Notification\DeleteNotificationCommandHandler($c),
         Notification\UpdateNotificationStatusCommand::class       => new Notification\UpdateNotificationStatusCommandHandler($c),
         Notification\SendAmeliaSmsApiRequestCommand::class        => new Notification\SendAmeliaSmsApiRequestCommandHandler($c),
         Notification\UpdateSMSNotificationHistoryCommand::class   => new Notification\UpdateSMSNotificationHistoryCommandHandler($c),
@@ -179,7 +181,6 @@ $entries['command.bus'] = function ($c) {
 
             // Notification
             Notification\SendScheduledNotificationsCommand::class     => new Notification\SendScheduledNotificationsCommandHandler($c),
-
             // Payment
             PaymentGateway\PayPalPaymentCallbackCommand::class        => new PaymentGateway\PayPalPaymentCallbackCommandHandler($c),
             PaymentGateway\PayPalPaymentCommand::class                => new PaymentGateway\PayPalPaymentCommandHandler($c),
@@ -203,7 +204,7 @@ $entries['command.bus'] = function ($c) {
             User\Customer\UpdateCustomerCommand::class                => new User\Customer\UpdateCustomerCommandHandler($c),
             User\Customer\ReauthorizeCommand::class                   => new User\Customer\ReauthorizeCommandHandler($c),
             User\LoginCabinetCommand::class                           => new User\LoginCabinetCommandHandler($c),
-
+            User\LogoutCabinetCommand::class                          => new User\LogoutCabinetCommandHandler($c),
             // User/Provider
             User\Provider\AddProviderCommand::class                   => new User\Provider\AddProviderCommandHandler($c),
             User\Provider\GetProviderCommand::class                   => new User\Provider\GetProviderCommandHandler($c),

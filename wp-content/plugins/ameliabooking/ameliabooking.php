@@ -3,7 +3,7 @@
 Plugin Name: Amelia
 Plugin URI: https://wpamelia.com/
 Description: Amelia is a simple yet powerful automated booking specialist, working 24/7 to make sure your customers can make appointments and events even while you sleep!
-Version: 1.0.34
+Version: 1.0.36
 Author: TMS
 Author URI: https://tms-outsource.com/
 Text Domain: ameliabooking
@@ -99,7 +99,7 @@ if (!defined('AMELIA_LOGIN_URL')) {
 
 // Const for Amelia version
 if (!defined('AMELIA_VERSION')) {
-    define('AMELIA_VERSION', '1.0.34');
+    define('AMELIA_VERSION', '1.0.36');
 }
 
 // Const for site URL
@@ -176,6 +176,10 @@ class Plugin
      */
     public static function init()
     {
+        $settingsService = new SettingsService(new SettingsStorage());
+
+        self::weglotConflict($settingsService, true);
+
         // Const for path root
         if (!defined('AMELIA_LOCALE')) {
             define('AMELIA_LOCALE', get_locale());
@@ -183,7 +187,7 @@ class Plugin
 
         load_plugin_textdomain('wpamelia', false, plugin_basename(__DIR__) . '/languages/' . AMELIA_LOCALE . '/');
 
-        $settingsService = new SettingsService(new SettingsStorage());
+        self::weglotConflict($settingsService, false);
 
         if (class_exists('WooCommerce')) {
             if (!empty($settingsService->getCategorySettings('payments')['wc']['dashboard'])) {
@@ -244,6 +248,9 @@ class Plugin
         if (defined('ELEMENTOR_VERSION')) {
             ElementorBlock::get_instance();
         }
+
+        require_once AMELIA_PATH . '/extensions/divi_amelia/divi_amelia.php';
+
     }
 
     /**
@@ -260,6 +267,52 @@ class Plugin
             ),
             $categories
         );
+    }
+
+    /**
+     * Fix for conflict with Weglot plugin
+     * @param $settingsService
+     * @param $init
+     */
+    public static function weglotConflict($settingsService, $init)
+    {
+        if (defined('AMELIA_LOCALE_FORCED') &&
+            AMELIA_LOCALE_FORCED &&
+            function_exists('weglot_get_current_language')
+        ) {
+            try {
+                if ($init && !defined('AMELIA_LOCALE')) {
+                    $weglotCurrentLanguage = weglot_get_current_language();
+
+                    $ameliaUsedLanguages = array_flip($settingsService->getSetting('general', 'usedLanguages'));
+
+                    require_once ABSPATH . 'wp-admin/includes/translation-install.php';
+
+                    global $locale;
+
+                    $potentialLanguages = [];
+
+                    foreach (wp_get_available_translations() as $key => $value) {
+                        if (substr($key, 0, 2) === substr($weglotCurrentLanguage, 0, 2)) {
+                            $potentialLanguages[] = $key;
+                        }
+                    }
+
+                    foreach ($potentialLanguages as $potentialLanguage) {
+                        if (array_key_exists($potentialLanguage, $ameliaUsedLanguages)) {
+                            $locale = $potentialLanguage;
+                            break;
+                        }
+                    }
+                } else {
+                    global $locale;
+
+                    $locale = AMELIA_LOCALE_FORCED;
+                }
+            } catch (\Exception $e) {
+
+            }
+        }
     }
 
     /**

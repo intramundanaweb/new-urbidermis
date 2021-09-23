@@ -245,7 +245,7 @@
 
       formErrorMessage (customLabel = '', label) {
         let serviceLabel = customLabel || label
-        if (serviceLabel.charAt(serviceLabel.length - 1).match(/:/g)) {
+        if (serviceLabel && serviceLabel.charAt(serviceLabel.length - 1).match(/:/g)) {
           serviceLabel = serviceLabel.slice(0, -1).toLowerCase()
         }
         return `${this.$root.labels.please_select} ${serviceLabel}`
