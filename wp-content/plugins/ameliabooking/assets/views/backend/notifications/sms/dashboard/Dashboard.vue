@@ -147,6 +147,7 @@
                 :categories="categories"
                 :customFields="customFields"
                 :coupons="coupons"
+                :events="events"
                 :user="user"
                 type="sms"
                 :pageUrl="getPageUrl()"
@@ -243,6 +244,10 @@
         type: Array
       },
       coupons: {
+        default: () => [],
+        type: Array
+      },
+      events: {
         default: () => [],
         type: Array
       },

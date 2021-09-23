@@ -369,6 +369,11 @@
                 $(".project-title").css('display', 'block')
                 $(".project-title").css('font-size', '1.1em')
                 $(".project-title").css('top', '-25px')
+
+                $(".range").removeClass('mb-3').addClass('mb-5')
+
+                $(".grid-project-wrap a").removeClass('p-2').addClass('p-3')
+                $(".grid-row").removeClass('mb-4')
             }
         
             if ($(".range").val() >= 33) {
@@ -381,13 +386,20 @@
                 $(".project-title").css('top', '-15px')
         
                 $(".grid-flex").removeClass("p-0")
-                $(".grid-project").css('padding', '10px')
+
+                $(".range").removeClass('mb-5').addClass('mb-3')
+
+                $(".grid-project-wrap a").removeClass('p-2').addClass('p-3')
+                $(".grid-row").removeClass('mb-4')
             }
         
             if ($(".range").val() >= 66) {
         
                 $(".grid-project-wrap").removeClass("col-6 col-12").addClass("col-4")
                 $(".project-title").css('display', 'none')
+
+                $(".grid-project-wrap a").removeClass('p-3').addClass('p-2')
+                $(".grid-row").addClass('mb-4')
             }
         })
     })

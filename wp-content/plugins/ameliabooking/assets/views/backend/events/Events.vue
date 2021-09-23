@@ -104,9 +104,14 @@
                     <p>{{ $root.labels.event_name }}</p>
                   </el-col>
 
+                  <!-- Event List Location -->
+                  <el-col :lg="4" class="am-event-location">
+                    <p>{{ $root.labels.event_location }}</p>
+                  </el-col>
+
                   <!-- Event List Spots -->
-                  <el-col :lg="4">
-                    <p>{{ $root.labels.event_capacity }}</p>
+                  <el-col :lg="3">
+                    <p class="am-event-spots">{{ $root.labels.event_capacity }}</p>
                   </el-col>
 
                   <!-- Event List Recurring -->
@@ -200,10 +205,16 @@
                           </h4>
                         </el-col>
 
+                        <!-- Location -->
+                        <el-col :lg="4" :sm="4" :xs="12" class="am-event-location">
+                          <p class="am-col-title">{{ $root.labels.event_location }}</p>
+                          <p><span class="am-semi-strong">{{ evt.location }}</span></p>
+                        </el-col>
+
                         <!-- Spots -->
-                        <el-col :lg="4" :sm="4" :xs="12">
-                          <p class="am-col-title">{{ $root.labels.event_capacity }}</p>
-                          <p><span class="am-semi-strong">{{ evt.maxCapacity - evt.places }}</span> / {{
+                        <el-col :lg="3" :sm="3" :xs="12">
+                          <p class="am-col-title am-event-spots">{{ $root.labels.event_capacity }}</p>
+                          <p class="am-event-spots"><span class="am-semi-strong">{{ evt.maxCapacity - evt.places }}</span> / {{
                             evt.maxCapacity}}</p>
                         </el-col>
 
@@ -688,6 +699,8 @@
           params.providers = this.options.entities.employees.map(employee => employee.id)
         }
 
+        let $this = this
+
         this.$http.get(`${this.$root.getAjaxUrl}/events`, {
           params: params
         })
@@ -711,7 +724,7 @@
 
                   if (event.full) event.status = 'full'
                   else if (event.upcoming) event.status = 'upcoming'
-
+                  let location = event.customLocation ? event.customLocation : (event.locationId ? $this.options.entities.locations.find(l => l.id === event.locationId).name : null)
                   eventsDay[dateString].events.push({
                     id: event.id,
                     name: event.name,
@@ -719,6 +732,7 @@
                     periodEnd: eventPeriod.periodEnd,
                     bookingOpens: event.bookingOpens,
                     bookingCloses: event.bookingCloses,
+                    location: location,
                     recurring: event.recurring,
                     maxCapacity: event.maxCapacity,
                     status: event.status,
@@ -737,7 +751,6 @@
             })
 
             this.eventsDay = eventsDay
-
             this.fetched = true
             this.fetchedFiltered = true
           })

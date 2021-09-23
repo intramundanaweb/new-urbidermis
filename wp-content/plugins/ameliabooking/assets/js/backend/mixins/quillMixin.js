@@ -30,6 +30,10 @@ export default {
 
   methods: {
     parseQuillEditorContent (object) {
+      if (typeof object === 'undefined') {
+        return
+      }
+
       let elements = object.quill.root.getElementsByTagName('p')
 
       for (let i = 0; i < elements.length; i++) {
@@ -47,6 +51,38 @@ export default {
           }
         }
       }
+    },
+
+    process (str) {
+      let div = document.createElement('div')
+
+      div.innerHTML = str.trim()
+
+      return this.format(div, 0).innerHTML
+    },
+
+    format (node, level) {
+      let indentBefore = new Array(level++ + 1).join('  ')
+
+      let indentAfter = new Array(level - 1).join('  ')
+
+      let textNode = null
+
+      for (let i = 0; i < node.children.length; i++) {
+        textNode = document.createTextNode('\n' + indentBefore)
+
+        node.insertBefore(textNode, node.children[i])
+
+        this.format(node.children[i], level)
+
+        if (node.lastElementChild === node.children[i]) {
+          textNode = document.createTextNode('\n' + indentAfter)
+
+          node.appendChild(textNode)
+        }
+      }
+
+      return node
     }
   }
 }

@@ -162,4 +162,36 @@ class UserService
 
         return $currentUserEntity;
     }
+
+    /**
+     * login user
+     *
+     * @param $username
+     * @param $password
+     *
+     * @return mixed
+     */
+    public function loginWordPressUser($username, $password)
+    {
+        $user = wp_signon(
+            [
+                'user_login'    => sanitize_user($username),
+                'user_password' => trim($password),
+                'remember'      => true,
+            ],
+            true
+        );
+
+        wp_set_current_user($user->ID);
+    }
+
+    /**
+     * logout user
+     *
+     * @return mixed
+     */
+    public function logoutWordPressUser()
+    {
+        wp_logout();
+    }
 }

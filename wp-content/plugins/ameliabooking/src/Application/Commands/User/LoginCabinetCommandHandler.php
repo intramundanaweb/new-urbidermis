@@ -106,6 +106,8 @@ class LoginCabinetCommandHandler extends CommandHandler
             $user = $userService->getAuthenticatedUser($command->getField('email'), $command->getField('password'));
 
             if ($user) {
+                $userService->loginWordPressUser($command->getField('email'), $command->getField('password'));
+
                 return $userAS->getAuthenticatedUserResponse(
                     $user,
                     true,

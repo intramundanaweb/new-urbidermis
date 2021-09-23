@@ -19,12 +19,12 @@ jQuery(document).ready(function ($) {
 
     // Change section-skin background on hovering buttons 
     $(".skin-buttons button").mouseenter(function () {
-        $(".section-skin").animate({
+        $(".wrapper.skin").animate({
             backgroundColor: '#b4714e'
         }, 200)
         $(".section-skin button").css('color', '#000')
     }).mouseleave(function () {
-        $(".section-skin").animate({
+        $(".wrapper.skin").animate({
             backgroundColor: '#f6f5f1'
         }, 200)
     })

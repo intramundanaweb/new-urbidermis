@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
     */
 
     /** Slick cover - Cover section*/
-    jQuery('.slick-cover').slick({
+    $('.slick-cover').slick({
         infinite: true,
         speed: 800,
         autoplaySpeed: 3500,
@@ -30,17 +30,17 @@ jQuery(document).ready(function ($) {
         }]
     });
 
-    jQuery('#slick-cover-left').on('click', function (e) {
-        jQuery('.slick-cover').slick('slickPrev');
+    $('#slick-cover-left').on('click', function (e) {
+        $('.slick-cover').slick('slickPrev');
     });
     
-    jQuery('#slick-cover-right').on('click', function (e) {
-        jQuery('.slick-cover').slick('slickNext');
+    $('#slick-cover-right').on('click', function (e) {
+        $('.slick-cover').slick('slickNext');
     });
     
       
     /** Slick articles - Reference section */
-    jQuery('.slick-articles').slick({
+    $('.slick-articles').slick({
         infinite: true,
         speed: 300,
         //autoplaySpeed: 3500,
@@ -63,12 +63,12 @@ jQuery(document).ready(function ($) {
         }]
     });
     
-    jQuery('#slick-article-left').on('click', function (e) {
-        jQuery('.slick-articles').slick('slickPrev');
+    $('#slick-article-left').on('click', function (e) {
+        $('.slick-articles').slick('slickPrev');
     });
     
-    jQuery('#slick-article-right').on('click', function (e) {
-        jQuery('.slick-articles').slick('slickNext');
+    $('#slick-article-right').on('click', function (e) {
+        $('.slick-articles').slick('slickNext');
     });
 
 
@@ -79,7 +79,7 @@ jQuery(document).ready(function ($) {
     */
 
     /** Slick products - Section products */
-    jQuery('.slick-productos').slick({
+    $('.slick-productos').slick({
         infinite: true,
         speed: 300,
         //autoplaySpeed: 3500,
@@ -102,12 +102,51 @@ jQuery(document).ready(function ($) {
         }]
     });
     
-    /*jQuery('#slick-article-left').on('click', function (e) {
-        jQuery('.slick-articles').slick('slickPrev');
+    /*$('#slick-article-left').on('click', function (e) {
+        $('.slick-articles').slick('slickPrev');
     });
     
-    jQuery('#slick-article-right').on('click', function (e) {
-        jQuery('.slick-articles').slick('slickNext');
+    $('#slick-article-right').on('click', function (e) {
+        $('.slick-articles').slick('slickNext');
     });*/
+
+
+    /*
+    ==============================
+    Page: Template-Autores
+    ==============================
+    */
+
+    /** Slick articles - Reference section */
+    $('.slick-autors').slick({
+        infinite: true,
+        speed: 300,
+        //autoplaySpeed: 3500,
+        //autoplay: true,
+        slidesToScroll: 1,
+        slidesToShow: 4,
+        arrows: false,
+        fade: false,
+        dots: false,
+        centerMode: false,
+        variableWidth: false,
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                dots: false,
+                slidesToShow: 4,
+                slidesToScroll: 1
+            }
+        }]
+    });
+    
+    $('#slick-autors-left').on('click', function (e) {
+        $('.slick-autors').slick('slickPrev');
+    });
+    
+    $('#slick-autors-right').on('click', function (e) {
+        $('.slick-autors').slick('slickNext');
+    });
 
 });

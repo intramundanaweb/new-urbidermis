@@ -49,7 +49,7 @@ get_header('no-margin');
     <div class="wrapper contact bg-beige">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 height-200">
+                <div class="col-12">
 
                     <div class="section section-contact mt-5 mt-lg-0 pt-lg-56 mb-5 mb-lg-6 d-flex flex-column">
 
@@ -65,11 +65,11 @@ get_header('no-margin');
                         </div>
                         
                         <div>
-                            <p class="fw-500 fs-11 fs-lg-14"><?php the_field('parrafo_1'); ?></p>
-                            <p class="fw-500 fs-11 fs-lg-14"><?php the_field('parrafo_2'); ?></p>
+                            <p class="fw-400 fs-11 fs-lg-14"><?php the_field('parrafo_1'); ?></p>
+                            <p class="fw-400 fs-11 fs-lg-14"><?php the_field('parrafo_2'); ?></p>
                         </div>
 
-                        <div class="button-wrap mt-auto ml-auto ml-lg-0 mr-auto ">
+                        <div class="button-wrap mt-auto ml-auto ml-lg-0 mr-auto">
                             <button class="btn btn-round"><?php the_field('texto_boton'); ?></button>
                         </div>
 
@@ -86,7 +86,7 @@ get_header('no-margin');
 
     <?php img_with_alt('imagen_seccion'); ?>
 
-    <div class="wrapper bg-beige-light">
+    <div class="wrapper skin bg-beige-light">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -106,8 +106,8 @@ get_header('no-margin');
 
                         <div class="body col-lg-6 px-0 d-flex flex-column">
 
-                            <p class="fw-500 fs-13 fs-lg-25 p-text"><?php the_field('parrafo_intermedio_1'); ?></p>
-                            <p class="fw-500 fs-13 fs-lg-25 p-text"><?php the_field('parrafo_intermedio_2'); ?></p>
+                            <p class="fw-400 fs-11 fs-lg-14 p-text"><?php the_field('parrafo_intermedio_1'); ?></p>
+                            <p class="fw-400 fs-11 fs-lg-14 p-text"><?php the_field('parrafo_intermedio_2'); ?></p>
 
                             <div class="skin-buttons d-flex flex-column flex-lg-row mt-auto mt-lg-auto">
                                 <button class="btn btn-round habla-con-nos mb-4 mb-lg-6 ml-auto mr-auto mr-lg-0 mt-5 mt-lg-0"><?php the_field('texto_boton_1'); ?></button>
@@ -185,21 +185,21 @@ get_header('no-margin');
                                         <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
 
                                             <a href="#">
-                                                <p class="fs-15 fs-lg-18 fw-500 mb-lg-0">¿Cómo iluminar con catenaria?</p>
+                                                <p class="fs-15 fs-lg-18 fw-400 mb-lg-0">¿Cómo iluminar con catenaria?</p>
                                             </a>
 
                                             <div class="hline"></div>
 
                                             <div class="child-article">
-                                                <p class="fs-11 fs-lg-14 fw-500 mb-lg-0">Artículo</p>
-                                                <p class="fs-11 fs-lg-14 fw-500 mb-lg-0">12 min</p>
+                                                <p class="fs-11 fs-lg-14 fw-400 mb-lg-0">Artículo</p>
+                                                <p class="fs-11 fs-lg-14 fw-400 mb-lg-0">12 min</p>
                                             </div>
 
                                             <div class="hline"></div>
 
                                             <p class="tags-title font-weight-bold fs-lg-09">TAGS</p>
 
-                                            <p class="tags fs-15 fs-lg-18 fw-500 mb-lg-0">#urbanidad #ciudad #edificios #suspensión
+                                            <p class="tags fs-15 fs-lg-18 fw-400 mb-lg-0">#urbanidad #ciudad #edificios #suspensión
                                                 #instalación
                                                 #espacios</p>
 

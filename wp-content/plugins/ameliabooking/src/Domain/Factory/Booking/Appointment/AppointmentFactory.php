@@ -76,6 +76,10 @@ class AppointmentFactory
             $appointment->setGoogleCalendarEventId(new Token($data['googleCalendarEventId']));
         }
 
+        if (!empty($data['googleMeetUrl'])) {
+            $appointment->setGoogleMeetUrl($data['googleMeetUrl']);
+        }
+
         if (!empty($data['outlookCalendarEventId'])) {
             $appointment->setOutlookCalendarEventId(new Token($data['outlookCalendarEventId']));
         }
@@ -152,6 +156,7 @@ class AppointmentFactory
                         $row['appointment_internalNotes'] : null,
                     'status'                 => $row['appointment_status'],
                     'googleCalendarEventId'  => $row['appointment_google_calendar_event_id'],
+                    'googleMeetUrl'          => $row['appointment_google_meet_url'],
                     'outlookCalendarEventId' => $row['appointment_outlook_calendar_event_id'],
                     'zoomMeeting'            => [
                         'id'       => $zoomMeetingJson ? $zoomMeetingJson['id'] : null,

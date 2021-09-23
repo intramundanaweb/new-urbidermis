@@ -1001,7 +1001,8 @@ export default {
     let paymentOption = this.paymentOptions.find(option => option.value === this.$root.settings.payments.defaultPaymentMethod)
 
     if (!this.appointment.payment.gateway) {
-      this.appointment.payment.gateway = paymentOption ? paymentOption.value : this.paymentOptions[0].value
+      this.appointment.payment.gateway = paymentOption
+        ? paymentOption.value : (this.paymentOptions.length ? this.paymentOptions[0].value : this.$root.settings.payments.defaultPaymentMethod)
     }
 
     if (this.bookableType === 'appointment') {

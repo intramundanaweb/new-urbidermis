@@ -16,7 +16,6 @@ use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
 use AmeliaBooking\Domain\Entity\Entities;
 use AmeliaBooking\Domain\Entity\User\AbstractUser;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
-use Interop\Container\Exception\ContainerException;
 use Slim\Exception\ContainerValueNotFoundException;
 
 /**
@@ -35,7 +34,6 @@ class UpdateStashCommandHandler extends CommandHandler
      * @throws InvalidArgumentException
      * @throws AccessDeniedException
      * @throws QueryExecutionException
-     * @throws ContainerException
      */
     public function handle(UpdateStashCommand $command)
     {

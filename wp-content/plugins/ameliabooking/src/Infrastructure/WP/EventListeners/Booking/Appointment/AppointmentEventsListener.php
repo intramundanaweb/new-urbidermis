@@ -78,7 +78,8 @@ class AppointmentEventsListener implements ListenerInterface
                     break;
                 case 'AppointmentStatusUpdated':
                     foreach (["appointment", "event", "booking"] as $type) {
-                        if (isset($param->getData()[$type]) &&
+                        if (AMELIA_LITE_VERSION &&
+                            isset($param->getData()[$type]) &&
                             in_array($param->getData()[$type]["status"], ["canceled", "rejected", "deleted"])
                         ) {
                             return;
@@ -88,7 +89,10 @@ class AppointmentEventsListener implements ListenerInterface
                     AppointmentStatusUpdatedEventHandler::handle($param, $this->container);
                     break;
                 case 'BookingTimeUpdated':
-                    AppointmentTimeUpdatedEventHandler::handle($param, $this->container);
+                    if (!AMELIA_LITE_VERSION) {
+                        AppointmentTimeUpdatedEventHandler::handle($param, $this->container);
+                    }
+
                     break;
                 case 'BookingAdded':
                     do_action('AmeliaBookingAddedBeforeNotify', $param->getData(), $this->container);
@@ -96,7 +100,8 @@ class AppointmentEventsListener implements ListenerInterface
                     break;
                 case 'BookingCanceled':
                     foreach (["appointment", "event", "booking"] as $type) {
-                        if (isset($param->getData()[$type]) &&
+                        if (AMELIA_LITE_VERSION &&
+                            isset($param->getData()[$type]) &&
                             in_array($param->getData()[$type]["status"], ["canceled", "rejected", "deleted"])
                         ) {
                             return;

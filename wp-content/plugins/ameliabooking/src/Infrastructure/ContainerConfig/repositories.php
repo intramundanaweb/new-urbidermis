@@ -121,6 +121,13 @@ $entries['domain.notification.repository'] = function (Container $c) {
     );
 };
 
+$entries['domain.notificationEntities.repository'] = function (Container $c) {
+    return new Repository\Notification\NotificationsToEntitiesRepository(
+        $c->getDatabaseConnection(),
+        DB\Notification\NotificationsToEntitiesTable::getTableName()
+    );
+};
+
 $entries['domain.notificationLog.repository'] = function (Container $c) {
     return new Repository\Notification\NotificationLogRepository(
         $c->getDatabaseConnection(),

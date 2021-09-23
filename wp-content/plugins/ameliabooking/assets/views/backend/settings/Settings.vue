@@ -595,15 +595,24 @@
               }
             }
 
-            if (!('appointment' in settings.payments.wc.checkoutData.translations) || !settings.payments.wc.checkoutData.translations.appointment) {
+            if (!('appointment' in settings.payments.wc.checkoutData.translations) ||
+                (Array.isArray(settings.payments.wc.checkoutData.translations.appointment) && !settings.payments.wc.checkoutData.translations.appointment.length) ||
+                !settings.payments.wc.checkoutData.translations.appointment
+            ) {
               settings.payments.wc.checkoutData.translations.appointment = {}
             }
 
-            if (!('event' in settings.payments.wc.checkoutData.translations) || !settings.payments.wc.checkoutData.translations.event) {
+            if (!('event' in settings.payments.wc.checkoutData.translations) ||
+                (Array.isArray(settings.payments.wc.checkoutData.translations.event) && !settings.payments.wc.checkoutData.translations.event.length) ||
+                !settings.payments.wc.checkoutData.translations.event
+            ) {
               settings.payments.wc.checkoutData.translations.event = {}
             }
 
-            if (!('package' in settings.payments.wc.checkoutData.translations) || !settings.payments.wc.checkoutData.translations.package) {
+            if (!('package' in settings.payments.wc.checkoutData.translations) ||
+                (Array.isArray(settings.payments.wc.checkoutData.translations.package) && !settings.payments.wc.checkoutData.translations.package.length) ||
+                !settings.payments.wc.checkoutData.translations.package
+            ) {
               settings.payments.wc.checkoutData.translations.package = {}
             }
 

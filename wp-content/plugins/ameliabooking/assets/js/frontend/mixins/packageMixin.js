@@ -145,6 +145,8 @@ export default {
 
       amContainer.classList.toggle('am-active-package-list', true)
       amContainer.classList.toggle('am-active-picker', false)
+
+      amContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
     },
 
     packageSlotsSelectedCallback () {

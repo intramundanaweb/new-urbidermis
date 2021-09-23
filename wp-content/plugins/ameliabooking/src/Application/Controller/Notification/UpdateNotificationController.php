@@ -21,12 +21,18 @@ class UpdateNotificationController extends Controller
      * @var array
      */
     protected $allowedFields = [
+        'name',
+        'customName',
+        'sendOnlyMe',
         'time',
+        'entity',
         'timeBefore',
         'timeAfter',
         'subject',
         'content',
         'translations',
+        'entityIds',
+        'status'
     ];
 
     /**

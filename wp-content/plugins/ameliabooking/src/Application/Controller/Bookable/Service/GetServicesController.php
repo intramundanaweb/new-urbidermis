@@ -8,6 +8,7 @@ namespace AmeliaBooking\Application\Controller\Bookable\Service;
 
 use AmeliaBooking\Application\Commands\Bookable\Service\GetServicesCommand;
 use AmeliaBooking\Application\Controller\Controller;
+use RuntimeException;
 use Slim\Http\Request;
 
 /**
@@ -24,11 +25,16 @@ class GetServicesController extends Controller
      * @param         $args
      *
      * @return GetServicesCommand
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     protected function instantiateCommand(Request $request, $args)
     {
         $command = new GetServicesCommand($args);
+
+        $params = (array)$request->getQueryParams();
+
+        $command->setField('params', $params);
+
         $requestBody = $request->getParsedBody();
         $this->setCommandFields($command, $requestBody);
 

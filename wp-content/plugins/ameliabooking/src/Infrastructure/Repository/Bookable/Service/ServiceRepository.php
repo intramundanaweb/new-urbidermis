@@ -7,11 +7,11 @@
 namespace AmeliaBooking\Infrastructure\Repository\Bookable\Service;
 
 use AmeliaBooking\Domain\Collection\Collection;
+use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
 use AmeliaBooking\Domain\Services\DateTime\DateTimeService;
 use AmeliaBooking\Infrastructure\Connection;
 use AmeliaBooking\Domain\Entity\Bookable\Service\Service;
 use AmeliaBooking\Domain\Factory\Bookable\Service\ServiceFactory;
-use AmeliaBooking\Infrastructure\Common\Exceptions\NotFoundException;
 use AmeliaBooking\Infrastructure\Repository\AbstractRepository;
 use AmeliaBooking\Domain\Repository\Bookable\Service\ServiceRepositoryInterface;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
@@ -241,13 +241,13 @@ class ServiceRepository extends AbstractRepository implements ServiceRepositoryI
     }
 
     /**
-     * @param int     $serviceId
+     * @param int     $id
      * @param Service $entity
      *
      * @return mixed
      * @throws QueryExecutionException
      */
-    public function update($serviceId, $entity)
+    public function update($id, $entity)
     {
         $data = $entity->toArray();
 
@@ -279,7 +279,7 @@ class ServiceRepository extends AbstractRepository implements ServiceRepositoryI
             ':depositPerPerson' => $data['depositPerPerson'] ? 1 : 0,
             ':mandatoryExtra'   => $data['mandatoryExtra'] ? 1 : 0,
             ':minSelectedExtras'=> $data['minSelectedExtras'],
-            ':id'               => $serviceId
+            ':id'               => $id
         ];
 
 
@@ -328,6 +328,141 @@ class ServiceRepository extends AbstractRepository implements ServiceRepositoryI
         } catch (\Exception $e) {
             throw new QueryExecutionException('Unable to save data in ' . __CLASS__, $e->getCode(), $e);
         }
+    }
+
+    /**
+     * @param array $criteria
+     * @param int   $itemsPerPage
+     *
+     * @return Collection
+     * @throws QueryExecutionException
+     * @throws InvalidArgumentException
+     */
+    public function getFiltered($criteria, $itemsPerPage = null)
+    {
+        $params = [];
+
+        $where = [];
+
+        $orderColumn = 's.position, s.id';
+
+        $orderDirection = 'ASC';
+
+        if (!empty($criteria['sort'])) {
+            switch ($criteria['sort']) {
+                case ('nameAsc'):
+                    $orderColumn = 's.name';
+
+                    $orderDirection = 'ASC';
+
+                    break;
+
+                case ('nameDesc'):
+                    $orderColumn = 's.name';
+
+                    $orderDirection = 'DESC';
+
+                    break;
+
+                case ('priceAsc'):
+                    $orderColumn = 's.price';
+
+                    $orderDirection = 'ASC';
+
+                    break;
+
+                case ('priceDesc'):
+                    $orderColumn = 's.price';
+
+                    $orderDirection = 'DESC';
+
+                    break;
+
+                case ('custom'):
+                    $orderColumn = 's.position, s.id';
+
+                    $orderDirection = 'ASC';
+
+                    break;
+            }
+        }
+
+        if (!empty($criteria['categoryId'])) {
+            $params[':categoryId'] = $criteria['categoryId'];
+
+            $where[] = 's.categoryId = :categoryId';
+        }
+
+        $where = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+
+        $order = "ORDER BY {$orderColumn} {$orderDirection}";
+
+        $limit = $this->getLimit(
+            !empty($criteria['page']) ? (int)$criteria['page'] : 0,
+            (int)$itemsPerPage
+        );
+
+        try {
+            $statement = $this->connection->prepare(
+                "SELECT s.*
+                FROM {$this->table} s
+                {$where}
+                {$order}
+                {$limit}"
+            );
+
+            $statement->execute($params);
+
+            $rows = $statement->fetchAll();
+        } catch (\Exception $e) {
+            throw new QueryExecutionException('Unable to find by ids in ' . __CLASS__, $e->getCode(), $e);
+        }
+
+        $items = new Collection();
+
+        foreach ($rows as $row) {
+            $items->addItem(call_user_func([static::FACTORY, 'create'], $row), $row['id']);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @param array $criteria
+     *
+     * @return mixed
+     * @throws QueryExecutionException
+     */
+    public function getCount($criteria)
+    {
+        $params = [];
+
+        $where = [];
+
+        if (!empty($criteria['categoryId'])) {
+            $params[':categoryId'] = $criteria['categoryId'];
+
+            $where[] = 's.categoryId = :categoryId';
+        }
+
+        $where = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+
+        try {
+            $statement = $this->connection->prepare(
+                "SELECT COUNT(*) as count
+                FROM {$this->table} s
+                {$where}
+                ORDER BY s.position, s.id"
+            );
+
+            $statement->execute($params);
+
+            $row = $statement->fetch()['count'];
+        } catch (\Exception $e) {
+            throw new QueryExecutionException('Unable to get data from ' . __CLASS__, $e->getCode(), $e);
+        }
+
+        return $row;
     }
 
     /**

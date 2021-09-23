@@ -263,6 +263,7 @@ abstract class PlaceholderService implements PlaceholderServiceInterface
                 $isExtraAggregatedPrice = isset($extra['aggregatedPrice']) && $extra['aggregatedPrice'] !== null ? $extra['aggregatedPrice'] :
                     $isAggregatedPrice;
 
+                $extra['price'] = isset($extra['price']) ? $extra['price'] : 0;
                 $appointmentPrice +=
                     $extra['price'] *
                     $extra['quantity'] *
@@ -571,8 +572,12 @@ abstract class PlaceholderService implements PlaceholderServiceInterface
                 }
             }
         } else {
-            $bookingCustomFields = $appointment['bookings'][$bookingKey]['customFields'] ?
-                json_decode($appointment['bookings'][$bookingKey]['customFields'], true) : [];
+            if ($appointment['bookings'][$bookingKey]['customFields']) {
+                $bookingCustomFields = !is_array($appointment['bookings'][$bookingKey]['customFields']) ?
+                    json_decode($appointment['bookings'][$bookingKey]['customFields'], true) : $appointment['bookings'][$bookingKey]['customFields'];
+            } else {
+                $bookingCustomFields = [];
+            }
 
             if ($bookingCustomFields) {
                 foreach ((array)$bookingCustomFields as $bookingCustomFieldKey => $bookingCustomField) {

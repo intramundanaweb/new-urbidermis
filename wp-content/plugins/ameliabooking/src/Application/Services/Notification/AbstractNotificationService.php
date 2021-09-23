@@ -7,6 +7,7 @@
 namespace AmeliaBooking\Application\Services\Notification;
 
 use AmeliaBooking\Application\Services\Booking\BookingApplicationService;
+use AmeliaBooking\Domain\Collection\AbstractCollection;
 use AmeliaBooking\Domain\Collection\Collection;
 use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
 use AmeliaBooking\Domain\Entity\Booking\Event\Event;
@@ -14,12 +15,16 @@ use AmeliaBooking\Domain\Entity\Booking\Event\EventPeriod;
 use AmeliaBooking\Domain\Entity\Entities;
 use AmeliaBooking\Domain\Entity\Notification\Notification;
 use AmeliaBooking\Domain\Services\DateTime\DateTimeService;
+use AmeliaBooking\Domain\ValueObjects\BooleanValueObject;
+use AmeliaBooking\Domain\ValueObjects\String\NotificationSendTo;
 use AmeliaBooking\Domain\ValueObjects\String\NotificationStatus;
+use AmeliaBooking\Domain\ValueObjects\String\Token;
 use AmeliaBooking\Infrastructure\Common\Container;
 use AmeliaBooking\Infrastructure\Common\Exceptions\NotFoundException;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use AmeliaBooking\Infrastructure\Repository\Notification\NotificationLogRepository;
 use AmeliaBooking\Infrastructure\Repository\Notification\NotificationRepository;
+use AmeliaBooking\Infrastructure\Repository\Notification\NotificationsToEntitiesRepository;
 use Exception;
 use Interop\Container\Exception\ContainerException;
 use Slim\Exception\ContainerValueNotFoundException;
@@ -38,7 +43,7 @@ abstract class AbstractNotificationService
     protected $type;
 
     /**
-     * ProviderApplicationService constructor.
+     * AbstractNotificationService constructor.
      *
      * @param Container $container
      * @param string    $type
@@ -83,13 +88,42 @@ abstract class AbstractNotificationService
      * @return mixed
      *
      * @throws QueryExecutionException
+     * @throws InvalidArgumentException
      */
     public function getByNameAndType($name, $type)
     {
         /** @var NotificationRepository $notificationRepo */
         $notificationRepo = $this->container->get('domain.notification.repository');
+        /** @var NotificationsToEntitiesRepository $notificationEntitiesRepo */
+        $notificationEntitiesRepo = $this->container->get('domain.notificationEntities.repository');
 
-        return $notificationRepo->getByNameAndType($name, $type);
+        /** @var Collection $notifications */
+        $notifications = $notificationRepo->getByNameAndType($name, $type);
+        /** @var Notification $notification */
+        foreach ($notifications->getItems() as $notification) {
+            if ($notification->getCustomName() !== null) {
+                $notification->setEntityIds($notificationEntitiesRepo->getEntities($notification->getId()->getValue()));
+            }
+        }
+
+        return $notifications;
+    }
+
+    /**
+     *
+     * @param int $id
+     *
+     * @return mixed
+     *
+     * @throws QueryExecutionException
+     * @throws NotFoundException
+     */
+    public function getById($id)
+    {
+        /** @var NotificationRepository $notificationRepo */
+        $notificationRepo = $this->container->get('domain.notification.repository');
+
+        return $notificationRepo->getById($id);
     }
 
     /**
@@ -107,53 +141,71 @@ abstract class AbstractNotificationService
         $bookingAS = $this->container->get('application.booking.booking.service');
 
         // Notify provider
-        /** @var Notification $providerNotification */
-        $providerNotification = $this->getByNameAndType(
+        /** @var Collection $providerNotifications */
+        $providerNotifications = $this->getByNameAndType(
             "provider_{$appointmentArray['type']}_{$appointmentArray['status']}",
             $this->type
         );
 
-        if ($providerNotification && $providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $this->sendNotification(
-                $appointmentArray,
-                $providerNotification,
-                $logNotification
-            );
+        $sendDefault = $this->sendDefault($providerNotifications, $appointmentArray);
+
+
+        /** @var Notification $providerNotification */
+        foreach ($providerNotifications->getItems() as $providerNotification) {
+            if ($providerNotification && $providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                if (!$this->checkCustom($providerNotification, $appointmentArray, $sendDefault)) {
+                    continue;
+                }
+                $this->sendNotification(
+                    $appointmentArray,
+                    $providerNotification,
+                    $logNotification
+                );
+            }
         }
 
         // Notify customers
         if ($appointmentArray['notifyParticipants']) {
 
-            /** @var Notification $customerNotification */
-            $customerNotification = $this->getByNameAndType(
+            /** @var Collection $customerNotifications */
+            $customerNotifications = $this->getByNameAndType(
                 "customer_{$appointmentArray['type']}_{$appointmentArray['status']}",
                 $this->type
             );
 
-            if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-                // If appointment status is changed to 'pending' because minimum capacity condition is not satisfied,
-                // return all 'approved' bookings and send them notification that appointment is now 'pending'.
-                if ($forcedStatusChange === true) {
-                    $appointmentArray['bookings'] = $bookingAS->filterApprovedBookings($appointmentArray['bookings']);
-                }
+            $sendDefault = $this->sendDefault($customerNotifications, $appointmentArray);
 
-                // Notify each customer from customer bookings
-                foreach (array_keys($appointmentArray['bookings']) as $bookingKey) {
-                    if (!$appointmentArray['bookings'][$bookingKey]['isChangedStatus'] ||
-                        (
-                            isset($appointmentArray['bookings'][$bookingKey]['skipNotification']) &&
-                            $appointmentArray['bookings'][$bookingKey]['skipNotification']
-                        )
-                    ) {
+            foreach ($customerNotifications->getItems() as $customerNotification) {
+                if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                    if (!$this->checkCustom($customerNotification, $appointmentArray, $sendDefault)) {
                         continue;
                     }
+                    // If appointment status is changed to 'pending' because minimum capacity condition is not satisfied,
+                    // return all 'approved' bookings and send them notification that appointment is now 'pending'.
+                    if ($forcedStatusChange === true) {
+                        $appointmentArray['bookings'] = $bookingAS->filterApprovedBookings($appointmentArray['bookings']);
+                    }
 
-                    $this->sendNotification(
-                        $appointmentArray,
-                        $customerNotification,
-                        $logNotification,
-                        $bookingKey
-                    );
+                    // Notify each customer from customer bookings
+                    foreach (array_keys($appointmentArray['bookings']) as $bookingKey) {
+                        if (!$appointmentArray['bookings'][$bookingKey]['isChangedStatus'] ||
+                            (
+                                isset($appointmentArray['bookings'][$bookingKey]['skipNotification']) &&
+                                $appointmentArray['bookings'][$bookingKey]['skipNotification']
+                            )
+                        ) {
+                            continue;
+                        }
+
+                        if (empty($dontSendDefault) || $providerNotification->getCustomName()) {
+                            $this->sendNotification(
+                                $appointmentArray,
+                                $customerNotification,
+                                $logNotification,
+                                $bookingKey
+                            );
+                        }
+                    }
                 }
             }
         }
@@ -190,44 +242,59 @@ abstract class AbstractNotificationService
             }
 
             foreach (array_keys($appointmentArray['bookings']) as $bookingKey) {
-                /** @var Notification $customerNotification */
-                $customerNotification =
+                /** @var Collection $customerNotifications */
+                $customerNotifications =
                     $this->getByNameAndType(
                         "customer_appointment_{$appointmentArray['bookings'][$bookingKey]['status']}",
                         $this->type
                     );
 
-                if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-                    if (!$appointmentArray['bookings'][$bookingKey]['isChangedStatus'] &&
-                        !$appointmentArray['employee_changed']
-                    ) {
-                        continue;
-                    }
+                $sendDefault = $this->sendDefault($customerNotifications, $appointmentArray);
+                foreach ($customerNotifications->getItems() as $customerNotification) {
+                    if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                        if (!$this->checkCustom($customerNotification, $appointmentArray, $sendDefault)) {
+                            continue;
+                        }
+                        if (!$appointmentArray['bookings'][$bookingKey]['isChangedStatus'] &&
+                            !$appointmentArray['employee_changed']
+                        ) {
+                            continue;
+                        }
 
-                    $this->sendNotification(
-                        $appointmentArray,
-                        $customerNotification,
-                        true,
-                        $bookingKey
-                    );
-
-                    if ($appointmentArray['employee_changed']) {
-                        // Notify provider
-                        /** @var Notification $providerNotification */
-                        $providerNotification = $this->getByNameAndType(
-                            "provider_{$appointmentArray['type']}_rescheduled",
-                            $this->type
+                        $this->sendNotification(
+                            $appointmentArray,
+                            $customerNotification,
+                            true,
+                            $bookingKey
                         );
 
-                        if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-                            $this->sendNotification(
-                                $appointmentArray,
-                                $providerNotification,
-                                true
+                        if ($appointmentArray['employee_changed']) {
+                            // Notify provider
+                            /** @var Collection $providerNotifications */
+                            $providerNotifications = $this->getByNameAndType(
+                                "provider_{$appointmentArray['type']}_rescheduled",
+                                $this->type
                             );
+
+                            $sendDefault = $this->sendDefault($providerNotifications, $appointmentArray);
+
+                            foreach ($providerNotifications->getItems() as $providerNotification) {
+                                if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                                    if (!$this->checkCustom($providerNotification, $appointmentArray, $sendDefault)) {
+                                        continue;
+                                    }
+                                    $this->sendNotification(
+                                        $appointmentArray,
+                                        $providerNotification,
+                                        true
+                                    );
+                                }
+                            }
+
                         }
                     }
                 }
+
             }
         }
     }
@@ -242,38 +309,50 @@ abstract class AbstractNotificationService
         // Notify customers
         if ($appointmentArray['notifyParticipants']) {
 
-            /** @var Notification $customerNotification */
-            $customerNotification = $this->getByNameAndType(
+            /** @var Collection $customerNotifications */
+            $customerNotifications = $this->getByNameAndType(
                 "customer_{$appointmentArray['type']}_rescheduled",
                 $this->type
             );
 
-            if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-                // Notify each customer from customer bookings
-                foreach (array_keys($appointmentArray['bookings']) as $bookingKey) {
-                    $this->sendNotification(
-                        $appointmentArray,
-                        $customerNotification,
-                        true,
-                        $bookingKey
-                    );
+            $sendDefault = $this->sendDefault($customerNotifications, $appointmentArray);
+            foreach ($customerNotifications->getItems() as $customerNotification) {
+                if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                    if (!$this->checkCustom($customerNotification, $appointmentArray, $sendDefault)) {
+                        continue;
+                    }
+                    // Notify each customer from customer bookings
+                    foreach (array_keys($appointmentArray['bookings']) as $bookingKey) {
+                        $this->sendNotification(
+                            $appointmentArray,
+                            $customerNotification,
+                            true,
+                            $bookingKey
+                        );
+                    }
                 }
             }
         }
 
         // Notify provider
-        /** @var Notification $providerNotification */
-        $providerNotification = $this->getByNameAndType(
+        /** @var Collection $providerNotifications */
+        $providerNotifications = $this->getByNameAndType(
             "provider_{$appointmentArray['type']}_rescheduled",
             $this->type
         );
 
-        if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $this->sendNotification(
-                $appointmentArray,
-                $providerNotification,
-                true
-            );
+        $sendDefault = $this->sendDefault($providerNotifications, $appointmentArray);
+        foreach ($providerNotifications->getItems() as $providerNotification) {
+            if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                if (!$this->checkCustom($providerNotification, $appointmentArray, $sendDefault)) {
+                    continue;
+                }
+                $this->sendNotification(
+                    $appointmentArray,
+                    $providerNotification,
+                    true
+                );
+            }
         }
     }
 
@@ -286,38 +365,54 @@ abstract class AbstractNotificationService
      */
     public function sendBookingAddedNotifications($appointmentArray, $bookingArray, $logNotification)
     {
-        /** @var Notification $customerNotification */
-        $customerNotification = $this->getByNameAndType(
+        /** @var Collection $customerNotifications */
+        $customerNotifications = $this->getByNameAndType(
             "customer_{$appointmentArray['type']}_{$appointmentArray['status']}",
             $this->type
         );
 
-        if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            // Notify customer that scheduled the appointment
-            $this->sendNotification(
-                $appointmentArray,
-                $customerNotification,
-                $logNotification,
-                array_search($bookingArray['id'], array_column($appointmentArray['bookings'], 'id'), true)
-            );
+        $sendDefault = $this->sendDefault($customerNotifications, $appointmentArray);
+
+        foreach ($customerNotifications->getItems() as $customerNotification) {
+            if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                if (!$this->checkCustom($customerNotification, $appointmentArray, $sendDefault)) {
+                    continue;
+                }
+
+                // Notify customer that scheduled the appointment
+                $this->sendNotification(
+                    $appointmentArray,
+                    $customerNotification,
+                    $logNotification,
+                    array_search($bookingArray['id'], array_column($appointmentArray['bookings'], 'id'), true)
+                );
+            }
         }
 
         // Notify provider
-        /** @var Notification $providerNotification */
-        $providerNotification =
-            $this->getByNameAndType("provider_{$appointmentArray['type']}_{$appointmentArray['status']}", $this->type);
+        /** @var Collection $providerNotifications */
+        $providerNotifications = $this->getByNameAndType(
+            "provider_{$appointmentArray['type']}_{$appointmentArray['status']}",
+            $this->type
+        );
 
-        if ($providerNotification && $providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $this->sendNotification(
-                $appointmentArray,
-                $providerNotification,
-                $logNotification
-            );
+        $sendDefault = $this->sendDefault($providerNotifications, $appointmentArray);
+        foreach ($providerNotifications->getItems() as $providerNotification) {
+            if ($providerNotification && $providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                if (!$this->checkCustom($providerNotification, $appointmentArray, $sendDefault)) {
+                    continue;
+                }
+                $this->sendNotification(
+                    $appointmentArray,
+                    $providerNotification,
+                    $logNotification
+                );
+            }
         }
     }
 
     /**
-     * Notify the customer when he change his booking status.
+     * Notify the customer when he changes his booking status.
      *
      * @param $appointmentArray
      * @param $bookingArray
@@ -329,30 +424,35 @@ abstract class AbstractNotificationService
         // Notify customers
         if ($appointmentArray['notifyParticipants']) {
 
-            /** @var Notification $customerNotification */
-            $customerNotification =
-                $this->getByNameAndType("customer_{$appointmentArray['type']}_{$bookingArray['status']}", $this->type);
+            /** @var Collection $customerNotifications */
+            $customerNotifications = $this->getByNameAndType("customer_{$appointmentArray['type']}_{$bookingArray['status']}", $this->type);
 
-            if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-                // Notify customer
-                $bookingKey = array_search(
-                    $bookingArray['id'],
-                    array_column($appointmentArray['bookings'], 'id'),
-                    true
-                );
+            $sendDefault = $this->sendDefault($customerNotifications, $appointmentArray);
+            foreach ($customerNotifications->getItems() as $customerNotification) {
+                if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                    if (!$this->checkCustom($customerNotification, $appointmentArray, $sendDefault)) {
+                        continue;
+                    }
+                    // Notify customer
+                    $bookingKey = array_search(
+                        $bookingArray['id'],
+                        array_column($appointmentArray['bookings'], 'id'),
+                        true
+                    );
 
-                $this->sendNotification(
-                    $appointmentArray,
-                    $customerNotification,
-                    true,
-                    $bookingKey
-                );
+                    $this->sendNotification(
+                        $appointmentArray,
+                        $customerNotification,
+                        true,
+                        $bookingKey
+                    );
+                }
             }
         }
     }
 
     /**
-     * Notify the provider when he customer cancel event booking.
+     * Notify the provider when the customer cancels event booking.
      *
      * @param $eventArray
      * @param $bookingArray
@@ -361,21 +461,27 @@ abstract class AbstractNotificationService
      */
     public function sendProviderEventCancelledNotification($eventArray, $bookingArray)
     {
-        /** @var Notification $providerNotification */
-        $providerNotification = $this->getByNameAndType(
+        /** @var Collection $providerNotifications */
+        $providerNotifications = $this->getByNameAndType(
             "provider_event_canceled",
             $this->type
         );
 
         $eventArray['bookings'] = [$bookingArray];
 
-        if ($providerNotification && $providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $this->sendNotification(
-                $eventArray,
-                $providerNotification,
-                false,
-                null
-            );
+        $sendDefault = $this->sendDefault($providerNotifications, $eventArray);
+        foreach ($providerNotifications->getItems() as $providerNotification) {
+            if ($providerNotification && $providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                if (!$this->checkCustom($providerNotification, $eventArray, $sendDefault)) {
+                    continue;
+                }
+                $this->sendNotification(
+                    $eventArray,
+                    $providerNotification,
+                    false,
+                    null
+                );
+            }
         }
     }
 
@@ -394,55 +500,78 @@ abstract class AbstractNotificationService
         /** @var NotificationLogRepository $notificationLogRepo */
         $notificationLogRepo = $this->container->get('domain.notificationLog.repository');
 
-        /** @var Notification $customerNotification */
-        $customerNotification = $this->getByNameAndType("customer_{$entityType}_next_day_reminder", $this->type);
+        /** @var Collection $customerNotifications */
+        $customerNotifications  = $this->getByNameAndType("customer_{$entityType}_next_day_reminder", $this->type);
+        $customerNotifications2 = $this->getByNameAndType("customer_{$entityType}_scheduled", $this->type);
+
+        foreach ($customerNotifications2->getItems() as $notification) {
+            $customerNotifications->addItem($notification);
+        }
 
         $reservations = new Collection();
 
-        // Check if notification is enabled and it is time to send notification
-        if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED &&
-            DateTimeService::getNowDateTimeObject() >=
-            DateTimeService::getCustomDateTimeObject($customerNotification->getTime()->getValue())
-        ) {
-            switch ($entityType) {
-                case Entities::APPOINTMENT:
-                    $reservations = $notificationLogRepo->getCustomersNextDayAppointments($this->type);
+        /** @var Notification $customerNotification */
+        foreach ($customerNotifications->getItems() as $customerNotification) {
+            // Check if notification is enabled and it is time to send notification
+            if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED &&
+                DateTimeService::getNowDateTimeObject() >=
+                DateTimeService::getCustomDateTimeObject($customerNotification->getTime()->getValue())
+            ) {
+                switch ($entityType) {
+                    case Entities::APPOINTMENT:
+                        $reservations = $notificationLogRepo->getCustomersNextDayAppointments($customerNotification->getId()->getValue(), $customerNotification->getCustomName() === null);
 
-                    break;
-                case Entities::EVENT:
-                    $reservations = $notificationLogRepo->getCustomersNextDayEvents($this->type);
+                        break;
+                    case Entities::EVENT:
+                        $reservations = $notificationLogRepo->getCustomersNextDayEvents($customerNotification->getId()->getValue(), $customerNotification->getCustomName() === null);
 
-                    break;
+                        break;
+                }
+
+                $this->sendBookingsNotifications($customerNotification, $reservations, true);
             }
+        }
 
-            $this->sendBookingsNotifications($customerNotification, $reservations);
+
+        /** @var Collection $providerNotifications */
+        $providerNotifications  = $this->getByNameAndType("provider_{$entityType}_next_day_reminder", $this->type);
+        $providerNotifications2 = $this->getByNameAndType("provider_{$entityType}_scheduled", $this->type);
+
+        foreach ($providerNotifications2->getItems() as $notification) {
+            $providerNotifications->addItem($notification);
         }
 
         /** @var Notification $providerNotification */
-        $providerNotification = $this->getByNameAndType("provider_{$entityType}_next_day_reminder", $this->type);
+        foreach ($providerNotifications->getItems() as $providerNotification) {
+            // Check if notification is enabled and it is time to send notification
+            if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED &&
+                DateTimeService::getNowDateTimeObject() >=
+                DateTimeService::getCustomDateTimeObject($providerNotification->getTime()->getValue())
+            ) {
+                switch ($entityType) {
+                    case Entities::APPOINTMENT:
+                        $reservations = $notificationLogRepo->getProvidersNextDayAppointments($providerNotification->getId()->getValue(), $providerNotification->getCustomName() === null);
 
-        // Check if notification is enabled and it is time to send notification
-        if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED &&
-            DateTimeService::getNowDateTimeObject() >=
-            DateTimeService::getCustomDateTimeObject($providerNotification->getTime()->getValue())
-        ) {
-            switch ($entityType) {
-                case Entities::APPOINTMENT:
-                    $reservations = $notificationLogRepo->getProvidersNextDayAppointments($this->type);
+                        break;
+                    case Entities::EVENT:
+                        $reservations = $notificationLogRepo->getProvidersNextDayEvents($providerNotification->getId()->getValue(), $providerNotification->getCustomName() === null);
 
-                    break;
-                case Entities::EVENT:
-                    $reservations = $notificationLogRepo->getProvidersNextDayEvents($this->type);
+                        break;
+                }
 
-                    break;
-            }
-
-            foreach ((array)$reservations->toArray() as $reservationArray) {
-                $this->sendNotification(
-                    $reservationArray,
-                    $providerNotification,
-                    true
-                );
+                foreach ((array)$reservations->toArray() as $reservationArray) {
+                    if (!$this->checkCustom($providerNotification, $reservationArray, true)) {
+                        continue;
+                    }
+                    if ($providerNotification->getCustomName() === null && !$this->checkShouldSend($reservationArray, true)) {
+                        continue;
+                    }
+                    $this->sendNotification(
+                        $reservationArray,
+                        $providerNotification,
+                        true
+                    );
+                }
             }
         }
     }
@@ -453,58 +582,76 @@ abstract class AbstractNotificationService
      * @throws QueryExecutionException
      * @throws InvalidArgumentException
      */
-    public function sendFollowUpNotifications($entityType)
+    public function sendScheduledNotifications($entityType)
     {
+        /** @var Collection $notifications */
+        $notifications  = $this->getByNameAndType("customer_{$entityType}_follow_up", $this->type);
+        $notifications2 = $this->getByNameAndType("customer_{$entityType}_scheduled_%", $this->type);
+        foreach ($notifications2->getItems() as $notification) {
+            $notifications->addItem($notification);
+        }
+        $notifications2 = $this->getByNameAndType("provider_{$entityType}_scheduled_%", $this->type);
+        foreach ($notifications2->getItems() as $notification) {
+            $notifications->addItem($notification);
+        }
+
         /** @var Notification $notification */
-        $notification = $this->getByNameAndType("customer_{$entityType}_follow_up", $this->type);
+        foreach ($notifications->getItems() as $notification) {
+            if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                /** @var NotificationLogRepository $notificationLogRepo */
+                $notificationLogRepo = $this->container->get('domain.notificationLog.repository');
 
-        if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            /** @var NotificationLogRepository $notificationLogRepo */
-            $notificationLogRepo = $this->container->get('domain.notificationLog.repository');
+                $reservations = new Collection();
 
-            $reservations = new Collection();
+                switch ($entityType) {
+                    case Entities::APPOINTMENT:
+                        $reservations = $notificationLogRepo->getScheduledAppointments($notification);
 
-            switch ($entityType) {
-                case Entities::APPOINTMENT:
-                    $reservations = $notificationLogRepo->getFollowUpAppointments($notification);
+                        break;
+                    case Entities::EVENT:
+                        $reservations = $notificationLogRepo->getScheduledEvents($notification);
 
-                    break;
-                case Entities::EVENT:
-                    $reservations = $notificationLogRepo->getFollowUpEvents($notification);
+                        $currentDateTime = DateTimeService::getNowDateTimeObject();
 
-                    $currentDateTime = DateTimeService::getNowDateTimeObject();
-                    $lastPossibleNotificationMoment = DateTimeService::getNowDateTimeObject();
+                        /** @var Event $event */
+                        foreach ($reservations->getItems() as $eventKey => $event) {
+                            if ($notification->getTimeAfter()) {
+                                $period = $event->getPeriods()->getItem($event->getPeriods()->length() - 1);
 
-                    /** @var Event $event */
-                    foreach ($reservations->getItems() as $eventKey => $event) {
-                        $periodsPassedCount = 0;
+                                $afterPeriodEndDateTime = DateTimeService::getCustomDateTimeObject(
+                                    $period->getPeriodEnd()->getValue()->format('Y-m-d H:i:s')
+                                )->modify("+{$notification->getTimeAfter()->getValue()} seconds");
 
-                        /** @var EventPeriod $period */
-                        foreach ($event->getPeriods()->getItems() as $periodKey => $period) {
-                            $afterPeriodEndDateTime = DateTimeService::getCustomDateTimeObject(
-                                $period->getPeriodEnd()->getValue()->format('Y-m-d H:i:s')
-                            )->modify("+{$notification->getTimeAfter()->getValue()} seconds");
+                                $lastPossibleNotificationMoment = DateTimeService::getCustomDateTimeObject(
+                                    $afterPeriodEndDateTime->format('Y-m-d H:i:s')
+                                )->modify('+432000 seconds');
 
-                            $lastPossibleNotificationMoment = DateTimeService::getCustomDateTimeObject(
-                                $period->getPeriodEnd()->getValue()->format('Y-m-d H:i:s')
-                            )->modify('+172800 seconds');
+                                if (!($currentDateTime >= $afterPeriodEndDateTime && $currentDateTime <= $lastPossibleNotificationMoment)) {
+                                    $reservations->deleteItem($eventKey);
+                                }
+                            } else if ($notification->getTimeBefore()) {
+                                $period = $event->getPeriods()->getItem(0);
 
-                            if ($currentDateTime > $afterPeriodEndDateTime) {
-                                $periodsPassedCount++;
+                                $eventStarts = DateTimeService::getCustomDateTimeObject(
+                                    $period->getPeriodStart()->getValue()->format('Y-m-d H:i:s')
+                                );
+
+                                $beforePeriodStartDateTime = DateTimeService::getCustomDateTimeObject(
+                                    $eventStarts->format('Y-m-d H:i:s')
+                                )->modify("-{$notification->getTimeBefore()->getValue()} seconds");
+
+                                if (!($currentDateTime >= $beforePeriodStartDateTime && $currentDateTime <= $eventStarts)) {
+                                    $reservations->deleteItem($eventKey);
+                                }
                             }
+
                         }
 
-                        if ($currentDateTime > $lastPossibleNotificationMoment ||
-                            $event->getPeriods()->length() !== $periodsPassedCount
-                        ) {
-                            $reservations->deleteItem($eventKey);
-                        }
-                    }
+                        break;
+                }
 
-                    break;
+                $this->sendBookingsNotifications($notification, $reservations, $notification->getTimeBefore() !== null);
             }
-
-            $this->sendBookingsNotifications($notification, $reservations);
         }
     }
 
@@ -512,22 +659,114 @@ abstract class AbstractNotificationService
      * Send passed notification for all passed bookings and save log in the database
      *
      * @param Notification $notification
-     * @param Collection   $appointments
+     * @param Collection $appointments
+     * @param bool $before
+     * @throws QueryExecutionException
      */
-    private function sendBookingsNotifications($notification, $appointments)
+    private function sendBookingsNotifications($notification, $appointments, $before)
     {
         /** @var array $appointmentArray */
         foreach ($appointments->toArray() as $appointmentArray) {
-            // Notify each customer from customer bookings
-            foreach (array_keys($appointmentArray['bookings']) as $bookingKey) {
+            if (!$this->checkCustom($notification, $appointmentArray, true)) {
+                continue;
+            }
+            if ($notification->getCustomName() === null && !$this->checkShouldSend($appointmentArray, $before)) {
+                continue;
+            }
+
+            if ($notification->getSendTo() === NotificationSendTo::PROVIDER) {
                 $this->sendNotification(
                     $appointmentArray,
                     $notification,
-                    true,
-                    $bookingKey
+                    true
                 );
+            } else {
+                // Notify each customer from customer bookings
+                foreach (array_keys($appointmentArray['bookings']) as $bookingKey) {
+                    $this->sendNotification(
+                        $appointmentArray,
+                        $notification,
+                        true,
+                        $bookingKey
+                    );
+                }
             }
         }
+    }
+
+    /**
+     * Check if schedule default notification should be sent
+     *
+     * @param array $appointmentArray
+     * @param bool $before
+     * @throws QueryExecutionException
+     *
+     * return bool
+     *
+     */
+    private function checkShouldSend($appointmentArray, $before)
+    {
+        $time = $before ? 'timeBefore' : 'timeAfter';
+        $entityId = $appointmentArray['type'] === Entities::EVENT ? $appointmentArray['id'] : $appointmentArray['serviceId'];
+        $notifications = $this->getByNameAndType("customer_{$appointmentArray['type']}_scheduled_%", $this->type);
+        return empty(
+            array_filter(
+                $notifications->toArray(),
+                function ($a) use (&$entityId, &$time) {
+                    return $a['customName'] && $a[$time] && $a['sendOnlyMe'] &&
+                        ($a['entityIds'] === null || in_array($entityId, $a['entityIds']));
+                }
+            )
+        );
+    }
+
+    /**
+     * Check if custom notification should be sent
+     *
+     * @param Notification $notification
+     * @param array   $appointmentArray
+     *
+     * @return bool
+     *
+     */
+    private function checkCustom($notification, $appointmentArray, $sendDefault)
+    {
+        if (!$sendDefault && !$notification->getCustomName()) {
+            return false;
+        }
+        if ($notification->getCustomName() && $notification->getEntityIds()) {
+            $entityId = $appointmentArray['type'] === Entities::EVENT ? $appointmentArray['id'] : $appointmentArray['serviceId'];
+            if (!in_array($entityId, $notification->getEntityIds())) {
+                if (!in_array($appointmentArray['parentId'], $notification->getEntityIds())) {
+                    //Shouldn't be sent
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Check if default notification should be sent
+     *
+     * @param Collection $notifications
+     * @param array   $appointmentArray
+     *
+     * @return bool
+     *
+     */
+    private function sendDefault($notifications, $appointmentArray)
+    {
+        $entityId = $appointmentArray['type'] === Entities::EVENT ? $appointmentArray['id'] : $appointmentArray['serviceId'];
+        return empty(
+            array_filter(
+                $notifications->toArray(),
+                function ($a) use (&$entityId) {
+                    return $a['customName'] && $a['sendOnlyMe'] &&
+                        ($a['entityIds'] === null || in_array($entityId, $a['entityIds']));
+                }
+            )
+        );
     }
 
     /**
@@ -538,36 +777,40 @@ abstract class AbstractNotificationService
      */
     public function sendPackagePurchasedNotifications($data, $logNotification)
     {
-        /** @var Notification $customerNotification */
-        $customerNotification = $this->getByNameAndType(
+        /** @var Collection $customerNotifications */
+        $customerNotifications = $this->getByNameAndType(
             "customer_package_purchased",
             $this->type
         );
 
         $data['isForCustomer'] = true;
 
-        if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $this->sendNotification(
-                $data,
-                $customerNotification,
-                $logNotification
-            );
+        foreach ($customerNotifications->getItems() as $customerNotification) {
+            if ($customerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                $this->sendNotification(
+                    $data,
+                    $customerNotification,
+                    $logNotification
+                );
+            }
+
         }
 
-        /** @var Notification $providerNotification */
-        $providerNotification = $this->getByNameAndType(
+        /** @var Collection $providerNotifications */
+        $providerNotifications = $this->getByNameAndType(
             "provider_package_purchased",
             $this->type
         );
 
         $data['isForCustomer'] = false;
-
-        if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $this->sendNotification(
-                $data,
-                $providerNotification,
-                $logNotification
-            );
+        foreach ($providerNotifications->getItems() as $providerNotification) {
+            if ($providerNotification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                $this->sendNotification(
+                    $data,
+                    $providerNotification,
+                    $logNotification
+                );
+            }
         }
     }
 

@@ -14,7 +14,6 @@ use AmeliaBooking\Domain\Entity\CustomField\CustomField;
 use AmeliaBooking\Domain\Entity\Location\Location;
 use AmeliaBooking\Domain\Entity\User\AbstractUser;
 use AmeliaBooking\Domain\Entity\User\Provider;
-use AmeliaBooking\Domain\Factory\Bookable\Service\PackageFactory;
 use AmeliaBooking\Domain\Factory\Bookable\Service\ServiceFactory;
 use AmeliaBooking\Domain\Factory\Location\LocationFactory;
 use AmeliaBooking\Domain\Factory\User\ProviderFactory;
@@ -25,6 +24,7 @@ use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use AmeliaBooking\Infrastructure\Repository\Bookable\Service\CategoryRepository;
 use AmeliaBooking\Infrastructure\Repository\Bookable\Service\PackageRepository;
 use AmeliaBooking\Infrastructure\Repository\Bookable\Service\ServiceRepository;
+use AmeliaBooking\Infrastructure\Repository\Booking\Event\EventRepository;
 use AmeliaBooking\Infrastructure\Repository\Booking\Event\EventTagsRepository;
 use AmeliaBooking\Infrastructure\Repository\CustomField\CustomFieldRepository;
 use AmeliaBooking\Infrastructure\Repository\Location\LocationRepository;
@@ -81,6 +81,11 @@ class StashApplicationService
         /** @var EventTagsRepository $eventTagsRepository */
         $eventTagsRepository = $this->container->get('domain.booking.event.tag.repository');
 
+        /** @var EventRepository $eventRepository */
+        $eventRepository = $this->container->get('domain.booking.event.repository');
+
+        /** @var Collection $events */
+        $events = $eventRepository->getFiltered(['dates' => [DateTimeService::getNowDateTime()], 'show' => 1]);
 
         /** @var Collection $services */
         $services = $serviceRepository->getAllArrayIndexedById();
@@ -136,6 +141,21 @@ class StashApplicationService
             'tags'         => [],
             'packages'     => [],
         ];
+
+        /** @var Event $event */
+        foreach ($events->getItems() as $event) {
+            if ($event->getLocationId() && !$availableLocations->keyExists($event->getLocationId()->getValue())) {
+                $availableLocations->addItem(
+                    $locations->getItem($event->getLocationId()->getValue()),
+                    $event->getLocationId()->getValue()
+                );
+            }
+        }
+
+        /** @var Collection $eventsTags */
+        $eventsTags = $eventTagsRepository->getAllDistinctByCriteria([]);
+
+        $resultData['tags'] = $eventsTags->toArray();
 
         if ($locations->length() && !$availableLocations->length()) {
             $settingsDomainService->setStashEntities($resultData);
@@ -290,13 +310,6 @@ class StashApplicationService
 
             $resultData['packages'][] = $packageData;
         }
-
-
-        /** @var Collection $eventsTags */
-        $eventsTags = $eventTagsRepository->getAllDistinctByCriteria([]);
-
-        $resultData['tags'] = $eventsTags->toArray();
-
 
         $settingsDomainService->setStashEntities($resultData);
     }

@@ -35,6 +35,7 @@
               v-model="eventBooking.customerId"
               filterable
               clearable
+              @clear="searchExistingCustomers"
               :disabled="eventBooking.added !== false"
               :placeholder="$root.labels.customer"
               :loading="loadingCustomers"

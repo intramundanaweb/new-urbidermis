@@ -16,6 +16,7 @@ use AmeliaBooking\Application\Controller\User\GetCurrentUserController;
 use AmeliaBooking\Application\Controller\User\GetUserDeleteEffectController;
 use AmeliaBooking\Application\Controller\User\GetWPUsersController;
 use AmeliaBooking\Application\Controller\User\LoginCabinetController;
+use AmeliaBooking\Application\Controller\User\LogoutCabinetController;
 use AmeliaBooking\Application\Controller\User\Provider\UpdateProviderStatusController;
 use AmeliaBooking\Application\Controller\User\Provider\GetProviderController;
 use AmeliaBooking\Application\Controller\User\Provider\GetProvidersController;
@@ -38,6 +39,8 @@ class User
         $app->get('/users/wp-users', GetWPUsersController::class);
 
         $app->post('/users/authenticate', LoginCabinetController::class);
+
+        $app->post('/users/logout', LogoutCabinetController::class);
 
         // Customers
         $app->get('/users/customers/{id:[0-9]+}', GetCustomerController::class);

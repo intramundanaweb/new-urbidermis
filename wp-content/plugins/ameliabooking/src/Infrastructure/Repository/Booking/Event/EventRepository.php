@@ -335,7 +335,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
      *
      * @return Collection
      * @throws QueryExecutionException
-     * @throws \AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getFiltered($criteria)
     {
@@ -508,6 +508,12 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
             $params[':bookingStatus'] = $criteria['bookingStatus'];
         }
 
+        if (array_key_exists('show', $criteria)) {
+            $where[] = 'e.show = :show';
+
+            $params[':show'] = $criteria['show'];
+        }
+
         $where = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
         try {
@@ -612,7 +618,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
      *
      * @return Collection
      * @throws QueryExecutionException
-     * @throws \AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getProvidersEvents($criteria)
     {
@@ -730,7 +736,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
      *
      * @return array
      * @throws QueryExecutionException
-     * @throws \AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getFilteredIds($criteria, $itemsPerPage)
     {
@@ -804,6 +810,12 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
             $where[] = 'cb.customerId = :customerId';
         }
 
+        if (!empty($criteria['locationId'])) {
+            $params[':locationId'] = $criteria['locationId'];
+
+            $where[] = 'e.locationId = :locationId';
+        }
+
         $providerJoin = '';
 
         if (!empty($criteria['providers'])) {
@@ -859,7 +871,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
      *
      * @return int
      * @throws QueryExecutionException
-     * @throws \AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getFilteredIdsCount($criteria)
     {
@@ -889,6 +901,12 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
                 $where[] = "(DATE_FORMAT(ep.periodStart, '%Y-%m-%d %H:%i:%s') > :eventFrom)";
                 $params[':eventFrom'] = DateTimeService::getNowDateTimeInUtc();
             }
+        }
+
+        if (!empty($criteria['locationId'])) {
+            $params[':locationId'] = $criteria['locationId'];
+
+            $where[] = 'e.locationId = :locationId';
         }
 
         $tagJoin = '';
@@ -944,7 +962,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
      *
      * @return Event
      * @throws QueryExecutionException
-     * @throws \AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getById($id)
     {
@@ -1079,12 +1097,41 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
         return call_user_func([static::FACTORY, 'createCollection'], $rows)->getItem($id);
     }
 
+
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     * @throws QueryExecutionException
+     */
+    public function isRecurring($id)
+    {
+        try {
+            $statement = $this->connection->prepare(
+                "SELECT
+                  e.recurringOrder AS event_recurringOrder, 
+                  e.parentId AS event_parentId 
+                FROM {$this->table} e 
+                WHERE e.id = :eventId"
+            );
+
+            $statement->bindParam(':eventId', $id);
+
+            $statement->execute();
+
+            return $statement->fetch();
+        } catch (\Exception $e) {
+            throw new QueryExecutionException('Unable to find event by id in ' . __CLASS__, $e->getCode(), $e);
+        }
+    }
+
+
     /**
      * @param array $ids
      *
      * @return Event
      * @throws QueryExecutionException
-     * @throws \AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getByBookingIds($ids)
     {
@@ -1221,7 +1268,7 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
      * @return Collection
      * @throws InvalidArgumentException
      * @throws QueryExecutionException
-     * @throws \AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getWithCoupons($criteria)
     {

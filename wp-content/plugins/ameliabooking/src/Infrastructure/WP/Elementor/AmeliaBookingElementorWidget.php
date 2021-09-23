@@ -173,7 +173,9 @@ class AmeliaBookingElementorWidget extends Widget_Base
         $elementorData['services'][0] = BackendStrings::getWordPressStrings()['show_all_services'];
 
         foreach ($data['servicesList'] as $service) {
-            $elementorData['services'][$service['id']] = $service['name'] . ' (id: ' . $service['id'] . ')';
+            if ($service) {
+                $elementorData['services'][$service['id']] = $service['name'] . ' (id: ' . $service['id'] . ')';
+            }
         }
 
         $elementorData['employees'] = [];

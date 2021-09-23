@@ -1,5 +1,9 @@
 <template>
   <div class="am-wrap">
+    <!-- Preview Fonts Import -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- /Preview Fonts Import -->
+
     <div class="am-customize-page am-body">
 
       <!-- Page Header -->
@@ -22,6 +26,17 @@
                 <!-- Customize Settings Inputs -->
                 <el-col :lg="6" class="">
                   <div class="am-customize-settings">
+                    <!-- Global Customize options notice -->
+                    <div class="am-setting">
+                      <el-alert
+                          type="warning"
+                          show-icon
+                          title=""
+                          :description="$root.labels.global_customize_settings_notice"
+                          :closable="false"
+                      />
+                    </div>
+                    <!-- /Global Customize options notice -->
                     <!-- Primary Color -->
                     <div class="am-setting">
                       <p>{{ $root.labels.primary_color }}</p>
@@ -117,22 +132,6 @@
                   </div>
                 </el-col>
                 <!-- /Customize Settings Inputs -->
-
-                <!-- Preview Fonts Import -->
-                <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Roboto:300,400,500,700" rel="stylesheet">
-                <link rel="preconnect" href="https://fonts.gstatic.com">
-                <link href="https://fonts.googleapis.com/css2?family=Carme&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-                <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-                <!-- /Preview Fonts Import -->
 
                 <!-- Customize Preview -->
                 <el-col :lg="18" class="">
@@ -294,7 +293,7 @@
           primaryGradient2: '#0454A2',
           textColor: '#354052',
           textColorOnBackground: '#FCFDFF',
-          font: 'Roboto, sans-serif'
+          font: 'Amelia Roboto, sans-serif'
         },
         useWindowVueInAmelia: true,
         activeTab: 'customize',
@@ -306,67 +305,67 @@
           {
             id: 1,
             name: 'Roboto',
-            value: 'Roboto, sans-serif'
+            value: 'Amelia Roboto, sans-serif'
           },
           {
             id: 2,
             name: 'Lato',
-            value: 'Lato'
+            value: 'Amelia Lato'
           },
           {
             id: 3,
             name: 'Merriweather',
-            value: 'Merriweather, serif'
+            value: 'Amelia Merriweather, serif'
           },
           {
             id: 4,
             name: 'Montserrat',
-            value: 'Montserrat, sans-serif'
+            value: 'Amelia Montserrat, sans-serif'
           },
           {
             id: 5,
             name: 'Mulish',
-            value: 'Mulish, sans-serif'
+            value: 'Amelia Mulish, sans-serif'
           },
           {
             id: 6,
             name: 'Nunito',
-            value: 'Nunito, sans-serif'
+            value: 'Amelia Nunito, sans-serif'
           },
           {
             id: 7,
             name: 'Asap Condensed',
-            value: 'Asap Condensed, sans-serif'
+            value: 'Amelia Asap Condensed, sans-serif'
           },
           {
             id: 8,
             name: 'Open Sans',
-            value: 'Open Sans, sans-serif'
+            value: 'Amelia Open Sans, sans-serif'
           },
           {
             id: 9,
             name: 'Barlow',
-            value: 'Barlow, sans-serif'
+            value: 'Amelia Barlow, sans-serif'
           },
           {
             id: 10,
             name: 'Oswald',
-            value: 'Oswald, sans-serif'
+            value: 'Amelia Oswald, sans-serif'
           },
           {
             id: 11,
             name: 'Bitter',
-            value: 'Bitter, serif'
+            value: 'Amelia Bitter, serif'
           },
           {
             id: 12,
             name: 'Poppins',
-            value: 'Poppins, sans-serif'
+            value: 'Amelia Poppins, sans-serif'
           },
           {
             id: 13,
             name: 'Carme',
-            value: 'Carme, sans-serif'
+            value: 'Amelia Carme, sans-serif'
           }
         ],
         loadingButton: false,
@@ -377,6 +376,12 @@
     },
 
     created () {
+      this.fonts.forEach(item => {
+        if (item.name === this.customization.font.split(',')[0]) {
+          this.customization.font = item.value
+        }
+      })
+
       this.changeFormType('stepByStepForm')
 
       if (this.$root.settings.customization && this.$root.settings.customization.forms) {

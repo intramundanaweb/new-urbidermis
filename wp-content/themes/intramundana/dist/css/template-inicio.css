@@ -160,6 +160,7 @@ h1 {
     /* Section contact */
     .section-contact {
         width: 65%;
+        height: 70vh;
     }
 
     .section-contact button {
@@ -167,13 +168,10 @@ h1 {
         margin-right: auto!important;
     }
 
-    .section-contact p {
-        font-weight: 500;
-    }
-
     /* Section skin */
     .section-skin {
         padding-right: 6em;
+        height: 70vh;
     }
 
     .skin-buttons {
@@ -200,7 +198,7 @@ h1 {
 
 	.slick-article {
 		width: 22em;
-		height: max-content;
+		/*height: max-content;*/
 		box-shadow: 2px 2px 0 0 #000000;
 	}
 

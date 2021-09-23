@@ -121,6 +121,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
                     a.providerId AS appointment_providerId,
                     a.locationId AS appointment_locationId,
                     a.googleCalendarEventId AS appointment_google_calendar_event_id,
+                    a.googleMeetUrl AS appointment_google_meet_url,
                     a.outlookCalendarEventId AS appointment_outlook_calendar_event_id,
                     a.zoomMeeting AS appointment_zoom_meeting,
                     a.parentId AS appointment_parentId,
@@ -207,6 +208,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
                     a.providerId AS appointment_providerId,
                     a.locationId AS appointment_locationId,
                     a.googleCalendarEventId AS appointment_google_calendar_event_id,
+                    a.googleMeetUrl AS appointment_google_meet_url,
                     a.outlookCalendarEventId AS appointment_outlook_calendar_event_id,
                     a.zoomMeeting AS appointment_zoom_meeting,
                     
@@ -294,6 +296,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
                     a.providerId AS appointment_providerId,
                     a.locationId AS appointment_locationId,
                     a.googleCalendarEventId AS appointment_google_calendar_event_id,
+                    a.googleMeetUrl AS appointment_google_meet_url,
                     a.outlookCalendarEventId AS appointment_outlook_calendar_event_id,
                     a.zoomMeeting AS appointment_zoom_meeting,
                     
@@ -445,6 +448,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
             ':serviceId'              => $data['serviceId'],
             ':providerId'             => $data['providerId'],
             ':googleCalendarEventId'  => $data['googleCalendarEventId'],
+            ':googleMeetUrl'          => $data['googleMeetUrl'],
             ':outlookCalendarEventId' => $data['outlookCalendarEventId'],
         ];
 
@@ -461,6 +465,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
                 `serviceId` = :serviceId,
                 `providerId` = :providerId,
                 `googleCalendarEventId` = :googleCalendarEventId,                    
+                `googleMeetUrl` = :googleMeetUrl,
                 `outlookCalendarEventId` = :outlookCalendarEventId
                 WHERE id = :id"
             );
@@ -1051,6 +1056,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
                     a.providerId AS appointment_providerId,
                     a.locationId AS appointment_locationId,
                     a.googleCalendarEventId AS appointment_google_calendar_event_id,
+                    a.googleMeetUrl AS appointment_google_meet_url,
                     a.outlookCalendarEventId AS appointment_outlook_calendar_event_id,
                     a.zoomMeeting AS appointment_zoom_meeting,
                     a.parentId AS appointment_parentId,
@@ -1110,6 +1116,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
                 a.serviceId AS appointment_serviceId,
                 a.status AS appointment_status,
                 a.googleCalendarEventId as appointment_google_calendar_event_id,
+                a.googleMeetUrl AS appointment_google_meet_url,
                 a.outlookCalendarEventId AS appointment_outlook_calendar_event_id,
                 a.notifyParticipants AS appointment_notifyParticipants
             FROM {$this->table} a WHERE (
@@ -1245,6 +1252,7 @@ class AppointmentRepository extends AbstractRepository implements AppointmentRep
                     a.providerId AS appointment_providerId,
                     a.locationId AS appointment_locationId,
                     a.googleCalendarEventId AS appointment_google_calendar_event_id,
+                    a.googleMeetUrl AS appointment_google_meet_url,
                     a.outlookCalendarEventId AS appointment_outlook_calendar_event_id,
                     a.zoomMeeting AS appointment_zoom_meeting,
                     a.parentId AS appointment_parentId

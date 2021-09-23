@@ -652,7 +652,7 @@ class FrontendStrings
             'selected_customers'                     => __('Selected Customers', 'wpamelia'),
             'send'                                   => __('Send', 'wpamelia'),
             'send_recovery_email'                    => __('Send Access Link', 'wpamelia'),
-            'send_recovery_email_description'        => __('Enter your account email address and we will send you access link to your inbox.', 'wpamelia'),
+            'send_recovery_email_description'        => __('Enter your account email address and we will send you an access link to your inbox.', 'wpamelia'),
             'service_category'                       => __('Service Category', 'wpamelia'),
             'service_price'                          => __('Service Price', 'wpamelia'),
             'service_provider_remove_fail'           => __('You have appointments for this service', 'wpamelia'),

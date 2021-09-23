@@ -94,6 +94,9 @@ class AppointmentAddedEventHandler
             if ($appointmentObject->getGoogleCalendarEventId() !== null) {
                 $appointment['googleCalendarEventId'] = $appointmentObject->getGoogleCalendarEventId()->getValue();
             }
+            if ($appointmentObject->getGoogleMeetUrl() !== null) {
+                $appointment['googleMeetUrl'] = $appointmentObject->getGoogleMeetUrl();
+            }
         }
 
         if ($outlookCalendarService) {
@@ -130,6 +133,10 @@ class AppointmentAddedEventHandler
                 if ($recurringReservationObject->getGoogleCalendarEventId() !== null) {
                     $recurringData[$key][Entities::APPOINTMENT]['googleCalendarEventId'] =
                         $recurringReservationObject->getGoogleCalendarEventId()->getValue();
+                }
+                if ($recurringReservationObject->getGoogleMeetUrl() !== null) {
+                    $recurringData[$key][Entities::APPOINTMENT]['googleMeetUrl'] =
+                        $recurringReservationObject->getGoogleMeetUrl();
                 }
             }
 

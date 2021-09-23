@@ -34,6 +34,8 @@ use AmeliaBooking\Infrastructure\Repository\Booking\Event\EventRepository;
 use AmeliaBooking\Infrastructure\Repository\Booking\Event\EventTagsRepository;
 use AmeliaBooking\Infrastructure\Repository\Coupon\CouponEventRepository;
 use AmeliaBooking\Infrastructure\Repository\CustomField\CustomFieldEventRepository;
+use AmeliaBooking\Infrastructure\Repository\Notification\NotificationRepository;
+use AmeliaBooking\Infrastructure\Repository\Notification\NotificationsToEntitiesRepository;
 use AmeliaBooking\Infrastructure\Repository\Payment\PaymentRepository;
 use Exception;
 use Interop\Container\Exception\ContainerException;
@@ -638,6 +640,9 @@ class EventApplicationService
         /** @var EventRepository $eventRepository */
         $eventRepository = $this->container->get('domain.booking.event.repository');
 
+        /** @var NotificationsToEntitiesRepository $notificationEntitiesRepo */
+        $notificationEntitiesRepo = $this->container->get('domain.notificationEntities.repository');
+
         /** @var Collection $recurringEvents */
         $recurringEvents = $eventRepository->getFiltered(
             [
@@ -650,6 +655,10 @@ class EventApplicationService
         $newOriginRecurringEvent = null;
 
         $hasRecurringApprovedEvents = false;
+
+        if (!$event->getRecurring()) {
+            $notificationEntitiesRepo->removeIfOnly($event->getId()->getValue());
+        }
 
         /** @var Event $recurringEvent */
         foreach ($recurringEvents->getItems() as $key => $recurringEvent) {
@@ -681,9 +690,16 @@ class EventApplicationService
                                 null :
                                 $newOriginRecurringEvent->getId()->getValue()
                         );
+
+                        $notificationEntitiesRepo->updateByEntityId($event->getId()->getValue(), $newOriginRecurringEvent->getId()->getValue(), 'entityId');
+
                     }
                 }
             }
+        }
+
+        if ($deleteFollowing && $event->getRecurring() && !$hasRecurringApprovedEvents) {
+            $notificationEntitiesRepo->removeIfOnly($event->getId()->getValue());
         }
 
         // update recurring time for previous recurring events if there are no following recurring events

@@ -785,6 +785,12 @@ export default {
                     translations: {
                       x: ''
                     }
+                  },
+                  event_location: {
+                    value: '',
+                    translations: {
+                      x: ''
+                    }
                   }
                 }
               }
@@ -868,7 +874,8 @@ export default {
                       x: ''
                     }
                   }
-                }
+                },
+                showSingleEvent: true
               }
             }
           },

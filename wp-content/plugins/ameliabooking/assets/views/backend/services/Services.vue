@@ -199,14 +199,19 @@
 
               <!-- Empty State For Services -->
               <div class="am-empty-state am-section"
-                   v-show="fetched && categories.length !== 0 && services.filter(item => item.visible).length === 0">
+                   v-show="fetched && fetchedFiltered && categories.length !== 0 && services.filter(item => item.visible).length === 0">
                 <img :src="$root.getUrl+'public/img/emptystate.svg'">
                 <h2>{{ $root.labels.no_services_yet }}</h2>
                 <p>{{ $root.labels.click_add_service }}</p>
               </div>
 
+              <!-- Spinner -->
+              <div class="am-spinner am-section" v-show="fetched && !fetchedFiltered">
+                <img :src="$root.getUrl+'public/img/spinner.svg'"/>
+              </div>
+
               <!-- Services -->
-              <div v-show="fetched && categories.length !== 0" class="am-services-grid">
+              <div v-show="fetchedFiltered && fetched && categories.length !== 0" class="am-services-grid">
                 <el-row :gutter="16">
                   <el-col :md="24">
 
@@ -251,6 +256,17 @@
 
                 </el-row>
               </div>
+
+              <!-- Pagination -->
+              <pagination-block
+                :params="paginationParams"
+                :show="paginationParams.show"
+                :count="countFiltered"
+                :label="$root.labels.services.toLowerCase()"
+                :visible="fetched && fetchedFiltered && services.length !== 0 && countTotal > paginationParams.show"
+                @change="getServices"
+              >
+              </pagination-block>
 
             </div>
           </el-col>
@@ -468,6 +484,7 @@
   import notifyMixin from '../../../js/backend/mixins/notifyMixin'
   import DialogTranslate from '../parts/DialogTranslate'
   import stashMixin from '../../../js/backend/mixins/stashMixin'
+  import PaginationBlock from '../parts/PaginationBlock.vue'
 
   export default {
 
@@ -475,6 +492,12 @@
 
     data () {
       return {
+        countTotal: 0,
+        countFiltered: 0,
+        paginationParams: {
+          page: 1,
+          show: this.$root.settings.general.servicesPerPage
+        },
         typeTab: 'services',
         package: null,
         packages: [],
@@ -493,6 +516,7 @@
         editedCategoryName: '',
         editedCategoryOldName: '',
         fetched: false,
+        fetchedFiltered: false,
         form: new Form(),
         futureAppointments: {},
         loadingAddCategory: false,
@@ -550,6 +574,8 @@
 
     created () {
       this.getOptions()
+
+      this.getServices()
     },
 
     mounted () {
@@ -563,24 +589,9 @@
 
     methods: {
       changeServiceSorting (notify = true) {
-        switch (this.sortingServices) {
-          case ('nameAsc'):
-            this.services = this.services.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1)
-            break
-          case ('nameDesc'):
-            this.services = this.services.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase()) ? 1 : -1)
-            break
-          case ('priceAsc'):
-            this.services = this.services.sort((a, b) => (a.price > b.price) ? 1 : -1)
-            break
-          case ('priceDesc'):
-            this.services = this.services.sort((a, b) => (a.price < b.price) ? 1 : -1)
-            break
-        }
+        this.fetchedFiltered = false
 
-        if (this.sortingServices !== 'custom') {
-          this.updateServicesPositions(notify)
-        }
+        this.updateServicesPositions(notify, true, true)
       },
 
       changePackagesSorting: !AMELIA_LITE_VERSION ? function (notify) {
@@ -599,22 +610,16 @@
             break
         }
 
-        if (this.sortingPackages !== 'custom') {
-          this.updatePackagesPositions(notify)
-        }
+        this.updatePackagesPositions(notify)
       } : function () {},
 
-      updateServicesPositions (notify) {
+      updateServicesPositions (notify, updateStash, refreshServices) {
         let services = []
 
-        let $this = this
-
-        this.services.forEach(function (service, index) {
-          service.position = index + 1
-
+        this.services.forEach((service) => {
           let serviceSettings = service.settings ? JSON.parse(JSON.stringify(service.settings)) : null
 
-          if (serviceSettings && serviceSettings.payments && serviceSettings.payments.wc.productId === $this.$root.settings.payments.wc.productId) {
+          if (serviceSettings && serviceSettings.payments && serviceSettings.payments.wc.productId === this.$root.settings.payments.wc.productId) {
             delete serviceSettings.payments.wc
           }
 
@@ -629,7 +634,13 @@
             this.notify(this.$root.labels.success, this.$root.labels.services_positions_saved, 'success')
           }
 
-          this.updateStashEntities({})
+          if (updateStash) {
+            this.updateStashEntities({})
+          }
+
+          if (refreshServices) {
+            this.getServices()
+          }
         }).catch(() => {
           this.notify(this.$root.labels.error, this.$root.labels.services_positions_saved_fail, 'error')
         })
@@ -654,7 +665,31 @@
         })
       } : function () {},
 
-      getOptions (usedLanguages = null) {
+      getServices () {
+        this.fetchedFiltered = false
+
+        this.$http.get(`${this.$root.getAjaxUrl}/services`, {params: {page: this.paginationParams.page, categoryId: this.activeCategory ? this.activeCategory.id : null}})
+          .then(response => {
+            this.services = response.data.data.services
+
+            this.countTotal = response.data.data.countTotal
+
+            this.countFiltered = response.data.data.countFiltered
+
+            this.services.forEach((service) => {
+              service.visible = true
+              this.setEntitySettings(service, 'service')
+            })
+
+            this.fetchedFiltered = true
+          })
+          .catch(e => {
+            console.log(e.message)
+            this.fetchedFiltered = true
+          })
+      },
+
+      getOptions (usedLanguages = null, updatePackagePositions = false) {
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {params: {types: ['employees', 'categories', 'packages', 'locations', 'settings']}})
           .then(response => {
             this.options.settings.general.usedLanguages = []
@@ -670,31 +705,21 @@
             this.languagesData = response.data.data.settings.languages
 
             this.categories = response.data.data.categories
-            this.services = []
+            this.categories.sort((a, b) => (a.position > b.position) ? 1 : -1)
 
             this.parseOptions(response)
-
-            for (let i = 0; i < this.categories.length; i++) {
-              this.services = this.services.concat(this.categories[i].serviceList)
-            }
-
-            if (this.services && this.services.length > 0) this.changeServiceSorting(false)
-            if (this.packages && this.packages.length > 0 && (this.$root.licence.isPro || this.$root.licence.isDeveloper)) this.changePackagesSorting(false)
-
-            this.services.forEach((service) => {
-              this.setEntitySettings(service, 'service')
-            })
 
             this.packages.forEach((service) => {
               this.setEntitySettings(service, 'package')
             })
 
-            this.filterServices(this.activeCategory)
-
             this.fetched = true
 
             if (usedLanguages) {
               this.options.settings.general.usedLanguages = usedLanguages
+            }
+            if (updatePackagePositions === true) {
+              this.changePackagesSorting(false)
             }
           })
           .catch(e => {
@@ -809,7 +834,7 @@
       dropService (e) {
         if (e.newIndex !== e.oldIndex) {
           this.sortingServices = 'custom'
-          this.updateServicesPositions(true)
+          this.updateServicesPositions(true, true, false)
         }
       },
 
@@ -836,7 +861,11 @@
             delete extra.id
           })
 
-          service.settings = service.settings ? JSON.stringify(service.settings) : null
+          if (typeof service.settings === 'object' && service.settings !== null) {
+            service.settings = JSON.stringify(service.settings)
+          } else {
+            service.settings = null
+          }
         })
 
         this.form.post(`${this.$root.getAjaxUrl}/categories`, newCategory)
@@ -928,9 +957,10 @@
 
       filterServices (category) {
         this.activeCategory = category
-        this.services.forEach(function (service) {
-          service.visible = service.categoryId === category.id || Object.keys(category).length === 0
-        })
+
+        this.paginationParams.page = 1
+
+        this.getServices()
       },
 
       showDialogNewService () {
@@ -984,13 +1014,19 @@
         return {'background-color': color}
       },
 
-      saveServiceCallback () {
+      saveServiceCallback (service) {
+        this.getOptions()
+
         this.$http.post(`${this.$root.getAjaxUrl}/settings`, {usedLanguages: this.options.settings.general.usedLanguages})
           .catch((e) => {
             console.log(e)
           })
+
+        if (this.sortingServices !== 'custom' || !service.position) {
+          this.updateServicesPositions(false, false, true)
+        }
+
         this.dialogService = false
-        this.getOptions(this.options.settings.general.usedLanguages)
       },
 
       savePackageCallback: !AMELIA_LITE_VERSION ? function () {
@@ -999,7 +1035,7 @@
             console.log(e)
           })
         this.dialogPackage = false
-        this.getOptions(this.options.settings.general.usedLanguages)
+        this.getOptions(this.options.settings.general.usedLanguages, true)
       } : function () {},
 
       getInitPackageObject: !AMELIA_LITE_VERSION ? function () {
@@ -1160,6 +1196,7 @@
     components: {
       PageHeader,
       Draggable,
+      PaginationBlock,
       DialogPackage,
       DialogService,
       DialogTranslate

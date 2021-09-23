@@ -1,0 +1,29 @@
+.card {
+    border-radius: 0;
+    border-top: 1px solid black;
+}
+
+.card:nth-last-child(1) {
+    border-bottom: 1px solid black; 
+}
+
+.card-header {
+    border-bottom: 0;
+}
+
+.card button {
+    border: none;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.card p, .card button {
+    margin: 0;
+    padding: 0;
+}
+
+.img-catalogue img {
+    width: 21em;
+}

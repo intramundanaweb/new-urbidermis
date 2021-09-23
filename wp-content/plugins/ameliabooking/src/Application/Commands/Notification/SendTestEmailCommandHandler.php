@@ -75,7 +75,7 @@ class SendTestEmailCommandHandler extends CommandHandler
             return $result;
         }
 
-        $notification = $notificationService->getByNameAndType($command->getField('notificationTemplate'), 'email');
+        $notification = $notificationService->getById($command->getField('notificationTemplate'));
 
         $dummyData = $placeholderService->getPlaceholdersDummyData('email');
 

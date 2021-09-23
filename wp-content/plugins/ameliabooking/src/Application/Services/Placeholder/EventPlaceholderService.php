@@ -192,9 +192,9 @@ class EventPlaceholderService extends PlaceholderService
             $location = $locationRepository->getById($event['locationId']);
 
             $locationName = $location->getName()->getValue();
-            $locationDescription = $location->getDescription()->getValue();
-            $locationAddress = $location->getAddress()->getValue();
-            $locationPhone = $location->getPhone()->getValue();
+            $locationDescription = $location->getDescription() ? $location->getDescription()->getValue() : '';
+            $locationAddress = $location->getAddress() ? $location->getAddress()->getValue() : '';
+            $locationPhone = $location->getPhone() ? $location->getPhone()->getValue() : '';
         } elseif ($event['customLocation']) {
             $locationName = $event['customLocation'];
         }
