@@ -26,6 +26,11 @@ h2 {
     overflow-y: auto;
 }
 
+.section-cover .img-wrap {
+    max-height: 85vh;
+    overflow: hidden;
+}
+
 /* Section introducción */
 .texto-resaltado {
     line-height: 1.26em;

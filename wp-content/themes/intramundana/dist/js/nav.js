@@ -91,7 +91,7 @@ jQuery(document).ready(function ($) {
             $('#navbar').removeClass('nuestra-historia');
         });
 
-        
+
         $('#menu-item-202 a').mouseover(function () {
             $('#navbar').addClass('filosofia');
         });
@@ -99,6 +99,7 @@ jQuery(document).ready(function ($) {
         $('#menu-item-202 a').mouseleave(function () {
             $('#navbar').removeClass('filosofia');
         });
+
 
         $('#menu-item-201 a').mouseover(function () {
             $('#navbar').addClass('autores');
@@ -108,6 +109,7 @@ jQuery(document).ready(function ($) {
             $('#navbar').removeClass('autores');
         });
 
+
         $('#menu-item-200 a').mouseover(function () {
             $('#navbar').addClass('parc-belloch');    
         });
@@ -115,6 +117,7 @@ jQuery(document).ready(function ($) {
         $('#menu-item-200 a').mouseleave(function () {
             $('#navbar').removeClass('parc-belloch');
         });
+
 
         $('#menu-item-199 a').mouseover(function () {
             $('#navbar').addClass('talento');    
@@ -125,6 +128,67 @@ jQuery(document).ready(function ($) {
         });
 
         /* PRODUCTO */
+        $('#menu-item-472 a').mouseover(function () {
+            $('#navbar').addClass('iluminacion-urbana');
+        });
+
+        $('#menu-item-472 a').mouseleave(function () {
+            $('#navbar').removeClass('iluminacion-urbana');
+        });
+
+
+        $('#menu-item-473 a').mouseover(function () {
+            $('#navbar').addClass('mobiliario-urbano');
+        });
+
+        $('#menu-item-473 a').mouseleave(function () {
+            $('#navbar').removeClass('mobiliario-urbano');
+        });
+
+
+        $('#menu-item-474 a').mouseover(function () {
+            $('#navbar').addClass('microarquitectura');
+        });
+
+        $('#menu-item-474 a').mouseleave(function () {
+            $('#navbar').removeClass('microarquitectura');
+        });
+
+
+        $('#menu-item-476 a').mouseover(function () {
+            $('#navbar').addClass('viver-de-belloch');
+        });
+
+        $('#menu-item-476 a').mouseleave(function () {
+            $('#navbar').removeClass('viver-de-belloch');
+        });
+
+        /* CONOCIMIENTO */
+        $('#menu-item-388 a').mouseover(function () {
+            $('#navbar').addClass('galeria-de-proyectos');
+        });
+
+        $('#menu-item-388 a').mouseleave(function () {
+            $('#navbar').removeClass('galeria-de-proyectos');
+        });
+
+
+        $('#menu-item-389 a').mouseover(function () {
+            $('#navbar').addClass('casos-practicos');
+        });
+
+        $('#menu-item-389 a').mouseleave(function () {
+            $('#navbar').removeClass('casos-practicos');
+        });
+
+
+        $('#menu-item-390 a').mouseover(function () {
+            $('#navbar').addClass('publicaciones');
+        });
+
+        $('#menu-item-390 a').mouseleave(function () {
+            $('#navbar').removeClass('publicaciones');
+        });
 
     }
 
