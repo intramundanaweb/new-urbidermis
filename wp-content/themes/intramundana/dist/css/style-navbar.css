@@ -617,6 +617,51 @@ Navbar - Media Queries
     padding-top: 8em;
   }
 
+  /* Conocimiento */
+  #navbar.galeria-de-proyectos {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/08_Sahar-Coston-Hardy.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+  #navbar.casos-practicos {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/20190204_CoberturaSants_BarcelonaSpain_RAF_MeritxellA_01.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+  #navbar.publicaciones {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/20170324_CardiovascularCenter_SanFrancisco_USA_BCB_MarionB_02.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+  /* Producto */
+  #navbar.iluminacion-urbana {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/20181123_CDF_09.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+  #navbar.mobiliario-urbano {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/20170411_AvingudaDiagonal_BarcelonaSpain_NRBLV_AnnaP_04.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+  #navbar.microarquitectura {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/20190520_PlazaCostadelSol_TorremolinosSpain_PERGOLA_MOB_NachoV_02.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+  #navbar.viver-de-belloch {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/040_SantaCole-Headquarters_Belloch_Salva-Lopez-photographer.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+
   /* #menu-item-36::before {
     content: '';
     border: #000 solid 1px;
