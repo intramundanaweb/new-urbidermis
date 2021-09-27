@@ -55,8 +55,10 @@ get_header('no-margin');
         </div>
     </div>
 
-    <?php img_with_alt('imagen_portada'); ?>
-
+    <div class="img-wrap">
+        <?php img_with_alt('imagen_portada'); ?>
+    </div>
+    
     <div class="infoTec h-200 bg-beige-light position-fixed mt-5 py-4 py-lg-0 mt-lg-0">
         <div class="infoTec-wrap px-4 py-4 px-lg-5 py-lg-5">
 
