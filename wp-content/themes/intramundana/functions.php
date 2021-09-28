@@ -327,6 +327,7 @@ add_filter( 'upload_mimes', 'my_myme_types', 1, 1 );
 function my_myme_types( $mime_types ) {
 	if ( current_user_can('administrator') ){
   $mime_types['svg'] = 'image/svg+xml';     // Adding .svg extension
+  $mime_types['svg'] = 'image/svg';     // Adding .svg extension
   $mime_types['webp'] = 'image/webp'; // Adding .webP extension
   
   //unset( $mime_types['xls'] );  // Remove .xls extension
