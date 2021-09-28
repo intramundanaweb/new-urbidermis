@@ -112,18 +112,18 @@ h1 {
     .pie-de-foto {
         left: 50%;
         transform: translate(-50%, 0);
-        bottom: 7rem;
+        bottom: 1rem;
         font-weight: bold;
     }
 
     @-moz-document url-prefix() { 
         .pie-de-foto {
-           bottom: 6.5em;
+           bottom: 0em;
         }
     }
 
     .slick-cover img {
-        height: auto;
+        height: 100vh;
     }
 
     .slick-arrows {
@@ -202,12 +202,10 @@ h1 {
 		box-shadow: 2px 2px 0 0 #000000;
 	}
 
-    .slick-chevrons {
-        display: block!important;
-    }
-
-    .slick-chevrons span {
+    #slick-article-right, #slick-article-left {
         cursor: pointer;
+        position: relative;
+        top: 11em;
     }
 
     .slick-articles .slick-list {

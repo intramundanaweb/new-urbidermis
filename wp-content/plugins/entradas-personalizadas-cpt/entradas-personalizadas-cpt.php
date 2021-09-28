@@ -89,6 +89,21 @@ function change_cpt_label() {
     $labels->menu_name = 'Proyectos';
     $labels->name_admin_bar = 'Proyectos';
 
+    $get_post_type = get_post_type_object('post');
+    $labels = $get_post_type->labels;
+    $labels->name = 'Artículos';
+    $labels->singular_name = 'Artículo';
+    $labels->add_new = 'Añadir artículo';
+    $labels->add_new_item = 'Añadir artículo';
+    $labels->edit_item = 'Editar artículo';
+    $labels->new_item = 'artículos';
+    $labels->view_item = 'Ver artículos';
+    $labels->search_items = 'Buscar artículos';
+    $labels->not_found = 'No se encontró un artículo';
+    $labels->all_items = 'Todos los artículos';
+    $labels->menu_name = 'Artículos';
+    $labels->name_admin_bar = 'Artículos';
+
 }
  /*
  ==============================
@@ -215,6 +230,29 @@ function registration_taxonomy() {
   ];
   register_taxonomy('producto',  'proyecto', $args);
 
+
+/* ------------- Sixth Taxonomy */
+$labels = [
+    'name'              => _x('Categoria de producto', 'taxonomy general name'),
+    'singular_name'     => _x('Categoria de producto', 'taxonomy singular name'),
+    'search_items'      => __('Buscar categoria de producto'),
+    'all_items'         => __('Todas las categorias de producto'),
+    'edit_item'         => __('Editar categoria de producto'),
+    'update_item'       => __('Actualizar categoria de producto'),
+    'add_new_item'      => __('Añadir Nueva categoria de producto'),
+    'new_item_name'     => __('Nombre de la categoria de producto'),
+    'menu_name'         => __('Categoria de producto'),
+    ];
+    $args = [
+    'hierarchical'      => true, // make it hierarchical (like categories)
+    'labels'            => $labels,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    //'meta_box_cb'       => 'post_categories_meta_box',
+    'rewrite'           => ['slug' => 'categoria-de-producto'],
+    ];
+    register_taxonomy('Categoria de producto',  'proyecto', $args);
 
 }
 add_action('init', 'registration_taxonomy');

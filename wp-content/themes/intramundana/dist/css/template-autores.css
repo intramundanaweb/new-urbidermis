@@ -1,12 +1,13 @@
-.img-wrap-autor img {
-    max-height: 30em;
+.img-wrap-autor {
+    height: 23em;
+    overflow: hidden;
 }
 
 .autor-info {
     border: 1px solid black;
 }
 
-.tags {
+.slick-autor .tags {
     margin-top: 12em;
 }
 
@@ -19,4 +20,11 @@
 .slick-arrows-autors span {
     font-size: 2em;
     cursor: pointer;
+}
+
+@media (min-width: 1200px) {
+    .img-wrap-autor {
+        height: 23em;
+        overflow: hidden;
+    }
 }

@@ -416,6 +416,26 @@ ul.style-list li::before {
         font-size: 5.6em;
     }
 
+    .fs-lg-xxs {
+        font-size: 1.1em;
+    }
+
+    .fs-lg-xs {
+        font-size: 1.25em;
+    }
+
+    .fs-lg-m {
+        font-size: 1.875em;
+    }
+
+    .fs-lg-l {
+        font-size: 2.5em;
+    }
+
+    .fs-lg-xl {
+        font-size: 5.6em;
+    }
+
     .text-standard {
         font-size: 1.438em;
         line-height: 1.13;
@@ -429,6 +449,10 @@ ul.style-list li::before {
 
     .lh-lg-25 {
         line-height: 25px;
+    }
+
+    .lh-lg-28 {
+        line-height: 28px;
     }
 
     .lh-lg-30 {
