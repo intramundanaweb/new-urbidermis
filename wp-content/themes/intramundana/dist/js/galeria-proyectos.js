@@ -129,7 +129,9 @@
             // Mostrem missatge si no es troba cap projecte que coincideixi amb els filtres seleccionats
             check_empty_projects()
 
-            let default_filters = ['Ciudad', 'País', 'Tipologia', 'Producto']
+            let default_filters = ['País', 'Ciudad', 'Tipologia', 'Producto']
+
+            filter_selections.forEach(element => console.log(element))
 
             // Mostrem els filtres actius quan el filter-box està ocult
             $(".active-filters").empty()
@@ -151,6 +153,8 @@
             
             // Agafem els elements (divs) que contenen els strings de les seleccions
             let filters = $(".select-selected")
+
+            console.log(filters)
         
             for (let i = 0; i < 4; i++) {
                 if (filter_txt == filters[i].innerText) {
@@ -163,33 +167,18 @@
         function reset_filter(n_filter) {
             switch(n_filter) {
                 case 0:
-                    $(".select-selected")[0].innerText = 'País'
-                    if ($(".select-selected")[0].childElementCount > 0) {
-                        $(".select-selected")[0].childNodes[1].remove()
-                    }
+                    $(".select-selected")[0].innerHTML = '<p class="w-100 fs-11">País</p><span class="fa fa-chevron-down"></span>'
                     break
                 case 1:
-                    $(".select-selected")[1].innerText = 'Ciudad'
-                    if ($(".select-selected")[1].childElementCount > 0) {
-                        $(".select-selected")[1].childNodes[1].remove()
-                    }
+                    $(".select-selected")[1].innerHTML = '<p class="w-100 fs-11">Ciudad</p><span class="fa fa-chevron-down"></span>'
                     break
                 case 2:
-                    $(".select-selected")[2].innerText = 'Tipologia'
-                    if ($(".select-selected")[2].childElementCount > 0) {
-                        $(".select-selected")[2].childNodes[1].remove()
-                    }
+                    $(".select-selected")[2].innerHTML = '<p class="w-100 fs-11">Tipología</p><span class="fa fa-chevron-down"></span>'
                     break
                 case 3:
-                    $(".select-selected")[3].innerText = 'Producto'
-                    if ($(".select-selected")[3].childElementCount > 0) {
-                        $(".select-selected")[3].childNodes[1].remove()
-                    }
+                    $(".select-selected")[3].innerHTML = '<p class="w-100 fs-11">Producto</p><span class="fa fa-chevron-down"></span>'
                     break
-            }
-            //$(".select-selected").append('<span class="fa fa-chevron-down"></span>')
-            
-            
+            }           
         }
         
 
