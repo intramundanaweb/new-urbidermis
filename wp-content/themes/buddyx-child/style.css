@@ -1048,6 +1048,50 @@ button:focus {
     z-index: 999;
 }
 
+/*
+    New styles for yovalo
+*/
+
+.site-footer, .site-info {
+    color: black !important;;
+    background: #e5e4dc!important;
+    border-top: 0px solid #e5e4dc!important;
+    border-top: 0px solid var(--global-border-color)!important;
+}
+.site-footer{
+    border-top: 1px solid black!important;
+}
+
+.site-header-wrapper{
+    background: #f6f5f1!important;
+}
+.group-description p, .link-urbi a{
+    font-size: 1.375em;
+    line-height: 1.475em!important;
+}
+.users-header-urbi .bp-member-type {
+    color: #87966e;
+}
+.bp-groups-tab a{
+    font-weight: 900;
+    padding-top: 30px!important;
+    padding-bottom: 30px!important;
+}
+.brr-black .current a{
+    color:#87966e;
+}
+.brr-black .current .count {
+    border: solid 2px #87966e;
+}
+#buddypress.buddypress-wrap #item-body:not(#group-create-body){
+    padding-top: 0px!important;
+}
+
+
+
+
+
+
 @media (min-width: 576px) {}
 
 @media (min-width: 768px) {}
