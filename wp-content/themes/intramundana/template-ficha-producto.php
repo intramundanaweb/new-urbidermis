@@ -709,7 +709,7 @@ get_header('top-bar-classy');
                                             </div>
                                         </div>
 
-                                    </fieldset>
+                                    </fieldset> 
 
                                     
                                     <fieldset class="seleccion-1 mb-3">
@@ -722,7 +722,7 @@ get_header('top-bar-classy');
                                 </div>
                                 <div class="col-5 d-lg-block d-none text-center">
 
-                                    <img src="http://localhost/new-urbidermis/wp-content/uploads/2021/09/test_web.svg"
+                                    <img src="http://newpre.urbidermis.com/wp-content/uploads/2021/09/test_web.svg"
                                         alt="" class="img-fluid" style="width:400px;">
                                 </div>
                                 <div class="col-12 mt-lg-4 mt-2 px-0" id="control-parent">
