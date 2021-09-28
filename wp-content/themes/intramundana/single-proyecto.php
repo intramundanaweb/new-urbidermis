@@ -222,7 +222,16 @@ get_header('no-margin');
 
                         <?php if ( !wp_is_mobile() ) : ?>
 
-                            <button class="ver-ficha btn btn-round ml-auto mr-auto my-lg-0 mr-lg-auto ml-lg-0"><?php the_field('texto_boton_producto'); ?></button>
+                            <?php 
+                                $link = get_field('texto_boton_producto');
+                                if( $link ): 
+                                    $link_url = $link['url'];
+                                    $link_title = $link['title'];
+                                    $link_target = $link['target'] ? $link['target'] : '_self';
+                                    ?>
+                                    <a class="button ver-ficha btn btn-round ml-auto mr-auto my-lg-0 mr-lg-auto ml-lg-0" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                            <?php endif; ?>
+
 
                         <?php endif; ?>
                         

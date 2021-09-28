@@ -138,7 +138,7 @@ get_header('no-margin');
 
                         <!-- FILTER LABEL -->
                         <div class="filter-label">
-                            <button class="fw-400 fs-11 fs-lg-14 border-0" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><?php _e('Filtrar', 'urbidermis'); ?> <span class="fa fa-chevron-down"></span></button>
+                            <button class="fw-400 fs-11 fs-lg-14 border-0 p-0"><?php _e('Filtrar', 'urbidermis'); ?> <span class="fa fa-chevron-down"></span></button>
                         </div>
 
                     </div>

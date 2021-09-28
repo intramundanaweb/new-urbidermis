@@ -86,7 +86,7 @@ input:checked+.slider:before {
 .switch {
     width: 42px;
     height: 34px;
-    top: -16px;
+    top: -13px;
     margin-left: .5em;
     margin-right: .5em;
 }
