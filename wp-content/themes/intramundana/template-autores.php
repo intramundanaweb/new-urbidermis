@@ -182,7 +182,7 @@ get_header('no-margin');
                         </div>
                     </div>
 
-                    <div>
+                    <div class="mr-lg-auto">
                         <?php 
                             $link = get_field('texto_boton');
                             if( $link ): 

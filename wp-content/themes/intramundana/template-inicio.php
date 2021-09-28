@@ -253,7 +253,7 @@ get_header('no-margin');
 
                             </div>
 
-                            <div class="ml-auto ml-lg-4 mr-auto mt-5 mb-lg-6">
+                            <div class="ver-mas ml-auto ml-lg-4 mr-auto mt-5 mb-lg-6">
                                 <?php 
                                     $link = get_field('texto_boton_final');
                                     if( $link ): 
