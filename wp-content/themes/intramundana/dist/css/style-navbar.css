@@ -661,6 +661,14 @@ Navbar - Media Queries
     background-size: 50%;
   }
 
+  #navbar.residencial {
+    background-image: url('http://newpre.urbidermis.com/wp-content/uploads/2021/09/resi-scaled.jpg');
+    background-position-x: 100%;
+    background-size: 50%;
+  }
+
+  
+
 
   /* #menu-item-36::before {
     content: '';
