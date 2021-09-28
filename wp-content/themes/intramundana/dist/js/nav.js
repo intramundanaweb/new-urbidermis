@@ -163,6 +163,15 @@ jQuery(document).ready(function ($) {
             $('#navbar').removeClass('viver-de-belloch');
         });
 
+
+        $('#menu-item-475 a').mouseover(function () {
+            $('#navbar').addClass('residencial');
+        });
+
+        $('#menu-item-475 a').mouseleave(function () {
+            $('#navbar').removeClass('residencial');
+        });
+
         /* CONOCIMIENTO */
         $('#menu-item-388 a').mouseover(function () {
             $('#navbar').addClass('galeria-de-proyectos');
