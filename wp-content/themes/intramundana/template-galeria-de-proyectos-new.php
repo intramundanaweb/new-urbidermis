@@ -1,6 +1,6 @@
 <?php
 
-/* Template Name: Projects */
+/* Template Name: Projects-new */
 
 get_header('no-margin');
 ?>

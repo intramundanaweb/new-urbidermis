@@ -183,7 +183,15 @@ get_header('no-margin');
                     </div>
 
                     <div>
-                        <button class="btn-round"><?php the_field('texto_boton'); ?></button>
+                        <?php 
+                            $link = get_field('texto_boton');
+                            if( $link ): 
+                                $link_url = $link['url'];
+                                $link_title = $link['title'];
+                                $link_target = $link['target'] ? $link['target'] : '_self';
+                                ?>
+                                <a class="button btn-round" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                        <?php endif; ?>
                     </div>
 
                 </div>                

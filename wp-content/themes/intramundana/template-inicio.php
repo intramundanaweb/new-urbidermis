@@ -80,7 +80,14 @@ get_header('no-margin');
                         </div>
 
                         <div class="button-wrap mt-auto mb-lg-6 ml-auto ml-lg-0 mr-auto">
-                            <button class="btn btn-round fs-lg-xxs"><?php the_field('texto_boton'); ?></button>
+                            <?php 
+                                $link = get_field('texto_boton');
+                                if( $link ): 
+                                    $link_url = $link['url'];
+                                    $link_title = $link['title'];
+                                    $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+                                    <a class="button btn btn-round fs-lg-xxs" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                            <?php endif; ?>
                         </div>
 
                     </div>
@@ -120,8 +127,22 @@ get_header('no-margin');
                             <p class="fw-400 lh-lg-28 fs-11 fs-lg-xxs p-text"><?php the_field('parrafo_intermedio_2'); ?></p>
 
                             <div class="skin-buttons d-flex flex-column flex-lg-row mt-auto mt-lg-auto">
-                                <button class="btn btn-round habla-con-nos mb-4 fs-lg-xxs mb-lg-6 ml-auto mr-auto mr-lg-0 mt-5 mt-lg-0"><?php the_field('texto_boton_1'); ?></button>
-                                <button class="btn btn-round ver-galeria ml-auto fs-lg-xxs ml-lg-4 mr-auto mb-lg-6"><?php the_field('texto_boton_2'); ?></button>
+                                <?php 
+                                    $link = get_field('texto_boton_1');
+                                    if( $link ): 
+                                        $link_url = $link['url'];
+                                        $link_title = $link['title'];
+                                        $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+                                        <a class="button btn btn-round habla-con-nos mb-4 fs-lg-xxs mb-lg-6 ml-auto mr-auto mr-lg-0 mt-5 mt-lg-0" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                                <?php endif; ?>
+                                <?php 
+                                    $link = get_field('texto_boton_2');
+                                    if( $link ): 
+                                        $link_url = $link['url'];
+                                        $link_title = $link['title'];
+                                        $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+                                        <a class="button btn btn-round ver-galeria ml-auto fs-lg-xxs ml-lg-4 mr-auto mb-lg-6" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                                <?php endif; ?>
                             </div>
 
                         </div>
@@ -232,7 +253,14 @@ get_header('no-margin');
 
                             </div>
 
-                            <button class="btn btn-round fs-lg-xxs ml-auto ml-lg-4 mr-auto mt-5 mb-lg-6"><?php the_field('texto_boton_final'); ?></button>
+                            <?php 
+                                $link = get_field('texto_boton_final');
+                                if( $link ): 
+                                    $link_url = $link['url'];
+                                    $link_title = $link['title'];
+                                    $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+                                    <a class="button btn btn-round fs-lg-xxs ml-auto ml-lg-4 mr-auto mt-5 mb-lg-6" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                            <?php endif; ?>
 
                         </div>
                     </div>

@@ -164,18 +164,34 @@
             switch(n_filter) {
                 case 0:
                     $(".select-selected")[0].innerText = 'País'
+                    if ($(".select-selected")[0].childElementCount > 0) {
+                        $(".select-selected")[0].childNodes[1].remove()
+                    }
                     break
                 case 1:
                     $(".select-selected")[1].innerText = 'Ciudad'
+                    if ($(".select-selected")[1].childElementCount > 0) {
+                        $(".select-selected")[1].childNodes[1].remove()
+                    }
                     break
                 case 2:
                     $(".select-selected")[2].innerText = 'Tipologia'
+                    if ($(".select-selected")[2].childElementCount > 0) {
+                        $(".select-selected")[2].childNodes[1].remove()
+                    }
                     break
                 case 3:
                     $(".select-selected")[3].innerText = 'Producto'
+                    if ($(".select-selected")[3].childElementCount > 0) {
+                        $(".select-selected")[3].childNodes[1].remove()
+                    }
                     break
             }
+            //$(".select-selected").append('<span class="fa fa-chevron-down"></span>')
+            
+            
         }
+        
 
         /** CHECK EMPTY PROJECTS */
         function check_empty_projects() {
@@ -230,7 +246,7 @@
                 class: 'select-selected'
             })
             // Afegim l'icono del chevron
-            selected.append('<i class="dropdown fa fa-chevron-down"></i>')
+            selected.append('<span class="dropdown fa fa-chevron-down"></span>')
         
             // Afegim el div recent creat dins el custom-select
             customs[i].append(selected[0]);
@@ -272,7 +288,7 @@
         
             $(this).parent().parent().prev().html(item_text)
             
-            $(this).parent().parent().prev().append('<i class="fa fa-chevron-down"></i>')
+            $(this).parent().parent().prev().append('<span class="fa fa-chevron-down"></span>')
             
             apply_filter()
         })
