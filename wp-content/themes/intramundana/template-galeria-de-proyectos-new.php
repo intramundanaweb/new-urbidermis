@@ -37,6 +37,11 @@ get_header('no-margin');
         'taxonomy' => 'producto',
         'hide_empty' => false
     ) );
+
+    $categorias = get_terms( array(
+        'taxonomy' => 'Categoria de producto',
+        'hide_empty' => false
+    ) );
     
 ?>
 
@@ -53,13 +58,13 @@ get_header('no-margin');
                                 'titulo_pagina',
                                 'etiqueta_titulo',
                                 'texto_titulo',
-                                'fs-lg-375'
+                                'fs-lg-l'
                             )
                         ?>
                     </div>
 
                     <div class="header-introduction col-12 col-lg-6">
-                        <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php the_field("texto_introduccion"); ?></p>
+                        <p class="fw-400 fs-11 fs-lg-xxs lh-25 lh-lg-28"><?php the_field("texto_introduccion"); ?></p>
                     </div>
 
                 </div>                
@@ -113,6 +118,116 @@ get_header('no-margin');
     </div>
 <?php endif; ?>
 
+<!-- Section switch - active filters - filter label -->
+<section>
+    <div class="wrapper bg-beige-light">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- UPPER MENU -->
+                    <div class="upper-menu col-12 d-flex justify-content-between mt-5 mb-3 my-lg-4">
+
+                        <!-- SWITCH BUTTON -->
+                        <div class="switch-wrapper d-flex d-lg-flex">
+                            <span class="switch-imagen fw-400 fs-11 fs-lg-xxs"><?php _e('Imágenes', 'urbidermis'); ?></span>
+                            <span class="switch-wrap">
+                                <label class="switch mx-2 mx-lg-2 mb-0 position-relative d-inline-block">
+                                    <input name="view-switch" type="checkbox">
+                                    <span class="slider position-absolute"></span>
+                                </label>
+                            </span>
+                            <span class="switch-lista fw-400 fs-11 fs-lg-xxs"><?php _e('Lista', 'urbidermis'); ?></span>
+                        </div>
+
+                        <!-- ACTIVE FILTERS -->
+                        <div class="active-filters-wrap d-lg-flex flex-wrap">
+                            <div class="active-filters">
+                            </div>
+                        </div>
+                        
+
+                        <!-- FILTER LABEL -->
+                        <div class="filter-label">
+                            <button class="fw-400 fs-11 fs-lg-xxs border-0 p-lg-0" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><?php _e('Filtrar', 'urbidermis'); ?> <span class="fa fa-chevron-down"></span></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+
+<!-- Section filter -->
+<?php if(! wp_is_mobile() ) : ?>
+    
+    <div class="collapse filter-wrap bg-beige-light" id="collapseExample">
+        <div class="wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 filter-content d-lg-flex justify-content-between py-lg-4">
+                        
+                        <div class="filter-category-wrap">
+                            <p>País</p>
+
+                            <div class="filter-category-content pais">
+                                <?php foreach($paises as $pais) { ?>    
+                                    <p class="mb-lg-0 item"><?php echo $pais->name; ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="filter-category-wrap">
+                            <p>Ciudad</p>
+
+                            <div class="filter-category-content ciudad">
+                                <?php foreach($ciudades as $ciudad) { ?>    
+                                    <p class="mb-lg-0 item"><?php echo $ciudad->name; ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="filter-category-wrap">
+                            <p>Categoría de producto</p>
+
+                            <div class="filter-category-content categoria">
+                                <?php foreach($categorias as $categoria) { ?>    
+                                    <p class="mb-lg-0 item"><?php echo $categoria->name; ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="filter-category-wrap">
+                            <p>Producto</p>
+
+                            <div class="filter-category-content producto">
+                                <?php foreach($productos as $producto) { ?>    
+                                    <p class="mb-lg-0 item"><?php echo $producto->name; ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="filter-category-wrap">
+                            <p>Tipología de proyecto</p>
+
+                            <div class="filter-category-content tipologia">
+                                <?php foreach($tipologias as $tipologia) { ?>    
+                                    <p class="mb-lg-0 item"><?php echo $tipologia->name; ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+               
+<?php endif; ?>
+
 
 <!-- Section grid -->
 <section class="section-grid">
@@ -121,94 +236,12 @@ get_header('no-margin');
             <div class="row">
                 <div class="col-12">
 
-                    <!-- UPPER MENU -->
-                    <div class="upper-menu col-12 d-flex justify-content-between mt-5 mb-3">
-
-                        <!-- SWITCH BUTTON -->
-                        <div class="switch-wrapper d-flex d-lg-flex">
-                            <span class="switch-imagen fw-400 fs-11 fs-lg-14"><?php _e('Imágenes', 'urbidermis'); ?></span>
-                            <span class="switch-wrap">
-                                <label class="switch mx-2 mx-lg-2 mb-0 position-relative d-inline-block">
-                                    <input name="view-switch" type="checkbox">
-                                    <span class="slider position-absolute"></span>
-                                </label>
-                            </span>
-                            <span class="switch-lista fw-400 fs-11 fs-lg-14"><?php _e('Lista', 'urbidermis'); ?></span>
-                        </div>
-
-                        <!-- FILTER LABEL -->
-                        <div class="filter-label">
-                            <button class="fw-400 fs-11 fs-lg-14 border-0" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><?php _e('Filtrar', 'urbidermis'); ?> <span class="fa fa-chevron-down"></span></button>
-                        </div>
-
-                    </div>
-
-                    <div class="active-filters w-100 d-flex flex-wrap justify-content-end d-lg-none"></div>
+                    <!--ANTIC<div class="active-filters w-100 d-flex flex-wrap justify-content-end d-lg-none"></div>-->
 
                     <?php if( wp_is_mobile() ) : ?>
                         <input type="range" min="1" max="100" value="0" class="range mt-3 mb-4 bg-black w-100 p-0"></input>
                     <?php endif; ?>
 
-                    <!-- FILTER BOX -->
-                    <?php if(! wp_is_mobile() ) : ?>
-                        <div class="container-fluid filter-box">
-                            <div class="row">
-                                <div class="col-12 px-lg-0">
-                        
-                                    <div class="selects-wrap p-3 border border-dark position-relative d-flex justify-content-between flex-wrap">
-
-                                        <div class="custom-select mb-4 mb-lg-0 position-relative text-dark border-dark">
-                                            <select name="country" id="sel-country" class="d-none">
-
-                                                <option><?php _e('País', 'urbidermis'); ?></option>
-                                                <?php foreach($paises as $pais) { ?>    
-                                                    <option><?php echo $pais->name; ?></option>
-                                                <?php } ?>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="custom-select position-relative text-dark border-dark">
-                                            <select name="city" id="sel-city" class="d-none">
-                                                
-                                                <option><?php _e('Ciudad', 'urbidermis'); ?></option>
-                                                <?php foreach($ciudades as $ciudad) { ?>
-                                                    <option><?php echo $ciudad->name; ?></option>
-                                                <?php } ?>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="custom-select position-relative text-dark border-dark">
-                                            <select name="typology" id="sel-typology" class="d-none">
-                                                
-                                                <option><?php _e('Tipologia', 'urbidermis'); ?></option>
-                                                <?php foreach($tipologias as $tipologia) { ?>
-                                                    <option><?php echo $tipologia->name; ?></option>
-                                                <?php } ?>
-
-                                            </select>
-                                        </div>
-
-                                        <div class="custom-select position-relative text-dark border-dark">
-                                            <select name="product" id="sel-product" class="d-none">
-                                                
-                                                <option><?php _e('Producto', 'urbidermis'); ?></option>
-                                                <?php foreach($productos as $producto) { ?>
-                                                    <option><?php echo $producto->name; ?></option>
-                                                <?php } ?>
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    
                     <!-- GRID -->
                     <?php if ( $projects_query->have_posts() ) { ?>
                         <div class="grid-flex container-fluid p-0">
@@ -219,12 +252,13 @@ get_header('no-margin');
                                     $projects_query->the_post();
                                     $pais = get_the_term_list( $projects_query->ID, 'pais' );
                                     $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
+                                    $categoria = get_the_term_list( $projects_query->ID, 'Categoria de producto' );
                                     $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
                                     $producto = get_the_term_list( $projects_query->ID, 'producto' ); ?>
                                     
                                     <div class="grid-project-wrap col-12 col-lg-2">
                                         <a class="d-block p-3" href="<?php the_permalink(); ?>">
-                                            <div class="grid-project flex-column" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
+                                            <div class="grid-project flex-column" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-categoria="<?php echo strip_tags($categoria); ?>"  data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
                                                 <div class="image-wrap">
                                                     <?php img_with_alt_featured(); ?>
                                                 </div>

@@ -5,6 +5,16 @@
 get_header('no-margin');
 ?>
 
+<?php
+
+    $args = array(
+        'post_type' => 'post'
+    );
+
+    $articles_query = new WP_Query($args);
+
+?>
+
 <!-- Section cover -->
 <section>
     <div class="container-fluid">
@@ -22,7 +32,7 @@ get_header('no-margin');
                     <div class="position-relative">
 
                         <?php img_with_alt_lazy_sub('imagen'); ?>
-                        <p class="pie-de-foto fw-500 fs-14 fs-lg-15 position-absolute color-black"><?php the_sub_field('pie_de_foto'); ?></p>
+                        <p class="pie-de-foto fw-500 fs-14 fs-lg-md position-absolute color-black"><?php the_sub_field('pie_de_foto'); ?></p>
 
                     </div>
 
@@ -59,18 +69,18 @@ get_header('no-margin');
                                     'title_group',
                                     'title_tag',
                                     'title_txt',
-                                    'font-weight-bold fs-25 fs-lg-375'
+                                    'font-weight-bold fs-25 fs-lg-l'
                                 )
                             ?>
                         </div>
                         
                         <div>
-                            <p class="fw-400 fs-11 fs-lg-14"><?php the_field('parrafo_1'); ?></p>
-                            <p class="fw-400 fs-11 fs-lg-14"><?php the_field('parrafo_2'); ?></p>
+                            <p class="fw-400 fs-11 fs-lg-l"><?php the_field('parrafo_1'); ?></p>
+                            <p class="fw-400 fs-11 fs-lg-l"><?php the_field('parrafo_2'); ?></p>
                         </div>
 
                         <div class="button-wrap mt-auto ml-auto ml-lg-0 mr-auto">
-                            <button class="btn btn-round"><?php the_field('texto_boton'); ?></button>
+                            <button class="btn btn-round fs-lg-xxs"><?php the_field('texto_boton'); ?></button>
                         </div>
 
                     </div>
@@ -99,19 +109,19 @@ get_header('no-margin');
                                     'titulo_intermedio',
                                     'title_tag',
                                     'title_txt',
-                                    'font-weight-bold fs-25 fs-lg-375'
+                                    'font-weight-bold fs-25 fs-lg-l'
                                 )
                             ?>
                         </div>
 
                         <div class="body col-lg-6 px-0 d-flex flex-column">
 
-                            <p class="fw-400 fs-11 fs-lg-14 p-text"><?php the_field('parrafo_intermedio_1'); ?></p>
-                            <p class="fw-400 fs-11 fs-lg-14 p-text"><?php the_field('parrafo_intermedio_2'); ?></p>
+                            <p class="fw-400 lh-lg-28 fs-11 fs-lg-xxs p-text"><?php the_field('parrafo_intermedio_1'); ?></p>
+                            <p class="fw-400 lh-lg-28 fs-11 fs-lg-xxs p-text"><?php the_field('parrafo_intermedio_2'); ?></p>
 
                             <div class="skin-buttons d-flex flex-column flex-lg-row mt-auto mt-lg-auto">
-                                <button class="btn btn-round habla-con-nos mb-4 mb-lg-6 ml-auto mr-auto mr-lg-0 mt-5 mt-lg-0"><?php the_field('texto_boton_1'); ?></button>
-                                <button class="btn btn-round ver-galeria ml-auto ml-lg-4 mr-auto mb-lg-6"><?php the_field('texto_boton_2'); ?></button>
+                                <button class="btn btn-round habla-con-nos mb-4 fs-lg-xxs mb-lg-6 ml-auto mr-auto mr-lg-0 mt-5 mt-lg-0"><?php the_field('texto_boton_1'); ?></button>
+                                <button class="btn btn-round ver-galeria ml-auto fs-lg-xxs ml-lg-4 mr-auto mb-lg-6"><?php the_field('texto_boton_2'); ?></button>
                             </div>
 
                         </div>
@@ -135,7 +145,7 @@ get_header('no-margin');
                             'titulo_final',
                             'title_tag',
                             'title_txt',
-                            'big-title-content m-0 text-center fs-lg-56'
+                            'big-title-content m-0 text-center fs-lg-xl'
                         )
                     ?>
                     <?php
@@ -143,7 +153,7 @@ get_header('no-margin');
                             'palabra_dinamica',
                             'title_tag',
                             'title_txt',
-                            'palabra-dinamica fs-lg-56'
+                            'palabra-dinamica fs-lg-xl'
                         )
                     ?>
 
@@ -162,61 +172,67 @@ get_header('no-margin');
             <div class="row">
                 <div class="col-12">
 
-                    <div class="section section-reference pt-5 pt-lg-56 pb-5 pb-lg-0">
-                        <div class="row reference-wrap pr-0">
+                    <div class="section section-reference pt-5 pt-lg-5 pb-5 pb-lg-0">
+                        <div class="reference-wrap pr-0">
 
-                            <div class="title col-lg-6 mb-4">
+                            <div class="title mb-4">
                                 <?php
                                     display_tag(
                                         'subtitulo_final',
                                         'title_tag',
                                         'title_txt',
-                                        'font-weight-bold fs-25 fs-lg-375 mb-4'
+                                        'fw-400 fs-25 fs-lg-m mb-4'
                                     )
                                 ?>
                             </div>
 
-                            <div class="col-lg-6 pr-0 d-flex mt-lg-5 flex-column">
+                            <div class="slick-articles d-flex pt-lg-56 pb-lg-5">
 
-                                <div class="slick-articles d-flex">
+                                <span id="slick-article-left" class="icon-arrow-left mr-3"></span>
 
-                                    <?php for ($i = 0; $i < 5; $i++) { ?>
+                                <?php if ( $articles_query->have_posts() ) { ?>
+
+                                    <?php while ( $articles_query->have_posts() ) { 
                                         
-                                        <div class="slick-article d-flex flex-column justify-content-between mr-3 p-3 border-1 border-black">
+                                        $articles_query->the_post();
+                                        $post_tags = get_the_tags($articles_query->ID); ?>
+                                        
+                                        <div class="slick-article col-lg-3 px-lg-0 d-flex flex-column mr-3 border-1 border-black">
 
-                                            <a href="#">
-                                                <p class="fs-15 fs-lg-18 fw-400 mb-lg-0">¿Cómo iluminar con catenaria?</p>
-                                            </a>
-
-                                            <div class="hline"></div>
-
-                                            <div class="child-article">
-                                                <p class="fs-11 fs-lg-14 fw-400 mb-lg-0">Artículo</p>
-                                                <p class="fs-11 fs-lg-14 fw-400 mb-lg-0">12 min</p>
+                                            <div class="p-3">
+                                                <a href="#">
+                                                    <p class="fs-15 fs-lg-s fw-400 mb-lg-0"><?php the_title(); ?></p>
+                                                </a>
                                             </div>
 
                                             <div class="hline"></div>
 
-                                            <p class="tags-title font-weight-bold fs-lg-09">TAGS</p>
+                                            <div class="px-lg-3 d-flex flex-column h-100">
+                                                <div class="child-article">
+                                                    <span class="fs-11 fs-lg-xs fw-400 mb-lg-0"><?php the_field('tipo_de_entrada'); ?> - </span>
+                                                    <span class="fs-11 fs-lg-xs fw-400 mb-lg-0"><?php the_field('tiempo_de_lectura'); ?></span>
+                                                </div>
 
-                                            <p class="tags fs-15 fs-lg-18 fw-400 mb-lg-0">#urbanidad #ciudad #edificios #suspensión
-                                                #instalación
-                                                #espacios</p>
+                                                <div class="w-75 mt-lg-auto pb-lg-3">
+                                                    <p class="tags fs-15 fs-lg-s fw-400 mb-lg-0"><?php if($post_tags) foreach($post_tags as $tag) { echo '#'; echo $tag->name; echo ' '; } ?></p>
+                                                </div>
+                                            </div>
 
                                         </div>
-
+                                                                    
                                     <?php } ?>
 
-                                </div>
+                                <?php } else {
+                                    // no posts found
+                                }
+                                /* Restore original Post Data */
+                                wp_reset_postdata(); ?>
 
-                                <div class="d-flex slick-chevrons mt-3">
-                                    <span id="slick-article-left" class="icon-arrow-left mr-3"></span>
-                                    <span id="slick-article-right" class="icon-arrow-right"></span>
-                                </div>
-
-                                <button class="btn btn-round ml-auto ml-lg-0 mr-auto mt-5 mb-lg-6"><?php the_field('texto_boton_final'); ?></button>
+                                <span id="slick-article-right" class="icon-arrow-right"></span>
 
                             </div>
+
+                            <button class="btn btn-round fs-lg-xxs ml-auto ml-lg-4 mr-auto mt-5 mb-lg-6"><?php the_field('texto_boton_final'); ?></button>
 
                         </div>
                     </div>

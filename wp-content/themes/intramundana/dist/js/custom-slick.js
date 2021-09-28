@@ -46,7 +46,7 @@ jQuery(document).ready(function ($) {
         //autoplaySpeed: 3500,
         //autoplay: true,
         slidesToScroll: 1,
-        slidesToShow: 2,
+        slidesToShow: 4,
         arrows: false,
         fade: false,
         dots: false,

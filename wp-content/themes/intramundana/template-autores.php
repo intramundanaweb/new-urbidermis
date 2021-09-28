@@ -7,11 +7,32 @@ get_header('no-margin');
 
 <?php 
 
-    $args = array(
+    $args_autor = array(
         'post_type' => 'autor',
     );
 
-    $autors_query = new WP_Query( $args );
+    $autors_query = new WP_Query( $args_autor );
+
+    $autors_ids = array();
+
+    if ($autors_query->have_posts()) {
+        while ($autors_query->have_posts()) {
+            $autors_query->the_post();
+            array_push($autors_ids, get_the_ID());
+        }
+    }
+
+    console_log($autors_ids);
+
+    $args_article = array(
+        'post_type' => 'post',
+        'author__in' => $autors_ids,
+        'orderby' => 'rand'
+    );
+
+    $articles_query = new WP_Query($args_article);
+
+?>
 
 ?>
 
@@ -125,19 +146,31 @@ get_header('no-margin');
                             <div class="col-12 ">
 
                                 <div class="slick-autors py-lg-5 d-lg-flex justify-content-between">
-                                    <?php for ($i = 0; $i < 8; $i++) { ?>
 
-                                        <div class="slick-autor col-lg-3 d-lg-flex flex-lg-column">
-                                            <div class="slick-autor-header p-lg-3 border border-dark">
-                                                <p class="fs-lg-15 text-center">Ventajas del uso del Air-Pot</p>
-                                            </div>
-                                            <div class="slick-autor-content p-lg-3 border border-dark">
-                                                <p class="fs-lg-12">Artículo - 12 min</p>
-                                                <p class="tags fs-lg-15">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
-                                            </div>
-                                        </div>
+                                    <?php if ($articles_query->have_posts() ) {
+                                        while ($articles_query->have_posts() ) {
+                                            $articles_query->the_post(); ?>
+                                        
+                                            
+                                        
 
-                                    <?php } ?>
+                                            <div class="slick-autor col-lg-3 d-lg-flex flex-lg-column">
+                                                <div class="slick-autor-header p-lg-3 border border-dark">
+                                                    <p class="fs-lg-15 text-center"><?php the_title(); ?></p>
+                                                </div>
+                                                <div class="slick-autor-content p-lg-3 border border-dark">
+                                                    <p class="fs-lg-12">Artículo - 12 min</p>
+                                                    <p class="tags fs-lg-15">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
+                                                </div>
+                                            </div>
+
+                                        <?php } ?>
+                                    <?php } else {
+                                        // no posts found
+                                    }
+                                    /* Restore original Post Data */
+                                    wp_reset_postdata(); ?>
+
                                 </div>
 
                                 <div class="slick-arrows-autors position-absolute d-flex justify-content-between p-4">
