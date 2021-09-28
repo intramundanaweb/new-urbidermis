@@ -79,7 +79,7 @@ get_header('no-margin');
                             <p class="fw-400 fs-11 fs-lg-l"><?php the_field('parrafo_2'); ?></p>
                         </div>
 
-                        <div class="button-wrap mt-auto ml-auto ml-lg-0 mr-auto">
+                        <div class="button-wrap mt-auto mb-lg-6 ml-auto ml-lg-0 mr-auto">
                             <button class="btn btn-round fs-lg-xxs"><?php the_field('texto_boton'); ?></button>
                         </div>
 
