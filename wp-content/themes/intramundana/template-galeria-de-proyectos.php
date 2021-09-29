@@ -208,7 +208,6 @@ get_header('no-margin');
                         </div>
                     <?php endif; ?>
 
-                    
                     <!-- GRID -->
                     <?php if ( $projects_query->have_posts() ) { ?>
                         <div class="grid-flex container-fluid p-0">
@@ -221,16 +220,22 @@ get_header('no-margin');
                                     $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
                                     $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
                                     $producto = get_the_term_list( $projects_query->ID, 'producto' ); ?>
-                                    
+
                                     <div class="grid-project-wrap col-12 col-lg-2">
                                         <a class="d-block p-3" href="<?php the_permalink(); ?>">
                                             <div class="grid-project flex-column" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
                                                 <div class="image-wrap">
                                                     <?php img_with_alt_featured(); ?>
                                                 </div>
-                                                <div class="project-title pt-2 pt-lg-2">
+                                                <?php if ( get_field('tipo_de_proyecto') == 'nosolo_foto' ) { ?>
+                                                    <div class="project-title extended mt-2 px-2">
+                                                    <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?> <span class="fal fa-plus-circle"></span></p>
+                                                    
+                                                <?php } else { ?>
+                                                    <div class="project-title pt-2 pt-lg-2">
                                                     <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?></p>
-                                                    <!--<span class="fal fa-plus-circle"></span>-->
+                                                <?php } ?>
+                                                    
                                                 </div>
                                             </div>
                                         </a>
@@ -292,9 +297,12 @@ get_header('no-margin');
                                             <?php if ( !wp_is_mobile() ) : ?>
 
                                                 <a class="w-100" href="<?php the_permalink(); ?>">
-                                                    <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
-                                                        
-                                                        <p class="col Proyecto m-0 p-0"><?php the_title(); ?></p>
+                                                    <?php if ( get_field('tipo_de_proyecto') == 'nosolo_foto' ) { ?>
+                                                        <div class="list-project extended justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">                                  
+                                                    <?php } else { ?>
+                                                        <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                    <?php } ?>
+                                                        <p class="col Proyecto m-0 p-0"><?php the_title(); ?> <?php if ( get_field('tipo_de_proyecto') == 'nosolo_foto' ) { ?><span class="fal fa-plus-circle"></span><?php } ?></p>
                                                         <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
                                                         <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
                                                         <p class="col Ano m-0 p-0">1995</p>
