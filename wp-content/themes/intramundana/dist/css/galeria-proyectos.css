@@ -195,6 +195,8 @@ body {
 }
 
 
+
+
 @media screen and (min-width: 992px) {
 
     .section-header {
@@ -401,6 +403,10 @@ body {
 
     .order span {
         cursor: pointer;
+    }
+
+    .project-title.extended, .list-project.extended {
+        background: lightblue;
     }
 
 }

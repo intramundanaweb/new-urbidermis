@@ -75,21 +75,23 @@
                 let results = []
                 
                 // Si no coincideix amb els noms per defecte vol dir que s'ha escollit alguna altra opció diferent (filtrat)
+                if (filter_selections[0] != 'País') {
+                    if (grid) {
+                        result = element.childNodes[1].childNodes[1].dataset.pais == filter_selections[0]
+                    } else {
+                        console.log(element.dataset.pais)
+                        result = element.dataset.pais == filter_selections[0]
+                    }
+                    // Afegim a l'array de resultats si la ciutat del projecte coincideix amb la ciutat del filtre
+                    results.push(result)
+                }
                 if (filter_selections[1] != 'Ciudad') {
                     if (grid) {
                         result = element.childNodes[1].childNodes[1].dataset.ciudad == filter_selections[1]
                     } else {
                         result = element.dataset.ciudad == filter_selections[1]
                     }
-                    // Afegim a l'array de resultats si la ciutat del projecte coincideix amb la ciutat del filtre
-                    results.push(result)
-                }
-                if (filter_selections[0] != 'País') {
-                    if (grid) {
-                        result = element.childNodes[1].childNodes[1].dataset.pais == filter_selections[0]
-                    } else {
-                        result = element.dataset.pais == filter_selections[0]
-                    }
+                    
                     results.push(result)
                 }
                 if (filter_selections[2] != 'Tipologia') {
@@ -113,10 +115,10 @@
                 // Afegir o esborrar les línies separatòries entre projectes en versió mòvil i format llista
                 if (!grid) {
                     if (window.mobileCheck()) {
-                        element.nextElementSibling.hidden = false
+                        element.parentElement.nextElementSibling.hidden = false
 
                         if (results.includes(false)) {
-                            element.nextElementSibling.hidden = true
+                            element.parentElement.nextElementSibling.hidden = true
                         }
                     }
                 }
