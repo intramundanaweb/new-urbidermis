@@ -12,7 +12,7 @@ if ( ! buddyx()->is_primary_nav_menu_active() ) {
 }
 
 ?>
-
+ 
 <nav id="site-navigation" class="main-navigation nav--toggle-sub nav--toggle-small" aria-label="<?php esc_attr_e( 'Main menu', 'buddyx' ); ?>"
 	<?php
 	if ( buddyx()->is_amp() ) {
@@ -72,6 +72,7 @@ if ( ! buddyx()->is_primary_nav_menu_active() ) {
 		<div class="moible-icons">
 			<?php buddyx_site_menu_icon(); ?>
 		</div>
+		
 	</div>
 	<div class="buddypress-icons-wrapper">
 		<div class="desktop-icons">
