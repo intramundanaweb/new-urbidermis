@@ -144,6 +144,7 @@ class SettingsStorage implements SettingsStorageInterface
             'general'                => [
                 'itemsPerPage'                           => $this->getSetting('general', 'itemsPerPage'),
                 'appointmentsPerPage'                    => $this->getSetting('general', 'appointmentsPerPage'),
+                'servicesPerPage'                        => $this->getSetting('general', 'servicesPerPage'),
                 'customersFilterLimit'                   => $this->getSetting('general', 'customersFilterLimit'),
                 'phoneDefaultCountryCode'                => $phoneCountryCode === 'auto' ?
                     $this->locationService->getCurrentLocationCountryIso() : $phoneCountryCode,
@@ -192,6 +193,7 @@ class SettingsStorage implements SettingsStorageInterface
                 'cancelErrorUrl'   => $this->getSetting('notifications', 'cancelErrorUrl'),
                 'smsSignedIn'      => $this->getSetting('notifications', 'smsSignedIn'),
                 'bccEmail'         => $this->getSetting('notifications', 'bccEmail'),
+                'bccSms'           => $this->getSetting('notifications', 'bccSms')
             ],
             'payments'               => [
                 'currency'                   => $this->getSetting('payments', 'currency'),

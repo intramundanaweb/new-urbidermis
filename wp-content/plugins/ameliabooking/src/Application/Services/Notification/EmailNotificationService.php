@@ -9,6 +9,7 @@ namespace AmeliaBooking\Application\Services\Notification;
 use AmeliaBooking\Application\Services\Helper\HelperService;
 use AmeliaBooking\Application\Services\Placeholder\PlaceholderService;
 use AmeliaBooking\Application\Services\Settings\SettingsService;
+use AmeliaBooking\Domain\Collection\Collection;
 use AmeliaBooking\Domain\Entity\Entities;
 use AmeliaBooking\Domain\Entity\Notification\Notification;
 use AmeliaBooking\Domain\Entity\User\Customer;
@@ -168,81 +169,84 @@ class EmailNotificationService extends AbstractNotificationService
      */
     public function sendBirthdayGreetingNotifications()
     {
-        /** @var Notification $notification */
-        $notification = $this->getByNameAndType('customer_birthday_greeting', $this->type);
+        /** @var Collection $notifications */
+        $notifications = $this->getByNameAndType('customer_birthday_greeting', $this->type);
 
-        // Check if notification is enabled and it is time to send notification
-        if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED &&
-            DateTimeService::getNowDateTimeObject() >=
-            DateTimeService::getCustomDateTimeObject($notification->getTime()->getValue())
-        ) {
-            /** @var NotificationLogRepository $notificationLogRepo */
-            $notificationLogRepo = $this->container->get('domain.notificationLog.repository');
+        foreach ($notifications->getItems() as $notification) {
+            // Check if notification is enabled and it is time to send notification
+            if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED &&
+                DateTimeService::getNowDateTimeObject() >=
+                DateTimeService::getCustomDateTimeObject($notification->getTime()->getValue())
+            ) {
+                /** @var NotificationLogRepository $notificationLogRepo */
+                $notificationLogRepo = $this->container->get('domain.notificationLog.repository');
 
-            /** @var PHPMailService|SMTPService|MailgunService $mailService */
-            $mailService = $this->container->get('infrastructure.mail.service');
+                /** @var PHPMailService|SMTPService|MailgunService $mailService */
+                $mailService = $this->container->get('infrastructure.mail.service');
 
-            /** @var PlaceholderService $placeholderService */
-            $placeholderService = $this->container->get('application.placeholder.appointment.service');
+                /** @var PlaceholderService $placeholderService */
+                $placeholderService = $this->container->get('application.placeholder.appointment.service');
 
-            /** @var SettingsService $settingsAS */
-            $settingsAS = $this->container->get('application.settings.service');
+                /** @var SettingsService $settingsAS */
+                $settingsAS = $this->container->get('application.settings.service');
 
-            /** @var \AmeliaBooking\Domain\Services\Settings\SettingsService $settingsService */
-            $settingsService = $this->container->get('domain.settings.service');
+                /** @var \AmeliaBooking\Domain\Services\Settings\SettingsService $settingsService */
+                $settingsService = $this->container->get('domain.settings.service');
 
-            $notificationSettings = $settingsService->getCategorySettings('notifications');
+                $notificationSettings = $settingsService->getCategorySettings('notifications');
 
-            if (!$notificationSettings['senderEmail'] || !$notificationSettings['senderName']) {
-                return;
-            }
+                if (!$notificationSettings['senderEmail'] || !$notificationSettings['senderName']) {
+                    return;
+                }
 
-            $customers = $notificationLogRepo->getBirthdayCustomers($this->type);
+                $customers = $notificationLogRepo->getBirthdayCustomers($this->type);
 
-            $companyData = $placeholderService->getCompanyData();
+                $companyData = $placeholderService->getCompanyData();
 
-            $customersArray = $customers->toArray();
+                $customersArray = $customers->toArray();
 
-            foreach ($customersArray as $bookingKey => $customerArray) {
-                if ($customerArray['email']) {
-                    $data = [
-                        'customer_email'      => $customerArray['email'],
-                        'customer_first_name' => $customerArray['firstName'],
-                        'customer_last_name'  => $customerArray['lastName'],
-                        'customer_full_name'  => $customerArray['firstName'] . ' ' . $customerArray['lastName'],
-                        'customer_phone'      => $customerArray['phone']
-                    ];
+                foreach ($customersArray as $bookingKey => $customerArray) {
+                    if ($customerArray['email']) {
+                        $data = [
+                            'customer_email'      => $customerArray['email'],
+                            'customer_first_name' => $customerArray['firstName'],
+                            'customer_last_name'  => $customerArray['lastName'],
+                            'customer_full_name'  => $customerArray['firstName'] . ' ' . $customerArray['lastName'],
+                            'customer_phone'      => $customerArray['phone']
+                        ];
 
-                    /** @noinspection AdditionOperationOnArraysInspection */
-                    $data += $companyData;
+                        /** @noinspection AdditionOperationOnArraysInspection */
+                        $data += $companyData;
 
-                    $subject = $placeholderService->applyPlaceholders(
-                        $notification->getSubject()->getValue(),
-                        $data
-                    );
-
-                    $body = $placeholderService->applyPlaceholders(
-                        $notification->getContent()->getValue(),
-                        $data
-                    );
-
-                    try {
-                        $mailService->send(
-                            $data['customer_email'],
-                            $subject,
-                            $this->getParsedBody($body),
-                            $settingsAS->getBccEmails()
+                        $subject = $placeholderService->applyPlaceholders(
+                            $notification->getSubject()->getValue(),
+                            $data
                         );
 
-                        $notificationLogRepo->add(
-                            $notification,
-                            $customers->getItem($bookingKey)
+                        $body = $placeholderService->applyPlaceholders(
+                            $notification->getContent()->getValue(),
+                            $data
                         );
-                    } catch (Exception $e) {
+
+                        try {
+                            $mailService->send(
+                                $data['customer_email'],
+                                $subject,
+                                $this->getParsedBody($body),
+                                $settingsAS->getBccEmails()
+                            );
+
+                            $notificationLogRepo->add(
+                                $notification,
+                                $customers->getItem($bookingKey)
+                            );
+                        } catch (Exception $e) {
+                        }
                     }
                 }
             }
         }
+
     }
 
     /**
@@ -259,8 +263,9 @@ class EmailNotificationService extends AbstractNotificationService
      */
     public function sendRecoveryEmail($customer, $locale)
     {
-        /** @var Notification $notification */
-        $notification = $this->getByNameAndType('customer_account_recovery', 'email');
+        /** @var Collection $notifications */
+        $notifications = $this->getByNameAndType('customer_account_recovery', 'email');
+
 
         /** @var PHPMailService|SMTPService|MailgunService $mailService */
         $mailService = $this->container->get('infrastructure.mail.service');
@@ -280,41 +285,44 @@ class EmailNotificationService extends AbstractNotificationService
             return;
         }
 
-        if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $data = [
-                'customer_email'      => $customer->getEmail()->getValue(),
-                'customer_first_name' => $customer->getFirstName()->getValue(),
-                'customer_last_name'  => $customer->getLastName()->getValue(),
-                'customer_full_name'  =>
-                    $customer->getFirstName()->getValue() . ' ' . $customer->getLastName()->getValue(),
-                'customer_phone'      => $customer->getPhone() ? $customer->getPhone()->getValue() : '',
-                'customer_panel_url'  => $helperService->getCustomerCabinetUrl(
-                    $customer->getEmail()->getValue(),
-                    'email',
-                    null,
-                    null,
-                    $locale
-                )
-            ];
+        foreach ($notifications->getItems() as $notification) {
+            if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                $data = [
+                    'customer_email'      => $customer->getEmail()->getValue(),
+                    'customer_first_name' => $customer->getFirstName()->getValue(),
+                    'customer_last_name'  => $customer->getLastName()->getValue(),
+                    'customer_full_name'  =>
+                        $customer->getFirstName()->getValue() . ' ' . $customer->getLastName()->getValue(),
+                    'customer_phone'      => $customer->getPhone() ? $customer->getPhone()->getValue() : '',
+                    'customer_panel_url'  => $helperService->getCustomerCabinetUrl(
+                        $customer->getEmail()->getValue(),
+                        'email',
+                        null,
+                        null,
+                        $locale
+                    )
+                ];
 
-            /** @noinspection AdditionOperationOnArraysInspection */
-            $data += $placeholderService->getCompanyData();
+                /** @noinspection AdditionOperationOnArraysInspection */
+                $data += $placeholderService->getCompanyData();
 
-            $subject = $placeholderService->applyPlaceholders(
-                $notification->getSubject()->getValue(),
-                $data
-            );
+                $subject = $placeholderService->applyPlaceholders(
+                    $notification->getSubject()->getValue(),
+                    $data
+                );
 
-            $body = $placeholderService->applyPlaceholders(
-                $notification->getContent()->getValue(),
-                $data
-            );
+                $body = $placeholderService->applyPlaceholders(
+                    $notification->getContent()->getValue(),
+                    $data
+                );
 
-            try {
-                $mailService->send($data['customer_email'], $subject, $this->getParsedBody($body), []);
-            } catch (Exception $e) {
+                try {
+                    $mailService->send($data['customer_email'], $subject, $this->getParsedBody($body), []);
+                } catch (Exception $e) {
+                }
             }
         }
+
     }
 
     /**
@@ -327,8 +335,8 @@ class EmailNotificationService extends AbstractNotificationService
      */
     public function sendEmployeePanelAccess($provider, $plainPassword)
     {
-        /** @var Notification $notification */
-        $notification = $this->getByNameAndType('provider_panel_access', 'email');
+        /** @var Collection $notifications */
+        $notifications = $this->getByNameAndType('provider_panel_access', 'email');
 
         /** @var PHPMailService|SMTPService|MailgunService $mailService */
         $mailService = $this->container->get('infrastructure.mail.service');
@@ -345,36 +353,38 @@ class EmailNotificationService extends AbstractNotificationService
             return;
         }
 
-        if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED) {
-            $data = [
-                'employee_email'      => $provider['email'],
-                'employee_first_name' => $provider['firstName'],
-                'employee_last_name'  => $provider['lastName'],
-                'employee_full_name'  =>
-                    $provider['firstName'] . ' ' . $provider['lastName'],
-                'employee_phone'      => $provider['phone'],
-                'employee_password'   => $plainPassword,
-                'employee_panel_url'  => trim(
-                    $this->container->get('domain.settings.service')->getSetting('roles', 'providerCabinet')['pageUrl']
-                )
-            ];
+        foreach ($notifications->getItems() as $notification) {
+            if ($notification->getStatus()->getValue() === NotificationStatus::ENABLED) {
+                $data = [
+                    'employee_email'      => $provider['email'],
+                    'employee_first_name' => $provider['firstName'],
+                    'employee_last_name'  => $provider['lastName'],
+                    'employee_full_name'  =>
+                        $provider['firstName'] . ' ' . $provider['lastName'],
+                    'employee_phone'      => $provider['phone'],
+                    'employee_password'   => $plainPassword,
+                    'employee_panel_url'  => trim(
+                        $this->container->get('domain.settings.service')->getSetting('roles', 'providerCabinet')['pageUrl']
+                    )
+                ];
 
-            /** @noinspection AdditionOperationOnArraysInspection */
-            $data += $placeholderService->getCompanyData();
+                /** @noinspection AdditionOperationOnArraysInspection */
+                $data += $placeholderService->getCompanyData();
 
-            $subject = $placeholderService->applyPlaceholders(
-                $notification->getSubject()->getValue(),
-                $data
-            );
+                $subject = $placeholderService->applyPlaceholders(
+                    $notification->getSubject()->getValue(),
+                    $data
+                );
 
-            $body = $placeholderService->applyPlaceholders(
-                $notification->getContent()->getValue(),
-                $data
-            );
+                $body = $placeholderService->applyPlaceholders(
+                    $notification->getContent()->getValue(),
+                    $data
+                );
 
-            try {
-                $mailService->send($data['employee_email'], $subject, $this->getParsedBody($body), []);
-            } catch (Exception $e) {
+                try {
+                    $mailService->send($data['employee_email'], $subject, $this->getParsedBody($body), []);
+                } catch (Exception $e) {
+                }
             }
         }
     }

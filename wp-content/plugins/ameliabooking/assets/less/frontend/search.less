@@ -34,6 +34,17 @@
       box-sizing: border-box;
       flex: 0 0 auto;
 
+      .am-search-mobile-button {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 10px;
+        display: none;
+
+        @media @less-then-small {
+          display: block;
+        }
+      }
+
       .am-close-icon {
         display: none;
         position: absolute;

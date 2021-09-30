@@ -862,6 +862,7 @@
           let shortCodeEntitiesIds = this.getShortCodeEntityIds()
 
           if (shortCodeEntitiesIds.show === 'packages') {
+            this.options.entities.packages.sort((a, b) => a.position - b.position)
             if (this.options.entities.packages.length === 1) {
               this.selectedPackageId = this.options.entities.packages[0].id
 

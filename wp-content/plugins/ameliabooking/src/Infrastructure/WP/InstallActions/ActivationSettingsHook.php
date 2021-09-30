@@ -115,6 +115,7 @@ class ActivationSettingsHook
             'requiredEmailField'                     => true,
             'itemsPerPage'                           => 12,
             'appointmentsPerPage'                    => 100,
+            'servicesPerPage'                        => 100,
             'customersFilterLimit'                   => 100,
             'gMapApiKey'                             => '',
             'addToCalendar'                          => true,
@@ -216,6 +217,7 @@ class ActivationSettingsHook
             'smsSignedIn'      => false,
             'smsApiToken'      => '',
             'bccEmail'         => '',
+            'bccSms'           => '',
             'cancelSuccessUrl' => '',
             'cancelErrorUrl'   => '',
             'breakReplacement' => '<br>'
@@ -526,7 +528,7 @@ class ActivationSettingsHook
                 'primaryGradient2'            => '#0454A2',
                 'textColor'                   => '#354052',
                 'textColorOnBackground'       => '#FFFFFF',
-                'font'                        => 'Roboto',
+                'font'                        => 'Amelia Roboto',
                 'useGenerated'                => false,
             ];
         }

@@ -2,6 +2,8 @@
 
 namespace AmeliaBooking\Domain\Entity\Notification;
 
+use AmeliaBooking\Domain\Collection\Collection;
+use AmeliaBooking\Domain\ValueObjects\BooleanValueObject;
 use AmeliaBooking\Domain\ValueObjects\DateTime\TimeOfDay;
 use AmeliaBooking\Domain\ValueObjects\Duration;
 use AmeliaBooking\Domain\ValueObjects\Json;
@@ -25,6 +27,9 @@ class Notification
 
     /** @var Name */
     private $name;
+
+    /** @var string */
+    private $customName;
 
     /** @var NotificationStatus */
     private $status;
@@ -55,6 +60,12 @@ class Notification
 
     /** @var  Json */
     private $translations;
+
+    /** @var  array */
+    private $entityIds;
+
+    /** @var BooleanValueObject */
+    private $sendOnlyMe;
 
     /**
      * Notification constructor.
@@ -115,6 +126,22 @@ class Notification
     public function setName(Name $name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomName()
+    {
+        return $this->customName;
+    }
+
+    /**
+     * @param string $customName
+     */
+    public function setCustomName($customName)
+    {
+        $this->customName = $customName;
     }
 
     /**
@@ -280,11 +307,45 @@ class Notification
     /**
      * @return array
      */
+    public function getEntityIds()
+    {
+        return $this->entityIds;
+    }
+
+    /**
+     * @param array $entityIds
+     */
+    public function setEntityIds($entityIds)
+    {
+        $this->entityIds = $entityIds;
+    }
+
+    /**
+     * @return BooleanValueObject
+     */
+    public function getSendOnlyMe()
+    {
+        return $this->sendOnlyMe;
+    }
+
+    /**
+     * @param BooleanValueObject $sendOnlyMe
+     */
+    public function setSendOnlyMe($sendOnlyMe)
+    {
+        $this->sendOnlyMe = $sendOnlyMe;
+    }
+
+
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return [
             'id'           => null !== $this->getId() ? $this->getId()->getValue() : null,
             'name'         => $this->getName()->getValue(),
+            'customName'   => $this->getCustomName(),
             'status'       => $this->getStatus()->getValue(),
             'type'         => $this->getType()->getValue(),
             'entity'       => $this->getEntity()->getValue(),
@@ -295,6 +356,8 @@ class Notification
             'subject'      => $this->getSubject()->getValue(),
             'content'      => $this->getContent()->getValue(),
             'translations' => $this->getTranslations() ? $this->getTranslations()->getValue() : null,
+            'entityIds'    => $this->getEntityIds(),
+            'sendOnlyMe'   => $this->getSendOnlyMe() ? $this->getSendOnlyMe()->getValue() : null
         ];
     }
 }

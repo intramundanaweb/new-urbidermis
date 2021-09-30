@@ -329,17 +329,16 @@ class Moove_GDPR_Controller {
 		$strict     = true;
 		$thirdparty = true;
 		$advanced   = true;
+		$gdpr_default_content = new Moove_GDPR_Content();
+		$wp_lang 							= $gdpr_default_content->moove_gdpr_get_wpml_lang();
 
-		$transient_key = 'gdpr_cookie_cache';
+		$transient_key = 'gdpr_cookie_cache' . $wp_lang;
 		$transient     = apply_filters( 'gdpr_cookie_script_cache', get_transient( $transient_key ) );
-		$transient 		 = false;
 		if ( ! empty( $transient ) ) :
 			$transient_from_cache = json_decode( $transient, true );
 		else :
-			$gdpr_default_content = new Moove_GDPR_Content();
 			$option_name          = $gdpr_default_content->moove_gdpr_get_option_name();
 			$modal_options        = get_option( $option_name );
-			$wp_lang 							= $gdpr_default_content->moove_gdpr_get_wpml_lang();
 
 			$cache_array = array(
 				'thirdparty' => array(
@@ -440,7 +439,7 @@ class Moove_GDPR_Controller {
 
 		$wp_lang 		= isset( $_POST['wp_lang'] ) ? sanitize_text_field( wp_unslash( urlencode( $_POST['wp_lang'] ) ) ) : '';
 
-		$transient_key = 'gdpr_cookie_cache';
+		$transient_key = 'gdpr_cookie_cache' . $wp_lang;
 		$transient     = apply_filters( 'gdpr_cookie_script_cache', get_transient( $transient_key ) );
 
 		if ( ! empty( $transient ) ) :

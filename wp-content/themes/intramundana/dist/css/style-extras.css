@@ -12,8 +12,19 @@ Page: 404
     color: #000;
     background: transparent;
     transition: all 0.5ms;
+    width: max-content;
 }
 
 .btn-round:hover {
     border-color: #000;
+}
+
+.hline {
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+
+.hline-grey {
+    border-bottom: 2px solid lightgrey;
+    width: 100%;
 }

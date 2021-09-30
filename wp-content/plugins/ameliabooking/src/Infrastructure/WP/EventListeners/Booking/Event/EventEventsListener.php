@@ -54,7 +54,7 @@ class EventEventsListener implements ListenerInterface
     public function handle(EventInterface $event, $param = null)
     {
         // Handling the events
-        if ($param->getResult() !== 'error') {
+        if ($param->getResult() !== 'error' && !AMELIA_LITE_VERSION) {
             switch ($event->getName()) {
                 case 'EventStatusUpdated':
                     EventStatusUpdatedEventHandler::handle($param, $this->container);

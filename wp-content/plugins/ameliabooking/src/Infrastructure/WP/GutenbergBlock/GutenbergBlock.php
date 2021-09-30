@@ -277,7 +277,7 @@ class GutenbergBlock
     public static function getOnlyCatSerLocEmp($resultData)
     {
         $data = [];
-        $data['categories'] = [];
+        $data['categories']   = [];
         $data['servicesList'] = [];
         if ($resultData['categories'] !== []) {
             for ($i = 0; $i < count($resultData['categories']); $i++) {
@@ -286,9 +286,7 @@ class GutenbergBlock
                     'name' => $resultData['categories'][$i]['name']
                 ];
                 if ($resultData['categories'][$i]['serviceList'] !== []) {
-
                     for ($j = 0; $j < count($resultData['categories'][$i]['serviceList']); $j++) {
-
                         if (!$resultData['categories'][$i]['serviceList'][$j]['show']) {
                             continue;
                         }
@@ -298,13 +296,10 @@ class GutenbergBlock
                             'name' => $resultData['categories'][$i]['serviceList'][$j]['name']
                         ];
                     }
-                } else {
-                    $data['servicesList'][$i] = [];
                 }
-
             }
         } else {
-            $data['categories'] = [];
+            $data['categories']   = [];
             $data['servicesList'] = [];
         }
 

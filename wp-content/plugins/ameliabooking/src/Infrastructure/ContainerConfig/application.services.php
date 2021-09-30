@@ -247,6 +247,17 @@ $entries['application.emailNotification.service'] = function ($c) {
 };
 
 /**
+ * Notification Helper Service
+ *
+ * @param Container $c
+ *
+ * @return \AmeliaBooking\Application\Services\Notification\NotificationHelperService
+ */
+$entries['application.notificationHelper.service'] = function ($c) {
+    return new AmeliaBooking\Application\Services\Notification\NotificationHelperService($c);
+};
+
+/**
  * Email Notification Service
  *
  * @param Container $c

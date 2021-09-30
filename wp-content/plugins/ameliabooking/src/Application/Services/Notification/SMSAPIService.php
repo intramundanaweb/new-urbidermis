@@ -11,6 +11,7 @@ use AmeliaBooking\Domain\Services\Notification\SMSAPIServiceInterface;
 use AmeliaBooking\Domain\Services\Settings\SettingsService;
 use AmeliaBooking\Domain\ValueObjects\String\NotificationSendTo;
 use AmeliaBooking\Infrastructure\Common\Container;
+use AmeliaBooking\Infrastructure\Common\Exceptions\NotFoundException;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use Interop\Container\Exception\ContainerException;
 
@@ -199,6 +200,7 @@ class SMSAPIService implements SMSAPIServiceInterface
      *
      * @throws QueryExecutionException
      * @throws ContainerException
+     * @throws NotFoundException
      */
     public function testNotification($data)
     {
@@ -215,12 +217,13 @@ class SMSAPIService implements SMSAPIServiceInterface
 
         $appointmentsSettings = $settingsService->getCategorySettings('appointments');
 
-        $notification = $notificationService->getByNameAndType($data['notificationTemplate'], 'sms');
+        $notification = $notificationService->getById($data['notificationTemplate']);
 
         $dummyData = $placeholderService->getPlaceholdersDummyData('sms');
 
         $isForCustomer = $notification->getSendTo()->getValue() === NotificationSendTo::CUSTOMER;
-        $placeholderStringRec = 'recurring' . 'Placeholders' . ($isForCustomer ? 'Customer' : '') . 'Sms';
+
+        $placeholderStringRec  = 'recurring' . 'Placeholders' . ($isForCustomer ? 'Customer' : '') . 'Sms';
         $placeholderStringPack = 'package' . 'Placeholders' . ($isForCustomer ? 'Customer' : '') . 'Sms';
 
         $dummyData['recurring_appointments_details'] = $placeholderService->applyPlaceholders($appointmentsSettings[$placeholderStringRec], $dummyData);

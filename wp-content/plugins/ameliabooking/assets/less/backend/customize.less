@@ -1522,6 +1522,16 @@
         background-color: transparent;
       }
 
+      &__prefix {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 16px;
+        }
+      }
+
       &-number {
         border-radius: 4px;
 
@@ -1545,16 +1555,6 @@
         &__content {
           & > div {
             border-radius: @border-radius;
-            &:after {
-              content: "";
-              display: block;
-              position: absolute;
-              top: 2px;
-              bottom: 2px;
-              right: 8px;
-              width: 16px;
-              background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMiIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDIyIDI0Ij4NCiAgICA8cGF0aCBmaWxsPSIjRTJFNkVDIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiDQogICAgICAgICAgZD0iTTE1LjcxNCAyLjY2N0g2LjI4NlYwSDIuNzV2Mi42NjdILjc4QS43ODMuNzgzIDAgMCAwIDAgMy40NXYxOS43NjRBLjc4Ljc4IDAgMCAwIC43ODMgMjRoMjAuNDM0YS43ODUuNzg1IDAgMCAwIC43ODMtLjc4NVYzLjQ1MWEuNzgyLjc4MiAwIDAgMC0uNzgtLjc4NGgtMS45N1YwaC0zLjUzNnYyLjY2N3pNMi43NSAyMS40MjlWOGgxNi41djEzLjQyOUgyLjc1ek0xMiAxNHY2aDZ2LTZoLTZ6Ii8+DQo8L3N2Zz4NCg==') no-repeat center / contain;
-            }
           }
         }
       }
@@ -3095,6 +3095,8 @@
   }
 
   &__edit {
+    box-sizing: border-box;
+
     &-input {
       &-wrapper {
         display: flex;
@@ -3115,6 +3117,10 @@
         }
 
         .@{form-el} {
+          &__label {
+            white-space: nowrap;
+          }
+
           &__content {
             display: flex;
             flex-direction: column;

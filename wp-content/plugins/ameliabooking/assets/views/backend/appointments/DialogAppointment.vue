@@ -986,7 +986,10 @@
         if (query) {
           this.searchCustomers(query, this.setFilteredBookings)
         } else {
-          this.setFilteredBookings(false)
+          setTimeout(() => {
+            clearTimeout(this.searchCustomersTimer)
+            this.setFilteredBookings(false)
+          }, 500)
         }
       },
 
@@ -997,10 +1000,11 @@
           existingCustomersIds.push(bookItem.customerId)
         })
 
-        let customers = this.options.entities.customers
+        let customers = this.searchedCustomers
 
-        if (typeof haveQuery === 'undefined') {
-          customers = this.searchedCustomers
+        if (typeof haveQuery !== 'undefined' && !haveQuery) {
+          customers = this.options.entities.customers
+          this.clonedBookings = []
         }
 
         let alreadyAddedCustomersIds = this.clonedBookings.map(booking => booking.customer).map(customer => customer.id)

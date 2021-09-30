@@ -25,7 +25,7 @@ class NotificationsTableInsertRows extends AbstractDatabaseTable
         global $wpdb;
 
         $table = self::getTableName();
-        $rows = [];
+        $rows  = [];
 
         $addEmail = !(int)$wpdb->get_row("SELECT COUNT(*) AS count FROM {$table} WHERE type = 'email'")->count;
 

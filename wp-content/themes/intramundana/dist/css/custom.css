@@ -136,122 +136,24 @@ Page: MainPage
 	bottom: -110px;
 }
 
-/*
-==============================
-Page: Template-inicio
-==============================
-*/
-
-/* Section cover */
-.conocimiento-urbanidad {
-    z-index: 1001;
-    bottom: 1rem;
-    width: 100%;
-    text-align: center;
-}
-
-.slick-arrows {
-    bottom: 50%;
-}
-
-.slick-cover img {
-    height: 100vh;
-    object-fit: cover;
-}
-
-/* Section contact */
-.contact-content p {
-    line-height: 26px;
-}
-
-/* Section skin */
-.section-skin img {
-    height: 25em;
-    object-fit: cover;
-}
-
-.skin-content p {
-    line-height: 26px;
-}
-
-/* Section reference */
-.big-title-section {
-    height: 23em;
-}
-
-h1 {
-    display: inline;
-}
-
-.big-title-content, .palabra-dinamica {
-    font-size: 3.75em;
-}
-
-.slick-article {
-    width: 19em;
-    height: 26em;
-    box-shadow: 2px 2px 0 0 #000000;
-}
-
-.slick-chevrons {
-    display: none!important;
-}
-
-.slick-dots {
-    visibility: visible;
-    bottom: -25px!important;
-    background: lightgrey!important;
-    position: absolute;
-    width: 19em!important;
-    padding: 0!important;
-    height: 3px!important;
-    text-align:inherit;
-    left: inherit;
-    transform: inherit;
-}
-
-/* Parallax effect 'revolución urbana' */
-
-/*canvas {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    max-height: 100vh;
-    max-width: 100vw;
-    transform: translate(-50%, -50%);
-}*/
-
-/* Width has to depend of how many articles there are */
-.slick-dots li button {
-    border-radius: 0;
-    border-width: 0;
-    height: 2px!important;
-    width: 45px!important;
-}
-
-.slick-active button {
-    position: relative;
-    top: -2px;
-    background: #000!important;
-}
 
 /**/
 
 .tags-title {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
-.btn-masPublicaciones {
-    width: max-content;
-    width: fit-content;
+.section-reference button {
+	width: max-content;
+	width: fit-content;
 }
 
 section button {
-    border-color: #000;
+	border-color: #000;
 }
 
 section button:hover {
-    border-color: #000;
+	border-color: #000;
 }
 
 /*Styles for lateral content*/
@@ -485,6 +387,15 @@ section button:hover {
 	height: auto;
 }
 
+@media (max-width: 321px) {
+
+	.slick-article {
+		width: 15em;
+		height: 22em;
+	}
+
+}
+
 @media (min-width: 576px) {
 
 	.slider-container img,
@@ -509,141 +420,7 @@ section button:hover {
 
 @media (min-width: 992px) {
 
-    /* Section cover */
-    .conocimiento-urbanidad {
-        z-index: 1001;
-        bottom: 1rem;
-        left: 50%;
-        transform: translate(-50%, 0);
-        bottom: 7rem;
-        font-weight: bold;
-    }
-
-    .slick-cover img {
-        height: auto;
-    }
-
-    .slick-arrows {
-        bottom: 50%;
-        transform: translate(0, -50%);
-    }
-
-    .slick-arrows span {
-        cursor: pointer;
-    }
-
-    .elipse-left {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        position: relative;
-        top: -50%;
-        left: 0;
-        margin-left: 3em;
-        z-index: 2;
-    }
-
-    .elipse-right {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        position: relative;
-        top: -50%;
-        right: 0;
-        margin-right: 3em;
-        z-index: 2;
-    }
-
-    /* Section contact */
-    .section-contact {
-        padding-top: 1em!important;
-    }
-
-    .contact-content {
-        width: 65%;
-        padding: 3em!important;
-    }
-
-    .contact-content button {
-        margin: 0!important;
-        margin-right: auto!important;
-    }
-
-    .contact-content p {
-        font-weight: 500;
-    }
-
-    /* Section skin */
-    .skin-content {
-        margin-left: 0em!important;
-        padding: 4em 3em 3em 3em!important;
-    }
-
-    .skin-content p {
-        font-weight: 500;
-        font-size: 1.1em;
-    }
-
-    .title {
-        padding: 0!important;
-    }
-
-    .skin-buttons {
-        flex-direction: row!important;
-    }
-
-    .habla-con-nos {
-        margin: 0!important;
-    }
-
-    .ver-galeria {
-        margin: 0em 0em 0em 2em!important;
-    }
-
-    /* Section reference */
-    .big-title-section {
-        height: auto;
-    }
-
-    .big-title-content, .palabra-dinamica {
-        font-size: 4.5em;
-        text-align: left!important;
-    }
-
-    .palabra-dinamica {
-        margin-left: 16px;
-    }
-
-    .reference-wrap {
-        padding: 3em 0em 3em 3em!important;
-    }
-
-	.slick-article {
-		width: 18em;
-		height: 26em;
-		box-shadow: 2px 2px 0 0 #000000;
-	}
-
-    .slick-chevrons {
-        display: block!important;
-    }
-
-    .slick-chevrons span {
-        cursor: pointer;
-    }
-
-    .slick-article p {
-        font-weight: 500;
-    }
-
-    .tags {
-        font-weight: 500;
-    }
-
-    .btn-masPublicaciones {
-        margin: 1.5em 0em 0em 0em!important;
-    }
-
+	
 	.bottomlinks {
 		position: relative;
 		bottom: 0px;
@@ -668,6 +445,8 @@ section button:hover {
 		right: -40vw;
 	}
 }
+
+
 
 @media (min-width: 1200px) {
 
@@ -866,6 +645,35 @@ Page: SINGLE EMPRESAS
 }
 
 
+
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}
+
+@media (min-width: 1440px) {}
+
+@media (min-width: 1600px) {}
+
+
+
+
+/*
+==============================
+Page: FICHA DE PRODUCTO
+==============================
+*/
+/* ESTILOS PARA CONFIGURADOR */
+
+#control-parent {
+	position: fixed;
+	bottom: 5%;
+}
 
 @media (min-width: 576px) {}
 

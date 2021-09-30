@@ -11,263 +11,305 @@ Font Family
 @font-face {
     font-family: 'Futura Condensada';
     src: url(fonts/FuturaStd-Condensed.ttf);
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Futura';
     src: url(fonts/FuturaStd-Light.ttf);
     font-weight: 100;
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Futura';
     src: url(fonts/FuturaStd-Book.ttf);
     font-weight: 300;
-  }
-  
-  
-  @font-face {
+}
+
+
+@font-face {
     font-family: 'Futura';
     src: url(fonts/FuturaStd-Medium.ttf);
     font-weight: 400;
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Futura';
     src: url(fonts/FuturaStd-Heavy.ttf);
     font-weight: 500;
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Futura';
     src: url(fonts/FuturaStd-Bold.ttf);
     font-weight: 600;
-  }
-  
-  
-  
-  
-  .ff-dms {
+}
+
+
+
+
+.ff-dms {
     font-family: 'Futura'
-  }
-  
-  .ff-ebg {
+}
+
+.ff-ebg {
     font-family: 'Futura';
-  }
-  
-  body {
+}
+
+body {
     font-family: 'Futura';
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h1 a,
-  h2 a,
-  h3 a,
-  h4 a,
-  h5 a {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a {
     /* font-family: 'Futura'; */
     font-family: 'Futura';
-  }
-  
-  p,
-  a,
-  input,
-  textarea,
-  ul li,
-  ol li,
-  span,
-  table,
-  table tr,
-  table tr td {
+}
+
+p,
+a,
+input,
+textarea,
+ul li,
+ol li,
+span,
+table,
+table tr,
+table tr td {
     font-family: 'Futura';
     font-size: 14px;
     letter-spacing: 0;
     line-height: 20px;
-  }
-  
-  /*
-  ==============================
-  Cookies Notice
-  ==============================
-  */
-  
-  .cc-banner .cc-message {
+}
+
+/*
+==============================
+Cookies Notice
+==============================
+*/
+
+.cc-banner .cc-message {
     font-family: 'Futura';
     font-size: 0.9em;
-  }
-  
-  .cc-banner .cc-link {
+}
+
+.cc-banner .cc-link {
     font-size: 1em;
     font-weight: bold;
     color: #CDAC01 !important;
-  }
-  
-  /*
-  ==============================
-  Font Size
-  ==============================
-  */
-  
-  .fs-07 {
+}
+
+/*
+==============================
+Font Size
+==============================
+*/
+
+.fs-07 {
     font-size: 0.7em;
-  }
-  
-  .fs-08 {
+}
+
+.fs-08 {
     font-size: 0.8em;
-  }
-  
-  .fs-09 {
+}
+
+.fs-09 {
     font-size: 0.9em;
-  }
-  
-  .fs-1 {
+}
+
+.fs-1 {
     font-size: 1em;
-  }
-  
-  .fs-11 {
+}
+
+.fs-11 {
     font-size: 1.1em;
-  }
-  
-  .fs-12 {
+}
+
+.fs-12 {
     font-size: 1.2em;
-  }
-  
-  .fs-13 {
+}
+
+.fs-13 {
     font-size: 1.3em;
-  }
-  
-  .fs-14 {
+}
+
+.fs-14 {
     font-size: 1.4em;
-  }
-  
-  .fs-15 {
+}
+
+.fs-15 {
     font-size: 1.5em;
-  }
-  
-  .fs-16 {
-      font-size: 1.6em;
-  }
-  
-  .fs-17 {
-      font-size: 1.7em;
-  }
-  
-  .fs-18 {
-      font-size: 1.8em;
-  }
-  
-  .fs-2 {
+}
+
+.fs-16 {
+    font-size: 1.6em;
+}
+
+.fs-17 {
+    font-size: 1.7em;
+}
+
+.fs-18 {
+    font-size: 1.8em;
+}
+
+.fs-2 {
     font-size: 2em;
-  }
-  
-  .fs-25 {
+}
+
+.fs-25 {
     font-size: 2.5em;
-  }
-  
-  .fs-3 {
+}
+
+.fs-3 {
     font-size: 3em;
-  }
-  
-  .fs-4 {
+}
+
+.fs-37 {
+    font-size: 3.7em;
+}
+
+.fs-4 {
     font-size: 4em;
-  }
-  
-  /*
-  ==============================
-  Font Weight
-  ==============================
-  */
-  
-  .fw-900 {
+}
+
+.fs-xxs {
+    font-size: 1.1em;
+}
+
+.fs-xs {
+    font-size: 1.25em;
+}
+
+.fs-s {
+    font-size: 1.5em;
+}
+
+.fs-m {
+    font-size: 1.875em;
+}
+
+.fs-l {
+    font-size: 2.5em;
+}
+
+.fs-xl {
+    font-size: 5.6em;
+}
+
+/*
+==============================
+Line Height
+==============================
+*/
+
+.lh-25 {
+    line-height: 25px;
+}
+
+.lh-28 {
+    line-height: 28px;
+}
+
+/*
+==============================
+Font Weight
+==============================
+*/
+
+.fw-900 {
     font-weight: 900;
-  }
-  
-  .fw-800 {
+}
+
+.fw-800 {
     font-weight: 800;
-  }
-  
-  .fw-700 {
+}
+
+.fw-700 {
     font-weight: 700;
-  }
-  
-  .fw-600 {
+}
+
+.fw-600 {
     font-weight: 600;
-  }
-  
-  .fw-500 {
+}
+
+.fw-500 {
     font-weight: 500;
-  }
-  
-  .fw-400 {
+}
+
+.fw-400 {
     font-weight: 400;
-  }
-  
-  .fw-300 {
+}
+
+.fw-300 {
     font-weight: 300;
-  }
-  
-  .fw-200 {
+}
+
+.fw-200 {
     font-weight: 200;
-  }
-  
-  /*
-  ==============================
-  Font Style
-  ==============================
-  */
-  
-  b,
-  strong {
+}
+
+/*
+==============================
+Font Style
+==============================
+*/
+
+b,
+strong {
     font-weight: 700;
-  }
-  
-  /*
-  ==============================
-  Header Sizes
-  ==============================
-  */
-  
-  h1 {
+}
+
+/*
+==============================
+Header Sizes
+==============================
+*/
+
+h1 {
     font-size: 1.8em;
     line-height: 1em;
-  }
-  
-  h2 {
+}
+
+h2 {
     font-size: 1.5em;
     line-height: 1em;
-  }
-  
-  h3 {
+}
+
+h3 {
     font-size: 1.3em;
     line-height: 1em;
-  }
-  
-  h4 {
+}
+
+h4 {
     font-size: 1.1em;
     line-height: 1em;
-  }
-  
-  h5 {
+}
+
+h5 {
     font-size: 1em;
     line-height: 1em;
-  }
-  
-  ul.style-list {
+}
+
+ul.style-list {
     margin-left: 15px;
     margin-bottom: 1em;
-  }
-  
-  ul.style-list li {
+}
+
+ul.style-list li {
     list-style: none;
     font-size: 1em;
     line-height: 1.43;
-  }
-  
-  ul.style-list li::before {
+}
+
+ul.style-list li::before {
     content: "-";
     color: #1d1d1f;
     padding: 0px 5px 0 0;
@@ -275,22 +317,25 @@ Font Family
     margin-left: -1em;
     margin-top: -7px;
     vertical-align: middle;
-  }
-  
-  
-  
-  /*
+}
+
+.text-standard {
+    font-size: 1.125em;
+    line-height: 1.11;
+}
+
+/*
   ==============================
   Font Sizes - Media Queries
   ==============================
   */
-  
-  @media (min-width: 576px) {}
-  
-  @media (min-width: 768px) {}
-  
-  @media (min-width: 992px) {
-    
+
+@media (min-width: 576px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 992px) {
+
     p,
     a,
     input,
@@ -301,83 +346,168 @@ Font Family
     table,
     table tr,
     table tr td {
-      font-family: 'Futura';
-      font-size: 1em;
-      letter-spacing: 0;
-      line-height: 1.43;
+        font-family: 'Futura';
+        font-size: 1em;
+        letter-spacing: 0;
+        line-height: 1.43;
     }
-  
+
     .fs-lg-07 {
-      font-size: 0.7em;
+        font-size: 0.7em;
     }
-  
+
     .fs-lg-08 {
-      font-size: 0.8em;
+        font-size: 0.8em;
     }
-  
+
     .fs-lg-09 {
-      font-size: 0.9em;
+        font-size: 0.9em;
     }
-  
+
     .fs-lg-1 {
-      font-size: 1em;
+        font-size: 1em;
     }
-  
+
     .fs-lg-11 {
-      font-size: 1.1em;
+        font-size: 1.1em;
     }
-  
+
     .fs-lg-12 {
-      font-size: 1.2em;
+        font-size: 1.2em;
     }
-  
+
     .fs-lg-13 {
-      font-size: 1.3em;
+        font-size: 1.3em;
     }
-  
+
     .fs-lg-14 {
-      font-size: 1.4em;
+        font-size: 1.4em;
     }
-  
+
     .fs-lg-15 {
-      font-size: 1.5em;
+        font-size: 1.5em;
     }
-  
+
     .fs-lg-16 {
-      font-size: 1.6em;
+        font-size: 1.6em;
     }
-  
+
     .fs-lg-17 {
-      font-size: 1.7em;
+        font-size: 1.7em;
     }
-  
+
     .fs-lg-18 {
-      font-size: 1.8em;
+        font-size: 1.8em;
     }
-  
+
     .fs-lg-19 {
-      font-size: 1.9em;
+        font-size: 1.9em;
     }
-  
+
     .fs-lg-2 {
-      font-size: 2em;
+        font-size: 2em;
     }
-  
+
+    .fs-lg-22 {
+        font-size: 2.2em;
+    }
+
     .fs-lg-25 {
-      font-size: 2.5em;
+        font-size: 2.5em;
     }
-  
+
     .fs-lg-3 {
-      font-size: 3em;
+        font-size: 3em;
     }
-  
+
+    .fs-lg-375 {
+        font-size: 3.75em;
+    }
+
     .fs-lg-4 {
-      font-size: 4em;
+        font-size: 4em;
     }
-  
+
     .fs-lg-45 {
-      font-size: 4.5em;
+        font-size: 4.5em;
     }
-  
-  
-  }
+
+    .fs-lg-5 {
+        font-size: 5em;
+    }
+
+    .fs-lg-56 {
+        font-size: 5.6em;
+    }
+
+    .fs-lg-xxs {
+        font-size: 1.1em;
+    }
+
+    .fs-lg-xs {
+        font-size: 1.25em;
+    }
+
+    .fs-lg-s {
+        font-size: 1.5em;
+    }
+
+    .fs-lg-m {
+        font-size: 1.875em;
+    }
+
+    .fs-lg-l {
+        font-size: 2.5em;
+    }
+
+    .fs-lg-xl {
+        font-size: 5.6em;
+    }
+
+    .text-standard {
+        font-size: 1.438em;
+        line-height: 1.13;
+    }
+
+    /*
+    ==============================
+    Line Height
+    ==============================
+    */
+
+    .lh-lg-25 {
+        line-height: 25px;
+    }
+
+    .lh-lg-28 {
+        line-height: 28px;
+    }
+
+    .lh-lg-30 {
+        line-height: 30px;
+    }
+
+    .lh-lg-40 {
+        line-height: 40px;
+    }
+
+}
+
+
+@media (min-width: 1200px) {
+
+    .text-standard {
+        font-size: 1.438em;
+        line-height: 1.13;
+    }
+
+}
+
+@media (min-width: 1600px) {
+
+    .text-standard {
+        font-size: 1.438em;
+        line-height: 1.13;
+    }
+
+}

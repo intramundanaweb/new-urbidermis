@@ -48,7 +48,7 @@ export default {
                   groupEnabled = true
                 }
 
-                if (service.maxCapacity < maxCapacity || maxCapacity === 0) {
+                if (service.maxCapacity > maxCapacity || maxCapacity === 0) {
                   maxCapacity = service.maxCapacity
                 }
 

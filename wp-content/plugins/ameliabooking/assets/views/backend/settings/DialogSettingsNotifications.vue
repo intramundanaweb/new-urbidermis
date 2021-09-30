@@ -243,6 +243,35 @@
           </el-select>
         </el-form-item>
 
+        <el-form-item label="placeholder" prop="bccSms">
+          <label slot="label">
+            {{ $root.labels.bcc_sms }}:
+            <el-tooltip placement="top">
+              <div slot="content" v-html="$root.labels.bcc_sms_tooltip"></div>
+              <i class="el-icon-question am-tooltip-icon"></i>
+            </el-tooltip>
+          </label>
+          <el-select
+              class="am-setting-notifications-select"
+              v-model="bccNumbers"
+              multiple
+              filterable
+              allow-create
+              default-first-option
+              :no-data-text="$root.labels.create"
+              @change="numbersChanged"
+          >
+            <el-option
+                v-for="(number, index) in bccNumbers"
+                :key="index"
+                :label="number"
+                :value="number"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+
       </el-form>
 
     </div>
@@ -278,6 +307,7 @@
     data () {
       return {
         bccEmails: [],
+        bccNumbers: [],
         settings: Object.assign({}, this.notifications),
         options: {
           mailServices: [
@@ -338,6 +368,9 @@
     mounted () {
       if (this.settings.bccEmail) {
         this.bccEmails = this.settings.bccEmail.split(',')
+      }
+      if (this.settings.bccSms) {
+        this.bccNumbers = this.settings.bccSms.split(',')
       }
 
       this.inlineSVG()
@@ -402,11 +435,18 @@
         }
       },
 
+      numbersChanged (phoneNumbers) {
+        if (phoneNumbers.length && (phoneNumbers[phoneNumbers.length - 1].trim() === '' || !(/^\+/.test(phoneNumbers[phoneNumbers.length - 1])))) {
+          phoneNumbers.pop()
+        }
+      },
+
       onSubmit () {
         this.$refs.settings.validate((valid) => {
           if (valid) {
             this.$emit('closeDialogSettingsNotifications')
             this.$emit('updateSettings', {'notifications': Object.assign(this.settings, {bccEmail: this.bccEmails.join(',')})})
+            this.$emit('updateSettings', {'notifications': Object.assign(this.settings, {bccSms: this.bccNumbers.join(',')})})
           }
         })
       },

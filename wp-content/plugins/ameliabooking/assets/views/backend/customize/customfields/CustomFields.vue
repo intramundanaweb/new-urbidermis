@@ -121,9 +121,10 @@
   import notifyMixin from '../../../../js/backend/mixins/notifyMixin'
   import imageMixin from '../../../../js/common/mixins/imageMixin'
   import entitiesMixin from '../../../../js/common/mixins/entitiesMixin'
+  import stashMixin from '../../../../js/backend/mixins/stashMixin'
 
   export default {
-    mixins: [notifyMixin, imageMixin, entitiesMixin],
+    mixins: [notifyMixin, imageMixin, entitiesMixin, stashMixin],
 
     props: {
       dialogCustomFields: {

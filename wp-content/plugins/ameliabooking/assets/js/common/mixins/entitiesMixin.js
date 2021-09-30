@@ -362,6 +362,9 @@ export default {
           this.responseEntities.packages = entities.packages ? entities.packages.filter(pack => pack.available) : []
 
           entities.packages = entities.packages.filter(pack => pack.available)
+          if (!this.params || !this.params.sort) {
+            entities.packages = entities.packages.sort((a, b) => a.position - b.position)
+          }
         }
 
         this.filterEntities(entities, this.getShortCodeEntityIds())
@@ -432,7 +435,11 @@ export default {
       if ('packages' in entities) {
         entities.packages.forEach((pack) => {
           pack.bookable.forEach((bookable) => {
-            bookable.service = JSON.parse(JSON.stringify(categoryServices.find(categoryService => categoryService.id === bookable.service.id)))
+            let service = categoryServices.find(categoryService => categoryService.id === bookable.service.id)
+
+            if (service) {
+              bookable.service = JSON.parse(JSON.stringify(service))
+            }
           })
         })
       }
@@ -548,10 +555,14 @@ export default {
     },
 
     employeesFiltered () {
+      let persons = typeof this.appointment !== 'undefined' && 'bookings' in this.appointment && this.appointment.bookings.length
+        ? this.appointment.bookings[0].persons : null
+
       let employees = this.visibleEmployees.filter(employee =>
         employee.serviceList.filter(
           service =>
             service.status === 'visible' &&
+            (persons !== null ? service.maxCapacity >= persons : true) &&
             (!this.appointment.serviceId ? true : (this.isEmployeeService(employee.id, service.id) && service.id === this.appointment.serviceId)) &&
             (!this.appointment.locationId ? true : (this.isEmployeeServiceLocation(employee.id, service.id, this.appointment.locationId))) &&
             (!this.appointment.categoryId ? true : (employee.serviceList.filter(service => service.status === 'visible' && service.categoryId === this.appointment.categoryId).length > 0))
@@ -591,6 +602,19 @@ export default {
           return -1
         }
         return a.position < b.position ? -1 : 1
+      }
+    },
+
+    sortNotifications () {
+      return function (a, b) {
+        if (a.customName === b.customName) {
+          return 0
+        } else if (a.customName === null) {
+          return 1
+        } else if (b.customName === null) {
+          return -1
+        }
+        return a.id > b.id ? -1 : 1
       }
     },
 

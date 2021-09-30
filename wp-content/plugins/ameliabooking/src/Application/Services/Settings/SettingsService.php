@@ -81,4 +81,19 @@ class SettingsService
 
         return ($bccEmail !== '') ? explode(',', $bccEmail) : [];
     }
+
+    /**
+     * @return array
+     * @throws \Exception
+     * @throws \Interop\Container\Exception\ContainerException +
+     */
+    public function getBccSms()
+    {
+        /** @var \AmeliaBooking\Domain\Services\Settings\SettingsService $settingsDS */
+        $settingsDS = $this->container->get('domain.settings.service');
+
+        $bccSms =  $settingsDS->getSetting('notifications', 'bccSms');
+
+        return ($bccSms !== '') ? explode(',', $bccSms) : [];
+    }
 }

@@ -2,6 +2,7 @@
 
 jQuery(document).ready(function ($) {
 
+    
     // Menu Interaction
 
     if ($(window).width() > 769) {
@@ -10,11 +11,13 @@ jQuery(document).ready(function ($) {
            "right": "-20vw"
          }); */
 
-        $('.navbar-toggler-right').on('click', function (e) {
+        $('a[data-target="#navbar"]').on('click', function (e) {
             e.preventDefault();
+            
             $('#navbar').stop().animate({
                 "left": "0"
             });
+            
         });
 
         $('.close-menu').on('click', function (e) {
@@ -88,7 +91,7 @@ jQuery(document).ready(function ($) {
             $('#navbar').removeClass('nuestra-historia');
         });
 
-        
+
         $('#menu-item-202 a').mouseover(function () {
             $('#navbar').addClass('filosofia');
         });
@@ -96,6 +99,7 @@ jQuery(document).ready(function ($) {
         $('#menu-item-202 a').mouseleave(function () {
             $('#navbar').removeClass('filosofia');
         });
+
 
         $('#menu-item-201 a').mouseover(function () {
             $('#navbar').addClass('autores');
@@ -105,6 +109,7 @@ jQuery(document).ready(function ($) {
             $('#navbar').removeClass('autores');
         });
 
+
         $('#menu-item-200 a').mouseover(function () {
             $('#navbar').addClass('parc-belloch');    
         });
@@ -112,6 +117,7 @@ jQuery(document).ready(function ($) {
         $('#menu-item-200 a').mouseleave(function () {
             $('#navbar').removeClass('parc-belloch');
         });
+
 
         $('#menu-item-199 a').mouseover(function () {
             $('#navbar').addClass('talento');    
@@ -122,7 +128,95 @@ jQuery(document).ready(function ($) {
         });
 
         /* PRODUCTO */
+        $('#menu-item-472 a').mouseover(function () {
+            $('#navbar').addClass('iluminacion-urbana');
+        });
+
+        $('#menu-item-472 a').mouseleave(function () {
+            $('#navbar').removeClass('iluminacion-urbana');
+        });
+
+
+        $('#menu-item-473 a').mouseover(function () {
+            $('#navbar').addClass('mobiliario-urbano');
+        });
+
+        $('#menu-item-473 a').mouseleave(function () {
+            $('#navbar').removeClass('mobiliario-urbano');
+        });
+
+
+        $('#menu-item-474 a').mouseover(function () {
+            $('#navbar').addClass('microarquitectura');
+        });
+
+        $('#menu-item-474 a').mouseleave(function () {
+            $('#navbar').removeClass('microarquitectura');
+        });
+
+
+        $('#menu-item-476 a').mouseover(function () {
+            $('#navbar').addClass('viver-de-belloch');
+        });
+
+        $('#menu-item-476 a').mouseleave(function () {
+            $('#navbar').removeClass('viver-de-belloch');
+        });
+
+
+        $('#menu-item-475 a').mouseover(function () {
+            $('#navbar').addClass('residencial');
+        });
+
+        $('#menu-item-475 a').mouseleave(function () {
+            $('#navbar').removeClass('residencial');
+        });
+
+        /* CONOCIMIENTO */
+        $('#menu-item-388 a').mouseover(function () {
+            $('#navbar').addClass('galeria-de-proyectos');
+        });
+
+        $('#menu-item-388 a').mouseleave(function () {
+            $('#navbar').removeClass('galeria-de-proyectos');
+        });
+
+
+        $('#menu-item-389 a').mouseover(function () {
+            $('#navbar').addClass('casos-practicos');
+        });
+
+        $('#menu-item-389 a').mouseleave(function () {
+            $('#navbar').removeClass('casos-practicos');
+        });
+
+
+        $('#menu-item-390 a').mouseover(function () {
+            $('#navbar').addClass('publicaciones');
+        });
+
+        $('#menu-item-390 a').mouseleave(function () {
+            $('#navbar').removeClass('publicaciones');
+        });
 
     }
 
 });
+
+/* OCULTAR HEADER EN SCROLL DOWN */
+var lastScrollTop = 0;
+window.addEventListener("scroll", function(){
+   var st = window.pageYOffset || document.documentElement.scrollTop; 
+   if(st > lastScrollTop && st > 0){
+           if (screen.width > 768) {//Para desktop
+               jQuery("#masthead").css({"top" : "-85px"});
+           }
+           if (screen.width < 768) {//Para moviles
+               jQuery("#masthead").css({"top" : "0px"});
+                
+           }
+   }else{
+         jQuery("#masthead").css({"top" : "0px"});
+   }
+   lastScrollTop = st;
+},false);

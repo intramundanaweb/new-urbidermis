@@ -1,0 +1,556 @@
+a:visited {
+    color: inherit;
+}
+
+.section-header {
+    border: none;
+}
+
+.header-title,
+.upper-menu {
+    padding: 0;
+}
+
+.header-introduction {
+    max-height: inherit;
+    padding: 0;
+    margin-top: 1em;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+}
+
+.range {
+    height: 0px;
+    border-bottom: 2px solid black!important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    opacity: 0.6;
+    transition: 0.2s;
+    display: block;
+}
+
+.range:hover {
+    opacity: 1;
+}
+
+.range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+}
+
+.range::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+}
+
+.section-header {
+    padding-top: 5em;
+    background-color: #e5e4dc;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/** Custom scrollbar settings 4 Chrome */
+
+/* Width */
+.section-header .section-grid ::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+.section-header .section-grid ::-webkit-scrollbar-track {
+    background: #f6f5f1;
+}
+
+/* Handle */
+.section-header .section-grid ::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 20px;
+}
+
+/** Custom switch */
+
+.switch {
+    width: 42px;
+    height: 34px;
+    top: -13px;
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/** Rounded slider */
+
+.slider {
+    border-radius: 9px;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 42px;
+    top: 14px;
+    left: 0;
+    right: 16px;
+    bottom: 0;
+    background-color: transparent;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    height: 12px;
+    width: 12px;
+    left: 3px;
+    bottom: 3px;
+    position: absolute;
+    content: "";
+    border-radius: 50%;
+    background-color: black;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+input:focus+.slider {
+    border: 1px solid black;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+}
+
+/*.filterBox-mobile-wrap {
+    display: none;
+    z-index: 1030;
+    top: 0;
+}*/
+
+.filterBox-mobile-chevron {
+    float: right;
+    margin-bottom: 2em;
+    cursor: pointer;
+}
+
+/**/
+
+.order-label {
+    display: none;
+}
+
+.list-menu {
+    display: flex;
+}
+
+.order-ciudad, .order-producto, .order-proyecto i, .order-ano i, .order-pais i, .Ciudad, .Producto {
+    display: none;
+}
+
+.list-flex {
+    /* d-none no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: block' al hacer el toggle (.show() / .hide()) */
+    display: none;
+}
+
+.list-flex .hline {
+    margin-left: -10%;
+    width: 120%;
+}
+
+.list-flex .hline-grey {
+    margin-left: -10%;
+    width: 120%;
+}
+
+.list-project {
+    display: flex;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.switch-color {
+    color: #9dbfcc;
+}
+
+/*.list-project.extended {
+    background: lightblue;
+}*/
+
+/** SECTION MODAL */
+.section-modal {
+    display: none;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    position: fixed;
+}
+
+.background {
+    height: 65%;
+}
+
+.close-modal-mobile {
+    bottom: 1.5em;
+}
+
+
+@media screen and (min-width: 992px) {
+
+    .section-header {
+        padding-top: 8em;
+        padding-bottom: 2em;
+        background-color: #e5e4dc;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+    .header-introduction {
+        max-height: 12em;
+        overflow-y: auto;
+        scrollbar-color: black lightgrey;
+        scrollbar-width: thin;
+    }
+
+    /** Custom scrollbar settings 4 Chrome */
+
+    /* Width */
+    .section-header .section-grid ::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    /* Track */
+    .section-header .section-grid ::-webkit-scrollbar-track {
+        background: #f6f5f1;
+    }
+
+    /* Handle */
+    .section-header .section-grid ::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 20px;
+    }
+
+    /** Custom switch */
+
+    .switch {
+        width: 60px;
+        height: 34px;
+        top: -1px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /** Rounded slider */
+
+    .slider {
+        width: 60px;
+        border-radius: 34px;
+        border: 1px solid black;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        border-radius: 50%;
+        height: 24px;
+        width: 24px;
+        left: 4px;
+        bottom: 4px;
+        background-color: black;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: transparent;
+        border: 1px solid black;
+    }
+
+    input:focus+.slider {
+        border: 1px solid black;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+
+    /** Page content */
+
+    /* Chrome scrollbar */
+    .header-introduction::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .header-introduction::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: lightgrey;
+    }
+
+    .header-introduction::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: black;
+    }
+
+    /*boot*/
+    .section-grid {
+        background: #f6f5f1;
+        padding-bottom: 5em;
+    }
+
+    .switch-color {
+        color: #9dbfcc;
+    }
+
+    .grid-flex {
+        /* d-flex no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: none' al hacer el switch de grid-lista */
+        display: flex;
+        top: -1.5em;
+        left: -2.5em;
+    }
+
+    .grid-project-wrap {
+        display: block;
+        transition: 0.4s;
+        padding: 1.5em;
+        margin-bottom: 2.5em;
+    }
+
+    .special {
+        background: lightblue;
+    }
+
+    .grid-project {
+        /* d-flex no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: none' al hacer el filtraje de proyectos (.hide()) */
+        display: flex;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .filter-label {
+        cursor: pointer;
+    }
+
+    .bi-plus-circle {
+        display: inline-block;
+        vertical-align: text-top;
+        opacity: 0;
+        transition: 0.4s;
+        cursor: pointer;
+    }
+
+    .fa-plus-circle {
+        cursor: pointer;
+    }
+
+    .selects-wrap {
+        margin-bottom: 1em;
+        border-radius: 15px;
+    }
+
+    /* */
+
+    .filter-box {
+        display: none;
+    }
+
+    /* */
+
+    .order-ciudad, .order-producto, .order-proyecto i, .order-ano i, .order-pais i, .Ciudad, .Producto {
+        display: block;
+    }
+
+    .list-project {
+        display: flex;
+        border-bottom: 1px solid black;
+        width: 100%;
+        padding: 0.5em 0;
+        transition: 0.4s;
+    }
+
+    .list-menu {
+        padding: 1em 0;
+        border-bottom: 1px solid black;
+    }
+
+    .list-menu div {
+        padding: 0;
+        margin: 0;
+    }
+
+    .list-flex {
+        /* d-none no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: block' al hacer el toggle (.show() / .hide()) */
+        display: none;
+    }
+
+    .order span {
+        cursor: pointer;
+    }
+
+    .project-title.extended, .list-project.extended {
+        background: lightblue;
+    }
+
+    /** SECTION MODAL */
+    .section-modal {
+        display: none;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1030;
+        position: fixed;
+    }
+
+    .slick-project-modal img {
+        width: 20%;
+    }
+
+    .section-modal .fa-times:before {
+        margin: 0;
+        cursor: pointer;
+        color: black;
+    }
+
+    .background {
+        height: 55%;
+    }
+
+    .chevrons-project {
+        top: 20em;
+    }
+
+    .chevrons-project span {
+        cursor: pointer;
+        z-index: 1;
+    }
+}
+
+/* Custom drop-down selectors */
+.custom-select {
+    width: 15em;
+    background: transparent;
+    border-radius: 25px;
+}
+
+.filter-box {
+    /* d-none no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: block' al hacer el toggle (.show() / .hide()) */
+    display: none;
+    z-index: 1030;
+    top: 0;
+}
+
+.select-hide {
+    /* d-none no es una opción ya que bootstrap pone un !important, el cual pasa por encima del 'display: block' al hacer el toggle (.show() / .hide()) */
+    display: none;
+}
+
+.select-items {
+    /* Elemento creado con jQuery */
+    border: 1px solid black;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 15em;
+    position: relative;
+    left: -13px;
+    background: #f6f5f1;
+    border-top: none;
+    padding: .5em .75em .75em .75em;
+    z-index: 1;
+    height: 12em;
+    height: max-content;
+    max-height: 12em;
+}
+
+.items-wrap {
+    height: max-content;
+    max-height: 11em;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: black lightgrey;
+}
+
+.open-close {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.select-selected {
+    /* Elemento creado con jQuery */
+    display: flex;
+
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.select-selected .fa {
+    margin-left: auto;
+    top: 3px;
+    left: 20px;
+    position: relative;
+}
+
+.item {
+    cursor: pointer;
+
+    font-size: 1.1em;
+}
+
+.item:hover {
+    text-decoration-line: underline;
+}
+
+.item span {
+    color: lightgrey;
+}
+
+.fa-times:before {
+    vertical-align: bottom;
+    margin-left: .5em;
+    color: #9dbfcc;
+}
+
+.active-filter {
+    cursor: pointer;
+    color: #9dbfcc;
+}

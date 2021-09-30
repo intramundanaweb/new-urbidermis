@@ -202,7 +202,7 @@ class IcsApplicationService
             $locationName = $recurringLocation ? $recurringLocation->getName()->getValue() : '';
 
             $recurringPlaceholdersData = $description || $descriptionTr ? $placeholderService->getPlaceholdersData(
-                $reservation->toArray(),
+                $recurringReservation->toArray(),
                 0,
                 'email',
                 null

@@ -43,6 +43,7 @@ class NotificationsTable extends AbstractDatabaseTable
         return "CREATE TABLE {$table} (
                    `id` INT(11) NOT NULL AUTO_INCREMENT,
                    `name` VARCHAR({$name}) NOT NULL DEFAULT '',
+                   `customName` VARCHAR(255) DEFAULT NULL,
                    `status` ENUM('enabled', 'disabled') NOT NULL DEFAULT 'enabled',
                    `type` ENUM('{$typeEmail}', '{$typeSms}') NOT NULL,
                    `entity` ENUM('appointment', 'event') NOT NULL DEFAULT 'appointment',
@@ -53,6 +54,7 @@ class NotificationsTable extends AbstractDatabaseTable
                    `subject` VARCHAR(255) NOT NULL DEFAULT '',
                    `content` TEXT NULL,
                    `translations` TEXT NULL DEFAULT NULL,
+                   `sendOnlyMe` TINYINT(1) DEFAULT 0,
                     PRIMARY KEY (`id`)
                 ) DEFAULT CHARSET=utf8 COLLATE utf8_general_ci";
     }

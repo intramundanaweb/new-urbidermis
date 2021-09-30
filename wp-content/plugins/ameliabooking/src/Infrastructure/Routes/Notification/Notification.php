@@ -6,6 +6,8 @@
 
 namespace AmeliaBooking\Infrastructure\Routes\Notification;
 
+use AmeliaBooking\Application\Controller\Notification\AddNotificationController;
+use AmeliaBooking\Application\Controller\Notification\DeleteNotificationController;
 use AmeliaBooking\Application\Controller\Notification\GetNotificationsController;
 use AmeliaBooking\Application\Controller\Notification\GetSMSNotificationsHistoryController;
 use AmeliaBooking\Application\Controller\Notification\SendAmeliaSmsApiRequestController;
@@ -30,6 +32,8 @@ class Notification
     {
         $app->get('/notifications', GetNotificationsController::class);
 
+        $app->post('/notifications', AddNotificationController::class);
+
         $app->post('/notifications/{id:[0-9]+}', UpdateNotificationController::class);
 
         $app->post('/notifications/status/{id:[0-9]+}', UpdateNotificationStatusController::class);
@@ -43,5 +47,7 @@ class Notification
         $app->post('/notifications/sms/history/{id:[0-9]+}', UpdateSMSNotificationHistoryController::class);
 
         $app->get('/notifications/sms/history', GetSMSNotificationsHistoryController::class);
+
+        $app->post('/notifications/delete/{id:[0-9]+}', DeleteNotificationController::class);
     }
 }

@@ -327,10 +327,28 @@ add_filter( 'upload_mimes', 'my_myme_types', 1, 1 );
 function my_myme_types( $mime_types ) {
 	if ( current_user_can('administrator') ){
   $mime_types['svg'] = 'image/svg+xml';     // Adding .svg extension
+  $mime_types['svg'] = 'image/svg';     // Adding .svg extension
   $mime_types['webp'] = 'image/webp'; // Adding .webP extension
   
   //unset( $mime_types['xls'] );  // Remove .xls extension
   //unset( $mime_types['xlsx'] ); // Remove .xlsx extension
 	}
   return $mime_types;
+}
+
+function delete_post_type(){
+    unregister_post_type( 'intra-proyectos' );
+}
+add_action('init','delete_post_type');
+
+
+function delete_post_type2(){
+    unregister_post_type( 'intra-autores' );
+}
+add_action('init','delete_post_type');
+
+function console_log( $data ){
+    echo '<script>';
+    echo 'console.log('. json_encode( $data ) .')';
+    echo '</script>';
 }

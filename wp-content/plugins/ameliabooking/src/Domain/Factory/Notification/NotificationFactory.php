@@ -4,6 +4,7 @@ namespace AmeliaBooking\Domain\Factory\Notification;
 
 use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
 use AmeliaBooking\Domain\Entity\Notification\Notification;
+use AmeliaBooking\Domain\ValueObjects\BooleanValueObject;
 use AmeliaBooking\Domain\ValueObjects\DateTime\TimeOfDay;
 use AmeliaBooking\Domain\ValueObjects\Duration;
 use AmeliaBooking\Domain\ValueObjects\Json;
@@ -44,6 +45,10 @@ class NotificationFactory
             $notification->setId(new Id($data['id']));
         }
 
+        if (isset($data['customName']) && !empty($data['customName'])) {
+            $notification->setCustomName($data['customName']);
+        }
+
         if (isset($data['time'])) {
             $notification->setTime(new TimeOfDay($data['time']));
         }
@@ -58,6 +63,14 @@ class NotificationFactory
 
         if (isset($data['timeAfter'])) {
             $notification->setTimeAfter(new Duration($data['timeAfter']));
+        }
+
+        if (isset($data['entityIds'])) {
+            $notification->setEntityIds(($data['entityIds']));
+        }
+
+        if (isset($data['sendOnlyMe']) && !empty($data['sendOnlyMe'])) {
+            $notification->setSendOnlyMe(new BooleanValueObject($data['sendOnlyMe']));
         }
 
         return $notification;

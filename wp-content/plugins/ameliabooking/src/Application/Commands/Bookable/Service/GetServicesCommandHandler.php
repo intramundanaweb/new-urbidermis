@@ -11,9 +11,13 @@ use AmeliaBooking\Application\Commands\CommandResult;
 use AmeliaBooking\Application\Common\Exceptions\AccessDeniedException;
 use AmeliaBooking\Domain\Collection\Collection;
 use AmeliaBooking\Domain\Common\Exceptions\InvalidArgumentException;
+use AmeliaBooking\Domain\Entity\Bookable\Service\Service;
 use AmeliaBooking\Domain\Entity\Entities;
+use AmeliaBooking\Domain\Services\Settings\SettingsService;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use AmeliaBooking\Infrastructure\Repository\Bookable\Service\ServiceRepository;
+use Interop\Container\Exception\ContainerException;
+use Slim\Exception\ContainerValueNotFoundException;
 
 /**
  * Class GetServicesCommandHandler
@@ -26,11 +30,11 @@ class GetServicesCommandHandler extends CommandHandler
      * @param GetServicesCommand $command
      *
      * @return CommandResult
-     * @throws \Slim\Exception\ContainerValueNotFoundException
+     * @throws ContainerValueNotFoundException
      * @throws QueryExecutionException
      * @throws InvalidArgumentException
      * @throws AccessDeniedException
-     * @throws \Interop\Container\Exception\ContainerException
+     * @throws ContainerException
      */
     public function handle(GetServicesCommand $command)
     {
@@ -45,14 +49,36 @@ class GetServicesCommandHandler extends CommandHandler
         /** @var ServiceRepository $serviceRepository */
         $serviceRepository = $this->container->get('domain.bookable.service.repository');
 
+        /** @var SettingsService $settingsService */
+        $settingsService = $this->getContainer()->get('domain.settings.service');
+
+        $generalSettings = $settingsService->getCategorySettings('general');
+
         /** @var Collection $services */
-        $services = $serviceRepository->getAll();
+        $services = $serviceRepository->getFiltered(
+            array_merge(
+                $command->getField('params'),
+                [
+                    'sort' => $generalSettings['sortingServices']
+                ]
+            ),
+            $generalSettings['servicesPerPage']
+        );
+
+        /** @var Service $service */
+        foreach ($services->getItems() as $service) {
+            if ($service->getSettings() && json_decode($service->getSettings()->getValue(), true) === null) {
+                $service->setSettings(null);
+            }
+        }
 
         $result->setResult(CommandResult::RESULT_SUCCESS);
         $result->setMessage('Successfully retrieved services.');
         $result->setData(
             [
-                Entities::SERVICES => $services->toArray()
+                Entities::SERVICES => $services->toArray(),
+                'countFiltered'    => (int)$serviceRepository->getCount($command->getField('params')),
+                'countTotal'       => (int)$serviceRepository->getCount([]),
             ]
         );
 

@@ -1,9 +1,11 @@
 .tabs-style-one {
     /* border-bottom: 1px solid #000; */
 }
-.nav-tabs{
-    border-bottom: 1px solid #000;  
+
+.nav-tabs {
+    border-bottom: 1px solid #000;
 }
+
 .tabs-style-one .nav-link {
     font-size: 1.4em;
     font-weight: 400;
@@ -37,21 +39,33 @@
 
 }
 
-.tabs-style-one .nav-tabs .nav-link.active{
+.tabs-style-one .nav-tabs .nav-link.active {
     display: flex;
 }
 
-.tabs-style-one .nav-tabs #nav-altura-tab.nav-link.active{
+.tabs-style-one .nav-tabs #nav-altura-tab.nav-link.active {
     padding-right: 3em !important;
-    width: 33.33%;
+    width: 25%;
 }
 
-.tabs-style-one .nav-tabs #nav-luminaria-tab.nav-link.active{
+.tabs-style-one .nav-tabs #nav-luminaria-tab.nav-link.active {
     padding-right: 3em !important;
-    width: 66.66%;
+    width: 50%;
 }
 
-.tabs-style-one .nav-tabs #nav-acabado-tab.nav-link.active{
+.tabs-style-one .nav-tabs #nav-acabado-tab.nav-link.active {
     padding-right: 3em !important;
-    width: 99.99%;
+    width: 75%;
+}
+
+.tabs-style-one .nav-tabs #nav-unidades-tab.nav-link.active {
+    padding-right: 3em !important;
+    width: 100%;
+}
+
+.tabs-style-one~#nav-tabContent .tab-pane.active {
+    /* height: 30vh;  */   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

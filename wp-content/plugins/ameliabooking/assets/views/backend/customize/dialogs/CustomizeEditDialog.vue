@@ -108,6 +108,15 @@
             active-color="#1A84EE"
           ></el-switch>
         </el-form-item>
+        <el-form-item v-if="field.hasOwnProperty('showSingleEvent')" class="am-customize__edit-input-wrapper">
+          <template slot="label">
+            {{ $root.labels.show_single_event }}
+          </template>
+          <el-switch
+            v-model="field.showSingleEvent"
+            active-color="#1A84EE"
+          ></el-switch>
+        </el-form-item>
       </el-form>
     </div>
     <div class="am-customize__edit-footer">

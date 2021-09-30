@@ -101,6 +101,9 @@ class AppointmentStatusUpdatedEventHandler
                 $appointment['googleCalendarEventId'] = $reservationObject->getGoogleCalendarEventId()->getValue();
             }
         }
+        if ($reservationObject->getGoogleMeetUrl() !== null) {
+            $appointment['googleMeetUrl'] = $reservationObject->getGoogleMeetUrl();
+        }
 
         if ($outlookCalendarService) {
             try {

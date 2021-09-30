@@ -52,7 +52,6 @@ class DeleteEventCommandHandler extends CommandHandler
         /** @var EventRepository $eventRepository */
         $eventRepository = $this->container->get('domain.booking.event.repository');
 
-        /** @var Event $event */
         $event = $eventRepository->getById($command->getArg('id'));
 
         $eventRepository->beginTransaction();
@@ -68,9 +67,11 @@ class DeleteEventCommandHandler extends CommandHandler
 
         $result->setResult(CommandResult::RESULT_SUCCESS);
         $result->setMessage('Successfully deleted event');
-        $result->setData([
+        $result->setData(
+            [
             Entities::EVENT => $event->toArray(),
-        ]);
+            ]
+        );
 
         return $result;
     }

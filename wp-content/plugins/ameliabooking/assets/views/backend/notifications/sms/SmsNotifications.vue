@@ -14,6 +14,7 @@
         :categories="categories"
         :customFields="customFields"
         :coupons="coupons"
+        :events="events"
         :passed-used-languages="passedUsedLanguages"
         :languages-data="languagesData"
         @manageLanguages="manageLanguages"
@@ -38,6 +39,10 @@
         type: Array
       },
       coupons: {
+        default: () => [],
+        type: Array
+      },
+      events: {
         default: () => [],
         type: Array
       },

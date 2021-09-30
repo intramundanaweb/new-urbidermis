@@ -38,6 +38,7 @@ class AppointmentsTable extends AbstractDatabaseTable
                    `locationId` INT(11) NULL,
                    `internalNotes` TEXT({$description}) NULL,
                    `googleCalendarEventId` VARCHAR(255) NULL,
+                   `googleMeetUrl` VARCHAR(255) NULL,
                    `outlookCalendarEventId` VARCHAR(255) NULL,
                    `zoomMeeting` TEXT({$description}) NULL,
                    `parentId` INT(11) NULL,
