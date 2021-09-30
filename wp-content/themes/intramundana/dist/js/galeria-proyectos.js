@@ -349,20 +349,40 @@ jQuery(document).ready(function ($) {
                 return $(a).find(filter).text() > $(b).find(filter).text();
             }
         })
+
+        let arr = ordered_elements.get()
+        
+        arr.forEach(element => {
+            element.classList.add('p-4', 'border-bottom', 'border-dark')
+        })
     
         $(".list-wrap").html(ordered_elements);
+
+        let len = $(".list-project").length
+
+        for (let i = 0; i < len; i++) {
+            if ($($(".list-project")[i]).find(".fa-plus-circle").length > 0) {
+                $($(".list-project")[i]).css('background', 'lightblue')
+            }
+        }
+
+
+        let list_projects = $(".list-project")
+
+        for (let i = 0; i < list_projects_length; i++) {
+            if ($(".list-project").get[i].find(".fa-plus-circle").length > 0) {
+                $(this).css('background', 'lightblue')
+            }
+        }
+        
+        
+            
+
+        
     
         $(".fa").not($(this).find(".fa")).removeClass("fa-chevron-up")
         $(".fa").not($(this).find(".fa")).addClass("fa-chevron-down")
         descendent = false
-
-        if (window.mobileCheck()) {
-            $(".list-project").each(function() {
-                if ($(this).css('display') !== 'none') {
-                    $(this).after('<div class="hline-grey my-3"></div>')
-                }
-            })
-        }
 
     })
     
@@ -379,8 +399,9 @@ jQuery(document).ready(function ($) {
 
             $(".range").removeClass('mb-3').addClass('mb-5')
 
-            $(".grid-project-wrap a").removeClass('p-2').addClass('p-3')
             $(".grid-row").removeClass('mb-4')
+
+            $(".grid-project-wrap").addClass('py-3')
         }
     
         if ($(".range").val() >= 33) {
@@ -396,8 +417,9 @@ jQuery(document).ready(function ($) {
 
             $(".range").removeClass('mb-5').addClass('mb-3')
 
-            $(".grid-project-wrap a").removeClass('p-2').addClass('p-3')
             $(".grid-row").removeClass('mb-4')
+
+            $(".grid-project-wrap").removeClass('py-3')
         }
     
         if ($(".range").val() >= 66) {
@@ -405,8 +427,9 @@ jQuery(document).ready(function ($) {
             $(".grid-project-wrap").removeClass("col-6 col-12").addClass("col-4")
             $(".project-title").css('display', 'none')
 
-            $(".grid-project-wrap a").removeClass('p-3').addClass('p-2')
             $(".grid-row").addClass('mb-4')
+
+            
         }
     })
 
