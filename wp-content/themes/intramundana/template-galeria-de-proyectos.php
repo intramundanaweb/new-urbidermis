@@ -114,7 +114,7 @@ get_header('no-margin');
 <?php endif; ?>
 
 
-<!-- Section grid -->
+<!-- Section projects [grid | list] -->
 <section class="section-grid">
     <div class="wrapper">
         <div class="container-fluid">
@@ -209,25 +209,26 @@ get_header('no-margin');
                     <?php endif; ?>
 
                     <!-- GRID -->
-                    <?php if ( $projects_query->have_posts() ) { ?>
+                    <?php if ( $projects_query->have_posts() ) { 
+                        $counter =1; ?>
                         <div class="grid-flex container-fluid p-0">
                             <div class="row grid-row">
-
                                 <?php while ( $projects_query->have_posts() ) {
 
                                     $projects_query->the_post();
+                                    $id = get_the_ID();
                                     $pais = get_the_term_list( $projects_query->ID, 'pais' );
                                     $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
                                     $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
                                     $producto = get_the_term_list( $projects_query->ID, 'producto' ); ?>
 
-                                    <div class="grid-project-wrap col-12 col-lg-2">
-                                        <a class="d-block p-3" href="<?php the_permalink(); ?>">
+                                    <div class="grid-project-wrap col-12 col-lg-2 py-3">
+                                        <a class="d-block open-modal-<?php echo $counter; ?>" href="#<?php //the_permalink(); ?>">
                                             <div class="grid-project flex-column" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
                                                 <div class="image-wrap">
                                                     <?php img_with_alt_featured(); ?>
                                                 </div>
-                                                <?php if ( get_field('tipo_de_proyecto') == 'nosolo_foto' ) { ?>
+                                                <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?>
                                                     <div class="project-title extended mt-2 px-2">
                                                     <p class="d-inline-block mb-2 mb-lg-0 fw-500 fs-11 fs-lg-12"><?php the_title(); ?> <span class="fal fa-plus-circle"></span></p>
                                                     
@@ -241,11 +242,160 @@ get_header('no-margin');
                                         </a>
                                     </div>
 
-                                <?php } ?>
+                                    <!-- Section modal -->
+                                    <section class="section-modal modal-<?php echo $counter; ?> bg-beige-light height-200">
+                                        <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?>
+                                            <div class="background bg-blue-light pt-lg-5 pt-5">
+                                        <?php } else { ?>
+                                            <div class="background bg-beige-light pt-lg-5 pt-5">
+                                        <?php } ?>
+                                                <div class="wrapper">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12 height-200">
+                                                            
+                                                            <!-- MODAL MOBILE -->
+                                                            <?php if (wp_is_mobile()) { ?>
+                                                            
+                                                                <div class="d-flex close-modal-mobile position-relative">
+                                                                    <div class="ml-auto">
+                                                                        <span class="close-modal-<?php echo $counter; ?> fal fa-chevron-left"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <p class="fs-l"><?php the_title(); ?></p>
+                                                                    <span class="m-lg-0 fs-m"><?php the_field('ciudad_pais'); ?></span>
+                                                                    <span class="m-lg-0 fs-m"><?php the_field('ano'); ?></span>
+                                                                    <p class="m-lg-0 fs-m"><?php the_field('centro'); ?></p>
+                                                                </div>
+
+                                                                <div class="d-flex">
+                                                                    <div class="mx-auto">
+                                                                        <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?>
+                                                                            <?php 
+                                                                                $link = get_field('boton_leer');
+                                                                                if( $link ): 
+                                                                                    $link_url = $link['url'];
+                                                                                    $link_title = $link['title'];
+                                                                                    $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+                                                                                    <a class="button btn-round mt-3 mb-5 fs-xxs" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                                                                            <?php endif; ?>
+                                                                        <?php } else { ?>
+                                                                            <div class="mt-4"></div>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                </div>
+                                                                
+
+                                                                <p class="fw-500 fs-s"><?php _e('Productos', 'urbidermis'); ?></p>
+                                                                <p class="m-lg-0 fs-s w-75"><?php the_field('productos'); ?></p>
+
+                                                                <div class="slick-project-modal-mobile">
+
+                                                                    <?php
+                                                                        if( have_rows('slider_project') ):
+                                                                            $counter_slide_mobile =1;
+                                                                        while ( have_rows('slider_project') ) : the_row();
+                                                                    ?>
+
+                                                                    <div class="position-relative">
+                                                                        <?php img_with_alt_lazy_sub('imagen'); ?>
+                                                                    </div>
+
+                                                                    <?php
+                                                                        $counter_slide_mobile++;
+                                                                        endwhile;
+                                                                        endif;
+                                                                    ?>
+
+                                                                </div>
+
+                                                            <!-- MODAL DESKTOP -->
+                                                            <?php } else { ?>
+
+                                                                <!-- AQUESTES FLETXES SON PER CANVIAR DE PROJECTE NO DE IMATGE -->
+                                                                <div class="chevrons-project d-lg-flex justify-content-between position-relative w-100">
+                                                                    <div><span class="fal fa-chevron-left chevron-project-left"></span></div>
+                                                                    <div><span class="fal fa-chevron-right chevron-project-right"></span></div>
+                                                                </div>
+
+                                                                <div class="d-lg-flex w-100">
+                                                                    <div class="ml-lg-auto fs-lg-xs">
+                                                                        <span class="fal fa-times close-modal-<?php echo $counter; ?>"></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="project-info position-absolute">
+                                                                    <p class="fw-500 mb-lg-2"><?php _e('Información', 'urbidermis'); ?></p>
+                                                                    <p class="m-lg-0"><?php the_field('localizacion_concreta'); ?></p>
+                                                                    <p class="m-lg-0"><?php the_field('ciudad_pais'); ?></p>
+                                                                    <p class="m-lg-0"><?php the_field('ano'); ?></p>
+                                                                    <p class="m-lg-0"><?php the_field('centro'); ?></p>
+                                                                    <p class="fw-500 mb-lg-2 mt-lg-3"><?php _e('Productos', 'urbidermis'); ?></p>
+                                                                    <p class="m-lg-0 w-50"><?php the_field('productos'); ?></p>
+                                                                </div>
+
+                                                                <div class="slick-project-modal">
+
+                                                                    <?php
+                                                                        if( have_rows('slider_project') ):
+                                                                            $counter_slide =1;
+                                                                        while ( have_rows('slider_project') ) : the_row();
+                                                                    ?>
+
+                                                                    <div class="position-relative">
+                                                                        <?php img_with_alt_lazy_sub('imagen'); ?>
+                                                                    </div>
+
+                                                                    <?php
+                                                                        $counter_slide++;
+                                                                        endwhile;
+                                                                        endif;
+                                                                    ?>
+
+                                                                </div>
+
+                                                                <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?>
+                                                                    <?php 
+                                                                        $link = get_field('boton_leer');
+                                                                        if( $link ): 
+                                                                            $link_url = $link['url'];
+                                                                            $link_title = $link['title'];
+                                                                            $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+                                                                            <a class="button btn-round" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                                                                    <?php endif; ?>
+                                                                <?php }  ?>
+
+                                                            <?php } ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </section>
+
+                                    <script>
+                                        jQuery(document).ready(function ($) {
+
+                                            $(".open-modal-<?php echo $counter; ?>").click(function() {
+                                                $(".modal-<?php echo $counter; ?>").toggle('slide', { direction: 'left'}, 500)
+                                            })
+
+                                            $(".close-modal-<?php echo $counter; ?>").click(function(e) {
+                                                console.log('clickedddddd fuck')
+                                                e.preventDefault()
+                                                $(".modal-<?php echo $counter; ?>").toggle('slide', {direction: 'left'}, 500)
+                                            })
+                                        })
+                                    </script>
+
+                                <?php $counter++; } ?>
 
                             </div>
                         </div>
-   
+
+                        
                     <?php } else {
                         // no posts found
                     }
@@ -296,39 +446,42 @@ get_header('no-margin');
                                             <!-- If Desktop -->
                                             <?php if ( !wp_is_mobile() ) : ?>
 
-                                                <a class="w-100" href="<?php the_permalink(); ?>">
-                                                    <?php if ( get_field('tipo_de_proyecto') == 'nosolo_foto' ) { ?>
+                                                <a class="w-100 open-modal" href="#<?php //the_permalink(); ?>">
+                                                    <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?>
                                                         <div class="list-project extended justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">                                  
                                                     <?php } else { ?>
                                                         <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
                                                     <?php } ?>
-                                                        <p class="col Proyecto m-0 p-0"><?php the_title(); ?> <?php if ( get_field('tipo_de_proyecto') == 'nosolo_foto' ) { ?><span class="fal fa-plus-circle"></span><?php } ?></p>
-                                                        <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
-                                                        <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
-                                                        <p class="col Ano m-0 p-0">1995</p>
-                                                        <p class="col Producto m-0 p-0"><?php echo strip_tags($producto); ?></p>
+                                                            <p class="col Proyecto m-0 p-0"><?php the_title(); ?> <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?><span class="fal fa-plus-circle"></span><?php } ?></p>
+                                                            <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
+                                                            <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
+                                                            <p class="col Ano m-0 p-0">1995</p>
+                                                            <p class="col Producto m-0 p-0"><?php echo strip_tags($producto); ?></p>
 
-                                                    </div>
+                                                        </div>
                                                 </a>
 
                                             <!-- If Mobile -->
                                             <?php else: ?>
 
                                                 <a class="w-100" href="<?php the_permalink(); ?>">
-                                                    <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                    <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?>
+                                                        <div class="list-project extended justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                    <?php } else { ?>
+                                                        <div class="list-project justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                    <?php } ?>
+                                                            <p class="col-6 Proyecto m-0 p-0">
+                                                                <?php the_title(); ?><br>
+                                                                <span class="fw-500"><?php echo strip_tags($producto); ?></span>
+                                                                <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?> <span class="fal fa-plus-circle"></span><?php } ?>
+                                                            </p>
+                                                            <p class="col-3 Pais m-0 p-0">
+                                                                <?php echo strip_tags($pais); ?>,<br>
+                                                                <span><?php echo strip_tags($ciudad); ?></span>
+                                                            </p>
+                                                            <p class="col-3 Ano m-0 p-0">1995</p>
                                                         
-                                                        <p class="col-6 Proyecto m-0 p-0">
-                                                            <?php the_title(); ?><br>
-                                                            <span class="fw-500"><?php echo strip_tags($producto); ?></span>
-                                                            <!--<span class="fal fa-plus-circle"></span>-->
-                                                        </p>
-                                                        <p class="col-3 Pais m-0 p-0">
-                                                            <?php echo strip_tags($pais); ?>,<br>
-                                                            <span><?php echo strip_tags($ciudad); ?></span>
-                                                        </p>
-                                                        <p class="col-3 Ano m-0 p-0">1995</p>
-                                                        
-                                                    </div>
+                                                        </div>
                                                 </a>
 
                                                 <div class="hline-grey my-3"></div>
