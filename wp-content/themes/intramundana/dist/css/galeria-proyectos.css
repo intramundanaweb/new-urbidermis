@@ -194,9 +194,9 @@ body {
     color: #9dbfcc;
 }
 
-/*.list-project.extended {
+.list-wrap .extended {
     background: lightblue;
-}*/
+}
 
 /** SECTION MODAL */
 .section-modal {
@@ -206,6 +206,7 @@ body {
     left: 0;
     z-index: 1030;
     position: fixed;
+    overflow-y: scroll;
 }
 
 .background {
@@ -439,7 +440,11 @@ body {
         position: fixed;
     }
 
-    .slick-project-modal img {
+    .slick-project-modal-grid img {
+        width: 20%;
+    }
+
+    .slick-project-modal-list img {
         width: 20%;
     }
 
