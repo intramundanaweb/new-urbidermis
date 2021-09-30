@@ -24,7 +24,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+ 
 .icon-plus:before {
   content: "\e905";
 }
