@@ -74,6 +74,64 @@ jQuery(document).ready(function ($) {
 
     /*
     ==============================
+    Page: Template - Proyectos
+    ==============================
+    */
+
+    /** Slick project modal Desktop*/
+    $('.slick-project-modal').slick({
+        infinite: true,
+        speed: 800,
+        autoplaySpeed: 3500,
+        autoplay: false,
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        arrows: false,
+        fade: false,
+        dots: false,
+        lazyLoad: 'ondemand',
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }]
+    });
+
+    $('.chevron-project-left').on('click', function (e) {
+        $('.slick-project-modal').slick('slickPrev');
+    });
+    
+    $('.chevron-project-right').on('click', function (e) {
+        $('.slick-project-modal').slick('slickNext');
+    });
+
+    /** Slick project modal Mobile*/
+    $('.slick-project-modal-mobile').slick({
+        infinite: true,
+        speed: 800,
+        autoplaySpeed: 3500,
+        autoplay: false,
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        arrows: false,
+        fade: false,
+        dots: false,
+        lazyLoad: 'ondemand',
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }]
+    });
+
+    /*
+    ==============================
     Page: Single-proyecto
     ==============================
     */
@@ -148,5 +206,7 @@ jQuery(document).ready(function ($) {
     $('#slick-autors-right').on('click', function (e) {
         $('.slick-autors').slick('slickNext');
     });
+
+    
 
 });

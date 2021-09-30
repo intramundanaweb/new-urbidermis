@@ -180,6 +180,30 @@ Font Size
     font-size: 4em;
 }
 
+.fs-xxs {
+    font-size: 1.1em;
+}
+
+.fs-xs {
+    font-size: 1.25em;
+}
+
+.fs-s {
+    font-size: 1.5em;
+}
+
+.fs-m {
+    font-size: 1.875em;
+}
+
+.fs-l {
+    font-size: 2.5em;
+}
+
+.fs-xl {
+    font-size: 5.6em;
+}
+
 /*
 ==============================
 Line Height
@@ -422,6 +446,10 @@ ul.style-list li::before {
 
     .fs-lg-xs {
         font-size: 1.25em;
+    }
+
+    .fs-lg-s {
+        font-size: 1.5em;
     }
 
     .fs-lg-m {
