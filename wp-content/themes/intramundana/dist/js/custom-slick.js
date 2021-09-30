@@ -79,17 +79,22 @@ jQuery(document).ready(function ($) {
     */
 
     /** Slick project modal Desktop*/
-    $('.slick-project-modal').slick({
+    
+
+
+    /** Slick project modal Desktop LIST*/
+    /*$('.slick-project-modal-list').slick({
         infinite: true,
         speed: 800,
         autoplaySpeed: 3500,
         autoplay: false,
+        centerMode: false,
+        variableWidth: false,
         slidesToScroll: 1,
         slidesToShow: 1,
         arrows: false,
         fade: false,
         dots: false,
-        lazyLoad: 'ondemand',
         responsive: [{
             breakpoint: 992,
             settings: {
@@ -98,15 +103,9 @@ jQuery(document).ready(function ($) {
                 slidesToScroll: 1
             }
         }]
-    });
+    });*/
 
-    $('.chevron-project-left').on('click', function (e) {
-        $('.slick-project-modal').slick('slickPrev');
-    });
     
-    $('.chevron-project-right').on('click', function (e) {
-        $('.slick-project-modal').slick('slickNext');
-    });
 
     /** Slick project modal Mobile*/
     $('.slick-project-modal-mobile').slick({
@@ -118,8 +117,7 @@ jQuery(document).ready(function ($) {
         slidesToShow: 1,
         arrows: false,
         fade: false,
-        dots: false,
-        lazyLoad: 'ondemand',
+        dots: true,
         responsive: [{
             breakpoint: 992,
             settings: {
