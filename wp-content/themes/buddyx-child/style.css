@@ -742,7 +742,7 @@ button:focus {
 }
 
 #groups-list .group-description p {
-    font-size: .9em;
+    font-size: .9em!important;
 }
 
 #groups-list .miembros.item-meta.group-details {
@@ -1074,10 +1074,14 @@ button:focus {
     font-size: 1.375em;
     line-height: 1.475em!important;
 }
+.main-navigation ul li.current-menu-item>a
+{
+    color: #87966e!important;
+}
 .users-header-urbi .bp-member-type {
     color: #87966e;
 }
-.bp-groups-tab a{
+.bp-groups-tab a, .bp-personal-tab a{
     font-weight: 500;
     padding-top: 30px!important;
     padding-bottom: 30px!important;
@@ -1314,9 +1318,26 @@ form.ac-form .ac-reply-content {
     background-color: transparent!important; 
 }
 .bb-icon-triangle-fill:before {
-    content: '\f078'!important;
-    font-weight: 300!important;
-    font: 1.3em 'Font Awesome 5 Pro';
+    content: "\e90a"!important;
+    font-size: 1.2em!important;
+    font-family: 'icomoon' !important;
+    /* font: 1.3em 'Font Awesome 5 Pro'; */
+}
+#media-stream .document-data-table-head .data-head i {
+    font-size: 12px;
+    -webkit-transform: rotate(
+0deg) translateY(1px);
+    -ms-transform: rotate(0deg) translateY(1px);
+    transform: rotate(
+0deg) translateY(1px);
+    transition: all ease .3s;
+    font-weight: 900;
+}
+#media-stream .document-data-table-head .data-head.asce i {
+    -webkit-transform: rotate(180deg) translateY(-0px);
+    -ms-transform: rotate(180deg) translateY(-0px);
+    transform: rotate(
+180deg) translateY(0px);
 }
 /*
     Enviar invitaciones
@@ -1358,6 +1379,7 @@ form.ac-form .ac-reply-content {
     border-radius: 25px!important;
     color: black!important;
     background: transparent!important;
+    font-weight: 400!important;
     
 }
 .buddypress-wrap .bp-feedback .bp-icon, .buddypress-wrap .bp-messages .bp-icon {
@@ -1366,8 +1388,8 @@ form.ac-form .ac-reply-content {
     /* height: 38px!important; */
 }
 .buddypress-wrap .bp-feedback p {
-    font-size: 1.25em;
-    font-weight: 500;
+    font-size: 1.25em!important;
+    font-weight: 400;
 }
 
 .buddypress-wrap form[data-bp-search].bp-invites-search-form input[type=search],
@@ -1422,6 +1444,127 @@ body.groups.group-invites #send_group_invite_form .select2-container--default .s
     display: inline;
     color: #000 !important;
     font-weight: 400!important;
+}
+/*
+    Perfil personal
+*/
+.bp-single-vert-nav .item-body:not(#group-create-body) #subnav:not(.tabbed-links) li a {
+    font-size: 1.375em!important;
+}
+.buddypress .buddypress-wrap button{
+    background: transparent!important;
+    border-width: 0px!important;
+}
+.buddypress-wrap .standard-form input[type=email],
+.buddypress-wrap .standard-form input[type=password]{
+    background: transparent!important;
+    border: 1px solid black!important;
+    border-radius: 25px!important;
+    font: 0.875em!important;
+    font-size: 100%;
+    padding: 13px 30px!important;
+}
+.buddypress.settings .profile-settings.bp-tables-user select,
+.buddypress-wrap .standard-form input:not(.button-small){
+    background: transparent!important;
+    border: 1px solid black!important;
+    border-radius: 25px!important;
+    font-size: 100%;
+    padding: 1px 30px!important;
+    width: 60%;
+    max-width: 440px;
+}
+#buddypress.buddypress-wrap a.rtm-button-back, #buddypress.buddypress-wrap input[type=button], #buddypress.buddypress-wrap input[type=submit],
+#buddypress.buddypress-wrap input[type=submit] {
+    padding: 13px 30px!important;
+}
+.buddypress-wrap .item-body .screen-heading {
+    font-size: 1.438em;
+    font-weight: 900;
+    margin-bottom: 40px;
+}
+.notification-settings,
+.profile-settings{
+    font-size: 1.375em!important;
+    font-weight: 400; 
+}
+.buddypress-wrap .bp-tables-report td, .buddypress-wrap .bp-tables-user td{
+    font-size: 1em!important;
+}
+table, table td, table th {
+    border: 0px solid black !important;
+}
+table td, table th {
+    padding-left: 0px!important;
+}
+.buddypress-wrap .bp-tables-report tbody tr, .buddypress-wrap .bp-tables-user tbody tr, .buddypress-wrap table.forum tbody tr, .buddypress-wrap table.wp-profile-fields tbody tr,
+.buddypress-wrap .bp-tables-report tr.alt td, .buddypress-wrap .bp-tables-user tr.alt td, .buddypress-wrap table.wp-profile-fields tr.alt td {
+    background: transparent!important;
+}
+.buddypress-wrap .profile.edit .editfield {
+    background: transparent;
+    border: 0px solid #eee;
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.buddypress-wrap .standard-form textarea {
+    height: 160px;
+    overflow-y: hidden;
+}
+.buddypress-wrap .standard-form label, .buddypress-wrap .standard-form span.label {
+    width: 40%;
+}
+.buddypress-wrap .standard-form .field-visibility-settings-header {
+    margin: 10px 0!important;
+}
+.buddypress .buddypress-wrap button.button,
+#buddypress .standard-form button,
+.field-visibility-settings-toggle button.button,
+#buddypress ul.button-nav li a,
+#buddypress ul.button-tabs.button-nav li a,
+#buddypress button.visibility-toggle-link.button,
+#buddypress button.field-visibility-settings-close.button{
+    background: transparent!important;
+    border: 1px solid black!important;
+    border-radius: 25px!important;
+    font-size: 16px!important;
+    padding: 13px 30px!important;
+    color: black!important;
+    font-weight: 300!important;
+    font-family: 'Futura'!important;
+}
+#buddypress p.warning, body.profile_page_bp-profile-edit.modal-open #TB_ajaxContent p.warning, body.users_page_bp-profile-edit.modal-open #TB_ajaxContent p.warning {
+    border: 1px solid black;
+    padding: 15px 30px;
+    border-radius: 35px;
+}
+.bp-feedback .bp-help-text {
+    font-style: inherit!important;
+}
+.bp-avatar-nav ul.avatar-nav-items li.current {
+    border: 0px solid #000!important;
+}
+.buddypress-wrap .profile.edit .editfield .field-visibility-settings, .buddypress-wrap .profile.edit .editfield .field-visibility-settings-toggle,
+.field-visibility-settings-notoggle,
+.buddypress-wrap .profile.edit .editfield legend {
+    display: none!important;
+}
+.buddypress-wrap .standard-form textarea{
+    background: transparent!important;
+    border: 1px solid black!important;
+    border-radius: 25px!important;
+    font-size: 100%;
+    padding: 20px 30px!important; 
+    width: 60%;
+}
+.container-borderbotom{
+    border-bottom: 1px solid black;
+}
+#profile-group-edit-submit {
+    width: auto;
 }
 
 
