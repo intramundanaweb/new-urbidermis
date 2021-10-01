@@ -387,6 +387,7 @@ jQuery(document).ready(function ($) {
     })
     
     /** RANGE SLIDER */
+    $(".background-wrap").css('height', '50%')
     $(".range").change(function () {
     
         if ($(".range").val() < 33) {
@@ -397,11 +398,14 @@ jQuery(document).ready(function ($) {
             $(".project-title").css('font-size', '1.1em')
             $(".project-title").css('top', '-25px')
 
-            $(".range").removeClass('mb-3').addClass('mb-5')
+            //$(".range").removeClass('mb-4').addClass('mb-3')
 
             $(".grid-row").removeClass('mb-4')
 
             $(".grid-project-wrap").addClass('py-3')
+
+            $(".grid-project-wrap-link").removeClass('p-2').addClass('p-4')
+            $(".grid-project-wrap-link").parent().css('height', '50%')
         }
     
         if ($(".range").val() >= 33) {
@@ -415,11 +419,14 @@ jQuery(document).ready(function ($) {
     
             $(".grid-flex").removeClass("p-0")
 
-            $(".range").removeClass('mb-5').addClass('mb-3')
+            //$(".range").removeClass('mb-5').addClass('mb-3')
 
             $(".grid-row").removeClass('mb-4')
 
             $(".grid-project-wrap").removeClass('py-3')
+
+            $(".grid-project-wrap-link").removeClass('p-2').addClass('p-4')
+            $(".grid-project-wrap-link").parent().css('height', '50%')
         }
     
         if ($(".range").val() >= 66) {
@@ -429,9 +436,10 @@ jQuery(document).ready(function ($) {
 
             $(".grid-row").addClass('mb-4')
 
-            
-        }
-    })
+            $(".grid-project-wrap-link").removeClass('p-4').addClass('p-2')
+            $(".grid-project-wrap-link").parent().css('height', '100%')
 
-    
+
+        }
+    })    
 })

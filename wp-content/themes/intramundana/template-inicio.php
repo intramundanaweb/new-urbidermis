@@ -17,7 +17,7 @@ get_header('no-margin');
 
 <!-- Section cover -->
 <section>
-    <div class="container-fluid">
+    <div class="container-fluid section-cover">
         <div class="row">
             <div class="col-12 px-0 height-200">
 
@@ -79,9 +79,9 @@ get_header('no-margin');
                             <p class="fw-400 fs-11 fs-lg-l"><?php the_field('parrafo_2'); ?></p>
                         </div>
 
-                        <div class="button-wrap mt-auto mb-lg-6 ml-auto ml-lg-0 mr-auto">
+                        <div class="button-wrap mt-auto ml-auto ml-lg-0 mr-auto">
                             <?php 
-                                $link = get_field('texto_boton');
+                                $link = get_field('boton_home_intro');
                                 if( $link ): 
                                     $link_url = $link['url'];
                                     $link_title = $link['title'];
@@ -128,7 +128,7 @@ get_header('no-margin');
 
                             <div class="skin-buttons d-flex flex-column flex-lg-row mt-auto mt-lg-auto">
                                 <?php 
-                                    $link = get_field('texto_boton_1');
+                                    $link = get_field('boton_home_skin_1');
                                     if( $link ): 
                                         $link_url = $link['url'];
                                         $link_title = $link['title'];
@@ -136,7 +136,7 @@ get_header('no-margin');
                                         <a class="button btn btn-round habla-con-nos mb-4 fs-lg-xxs mb-lg-6 ml-auto mr-auto mr-lg-0 mt-5 mt-lg-0" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
                                 <?php endif; ?>
                                 <?php 
-                                    $link = get_field('texto_boton_2');
+                                    $link = get_field('boton_home_skin_2');
                                     if( $link ): 
                                         $link_url = $link['url'];
                                         $link_title = $link['title'];
@@ -255,7 +255,7 @@ get_header('no-margin');
 
                             <div class="ver-mas ml-auto ml-lg-4 mr-auto mt-5 mb-lg-6">
                                 <?php 
-                                    $link = get_field('texto_boton_final');
+                                    $link = get_field('boton_home_final');
                                     if( $link ): 
                                         $link_url = $link['url'];
                                         $link_title = $link['title'];

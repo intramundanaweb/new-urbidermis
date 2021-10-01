@@ -11,11 +11,11 @@ Page: Template-inicio
     text-align: center;
 }
 
-.slick-arrows {
+.section-cover .slick-arrows {
     bottom: 50%;
 }
 
-.slick-cover img {
+.section-cover .slick-cover img {
     height: 100vh;
     object-fit: cover;
 }
@@ -39,17 +39,17 @@ h1 {
     font-size: 3.75em;
 }
 
-.slick-article {
+.section-reference .slick-article {
     width: 19em;
     height: 26em;
     box-shadow: 2px 2px 0 0 #000000;
 }
 
-.slick-chevrons {
+.section-reference .slick-chevrons {
     display: none!important;
 }
 
-.slick-dots {
+.section-reference .slick-dots {
     visibility: visible;
     bottom: -25px!important;
     background: lightgrey!important;
@@ -74,14 +74,14 @@ h1 {
 }*/
 
 /* Width has to depend of how many articles there are */
-.slick-dots li button {
+.section-reference .slick-dots li button {
     border-radius: 0;
     border-width: 0;
     height: 2px!important;
     width: 45px!important;
 }
 
-.slick-active button {
+.section-reference .slick-active button {
     position: relative;
     top: -2px;
     background: #000!important;
@@ -122,16 +122,16 @@ h1 {
         }
     }
 
-    .slick-cover img {
+    .section-cover .slick-cover img {
         height: 100vh;
     }
 
-    .slick-arrows {
+    .section-cover .slick-arrows {
         bottom: 50%;
         transform: translate(0, -50%);
     }
 
-    .slick-arrows span {
+    .section-cover .slick-arrows span {
         cursor: pointer;
     }
 
@@ -160,6 +160,7 @@ h1 {
     /* Section contact */
     .section-contact {
         width: 65%;
+        height: 70vh;
     }
 
     .section-contact button {
@@ -195,19 +196,19 @@ h1 {
         margin-left: 16px;
     }
 
-	.slick-article {
+	.section-reference .slick-article {
 		width: 22em;
 		/*height: max-content;*/
 		box-shadow: 2px 2px 0 0 #000000;
 	}
 
-    #slick-article-right, #slick-article-left {
+    .section-reference #slick-article-right, #slick-article-left {
         cursor: pointer;
         position: relative;
         top: 11em;
     }
 
-    .slick-articles .slick-list {
+    .section-reference .slick-articles .slick-list {
         height: 100%!important;
     }
 
@@ -225,7 +226,7 @@ h1 {
     ==============================
     */
 
-	.slick-cover img {
+	.section-cover .slick-cover img {
 		height: 100vh !important;
 	}
 }

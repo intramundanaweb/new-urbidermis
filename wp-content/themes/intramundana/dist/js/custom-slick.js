@@ -79,11 +79,7 @@ jQuery(document).ready(function ($) {
     */
 
     /** Slick project modal Desktop*/
-    
-
-
-    /** Slick project modal Desktop LIST*/
-    /*$('.slick-project-modal-list').slick({
+    $('.slick-project-modal-list').slick({
         infinite: true,
         speed: 800,
         autoplaySpeed: 3500,
@@ -94,21 +90,53 @@ jQuery(document).ready(function ($) {
         slidesToShow: 1,
         arrows: false,
         fade: false,
-        dots: false,
+        dots: true,
+        customPaging : function(slider, i) {
+            
+            return '<a class="dot">'+`${i+1}`+'</a>';
+        },
         responsive: [{
             breakpoint: 992,
             settings: {
                 arrows: false,
                 slidesToShow: 1,
-                slidesToScroll: 1
+                slidesToScroll: 1,
+                dots: true
             }
         }]
-    });*/
+    });
+
+    $('.slick-project-modal-grid').slick({
+        infinite: true,
+        speed: 800,
+        autoplaySpeed: 3500,
+        autoplay: false,
+        centerMode: false,
+        variableWidth: false,
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        arrows: false,
+        fade: false,
+        dots: true,
+        customPaging : function(slider, i) {
+            
+            return '<a class="dot">'+`${i+1}`+'</a>';
+        },
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true
+            }
+        }]
+    });
 
     
 
     /** Slick project modal Mobile*/
-    $('.slick-project-modal-mobile').slick({
+    $('.slick-project-modal-grid-mobile').slick({
         infinite: true,
         speed: 800,
         autoplaySpeed: 3500,
@@ -123,7 +151,30 @@ jQuery(document).ready(function ($) {
             settings: {
                 arrows: false,
                 slidesToShow: 1,
-                slidesToScroll: 1
+                slidesToScroll: 1,
+                dots: true
+            }
+        }]
+    });
+
+    /** Slick project modal Mobile*/
+    $('.slick-project-modal-list-mobile').slick({
+        infinite: true,
+        speed: 800,
+        autoplaySpeed: 3500,
+        autoplay: false,
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        arrows: false,
+        fade: false,
+        dots: true,
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true
             }
         }]
     });

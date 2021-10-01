@@ -2,6 +2,11 @@ a:visited {
     color: inherit;
 }
 
+.view-more {
+    cursor: pointer;
+    font-weight: 500;
+}
+
 .section-header {
     border: none;
 }
@@ -466,6 +471,86 @@ body {
         cursor: pointer;
         z-index: 1;
     }
+
+    /* Desktop grid | list */
+    .slick-project-modal-list .slick-dots, .slick-project-modal-grid .slick-dots {
+        visibility: visible;
+        height: 0!important;
+    }
+
+    .slick-project-modal-list .slick-dots .dot, .slick-project-modal-grid .slick-dots .dot {
+        cursor: pointer;
+    }
+    .slick-project-modal-grid .slick-dots li a, .slick-project-modal-list .slick-dots li a {
+        color: grey;
+    }
+    .slick-project-modal-grid .slick-dots li.slick-active a, .slick-project-modal-list .slick-dots li.slick-active a {
+        color: black;
+    }
+}
+
+/* Mobile grid | list */
+.slick-project-modal-list-mobile .slick-dots, .slick-project-modal-grid-mobile .slick-dots {
+    visibility: visible;
+    height: 0!important;
+}
+
+.slick-project-modal-list-mobile .slick-dots .dot, .slick-project-modal-grid-mobile .slick-dots .dot {
+    cursor: pointer;
+}
+
+.fa-chevron-left {
+    cursor: pointer;
+}
+
+.slick-project-modal-grid-mobile .slick-dots li button, .slick-project-modal-list-mobile .slick-dots li button {
+    background-color: #d3d3d3;
+}
+
+.slick-project-modal-grid-mobile .slick-dots li.slick-active button, .slick-project-modal-list-mobile .slick-dots li.slick-active button {
+    background-color: #1d1d1f;
+}
+  
+.slick-project-modal-grid-mobile .slick-dots, .slick-project-modal-list-mobile .slick-dots {
+    width: 100%;
+    text-align: left;
+    bottom: -16%;
+    left: 0;
+    top: 1em;
+    transform: inherit;
+    position: inherit;
+    z-index: 21;
+    display: flex;
+}
+
+.slick-project-modal-grid-mobile .slick-dots li, .slick-project-modal-list-mobile .slick-dots li {
+    margin-right: 0px;
+    width: inherit;
+}
+
+.slick-project-modal-grid-mobile .slick-dots li button, .slick-project-modal-list-mobile .slick-dots li button {
+    border-radius: 0;
+    border-width: 0;
+    border-style: solid;
+    color: transparent;
+    height: 2px;
+    padding: 0;
+    width: 100%;
+}
+
+.slick-project-modal-grid-mobile .slick-dots li.slick-active button,
+.slick-project-modal-list-mobile .slick-dots li.slick-active button,
+.slick-project-modal-grid-mobile .slick-dots li.slick-active button,
+.slick-project-modal-list-mobile .slick-dots li.slick-active button,
+.slick-project-modal-grid-mobile .slick-dots li button,
+.slick-project-modal-list-mobile .slick-dots li button,
+.slick-project-modal-grid-mobile .slick-dots li button,
+.slick-project-modal-list-mobile .slick-dots li button,
+.slick-arrow{
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
 }
 
 /* Custom drop-down selectors */

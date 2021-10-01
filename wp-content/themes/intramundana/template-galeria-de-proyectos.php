@@ -47,6 +47,13 @@ get_header('no-margin');
             <div class="row py-5">
                 <div class="col-12 d-lg-flex">
 
+                <?php 
+
+                    $full_text = get_field('texto_introduccion');
+                    $replacement = '... <span class="view-more">Leer más</span>';
+                    
+                ?>
+
                     <div class="header-title col-12 col-lg-6">
                         <?php
                             display_tag(
@@ -59,7 +66,7 @@ get_header('no-margin');
                     </div>
 
                     <div class="header-introduction col-12 col-lg-6">
-                        <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php the_field("texto_introduccion"); ?></p>
+                        <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php echo substr_replace($full_text, $replacement, 150); ?></p>
                     </div>
 
                 </div>                
@@ -67,6 +74,15 @@ get_header('no-margin');
         </div>
     </div>
 </section>
+
+<script>
+    jQuery(document).ready(function($) {
+
+        $(".view-more").click(function() {
+            $(".header-introduccion").html('<?php echo the_field("texto_introduccion"); ?>')
+        })
+    })
+</script>
 
 <!-- Filter box mobile -->
 <?php if( wp_is_mobile() ) : ?>
@@ -229,8 +245,8 @@ get_header('no-margin');
                                     <div class="grid-project-wrap col-12 col-lg-2">
                                         
                                         <?php if (( get_field('tipo_de_proyecto') == 'extendido' ) && wp_is_mobile()) { ?>
-                                            <div class="bg-blue-light h-50">
-                                            <a class="d-block project-<?php echo $counter_grid; ?> p-4" href="#">
+                                            <div class="background-wrap bg-blue-light">
+                                            <a class="d-block project-<?php echo $counter_grid; ?> p-4 grid-project-wrap-link" href="#">
                                         <?php } else { ?>
                                             <a class="d-block project-<?php echo $counter_grid; ?> p-4" href="#">
                                         <?php } ?>
@@ -304,7 +320,7 @@ get_header('no-margin');
                                                                 <p class="fw-500 fs-s"><?php _e('Productos', 'urbidermis'); ?></p>
                                                                 <p class="m-lg-0 fs-s w-75"><?php the_field('productos'); ?></p>
 
-                                                                <div class="slick-project-modal-mobile mt-4 mb-5">
+                                                                <div class="slick-project-modal-grid-mobile mt-4 mb-5">
 
                                                                     <?php
                                                                         if( have_rows('slider_project') ):
@@ -394,27 +410,8 @@ get_header('no-margin');
 
                                             $(".project-<?php echo $counter_grid; ?>").click(function() {
                                                 $(".modal-<?php echo $counter_grid; ?>").toggle('slide', { direction: 'left'}, 500)
-                                                $('.slick-project-modal-grid').slick({
-                                                    infinite: true,
-                                                    speed: 800,
-                                                    autoplaySpeed: 3500,
-                                                    autoplay: false,
-                                                    centerMode: false,
-                                                    variableWidth: false,
-                                                    slidesToScroll: 1,
-                                                    slidesToShow: 1,
-                                                    arrows: false,
-                                                    fade: false,
-                                                    dots: false,
-                                                    responsive: [{
-                                                        breakpoint: 992,
-                                                        settings: {
-                                                            arrows: false,
-                                                            slidesToShow: 1,
-                                                            slidesToScroll: 1
-                                                        }
-                                                    }]
-                                                });
+                                                $(".slick-project-modal-grid").slick('refresh')
+                                                $(".slick-project-modal-grid-mobile").slick('refresh')
                                             })
 
                                             $(".close-modal-<?php echo $counter_grid; ?>").click(function(e) {
@@ -564,7 +561,7 @@ get_header('no-margin');
                                                                         <p class="fw-500 fs-s"><?php _e('Productos', 'urbidermis'); ?></p>
                                                                         <p class="m-lg-0 fs-s w-75"><?php the_field('productos'); ?></p>
 
-                                                                        <div class="slick-project-modal-mobile mt-4 mb-5">
+                                                                        <div class="slick-project-modal-list-mobile mt-4 mb-5">
 
                                                                             <?php
                                                                                 if( have_rows('slider_project') ):
@@ -651,36 +648,17 @@ get_header('no-margin');
 
                                             <script>
                                                 jQuery(document).ready(function ($) {
-
+                                                    
                                                     $(".project-list-<?php echo $counter_list; ?>").click(function() {
-
                                                         $(".modal-list-<?php echo $counter_list; ?>").toggle('slide', { direction: 'left'}, 500)
-                                                        $('.slick-project-modal-list').slick({
-                                                            infinite: true,
-                                                            speed: 800,
-                                                            autoplaySpeed: 3500,
-                                                            autoplay: false,
-                                                            centerMode: false,
-                                                            variableWidth: false,
-                                                            slidesToScroll: 1,
-                                                            slidesToShow: 1,
-                                                            arrows: false,
-                                                            fade: false,
-                                                            dots: false,
-                                                            responsive: [{
-                                                                breakpoint: 992,
-                                                                settings: {
-                                                                    arrows: false,
-                                                                    slidesToShow: 1,
-                                                                    slidesToScroll: 1
-                                                                }
-                                                            }]
-                                                        });
+                                                        $('.slick-project-modal-list').slick('refresh')
+                                                        $(".slick-project-modal-list-mobile").slick('refresh')
                                                     })
-
+                                                    
                                                     $(".close-modal-list-<?php echo $counter_list; ?>").click(function(e) {
                                                         e.preventDefault()
                                                         $(".modal-list-<?php echo $counter_list; ?>").toggle('slide', {direction: 'left'}, 500)
+                                                        
                                                     })
                                                 })
                                             </script>

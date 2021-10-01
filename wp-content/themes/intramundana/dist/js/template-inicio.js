@@ -6,11 +6,11 @@ jQuery(document).ready(function ($) {
     */
 
     // Change section-contact background on hovering button
-    $(".section-contact button").mouseenter(function () {
+    $(".section-contact a").mouseenter(function () {
         $(".wrapper.contact").animate({
             backgroundColor: '#87966e'
         }, 200)
-        $(".section-contact button").css('color', '#000')
+        $(".section-contact a").css('color', '#000')
     }).mouseleave(function () {
         $(".wrapper.contact").animate({
             backgroundColor: '#e5e4dc'
@@ -18,11 +18,11 @@ jQuery(document).ready(function ($) {
     })
 
     // Change section-skin background on hovering buttons 
-    $(".skin-buttons button").mouseenter(function () {
+    $(".skin-buttons a").mouseenter(function () {
         $(".wrapper.skin").animate({
             backgroundColor: '#b4714e'
         }, 200)
-        $(".section-skin button").css('color', '#000')
+        $(".section-skin a").css('color', '#000')
     }).mouseleave(function () {
         $(".wrapper.skin").animate({
             backgroundColor: '#f6f5f1'
@@ -30,11 +30,11 @@ jQuery(document).ready(function ($) {
     })
 
     // Change section-reference background on hovering button
-    $(".section-reference button").mouseenter(function () {
+    $(".section-reference a").mouseenter(function () {
         $(".wrapper.reference").animate({
             backgroundColor: '#9dbfcc'
         }, 200)
-        $(".section-reference button").css('color', '#000')
+        $(".section-reference a").css('color', '#000')
     }).mouseleave(function () {
         $(".wrapper.reference").animate({
             backgroundColor: '#f6f5f1'
