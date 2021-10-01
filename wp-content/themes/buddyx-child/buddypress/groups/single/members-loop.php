@@ -39,7 +39,9 @@
                     <div class="member-info-wrapper">
                         <h3 class="list-title member-name text-left mb-1 p-0 fs-11"><?php bp_group_member_link(); ?></h3>
 
-                       <!--  <p class="joined item-meta"> ejemplo para mostrar campos especificos
+                       <!--  
+                        Campo para mostrar  ejemplo para mostrar campos especificos
+                       <p class="joined item-meta"> 
                             <?php 
 								/* $area = xprofile_get_field_data(36, bp_get_group_member_id());
 								echo $area;  */
