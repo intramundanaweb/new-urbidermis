@@ -477,7 +477,6 @@ get_header('no-margin');
                                         <?php while ( $projects_query->have_posts() ) {
                                             $projects_query->the_post();
                                             $pais = get_the_term_list( $projects_query->ID, 'pais' );
-                                            $año = get_the_term_list( $projects_query->ID, 'ano' );
                                             $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
                                             $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
                                             $producto = get_the_term_list( $projects_query->ID, 'producto' );
@@ -496,7 +495,15 @@ get_header('no-margin');
                                                             <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
                                                             <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
                                                             <p class="col Ano m-0 p-0"><?php the_field('ano'); ?></p>
-                                                            <p class="col Producto m-0 p-0"><?php echo strip_tags($producto); ?></p>
+                                                            <p class="col Producto m-0 p-0">
+                                                                <?php
+                                                                    $productos = preg_split('/(?=[A-Z])/', strip_tags($producto));
+                                                                    for ($i = 1; $i < count($productos); $i++) {
+                                                                        echo $productos[$i];
+                                                                        if ($i < count($productos) - 1) echo ', ';
+                                                                    }
+                                                                ?>
+                                                            </p>
 
                                                         </div>
                                                 </a>
@@ -578,13 +585,13 @@ get_header('no-margin');
                                                                         <div class="slick-project-modal-list-mobile mt-4 mb-5">
 
                                                                             <?php
-                                                                                if( have_rows('slider_project') ):
+                                                                                if( have_rows('slider_fotos_proyecto') ):
                                                                                     $counter_slide_mobile =1;
-                                                                                while ( have_rows('slider_project') ) : the_row();
+                                                                                while ( have_rows('slider_fotos_proyecto') ) : the_row();
                                                                             ?>
 
                                                                             <div class="position-relative">
-                                                                                <?php img_with_alt_lazy_sub('imagen'); ?>
+                                                                                <?php img_with_alt_lazy_sub('foto_proyecto'); ?>
                                                                             </div>
 
                                                                             <?php
@@ -623,13 +630,13 @@ get_header('no-margin');
                                                                         <div class="slick-project-modal-list">
 
                                                                             <?php
-                                                                                if( have_rows('slider_project') ):
+                                                                                if( have_rows('slider_fotos_proyecto') ):
                                                                                     $counter_slide =1;
-                                                                                while ( have_rows('slider_project') ) : the_row();
+                                                                                while ( have_rows('slider_fotos_proyecto') ) : the_row();
                                                                             ?>
 
                                                                             <div class="position-relative">
-                                                                                <?php img_with_alt_lazy_sub('imagen'); ?>
+                                                                                <?php img_with_alt_lazy_sub('foto_proyecto'); ?>
                                                                             </div>
 
                                                                             <?php
