@@ -20,11 +20,11 @@
 
 	<div id="item-header-content" class="col-lg-10 col-12">
 		<div class="col-12 px-0 d-flex justify-content-between">
-			<div class="col-9 px-0">
+			<div class="col-12 col-md-9 px-0">
 				<h1><?php _e('Perfil','intramundana'); ?>, <?php echo bp_core_get_user_displayname( bp_displayed_user_id() ); ?> </h1>
 				<?php echo bp_get_user_social_networks_urls(); ?>
 			</div>
-			<div class="col-3 px-0 d-flex align-profile-title ">
+			<div class="col-12 col-md-3 px-0 align-profile-title ">
 				
 				<?php if ( ( bp_is_active( 'activity' ) && bp_activity_do_mentions() ) || bp_nouveau_member_has_meta() ) : ?>
 					<div class="item-meta">

@@ -25,22 +25,32 @@ namespace BuddyX\Buddyx;
 					<?php if ( is_active_sidebar( 'footer-1' ) || is_active_sidebar( 'footer-2' ) || is_active_sidebar( 'footer-3' ) || is_active_sidebar( 'footer-4' ) ) : ?>
 						<div class="footer-inner" role="complementary" aria-label="<?php esc_attr_e( 'Footer', 'buddyx' ); ?>">
 								<?php if ( is_active_sidebar( 'footer-1' ) ) { ?>
-							<div class="col-4">
-									<?php dynamic_sidebar( 'footer-1' ); ?>
-									Formulario de contacto custom
+							<div class="col-12 col-md-4 mb-4">
+								<?php dynamic_sidebar( 'footer-1' ); ?>
+								<form action="">
+									<div class="mb-3">
+										<label for="emailsucription" class="form-label">Email</label>
+										<input type="email" class="form-control" id="emailsucription">
+									</div>
+									<div class="mb-3 form-check">
+										<input type="checkbox" class="form-check-input" id="checksuscription">
+										<label class="form-check-label" for="checksuscription">He leído y acepto los términos y condiciones,  así como la política de privacidad</label>
+									</div>
+									<button type="submit" class="botosuscription">Suscribirse</button>
+								</form>
 							</div>
 								<?php } if ( is_active_sidebar( 'footer-2' ) ) { ?>
-							<div class="col-2">
-									<?php dynamic_sidebar( 'footer-2' ); ?>
+							<div class="col-12 col-md-2 mb-4">
+								<?php dynamic_sidebar( 'footer-2' ); ?>
 							</div>
 							<?php } ?>
 								<?php if ( is_active_sidebar( 'footer-3' ) ) { ?>
-							<div class="col-2">
-									<?php dynamic_sidebar( 'footer-3' ); ?>
+							<div class="col-12 col-md-2 mb-4">
+								<?php dynamic_sidebar( 'footer-3' ); ?>
 							</div>
 								<?php } if ( is_active_sidebar( 'footer-4' ) ) { ?>
-							<div class="col-4">
-									<?php dynamic_sidebar( 'footer-4' ); ?>
+							<div class="col-12 col-md-4 mb-4">
+								<?php dynamic_sidebar( 'footer-4' ); ?>
 							</div>
 							<?php } ?>
 						</div><!-- .widget-area inner-->

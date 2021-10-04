@@ -100,3 +100,5 @@ function format_activity_date() {
   
   }
   add_filter('bp_activity_time_since', 'format_activity_date');
+
+

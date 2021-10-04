@@ -42,7 +42,7 @@ bp_nouveau_xprofile_hook( 'before', 'edit_content' ); ?>
 			<div class="row px-0">
 
 			
-				<div class="col-6">
+				<div class="col-12 col-md-6">
 					<?php
 						while ( bp_profile_fields() ) : bp_the_profile_field();
 						if ( 'textarea' != bp_get_the_profile_field_type() ) : 
@@ -59,7 +59,7 @@ bp_nouveau_xprofile_hook( 'before', 'edit_content' ); ?>
 					<?php endif; endwhile; ?>
 				</div>
 
-				<div class="col-6 ">
+				<div class="col-12 col-md-6 ">
 					<?php 
 						while ( bp_profile_fields() ) : bp_the_profile_field(); 
 						if ( 'textarea' == bp_get_the_profile_field_type() ) : 
