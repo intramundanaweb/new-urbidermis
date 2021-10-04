@@ -2,9 +2,8 @@ a:visited {
     color: inherit;
 }
 
-.view-more {
+.view-more, .view-less {
     cursor: pointer;
-    font-weight: 500;
 }
 
 .section-header {
