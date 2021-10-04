@@ -48,10 +48,8 @@ get_header('no-margin');
                 <div class="col-12 d-lg-flex">
 
                 <?php 
-
                     $full_text = get_field('texto_introduccion');
-                    $replacement = '... <span class="view-more">Leer más</span>';
-                    
+                    $replacement = '... <span class="view-more fw-500">Leer más</span>';
                 ?>
 
                     <div class="header-title col-12 col-lg-6">
@@ -66,7 +64,17 @@ get_header('no-margin');
                     </div>
 
                     <div class="header-introduction col-12 col-lg-6">
-                        <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php echo substr_replace($full_text, $replacement, 150); ?></p>
+
+                        <?php if (wp_is_mobile()) { ?>
+
+                            <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php echo substr_replace($full_text, $replacement, 150); ?></p>
+
+                        <?php } else { ?>
+
+                            <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php the_field('texto_introduccion'); ?></p>
+
+                        <?php } ?>
+
                     </div>
 
                 </div>                
@@ -79,7 +87,12 @@ get_header('no-margin');
     jQuery(document).ready(function($) {
 
         $(".view-more").click(function() {
-            $(".header-introduccion").html('<?php echo the_field("texto_introduccion"); ?>')
+            $(".header-introduction").html('<?php the_field("texto_introduccion"); ?>' + '<span class="view-less fw-500"> Leer menos</span>')
+        })
+
+        $(".view-less").click(function() {
+            console.log('epepepepep')
+            $(".header-introduction").html('epep')
         })
     })
 </script>
@@ -140,7 +153,7 @@ get_header('no-margin');
                 <div class="col-12 px-0 px-lg-3">
 
                     <!-- UPPER MENU -->
-                    <div class="upper-menu col-12 d-flex justify-content-between mt-5 mb-3 px-4">
+                    <div class="upper-menu col-12 d-flex justify-content-between mt-5 mb-3 px-4 px-lg-0">
 
                         <!-- SWITCH BUTTON -->
                         <div class="switch-wrapper d-flex d-lg-flex">
@@ -323,13 +336,13 @@ get_header('no-margin');
                                                                 <div class="slick-project-modal-grid-mobile mt-4 mb-5">
 
                                                                     <?php
-                                                                        if( have_rows('slider_project') ):
+                                                                        if( have_rows('slider_fotos_proyecto') ):
                                                                             $counter_slide_mobile =1;
-                                                                        while ( have_rows('slider_project') ) : the_row();
+                                                                        while ( have_rows('slider_fotos_proyecto') ) : the_row();
                                                                     ?>
 
                                                                     <div class="position-relative">
-                                                                        <?php img_with_alt_lazy_sub('imagen'); ?>
+                                                                        <?php img_with_alt_lazy_sub('foto_proyecto'); ?>
                                                                     </div>
 
                                                                     <?php
@@ -368,13 +381,13 @@ get_header('no-margin');
                                                                 <div class="slick-project-modal-grid">
 
                                                                     <?php
-                                                                        if( have_rows('slider_project') ):
+                                                                        if( have_rows('slider_fotos_proyecto') ):
                                                                             $counter_slide =1;
-                                                                        while ( have_rows('slider_project') ) : the_row();
+                                                                        while ( have_rows('slider_fotos_proyecto') ) : the_row();
                                                                     ?>
 
                                                                     <div class="position-relative">
-                                                                        <?php img_with_alt_lazy_sub('imagen'); ?>
+                                                                        <?php img_with_alt_lazy_sub('foto_proyecto'); ?>
                                                                     </div>
 
                                                                     <?php
@@ -441,7 +454,7 @@ get_header('no-margin');
                                 
                                 <p class="order-label">Ordenar por</p>
 
-                                <div class="list-menu d-lg-flex w-lg-100 p-4 border-bottom border-dark">
+                                <div class="list-menu d-lg-flex w-lg-100 p-4 px-lg-0 border-bottom border-dark">
                                         
                                     <div data-value="project" class="col-6 col-lg px-0 order order-proyecto"><span class="fw-500 fs-1 fs-lg-13"><?php _e('Proyecto', 'urbidermis'); ?> <span class="d-lg-inline fa fa-chevron-down"></span></span></div>
                                     <div data-value="city" class="col-lg px-0 order order-ciudad"><span class="fw-500 fs-1 fs-lg-13"><?php _e('Ciudad', 'urbidermis'); ?> <span class="d-lg-inline fa fa-chevron-down"></span></span></div>
@@ -464,6 +477,7 @@ get_header('no-margin');
                                         <?php while ( $projects_query->have_posts() ) {
                                             $projects_query->the_post();
                                             $pais = get_the_term_list( $projects_query->ID, 'pais' );
+                                            $año = get_the_term_list( $projects_query->ID, 'ano' );
                                             $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );
                                             $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
                                             $producto = get_the_term_list( $projects_query->ID, 'producto' );
@@ -481,7 +495,7 @@ get_header('no-margin');
                                                             <p class="col Proyecto m-0 p-0"><?php the_title(); ?> <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?><span class="fal fa-plus-circle"></span><?php } ?></p>
                                                             <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>
                                                             <p class="col Pais m-0 p-0"><?php echo strip_tags($pais); ?></p>
-                                                            <p class="col Ano m-0 p-0">1995</p>
+                                                            <p class="col Ano m-0 p-0"><?php the_field('ano'); ?></p>
                                                             <p class="col Producto m-0 p-0"><?php echo strip_tags($producto); ?></p>
 
                                                         </div>
@@ -506,7 +520,7 @@ get_header('no-margin');
                                                             <?php echo strip_tags($pais); ?>,<br>
                                                             <span><?php echo strip_tags($ciudad); ?></span>
                                                         </p>
-                                                        <p class="col-3 Ano m-0 p-0">1995</p>
+                                                        <p class="col-3 Ano m-0 p-0"><?php the_field('ano'); ?></p>
                                                     
                                                     </div>
                                                 </a>
@@ -537,7 +551,7 @@ get_header('no-margin');
                                                                             <p class="fs-l"><?php the_title(); ?></p>
                                                                             <span class="m-lg-0 fs-m"><?php the_field('ciudad_pais'); ?></span>
                                                                             <span class="m-lg-0 fs-m"><?php the_field('ano'); ?></span>
-                                                                            <p class="m-lg-0 fs-m"><?php the_field('centro'); ?></p>
+                                                                            <p class="m-lg-0 fs-m"><?php the_field('autor'); ?></p>
                                                                         </div>
 
                                                                         <div class="d-flex">
