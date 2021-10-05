@@ -20,6 +20,12 @@ Page: Template-inicio
     object-fit: cover;
 }
 
+#slick-cover-right::before, #slick-cover-left::before {
+    background: #e5e4dc;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 /* Section skin */
 .section-skin img {
     height: 25em;
@@ -39,10 +45,12 @@ h1 {
     font-size: 3.75em;
 }
 
-.section-reference .slick-article {
+.slick-articles .slick-article-bottom {
+    height: 23em;
+}
+/*.section-reference .slick-article {
     width: 19em;
     height: 26em;
-    box-shadow: 2px 2px 0 0 #000000;
 }
 
 .section-reference .slick-chevrons {
@@ -60,7 +68,7 @@ h1 {
     text-align:inherit;
     left: inherit;
     transform: inherit;
-}
+}*/
 
 /* Parallax effect 'revolución urbana' */
 
@@ -73,18 +81,55 @@ h1 {
     transform: translate(-50%, -50%);
 }*/
 
-/* Width has to depend of how many articles there are */
-.section-reference .slick-dots li button {
-    border-radius: 0;
-    border-width: 0;
-    height: 2px!important;
-    width: 45px!important;
+.slick-articles .slick-dots {
+    visibility: visible;
+    height: 0!important;
 }
 
-.section-reference .slick-active button {
-    position: relative;
-    top: -2px;
-    background: #000!important;
+.slick-articles .slick-dots .dot {
+    cursor: pointer;
+}
+
+.slick-articles .slick-dots li button {
+    background-color: #d3d3d3;
+}
+
+.slick-articles .slick-dots li.slick-active button {
+    background-color: #1d1d1f;
+}
+
+.slick-articles .slick-dots {
+    width: 100%;
+    text-align: left;
+    bottom: -16%;
+    left: 0;
+    top: 29em;
+    transform: inherit;
+    z-index: 21;
+    display: flex;
+}
+
+.slick-articles .slick-dots li {
+    margin-right: 0px;
+    width: inherit;
+}
+
+.slick-articles .slick-dots li button {
+    border-radius: 0;
+    border-width: 0;
+    border-style: solid;
+    color: transparent;
+    height: 2px;
+    padding: 0;
+    width: 100%;
+} 
+
+.slick-articles .slick-dots li.slick-active button,
+.slick-articles .slick-dots li button {
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
 }
 
 @media (min-width: 992px) {
@@ -196,20 +241,21 @@ h1 {
         margin-left: 16px;
     }
 
-	.section-reference .slick-article {
-		width: 22em;
-		/*height: max-content;*/
-		box-shadow: 2px 2px 0 0 #000000;
-	}
+    .slick-arrows-articles {
+        top: -18em;
+    }
 
     .section-reference #slick-article-right, #slick-article-left {
         cursor: pointer;
-        position: relative;
-        top: 11em;
+        font-size: 1.5em;
     }
 
-    .section-reference .slick-articles .slick-list {
-        height: 100%!important;
+    .slick-articles .slick-article-bottom {
+        height: 23em;
+    }
+
+    .slick-articles .slick-slide {
+        padding: 0em 2em;
     }
 
     .ver-mas {

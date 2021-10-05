@@ -13,27 +13,6 @@ get_header('no-margin');
 
     $autors_query = new WP_Query( $args_autor );
 
-    $autors_ids = array();
-
-    if ($autors_query->have_posts()) {
-        while ($autors_query->have_posts()) {
-            $autors_query->the_post();
-            array_push($autors_ids, get_the_ID());
-        }
-    }
-
-    console_log($autors_ids);
-
-    $args_article = array(
-        'post_type' => 'post',
-        'author__in' => $autors_ids,
-        'orderby' => 'rand'
-    );
-
-    $articles_query = new WP_Query($args_article);
-
-?>
-
 ?>
 
 <div style="height: 110px;"></div><!-- incloent la barra de wp amunt -->
@@ -73,12 +52,34 @@ get_header('no-margin');
             <div class="row py-lg-5">
                 <div class="col-12 d-lg-flex flex-wrap">
 
-                <?php if ( $autors_query->have_posts() ) { ?>
+                <?php 
+                    
+                $autors_ids = array();
+               
+                if ( $autors_query->have_posts() ) { ?>
 
                     <?php while ( $autors_query->have_posts() ) {
                         
                         $autors_query->the_post();
-                        $tipo_autor = get_the_term_list( $autors_query->ID, 'tipo-autor' ); ?>
+                        $tipo_autor = get_the_term_list( $autors_query->ID, 'tipo-autor' );
+                        
+                        array_push($autors_ids, get_the_ID());
+                        
+
+                        $args_article = array(
+                            'post_type' => 'post',
+                            'orderby' => 'rand',
+                            'meta_query' => array(
+                                array(
+                                    'key' => 'autor_escritor',
+                                    'value' => $autors_ids,
+                                    'compare' => 'IN'
+                                )
+                            )
+                        );
+
+                        $articles_query = new WP_Query($args_article);
+                    ?>
                     
                     <a class="autor col-lg-3" href="<?php the_permalink(); ?>">
                         <div class="d-flex flex-column">
@@ -102,7 +103,10 @@ get_header('no-margin');
                     // no posts found
                 }
                 /* Restore original Post Data */
-                wp_reset_postdata(); ?>                    
+                wp_reset_postdata(); ?>
+
+
+
 
                 </div>                
             </div>
@@ -145,22 +149,19 @@ get_header('no-margin');
                         <div class="row">
                             <div class="col-12 ">
 
-                                <div class="slick-autors py-lg-5 d-lg-flex justify-content-between">
+                                <div class="slick-autors py-lg-5">
 
                                     <?php if ($articles_query->have_posts() ) {
                                         while ($articles_query->have_posts() ) {
                                             $articles_query->the_post(); ?>
                                         
-                                            
-                                        
-
-                                            <div class="slick-autor col-lg-3 d-lg-flex flex-lg-column">
+                                            <div class="slick-autor">
                                                 <div class="slick-autor-header p-lg-3 border border-dark">
-                                                    <p class="fs-lg-15 text-center"><?php the_title(); ?></p>
+                                                    <p class="fs-lg-15"><?php the_title(); ?></p>
                                                 </div>
-                                                <div class="slick-autor-content p-lg-3 border border-dark">
-                                                    <p class="fs-lg-12">Artículo - 12 min</p>
-                                                    <p class="tags fs-lg-15">#urbanidad #ciudad #edificios #suspensión #instalación #espacios</p>
+                                                <div class="slick-autor-content p-lg-3 border border-dark d-lg-flex flex-lg-column justify-content-between">
+                                                    <p class="fs-lg-12"><?php the_field('tipo_de_entrada'); echo ' - '; the_field('tiempo_de_lectura'); ?></p>
+                                                    <p class="tags fs-lg-15 mb-lg-0"><?php the_tags( '', ', ', '' ); ?></p>
                                                 </div>
                                             </div>
 

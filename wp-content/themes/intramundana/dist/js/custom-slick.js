@@ -51,13 +51,14 @@ jQuery(document).ready(function ($) {
         fade: false,
         dots: false,
         centerMode: false,
-        variableWidth: true,
+        variableWidth: false,
         responsive: [{
             breakpoint: 992,
             settings: {
                 arrows: false,
                 dots: true,
-                slidesToShow: 2,
+                variableWidth: false,
+                slidesToShow: 1,
                 slidesToScroll: 1
             }
         }]
