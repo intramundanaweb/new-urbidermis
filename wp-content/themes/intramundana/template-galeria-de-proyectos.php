@@ -1,6 +1,6 @@
 <?php
 
-/* Template Name: Projects */
+/* Template Name: Galería de proyectos */
 
 get_header('no-margin');
 ?>
@@ -12,6 +12,7 @@ get_header('no-margin');
     // The Query
     $args = array(
         'post_type' => 'proyecto',
+        'posts_per_page' => -1
     );
 
     $projects_query = new WP_Query( $args );
@@ -247,8 +248,9 @@ get_header('no-margin');
                         <div class="grid-flex container-fluid p-0">
                             <div class="row grid-row">
                                 <?php while ( $projects_query->have_posts() ) {
-
-                                    $projects_query->the_post(); 
+                                    console_log($counter_grid);
+                                    console_log('fuck this shit');
+                                    $projects_query->the_post();
                                     $id = get_the_ID();
                                     $pais = get_the_term_list( $projects_query->ID, 'pais' );
                                     $ciudad = get_the_term_list( $projects_query->ID, 'ciudad' );

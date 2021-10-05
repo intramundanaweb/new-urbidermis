@@ -19,7 +19,7 @@ function include_scripts() {
   wp_enqueue_script ('intra-init', get_template_directory_uri() . '/dist/js/init.js', array('jquery'), '', true);
   wp_enqueue_script ('intra-nav', get_template_directory_uri() . '/dist/js/nav.js', array('jquery'), '', true);
   wp_enqueue_script ('intra-config', get_template_directory_uri() . '/dist/js/configurador.js', array('jquery'), '', true);
-  wp_enqueue_script ('galeria-proyectos', get_template_directory_uri() . '/dist/js/galeria-proyectos.js', array('jquery'), '', true);
+  wp_enqueue_script ('galeria-proyectos', get_template_directory_uri() . '/dist/js/template-galeria-proyectos.js', array('jquery'), '', true);
   wp_enqueue_script ('single-proyectos', get_template_directory_uri() . '/dist/js/single-proyecto.js', array('jquery'), '', true);
   wp_enqueue_script ('template-inicio', get_template_directory_uri() . '/dist/js/template-inicio.js', array('jquery'), '', true);
   

@@ -18,7 +18,7 @@ function include_styles() {
   wp_enqueue_style('style-borders', get_template_directory_uri() . '/dist/css/style-borders.css' );
   wp_enqueue_style('style-colors', get_template_directory_uri() . '/dist/css/style-colors.css' );
   wp_enqueue_style('style-404', get_template_directory_uri() . '/dist/css/style-404.css' );
-  wp_enqueue_style('galeria-proyectos', get_template_directory_uri() . '/dist/css/galeria-proyectos.css' );
+  wp_enqueue_style('galeria-proyectos', get_template_directory_uri() . '/dist/css/template-galeria-proyectos.css' );
   wp_enqueue_style('style-single-proyecto', get_template_directory_uri() . '/dist/css/single-proyecto.css' );
   wp_enqueue_style('template-inicio', get_template_directory_uri() . '/dist/css/template-inicio.css' );
   wp_enqueue_style('template-autores', get_template_directory_uri() . '/dist/css/template-autores.css' );
