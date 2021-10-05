@@ -31,7 +31,7 @@ function registration_cpt() {
 
 
     /* ------------- Second CPT */
-  register_post_type('proyecto',
+  register_post_type('proyecto', 
   array(
       'labels' => array(
           'name'              => __('proyectos'),
