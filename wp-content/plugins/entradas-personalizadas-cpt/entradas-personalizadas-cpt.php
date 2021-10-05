@@ -74,6 +74,7 @@ function change_cpt_label() {
     $labels->all_items = 'Todos los autores';
     $labels->menu_name = 'Autores';
     $labels->name_admin_bar = 'Autores';
+    
     $get_post_type = get_post_type_object('proyecto');
     $labels = $get_post_type->labels;
     $labels->name = 'proyectos';
