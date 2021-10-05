@@ -375,7 +375,26 @@ get_header('no-margin');
                                                                     <p class="m-lg-0"><?php the_field('ano'); ?></p>
                                                                     <p class="m-lg-0"><?php the_field('centro'); ?></p>
                                                                     <p class="fw-500 mb-lg-2 mt-lg-3"><?php _e('Productos', 'urbidermis'); ?></p>
-                                                                    <p class="m-lg-0 w-50"><?php the_field('productos'); ?></p>
+                                                                    <!--<p class="m-lg-0 w-50"><?php //the_field('productos'); ?></p>-->
+                                                                    <p class="m-lg-0 w-50">
+                                                                        <?php if (have_rows('productos_proyecto')) { ?>
+                                                                            
+                                                                            <?php while ( have_rows('productos_proyecto') ) { the_row(); ?>
+
+                                                                                <?php 
+                                                                                    $link = get_field('producto_proyecto');
+                                                                                    console_log($link);
+                                                                                    if( $link ): 
+                                                                                        $link_url = $link['url'];
+                                                                                        $link_title = $link['title'];
+                                                                                        $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+                                                                                        <a class="button btn-round" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                                                                                <?php endif; ?>
+
+                                                                            <?php } ?>
+
+                                                                        <?php } ?>
+                                                                    </p>
                                                                 </div>
 
                                                                 <div class="slick-project-modal-grid">
@@ -487,9 +506,9 @@ get_header('no-margin');
 
                                                 <a class="w-100 project" href="#<?php //the_permalink(); ?>">
                                                     <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?>
-                                                        <div class="list-project project-list-<?php echo $counter_list; ?> extended justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">                                  
+                                                        <div class="list-project py-lg-3 project-list-<?php echo $counter_list; ?> extended justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">                                  
                                                     <?php } else { ?>
-                                                        <div class="list-project project-list-<?php echo $counter_list; ?> justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
+                                                        <div class="list-project py-lg-3 project-list-<?php echo $counter_list; ?> justify-content-between" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-producto="<?php echo strip_tags($producto); ?>" data-pais="<?php echo strip_tags($pais); ?>">
                                                     <?php } ?>
                                                             <p class="col Proyecto m-0 p-0"><?php the_title(); ?> <?php if ( get_field('tipo_de_proyecto') == 'extendido' ) { ?><span class="fal fa-plus-circle"></span><?php } ?></p>
                                                             <p class="col Ciudad m-0 p-0"><?php echo strip_tags($ciudad); ?></p>

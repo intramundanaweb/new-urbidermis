@@ -353,7 +353,7 @@ jQuery(document).ready(function ($) {
         let arr = ordered_elements.get()
         
         arr.forEach(element => {
-            element.classList.add('p-4', 'border-bottom', 'border-dark')
+            element.classList.add('py-lg-3', 'px-lg-0', 'py-4', 'px-4', 'border-bottom', 'border-dark')
         })
     
         $(".list-wrap").html(ordered_elements);
