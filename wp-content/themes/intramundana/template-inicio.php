@@ -207,9 +207,7 @@ get_header('no-margin');
                                 ?>
                             </div>
 
-                            <div class="slick-articles d-flex pt-lg-56 pb-lg-5">
-
-                                <span id="slick-article-left" class="icon-arrow-left mr-3"></span>
+                            <div class="slick-articles pt-lg-56 pb-lg-5">
 
                                 <?php if ( $articles_query->have_posts() ) { ?>
 
@@ -218,25 +216,17 @@ get_header('no-margin');
                                         $articles_query->the_post();
                                         $post_tags = get_the_tags($articles_query->ID); ?>
                                         
-                                        <div class="slick-article col-lg-3 px-lg-0 d-flex flex-column mr-3 border-1 border-black">
+                                        <div class="slick-article mr-3">
 
-                                            <div class="p-3">
+                                            <div class="slick-article-top p-3 border border-dark">
                                                 <a href="#">
-                                                    <p class="fs-15 fs-lg-s fw-400 mb-lg-0"><?php the_title(); ?></p>
+                                                    <p class="fs-15 fs-lg-s fw-400"><?php the_title(); ?></p>
                                                 </a>
                                             </div>
 
-                                            <div class="hline"></div>
-
-                                            <div class="px-lg-3 d-flex flex-column h-100">
-                                                <div class="child-article">
-                                                    <span class="fs-11 fs-lg-xs fw-400 mb-lg-0"><?php the_field('tipo_de_entrada'); ?> - </span>
-                                                    <span class="fs-11 fs-lg-xs fw-400 mb-lg-0"><?php the_field('tiempo_de_lectura'); ?></span>
-                                                </div>
-
-                                                <div class="w-75 mt-lg-auto pb-lg-3">
-                                                    <p class="tags fs-15 fs-lg-s fw-400 mb-lg-0"><?php if($post_tags) foreach($post_tags as $tag) { echo '#'; echo $tag->name; echo ' '; } ?></p>
-                                                </div>
+                                            <div class="slick-article-bottom p-3 d-flex flex-column justify-content-between border border-dark">
+                                                <p class="fs-11 fs-lg-xs fw-400"><?php the_field('tipo_de_entrada'); ?> - <?php the_field('tiempo_de_lectura'); ?></span>
+                                                <p class="tags fs-15 fs-lg-s fw-400 mb-lg-0"><?php if($post_tags) foreach($post_tags as $tag) { echo '#'; echo $tag->name; echo ' '; } ?></p>
                                             </div>
 
                                         </div>
@@ -249,8 +239,11 @@ get_header('no-margin');
                                 /* Restore original Post Data */
                                 wp_reset_postdata(); ?>
 
-                                <span id="slick-article-right" class="icon-arrow-right"></span>
+                            </div>
 
+                            <div class="slick-arrows-articles position-relative d-none d-lg-flex justify-content-between w-100">
+                                <span id="slick-article-left" class="fal fa-chevron-left"></span>
+                                <span id="slick-article-right" class="fal fa-chevron-right"></span>
                             </div>
 
                             <div class="ver-mas ml-auto ml-lg-4 mr-auto mt-5 mb-lg-6">

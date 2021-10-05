@@ -248,8 +248,6 @@ get_header('no-margin');
                         <div class="grid-flex container-fluid p-0">
                             <div class="row grid-row">
                                 <?php while ( $projects_query->have_posts() ) {
-                                    console_log($counter_grid);
-                                    console_log('fuck this shit');
                                     $projects_query->the_post();
                                     $id = get_the_ID();
                                     $pais = get_the_term_list( $projects_query->ID, 'pais' );

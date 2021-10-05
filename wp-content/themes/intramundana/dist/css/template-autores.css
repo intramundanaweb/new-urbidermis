@@ -7,19 +7,27 @@
     border: 1px solid black;
 }
 
-.slick-autor .tags {
-    margin-top: 12em;
+.slick-autors .slick-slide {
+    padding: 0em 2em;
+}
+
+.slick-autor-content {
+    height: 23em;
 }
 
 .slick-arrows-autors {
     width: 102%;
-    top: 22em;
+    top: 15em;
     right: -1em;
 }
 
 .slick-arrows-autors span {
-    font-size: 2em;
+    font-size: 1.5em;
     cursor: pointer;
+}
+
+.tags a::before {
+    content: '#';
 }
 
 @media (min-width: 1200px) {
