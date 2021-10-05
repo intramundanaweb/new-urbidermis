@@ -31,7 +31,7 @@ function registration_cpt() {
 
 
     /* ------------- Second CPT */
-  register_post_type('proyecto',
+  register_post_type('proyecto', 
   array(
       'labels' => array(
           'name'              => __('proyectos'),
@@ -40,7 +40,7 @@ function registration_cpt() {
       'has_archive' => true,
       'menu_icon'   => 'dashicons-portfolio',
       'supports' => array( 'title','thumbnail' ),
-      'rewrite' => array('with_front' => false ),
+      'rewrite' => array('slug' => 'caso-practico', 'with_front' => false ),
   )
 );
 
@@ -74,7 +74,7 @@ function change_cpt_label() {
     $labels->all_items = 'Todos los autores';
     $labels->menu_name = 'Autores';
     $labels->name_admin_bar = 'Autores';
-    
+
     $get_post_type = get_post_type_object('proyecto');
     $labels = $get_post_type->labels;
     $labels->name = 'proyectos';
