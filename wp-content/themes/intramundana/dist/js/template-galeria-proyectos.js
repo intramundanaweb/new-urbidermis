@@ -1,6 +1,6 @@
 /*
 ==============================
-Page: Galeria-Proyecto
+Page: Template Galería de proyectos
 ==============================
 */
 

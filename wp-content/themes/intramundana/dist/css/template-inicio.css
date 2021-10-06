@@ -45,7 +45,7 @@ h1 {
     font-size: 3.75em;
 }
 
-.slick-slide {
+.section-reference .slick-slide {
     width: 18em;
 }
 
@@ -89,6 +89,12 @@ h1 {
     transform: translate(-50%, -50%);
 }*/
 
+.slick-article .tags a {
+    font-size: 1.25em;
+}
+
+/* Slick dots */
+
 .slick-articles .slick-dots {
     visibility: visible;
     height: 0!important;
@@ -131,7 +137,7 @@ h1 {
     height: 2px;
     padding: 0;
     width: 100%;
-} 
+}
 
 .slick-articles .slick-dots li.slick-active button,
 .slick-articles .slick-dots li button {
@@ -189,26 +195,8 @@ h1 {
         cursor: pointer;
     }
 
-    .elipse-left {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        position: relative;
-        top: -50%;
-        left: 0;
-        margin-left: 3em;
-        z-index: 2;
-    }
-
-    .elipse-right {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        position: relative;
-        top: -50%;
-        right: 0;
-        margin-right: 3em;
-        z-index: 2;
+    #slick-cover-left::before, #slick-cover-right::before {
+        background: inherit;
     }
 
     /* Section contact */

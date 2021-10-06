@@ -1,3 +1,22 @@
+
+.autor-header-wrap {
+    padding-top: 6em;
+    border-bottom: 2px solid black;
+}
+
+.autor-historia-wrap {
+    border-top: 2px solid black;
+}
+
+.autor-imagen-historia-wrap {
+    border-bottom: 2px solid black;
+}
+
+.autor-ano-tipo a {
+    font-size: 1.1em;
+}
+
+
 .card {
     border-radius: 0;
     border-top: 1px solid black;

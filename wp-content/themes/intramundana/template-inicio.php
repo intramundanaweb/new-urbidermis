@@ -226,7 +226,7 @@ get_header('no-margin');
 
                                             <div class="slick-article-bottom p-3 d-flex flex-column justify-content-between border border-dark">
                                                 <p class="fs-11 fs-lg-xs fw-400"><?php the_field('tipo_de_entrada'); ?> - <?php the_field('tiempo_de_lectura'); ?></span>
-                                                <p class="tags fs-15 fs-lg-s fw-400 mb-lg-0"><?php if($post_tags) foreach($post_tags as $tag) { echo '#'; echo $tag->name; echo ' '; } ?></p>
+                                                <p class="tags fs-lg-s fw-400 mb-lg-0"><?php the_tags( '', ', ', '' ); ?></p>
                                             </div>
 
                                         </div>
