@@ -57,7 +57,7 @@ jQuery(document).ready(function ($) {
             settings: {
                 arrows: false,
                 dots: true,
-                variableWidth: false,
+                variableWidth: true,
                 slidesToShow: 1,
                 slidesToScroll: 1
             }
