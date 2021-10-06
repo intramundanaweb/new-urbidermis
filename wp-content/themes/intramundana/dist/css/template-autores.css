@@ -1,3 +1,7 @@
+.autores-section-header .wrapper {
+    padding-top: 13em;
+}
+
 .img-wrap-autor {
     height: 23em;
     overflow: hidden;
@@ -7,12 +11,28 @@
     border: 1px solid black;
 }
 
+.autores-big-title-wrap {
+    padding: 3em 0em;
+}
+
+.autores-big-title {
+    width: 75%;
+}
+
 .slick-autors .slick-slide {
-    padding: 0em 2em;
+    width: 20em;
+}
+
+.slick-autor-header {
+    height: 6em;
 }
 
 .slick-autor-content {
-    height: 23em;
+    height: 22em;
+}
+
+.slick-autor-content .tags a {
+    font-size: 1.25em;
 }
 
 .slick-arrows-autors {
@@ -26,13 +46,134 @@
     cursor: pointer;
 }
 
+/* Slick dots */
+
+.slick-autors .slick-dots {
+    visibility: visible;
+    height: 0!important;
+    width: 86%!important;
+}
+
+.slick-autors .slick-dots .dot {
+    cursor: pointer;
+}
+
+.slick-autors .slick-dots li button {
+    background-color: #d3d3d3;
+}
+
+.slick-autors .slick-dots li.slick-active button {
+    background-color: #1d1d1f;
+}
+
+.slick-autors .slick-dots {
+    width: 100%;
+    text-align: left;
+    bottom: -16%;
+    left: 0;
+    top: 29em;
+    transform: inherit;
+    z-index: 21;
+    display: flex;
+}
+
+.slick-autors .slick-dots li {
+    margin-right: 0px;
+    width: inherit;
+}
+
+.slick-autors .slick-dots li button {
+    border-radius: 0;
+    border-width: 0;
+    border-style: solid;
+    color: transparent;
+    height: 2px;
+    padding: 0;
+    width: 100%;
+}
+
+.slick-autors .slick-dots li.slick-active button,
+.slick-autors .slick-dots li button {
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
+}
+
 .tags a::before {
     content: '#';
 }
 
-@media (min-width: 1200px) {
+.img-wrap-autor {
+    max-height: 11em;
+    overflow: hidden;
+}
+
+.autor {
+    margin-bottom: 1.875em;
+}
+
+.modal-autor {
+    display: none;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    overflow-y: scroll;
+}
+
+.modal-autor .fa-linkedin-in {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 20px;
+    width: 2em;
+    height: 2em;
+    position: relative;
+    bottom: 3px;
+}
+
+.modal-autor .fa-linkedin-in::before {
+    position: relative;
+    left: 2px;
+    top: 1px;
+}
+
+@media (min-width: 992px) {
+
+    .autores-section-header .wrapper {
+        padding-top: inherit;
+    }
+
+    .autores-header-wrap {
+        padding-top: 7em;
+        padding-bottom: 4em;
+    }
+
+    .autor {
+        margin-bottom: inherit;
+    }
+
     .img-wrap-autor {
-        height: 23em;
         overflow: hidden;
+    }
+
+    .img-wrap-autor {
+        max-height: 31em;
+    }
+
+    .autores-big-title-wrap {
+        padding: 4.2em 0em;
+    }
+
+    .autores-big-title {
+        width: 32%;
+    }
+
+    .articles-introduction {
+        padding-bottom: 3.5em;
+    }
+
+    .slick-autors .slick-slide {
+        padding: 0em 2em;
     }
 }

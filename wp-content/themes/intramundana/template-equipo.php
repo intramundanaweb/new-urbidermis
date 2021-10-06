@@ -1,9 +1,10 @@
 <?php
 
-/* Template Name: Autores */
+/* Template Name: Equipo */
 
 get_header('no-margin');
 ?>
+
 
 <?php 
 
@@ -49,36 +50,39 @@ get_header('no-margin');
         <div class="container-fluid">
             <div class="row py-5 py-lg-5">
 
-                <?php $autors_ids = array();
+                <?php 
+                    
+                $autors_ids = array();
                
-                    if ( $autors_query->have_posts() ) {
-                        $autor_counter = 1; ?>
+                if ( $autors_query->have_posts() ) { ?>
 
-                        <?php while ( $autors_query->have_posts() ) {
-                            
-                            $autors_query->the_post();
-                            $tipo_autor = get_the_term_list( $autors_query->ID, 'tipo-autor' );
-                            
-                            ////
-                            array_push($autors_ids, get_the_ID());
-
-                            $args_article = array(
-                                'post_type' => 'post',
-                                'orderby' => 'rand',
-                                'meta_query' => array(
-                                    array(
-                                        'key' => 'autor_escritor',
-                                        'value' => $autors_ids,
-                                        'compare' => 'IN'
-                                    )
-                                )
-                            );
-
-                            $articles_query = new WP_Query($args_article);
-                            //// ?>
+                    <?php while ( $autors_query->have_posts() ) {
                         
-                            <div class="autor-<?php echo $autor_counter; ?> col-6 col-lg-3 d-flex flex-column mb-4">
-                                
+                        $autors_query->the_post();
+                        $tipo_autor = get_the_term_list( $autors_query->ID, 'tipo-autor' );
+                        
+                        array_push($autors_ids, get_the_ID());
+                        
+
+                        $args_article = array(
+                            'post_type' => 'post',
+                            'orderby' => 'rand',
+                            'meta_query' => array(
+                                array(
+                                    'key' => 'autor_escritor',
+                                    'value' => $autors_ids,
+                                    'compare' => 'IN'
+                                )
+                            )
+                        );
+
+                        $articles_query = new WP_Query($args_article);
+                    ?>
+                    
+                    
+                        <div class="autor col-6 col-lg-3 d-flex flex-column">
+                            <a href="<?php the_permalink(); ?>">
+
                                 <div class="img-wrap-autor">
                                     <?php img_with_alt_featured(); ?>
                                 </div>
@@ -88,81 +92,16 @@ get_header('no-margin');
                                     <p class="text-center fs-1 mb-0"><?php echo strip_tags($tipo_autor); ?></p>
                                 </div>
 
-                            </div>
+                            </a>
+                        </div>
+                    
+                    <?php } ?>
 
-                            <div class="modal-autor modal-autor-<?php echo $autor_counter; ?> position-fixed height-200 bg-beige">
-                                <div class="wrapper bg-beige">
-                                    <div class="container-fluid">
-                                        <div class="row py-5 py-lg-5">
-                                            <div class="col-12 d-lg-flex">
-
-                                                <div class="col-12 col-lg-6 px-lg-0 d-lg-flex flex-lg-column height-200">
-
-                                                    <div class="d-flex position-relative">
-                                                        <div class="ml-auto">
-                                                            <span class="close-autor-modal-<?php echo $autor_counter; ?> fal fa-chevron-left"></span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <p class="fs-l fw-500"><?php the_title(); ?></p>
-                                                    </div>
-
-                                                    <div class="mt-lg-4">
-                                                        <p class="autor-ano-tipo fs-xs mb-0 mt-2"><?php the_field('ano_autor'); ?>, <?php echo $tipo_autor; ?></p>
-                                                    </div>
-
-                                                    <div class="col-12 col-lg-6 px-0 pt-5 pb-4">
-                                                        <p class="fw-400 fs-xxs fs-lg-11 lh-25 mb-0"><?php the_field("descripcion_autor"); ?></p>
-                                                    </div>
-
-                                                    <div>
-                                                        <p class="fs-xxs fs-lg-11 lh-25 mb-0">Conecta con Urbidermis a través de <span class="fab fa-linkedin-in"></span></p>
-                                                    </div>
-
-                                                    <div class="mt-lg-auto py-4 w-100">
-                                                        <a class="btn btn-round m-auto" href="<?php the_permalink(); ?>">Ver más de <?php the_title(); ?></a>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Repeater products -->
-                                                <div>
-
-
-
-                                                </div>
-
-                                            </div>                
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-
-                                jQuery(document).ready(function ($) {
-
-                                    $(".autor-<?php echo $autor_counter; ?>").click(function() {
-                                        $(".modal-autor-<?php echo $autor_counter; ?>").show('slide', {direction: 'right'}, 500)
-
-                                    })
-
-                                    $(".close-autor-modal-<?php echo $autor_counter; ?>").click(function() {
-                                        $(".modal-autor-<?php echo $autor_counter; ?>").hide('slide', {direction: 'right'}, 500)
-
-                                        })
-
-                                })
-
-                            </script>
-                            
-                            <?php $autor_counter++; } ?>
-
-                    <?php } else {
-                        // no posts found
-                    }
-                    /* Restore original Post Data */
-                    wp_reset_postdata(); ?>
+                <?php } else {
+                    // no posts found
+                }
+                /* Restore original Post Data */
+                wp_reset_postdata(); ?>
 
                 </div>                
             </div>
@@ -261,8 +200,6 @@ get_header('no-margin');
         </div>
     </div>
 </section>
-
-
 
 
 <?php

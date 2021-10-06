@@ -28,3 +28,19 @@ Page: 404
     border-bottom: 2px solid lightgrey;
     width: 100%;
 }
+
+.w-lg-25 {
+    width: 25%!important;
+}
+
+.w-lg-50 {
+    width: 50%!important;
+}
+
+.w-lg-75 {
+    width: 75%!important;
+}
+
+.w-lg-100 {
+    width: 100%!important;
+}

@@ -242,9 +242,10 @@ jQuery(document).ready(function ($) {
             breakpoint: 992,
             settings: {
                 arrows: false,
-                dots: false,
-                slidesToShow: 4,
-                slidesToScroll: 1
+                dots: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                variableWidth: true
             }
         }]
     });
@@ -255,6 +256,37 @@ jQuery(document).ready(function ($) {
     
     $('#slick-autors-right').on('click', function (e) {
         $('.slick-autors').slick('slickNext');
+    });
+
+
+    /*
+    ==============================
+    Page: Single-Autor
+    ==============================
+    */
+
+    $('.slick-autor-product-carousel').slick({
+        infinite: true,
+        speed: 300,
+        //autoplaySpeed: 3500,
+        //autoplay: true,
+        slidesToScroll: 1,
+        slidesToShow: 4,
+        arrows: false,
+        fade: false,
+        dots: false,
+        centerMode: false,
+        variableWidth: false,
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                dots: true,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                variableWidth: false
+            }
+        }]
     });
 
     

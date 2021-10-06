@@ -244,7 +244,7 @@ get_header('no-margin');
 
                     <!-- GRID -->
                     <?php if ( $projects_query->have_posts() ) { 
-                        $counter_grid =1; ?>
+                        $counter_grid = 1; ?>
                         <div class="grid-flex container-fluid p-0">
                             <div class="row grid-row">
                                 <?php while ( $projects_query->have_posts() ) {
