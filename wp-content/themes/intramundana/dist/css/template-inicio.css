@@ -45,8 +45,16 @@ h1 {
     font-size: 3.75em;
 }
 
+.slick-slide {
+    width: 18em;
+}
+
+.slick-articles .slick-article-top {
+    height: 6em;
+}
+
 .slick-articles .slick-article-bottom {
-    height: 23em;
+    height: 22em;
 }
 /*.section-reference .slick-article {
     width: 19em;
@@ -84,6 +92,7 @@ h1 {
 .slick-articles .slick-dots {
     visibility: visible;
     height: 0!important;
+    width: 91%!important;
 }
 
 .slick-articles .slick-dots .dot {
