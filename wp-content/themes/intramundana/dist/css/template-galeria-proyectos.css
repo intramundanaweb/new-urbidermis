@@ -4,6 +4,7 @@ a:visited {
 
 .view-more, .view-less {
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .section-header {

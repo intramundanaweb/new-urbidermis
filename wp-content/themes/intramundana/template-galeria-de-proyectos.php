@@ -50,7 +50,7 @@ get_header('no-margin');
 
                 <?php 
                     $full_text = get_field('texto_introduccion');
-                    $replacement = '... <span class="view-more fw-500">Leer más</span>';
+                    $replacement = '... <br><p class="view-more">Leer más</p>';
                 ?>
 
                     <div class="header-title col-12 col-lg-6">
@@ -68,7 +68,7 @@ get_header('no-margin');
 
                         <?php if (wp_is_mobile()) { ?>
 
-                            <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25"><?php echo substr_replace($full_text, $replacement, 150); ?></p>
+                            <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25 mb-0"><?php echo substr_replace($full_text, $replacement, 150); ?></p>
 
                         <?php } else { ?>
 
@@ -86,14 +86,13 @@ get_header('no-margin');
 
 <script>
     jQuery(document).ready(function($) {
-
+        // USAR UN PUTO ACORDEON CONYYYYYY
         $(".view-more").click(function() {
-            $(".header-introduction").html('<?php the_field("texto_introduccion"); ?>' + '<span class="view-less fw-500"> Leer menos</span>')
-        })
-
-        $(".view-less").click(function() {
-            console.log('epepepepep')
-            $(".header-introduction").html('epep')
+            $(".header-introduction").html('<?php the_field("texto_introduccion"); ?>' + '<p class="view-less"> Leer menos</p>')
+            $(".view-less").click(function() {
+                console.log('epepepepep')
+                $(".header-introduction").html(<?php echo substr_replace($full_text, $replacement, 150); ?>)
+            })
         })
     })
 </script>

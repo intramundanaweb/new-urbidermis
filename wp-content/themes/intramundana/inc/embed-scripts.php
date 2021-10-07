@@ -21,6 +21,7 @@ function include_scripts() {
   wp_enqueue_script ('intra-config', get_template_directory_uri() . '/dist/js/configurador.js', array('jquery'), '', true);
   wp_enqueue_script ('galeria-proyectos', get_template_directory_uri() . '/dist/js/template-galeria-proyectos.js', array('jquery'), '', true);
   wp_enqueue_script ('single-proyectos', get_template_directory_uri() . '/dist/js/single-proyecto.js', array('jquery'), '', true);
+  wp_enqueue_script ('single-autor', get_template_directory_uri() . '/dist/js/single-autor.js', array('jquery'), '', true);
   wp_enqueue_script ('template-inicio', get_template_directory_uri() . '/dist/js/template-inicio.js', array('jquery'), '', true);
   
   

@@ -13,7 +13,7 @@ h2 {
 }
 
 /* Section cover */
-.section-cover {
+.single-proyecto .section-cover {
     padding-top: 2.5em;
 }
 
@@ -105,7 +105,7 @@ h2 {
     ==============================
     */
 
-    .section-cover {
+    .single-proyecto .section-cover {
         padding-top: 5em;
     }
 

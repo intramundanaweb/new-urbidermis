@@ -12,7 +12,7 @@ get_header('no-margin');
 /* $page_id = get_queried_object_id(); */
 ?>
         
-<section class="section-cover h-100 bg-beige">
+<section class="single-proyecto section-cover h-100 bg-beige">
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">

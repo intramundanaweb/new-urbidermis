@@ -259,6 +259,39 @@ jQuery(document).ready(function ($) {
     });
 
 
+    $('.slick-autor-modal-galeria').slick({
+        infinite: true,
+        speed: 300,
+        //autoplaySpeed: 3500,
+        //autoplay: true,
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        arrows: false,
+        fade: false,
+        dots: false,
+        centerMode: false,
+        variableWidth: false,
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: true,
+                dots: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                variableWidth: false
+            }
+        }]
+    });
+
+    $('.right-modal-galeria').on('click', function (e) {
+        $('.slick-autor-modal-galeria').slick('slickPrev');
+    });
+    
+    $('.left-modal-galeria').on('click', function (e) {
+        $('.slick-autor-modal-galeria').slick('slickNext');
+    });
+
+
     /*
     ==============================
     Page: Single-Autor
