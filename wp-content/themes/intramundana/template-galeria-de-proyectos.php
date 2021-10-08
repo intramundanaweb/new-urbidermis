@@ -62,7 +62,7 @@ get_header('no-margin');
                                 'fs-lg-375'
                             )
                         ?>
-                    </div>
+                    </div> 
 
                     <div class="header-introduction col-12 col-lg-6">
 
