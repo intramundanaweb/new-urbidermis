@@ -2,6 +2,15 @@ a:visited {
     color: inherit;
 }
 
+.header-introduction .card {
+    border: none!important;
+}
+
+.header-introduction .card-header {
+    padding: 0!important;
+    border: none!important;
+}
+
 .view-more, .view-less {
     cursor: pointer;
     text-decoration: underline;
