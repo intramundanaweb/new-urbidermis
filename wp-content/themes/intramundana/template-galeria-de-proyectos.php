@@ -5,6 +5,8 @@
 get_header('no-margin');
 ?>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.3/jquery.scrollTo.min.js"></script>
+
 <?php
     // WP QUERIES AND TAXONOMIES INFO
  
@@ -48,10 +50,12 @@ get_header('no-margin');
             <div class="row py-5">
                 <div class="col-12 d-lg-flex">
 
-                <?php 
-                    $full_text = get_field('texto_introduccion');
-                    $replacement = '... <br><p class="view-more">Leer más</p>';
-                ?>
+                    <?php 
+                        $full_text = get_field('texto_introduccion');
+                        $full_text .= '<p class="view-less" style="display: none;"> Leer menos</p>';
+                        $replacement = '... <br><p class="view-more">Leer más</p>';
+                        $show_text = substr_replace($full_text, $replacement, 150);
+                    ?>
 
                     <div class="header-title col-12 col-lg-6">
                         <?php
@@ -68,7 +72,8 @@ get_header('no-margin');
 
                         <?php if (wp_is_mobile()) { ?>
 
-                            <p class="fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25 mb-0"><?php echo substr_replace($full_text, $replacement, 150); ?></p>
+                            <p class="full-text fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25 mb-0" style="display: none;"><?php echo $full_text; ?></p>
+                            <p class="partial-text fw-400 fs-11 fs-lg-14 lh-25 lh-lg-25 mb-0"><?php echo $show_text; ?></p>
 
                         <?php } else { ?>
 
@@ -86,12 +91,22 @@ get_header('no-margin');
 
 <script>
     jQuery(document).ready(function($) {
-        // USAR UN PUTO ACORDEON CONYYYYYY
+        
         $(".view-more").click(function() {
-            $(".header-introduction").html('<?php the_field("texto_introduccion"); ?>' + '<p class="view-less"> Leer menos</p>')
+            $(this).toggle()
+            $(".partial-text").toggle()
+            $(".full-text").toggle()
+            $(".view-less").toggle()
+        })
+
+        jQuery(document).ready(function($) {
             $(".view-less").click(function() {
-                console.log('epepepepep')
-                $(".header-introduction").html(<?php echo substr_replace($full_text, $replacement, 150); ?>)
+                $(".full-text").toggle()
+                $(".view-less").toggle()
+                $(".partial-text").toggle()
+                $(".view-more").toggle()
+
+                $('body').scrollTo('.section-header', 500);
             })
         })
     })

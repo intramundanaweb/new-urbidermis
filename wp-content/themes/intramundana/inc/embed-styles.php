@@ -22,6 +22,7 @@ function include_styles() {
   wp_enqueue_style('style-single-proyecto', get_template_directory_uri() . '/dist/css/single-proyecto.css' );
   wp_enqueue_style('template-inicio', get_template_directory_uri() . '/dist/css/template-inicio.css' );
   wp_enqueue_style('template-autores', get_template_directory_uri() . '/dist/css/template-autores.css' );
+  wp_enqueue_style('template-equipo', get_template_directory_uri() . '/dist/css/template-equipo.css' );
   wp_enqueue_style('single-autor', get_template_directory_uri() . '/dist/css/single-autor.css' );
   wp_enqueue_style('style-extras', get_template_directory_uri() . '/dist/css/style-extras.css' );
   wp_enqueue_style('style-fonts', get_template_directory_uri() . '/dist/css/style-fonts.css' );

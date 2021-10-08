@@ -322,6 +322,45 @@ jQuery(document).ready(function ($) {
         }]
     });
 
+    /*
+    ==============================
+    Page: Template-Equipo
+    ==============================
+    */
+
+    /** Slick articles */
+    $('.slick-equipo').slick({
+        infinite: true,
+        speed: 300,
+        //autoplaySpeed: 3500,
+        //autoplay: true,
+        slidesToScroll: 1,
+        slidesToShow: 4,
+        arrows: false,
+        fade: false,
+        dots: false,
+        centerMode: false,
+        variableWidth: false,
+        responsive: [{
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                dots: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                variableWidth: true
+            }
+        }]
+    });
+    
+    $('#slick-equipo-left').on('click', function (e) {
+        $('.slick-equipo').slick('slickPrev');
+    });
+    
+    $('#slick-equipo-right').on('click', function (e) {
+        $('.slick-equipo').slick('slickNext');
+    });
+
     
 
 });

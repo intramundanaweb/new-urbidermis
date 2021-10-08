@@ -1,8 +1,30 @@
-.autores-section-header .wrapper {
+.equipo-section-header .wrapper {
     padding-top: 13em;
+    border-bottom: 2px solid black;
 }
 
-.img-wrap-autor {
+.miembro:nth-child(2n+1) {
+    padding-top: 1em;
+    padding-left: 0em;
+    padding-right: .5em;
+}
+
+.miembro:nth-child(2n) {
+    padding-top: 1em;
+    padding-left: .5em;
+    padding-right: 0em;
+}
+
+.miembro:nth-child(1) {
+    padding-top: 1.5em;
+}
+
+.miembro:nth-child(2) {
+    padding-top: 1.5em;
+}
+
+
+.img-wrap-miembro {
     height: 23em;
     overflow: hidden;
     border-top: 1px solid black;
@@ -10,67 +32,51 @@
     border-right: 1px solid black; 
 }
 
-.autor-info {
+.miembro-info {
     border: 1px solid black;
 }
 
-.autores-big-title-wrap {
+.equipo-big-title-wrap {
     padding: 3em 0em;
 }
 
-.autores-big-title {
+.equipo-big-title {
     width: 75%;
 }
 
-.slick-autors .slick-slide {
+.slick-equipo .slick-slide {
     width: 20em;
 }
 
-.slick-autor-header {
+.slick-miembro-header {
     height: 6em;
 }
 
-.slick-autor-content {
+.slick-miembro-content {
     height: 22em;
 }
 
-.slick-autor-content .tags a {
+.slick-miembro-content .tags a {
     font-size: 1.25em;
 }
 
-.slick-arrows-autors {
+.slick-arrows-equipo {
     width: 102%;
     top: 15em;
     right: -1em;
 }
 
-.slick-arrows-autors span {
+.slick-arrows-equipo span {
     font-size: 1.5em;
     cursor: pointer;
 }
 
 /* Slick dots */
 
-.slick-autors .slick-dots {
+.slick-equipo .slick-dots {
     visibility: visible;
     height: 0!important;
-    width: 86%!important;
-}
-
-.slick-autors .slick-dots .dot {
-    cursor: pointer;
-}
-
-.slick-autors .slick-dots li button {
-    background-color: #d3d3d3;
-}
-
-.slick-autors .slick-dots li.slick-active button {
-    background-color: #1d1d1f;
-}
-
-.slick-autors .slick-dots {
-    width: 100%;
+    width: 20em;
     text-align: left;
     bottom: -16%;
     left: 0;
@@ -80,12 +86,24 @@
     display: flex;
 }
 
-.slick-autors .slick-dots li {
+.slick-equipo .slick-dots .dot {
+    cursor: pointer;
+}
+
+.slick-equipo .slick-dots li button {
+    background-color: #d3d3d3;
+}
+
+.slick-equipo .slick-dots li.slick-active button {
+    background-color: #1d1d1f;
+}
+
+.slick-equipo .slick-dots li {
     margin-right: 0px;
     width: inherit;
 }
 
-.slick-autors .slick-dots li button {
+.slick-equipo .slick-dots li button {
     border-radius: 0;
     border-width: 0;
     border-style: solid;
@@ -95,8 +113,8 @@
     width: 100%;
 }
 
-.slick-autors .slick-dots li.slick-active button,
-.slick-autors .slick-dots li button {
+.slick-equipo .slick-dots li.slick-active button,
+.slick-equipo .slick-dots li button {
     -webkit-transition: all 0.5s 0s ease;
     -moz-transition: all 0.5s 0s ease;
     -o-transition: all 0.5s 0s ease;
@@ -107,16 +125,12 @@
     content: '#';
 }
 
-.img-wrap-autor {
+.img-wrap-miembro {
     max-height: 11em;
     overflow: hidden;
 }
 
-.autor {
-    margin-bottom: 1.875em;
-}
-
-.modal-autor {
+.modal-miembro {
     display: none;
     width: 100%;
     top: 0;
@@ -125,7 +139,7 @@
     overflow-y: scroll;
 }
 
-.modal-autor .fa-linkedin-in {
+.modal-miembro .fa-linkedin-in {
     border: 1px solid black;
     padding: 5px;
     border-radius: 20px;
@@ -135,7 +149,7 @@
     bottom: 3px;
 }
 
-.modal-autor .fa-linkedin-in::before {
+.modal-miembro .fa-linkedin-in::before {
     position: relative;
     left: 2px;
     top: 1px;
@@ -143,32 +157,32 @@
 
 @media (min-width: 992px) {
 
-    .autores-section-header .wrapper {
+    .equipo-section-header .wrapper {
         padding-top: inherit;
     }
 
-    .autores-header-wrap {
+    .equipo-header-wrap {
         padding-top: 7em;
         padding-bottom: 4em;
     }
 
-    .autor {
+    .miembro {
         margin-bottom: inherit;
     }
 
-    .img-wrap-autor {
+    .img-wrap-miembro {
         overflow: hidden;
     }
 
-    .img-wrap-autor {
+    .img-wrap-miembro {
         max-height: 31em;
     }
 
-    .autores-big-title-wrap {
+    .equipo-big-title-wrap {
         padding: 4.2em 0em;
     }
 
-    .autores-big-title {
+    .equipo-big-title {
         width: 32%;
     }
 
@@ -176,7 +190,7 @@
         padding-bottom: 3.5em;
     }
 
-    .slick-autors .slick-slide {
+    .slick-miembros .slick-slide {
         padding: 0em 2em;
     }
 
@@ -197,12 +211,12 @@
         position: relative;
     }
 
-    .modal-autor .fa-times {
+    .modal-miembro .fa-times {
         font-size: 1.5em;
         cursor: pointer;
     }
 
-    .modal-autor .fa-times::before {
+    .modal-miembro .fa-times::before {
         color: black;
     }
 
@@ -221,7 +235,7 @@
         padding: 0 2em;
     }
 
-    .slick-autor-modal-galeria {
+    .slick-miembro-modal-galeria {
         max-height: 40em;
         max-width: 100%;
         overflow-y: hidden;
@@ -230,7 +244,7 @@
         margin-top: 2em;
     }
 
-    .slick-autor-modal-galeria .slick-list, .slick-autor-modal-galeria .slick-track, .slick-autor-modal-galeria img {
+    .slick-miembro-modal-galeria .slick-list, .slick-miembro-modal-galeria .slick-track, .slick-miembro-modal-galeria img {
         height: 100%;
     }
 
