@@ -16,34 +16,46 @@ Register CPT
 function registration_cpt() {
 
 /* ------------- First CPT */
-  register_post_type('autor',
-       array(
-           'labels' => array(
-               'name'              => __('autores'),
-           ),
-           'public'      => true,
-           'has_archive' => true,
-           'menu_icon'   => 'dashicons-groups',
-           'supports' => array( 'title','thumbnail' ),
-           'rewrite' => array( 'with_front' => false ),
-       )
-  );
-
-
-    /* ------------- Second CPT */
-  register_post_type('proyecto', 
-  array(
-      'labels' => array(
-          'name'              => __('proyectos'),
-      ),
-      'public'      => true,
-      'has_archive' => true,
-      'menu_icon'   => 'dashicons-portfolio',
-      'supports' => array( 'title','thumbnail' ),
-      'rewrite' => array('slug' => 'caso-practico', 'with_front' => false ),
-  )
+register_post_type('autor',
+    array(
+        'labels' => array(
+            'name'              => __('autores'),
+        ),
+        'public'      => true,
+        'has_archive' => true,
+        'menu_icon'   => 'dashicons-groups',
+        'supports' => array( 'title','thumbnail' ),
+        'rewrite' => array( 'with_front' => false ),
+    )
 );
 
+/* ------------- Second CPT */
+register_post_type('proyecto', 
+    array(
+        'labels' => array(
+            'name'              => __('proyectos'),
+        ),
+        'public'      => true,
+        'has_archive' => true,
+        'menu_icon'   => 'dashicons-portfolio',
+        'supports' => array( 'title','thumbnail' ),
+        'rewrite' => array('slug' => 'caso-practico', 'with_front' => false ),
+    )
+);
+
+/* ------------- Third CPT */
+register_post_type('equipo', 
+    array(
+        'labels' => array(
+            'name'              => __('equipo'),
+        ),
+        'public'      => true,
+        'has_archive' => true,
+        'menu_icon'   => 'dashicons-businessperson',
+        'supports' => array( 'title','thumbnail' ),
+        'rewrite' => array('with_front' => false ),
+    )
+);
 
 
  }
@@ -104,6 +116,21 @@ function change_cpt_label() {
     $labels->all_items = 'Todos los artículos';
     $labels->menu_name = 'Artículos';
     $labels->name_admin_bar = 'Artículos';
+
+    $get_post_type = get_post_type_object('equipo');
+    $labels = $get_post_type->labels;
+    $labels->name = 'equipo';
+    $labels->singular_name = 'equipo';
+    $labels->add_new = 'Añadir miembro';
+    $labels->add_new_item = 'Añadir miembro';
+    $labels->edit_item = 'Editar miembros';
+    $labels->new_item = 'equipo';
+    $labels->view_item = 'Ver equipo';
+    $labels->search_items = 'Buscar miembro';
+    $labels->not_found = 'No se encontró un miembro';
+    $labels->all_items = 'Todos los miembros';
+    $labels->menu_name = 'Equipo';
+    $labels->name_admin_bar = 'Equipo';
 
 }
  /*

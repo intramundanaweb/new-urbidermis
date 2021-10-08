@@ -90,53 +90,142 @@ get_header('no-margin');
 
                             </div>
 
-                            <div class="modal-autor modal-autor-<?php echo $autor_counter; ?> position-fixed height-200 bg-beige">
-                                <div class="wrapper bg-beige">
-                                    <div class="container-fluid">
-                                        <div class="row py-5 py-lg-5">
-                                            <div class="col-12 d-lg-flex">
+                            <div class="modal-autor modal-autor-<?php echo $autor_counter; ?> position-fixed bg-beige <?php if (!wp_is_mobile()) echo 'w-50'; ?> height-200">
+                                <div class="wrapper h-100">
+                                    <div class="container-fluid h-100">
+                                        <div class="py-5 py-lg-5 d-lg-flex flex-lg-column h-100">
 
-                                                <div class="col-12 col-lg-6 px-lg-0 d-lg-flex flex-lg-column height-200">
+                                            <div class="d-flex position-relative">
+                                                <div class="ml-auto">
+                                                    <?php if (wp_is_mobile()) { ?>
+                                                        <span class="close-autor-modal-<?php echo $autor_counter; ?> fal fa-chevron-right cursor-pointer"></span>
+                                                    <?php } else { ?>
+                                                        <span class="close-autor-modal-<?php echo $autor_counter; ?> fal fa-times"></span>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <p class="fs-l fw-500 mb-lg-0"><?php the_title(); ?></p>
+                                            </div>
+
+                                            <div>
+                                                <p class="autor-ano-tipo fs-xs mb-0 mt-2 mt-lg-0 m-lg-0"><?php if (wp_is_mobile()) { the_field('ano_autor'); echo ', ';} ?><?php echo $tipo_autor; ?></p>
+                                            </div>
+
+                                            <div class="w-100 w-lg-75 px-0 pt-5 pb-4 pb-lg-0">
+                                                <p class="fw-400 fs-xxs fs-lg-11 lh-25 mb-0"><?php the_field("descripcion_autor"); ?></p>
+                                            </div>
+
+                                            <?php if (wp_is_mobile()) { ?>
+                                                <div>
+                                                    <p class="fs-xxs fs-lg-11 lh-25 mb-0">Conecta con Urbidermis a través de <span class="fab fa-linkedin-in"></span></p>
+                                                </div>
+
+                                                <div class="mt-lg-auto py-4 w-100">
+                                                    <a class="btn btn-round m-auto" href="<?php the_permalink(); ?>">Ver más de <?php the_title(); ?></a>
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class="mt-lg-5">
+                                                    <p>Visitar sitio web <a href="#"><span class="visitar-web fa fa-chevron-right"></span></a></p>
+                                                </div>
+
+                                                <div class="mt-lg-auto">
+                                                    <p class="ver-productos-autor-<?php echo $autor_counter; ?> btn btn-round mr-lg-3 d-lg-inline">Ver productos del autor</p>
+                                                    <p class="ver-galeria-autor-<?php echo $autor_counter; ?> btn btn-round d-lg-inline">Ver galería del autor</p>
+                                                </div>
+                                            <?php } ?>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <?php if (!wp_is_mobile()) { ?>
+                                <div class="sub-modal-productos sub-modal-productos-<?php echo $autor_counter; ?> position-fixed bg-beige <?php if (!wp_is_mobile()) echo 'w-50'; ?> height-200">
+                                    <div class="wrapper h-100">
+                                        <div class="container-fluid h-100">
+                                            <div class="w-100 py-5 py-lg-5 d-lg-flex flex-lg-column">
+
+                                                <div class="d-flex position-relative">
+                                                    <div class="ml-auto">
+                                                        <span class="close-sub-modal-productos-<?php echo $autor_counter; ?> fal fa-chevron-right cursor-pointer"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <p class="fs-l fw-500 mb-lg-0"><?php the_title(); ?></p>
+                                                </div>
+
+                                                <div>
+                                                    <p class="autor-ano-tipo fs-xs mb-0 mt-2 mt-lg-0 m-lg-0"><?php echo $tipo_autor; ?></p>
+                                                </div>
+
+                                                <p>Grid de productos</p>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sub-modal-galeria sub-modal-galeria-<?php echo $autor_counter; ?> position-fixed bg-beige <?php if (!wp_is_mobile()) echo 'w-50'; ?> height-200">
+                                    
+                                    <div class="position-relative">
+                                        <div class="wrapper h-100">
+                                            <div class="container-fluid h-100">
+                                                <div class="w-100 py-5 py-lg-5 d-lg-flex flex-lg-column">
 
                                                     <div class="d-flex position-relative">
                                                         <div class="ml-auto">
-                                                            <span class="close-autor-modal-<?php echo $autor_counter; ?> fal fa-chevron-left"></span>
+                                                            <span class="close-sub-modal-galeria-<?php echo $autor_counter; ?> fal fa-chevron-right cursor-pointer"></span>
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <p class="fs-l fw-500"><?php the_title(); ?></p>
-                                                    </div>
-
-                                                    <div class="mt-lg-4">
-                                                        <p class="autor-ano-tipo fs-xs mb-0 mt-2"><?php the_field('ano_autor'); ?>, <?php echo $tipo_autor; ?></p>
-                                                    </div>
-
-                                                    <div class="col-12 col-lg-6 px-0 pt-5 pb-4">
-                                                        <p class="fw-400 fs-xxs fs-lg-11 lh-25 mb-0"><?php the_field("descripcion_autor"); ?></p>
+                                                        <p class="fs-l fw-500 mb-lg-0"><?php the_title(); ?></p>
                                                     </div>
 
                                                     <div>
-                                                        <p class="fs-xxs fs-lg-11 lh-25 mb-0">Conecta con Urbidermis a través de <span class="fab fa-linkedin-in"></span></p>
+                                                        <p class="autor-ano-tipo fs-xs mb-0 mt-2 mt-lg-0 m-lg-0"><?php echo $tipo_autor; ?></p>
                                                     </div>
 
-                                                    <div class="mt-lg-auto py-4 w-100">
-                                                        <a class="btn btn-round m-auto" href="<?php the_permalink(); ?>">Ver más de <?php the_title(); ?></a>
-                                                    </div>
                                                 </div>
-
-                                                <!-- Repeater products -->
-                                                <div>
-
-
-
-                                                </div>
-
-                                            </div>                
+                                            </div>
                                         </div>
+
+                                        <div class="chevrons-modal-galeria position-absolute w-100 d-lg-flex justify-content-between">
+                                            <span class="icon-circle-bold right-modal-galeria"></span>
+                                            <span class="icon-circle-bold right-modal-galeria"></span>
+                                        </div>
+
+                                        <div class="slick-autor-modal-galeria position-absolute">
+
+                                            <?php if (have_rows('autor_modal_galeria')) :
+                                                while (have_rows('autor_modal_galeria')) : the_row(); ?>
+
+                                                    <div class="wrap-modal-galeria">
+                                                        <?php img_with_alt_lazy_sub('imagen_modal_galeria'); ?>
+                                                    </div>
+
+                                            <?php 
+                                                endwhile; endif;
+                                            ?>
+
+                                        </div>
+
                                     </div>
+                                
+                                    
+                                    
+                                    
+                                        
+                                    
+                                    
                                 </div>
-                            </div>
+
+                            <?php } ?>
 
                             <script>
 
@@ -144,13 +233,27 @@ get_header('no-margin');
 
                                     $(".autor-<?php echo $autor_counter; ?>").click(function() {
                                         $(".modal-autor-<?php echo $autor_counter; ?>").show('slide', {direction: 'right'}, 500)
-
                                     })
-
                                     $(".close-autor-modal-<?php echo $autor_counter; ?>").click(function() {
                                         $(".modal-autor-<?php echo $autor_counter; ?>").hide('slide', {direction: 'right'}, 500)
+                                    })
 
-                                        })
+                                    $(".ver-productos-autor-<?php echo $autor_counter; ?>").click(function() {
+                                        $(".sub-modal-productos-<?php echo $autor_counter; ?>").show('slide', {direction: 'right'}, 500)
+                                    })
+                                    $(".close-sub-modal-productos-<?php echo $autor_counter; ?>").click(function() {
+                                        $(".sub-modal-productos-<?php echo $autor_counter; ?>").hide('slide', {direction: 'right'}, 500)
+                                    })
+
+                                    $(".ver-galeria-autor-<?php echo $autor_counter; ?>").click(function() {
+                                        $(".sub-modal-galeria-<?php echo $autor_counter; ?>").show('slide', {direction: 'right'}, 500)
+                                        $(".slick-autor-modal-galeria").slick('refresh')
+                                    })
+                                    $(".close-sub-modal-galeria-<?php echo $autor_counter; ?>").click(function() {
+                                        $(".sub-modal-galeria-<?php echo $autor_counter; ?>").hide('slide', {direction: 'right'}, 500)
+                                    })
+
+                                    
 
                                 })
 
@@ -163,8 +266,7 @@ get_header('no-margin');
                     }
                     /* Restore original Post Data */
                     wp_reset_postdata(); ?>
-
-                </div>                
+              
             </div>
         </div>
     </div>

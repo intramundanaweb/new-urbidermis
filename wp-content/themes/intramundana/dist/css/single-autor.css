@@ -46,3 +46,11 @@
 .img-catalogue img {
     width: 21em;
 }
+
+@media (min-width: 992px) {
+
+    .autor-header-wrap {
+        padding-top: inherit;
+        border-bottom: inherit;
+    }
+}

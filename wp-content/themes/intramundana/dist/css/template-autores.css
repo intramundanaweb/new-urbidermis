@@ -117,7 +117,7 @@
     display: none;
     width: 100%;
     top: 0;
-    left: 0;
+    right: 0;
     z-index: 1030;
     overflow-y: scroll;
 }
@@ -176,4 +176,60 @@
     .slick-autors .slick-slide {
         padding: 0em 2em;
     }
+
+    .visitar-web.fa.fa-chevron-right {
+        width: 25px;
+        height: 25px;
+        border: 1px solid black;
+        border-radius: 50%;
+        position: relative;
+        bottom: 3px;
+        margin-left: .5em;
+    }
+
+    .visitar-web.fa.fa-chevron-right::before {
+        content: "\f054";
+        left: 7px;
+        top: 3px;
+        position: relative;
+    }
+
+    .modal-autor .fa-times {
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+    .modal-autor .fa-times::before {
+        color: black;
+    }
+
+    .sub-modal-productos, .sub-modal-galeria {
+        display: none;
+        width: 100%;
+        top: 0;
+        right: 0;
+        z-index: 1030;
+        overflow-y: scroll;
+    }
+
+    .chevrons-modal-galeria {
+        bottom: -175%;
+        z-index: 1;
+        padding: 0 2em;
+    }
+
+    .slick-autor-modal-galeria {
+        max-height: 40em;
+        max-width: 100%;
+        overflow-y: hidden;
+        top: 100%;
+        left: 0;
+        margin-top: 2em;
+    }
+
+    .slick-autor-modal-galeria .slick-list, .slick-autor-modal-galeria .slick-track, .slick-autor-modal-galeria img {
+        height: 100%;
+    }
+
+    
 }
