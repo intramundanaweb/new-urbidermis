@@ -74,7 +74,7 @@ get_header('no-margin');
                         ?>
                     </div>
 
-                    <div class="col-12 px-0 col-lg-6">
+                    <div class="col-12 px-0 col-lg-6 ovy-lg-scroll">
                         <p class="fs-xxs fs-lg-xxs lh-25 mt-4 mt-lg-0"><?php the_field("parrafo_introduccion_1"); ?></p>
                         <p class="fs-xxs fs-lg-xxs lh-25 mb-5 mb-lg-0 mt-lg-0"><?php the_field("parrafo_introduccion_2"); ?></p>
                     </div>
@@ -87,141 +87,322 @@ get_header('no-margin');
 
 <!-- Section grid -->
 <section>
-    <div class="wrapper py-5">
+    <div class="wrapper py-5 py-lg-5">
         <div class="container-fluid">
-            <div class="row py-lg-5">
-                <div class="col-12">
-
+            <div class="row">
+                
+                <!-- EQUIPO URBIDERMIS -->
+                <div class="col-12 pb-lg-5">
                     <?php
                         $term = get_term(156); //Example term ID
                         $empresa = $term->name; //gets term name
                     ?>
 
                     <p class="fs-13 mb-0">Equipo de <?php echo strip_tags($empresa); ?></p>
+                </div>
 
-                    <div class="col-12 px-0 equipo d-flex flex-wrap">
+                <?php if ( $equipo_urbidermis->have_posts() ) {
 
-                        <?php if ( $equipo_urbidermis->have_posts() ) {
+                    $miembro_counter = 1;
 
-                            while ( $equipo_urbidermis->have_posts() ) {
-                                
-                                $equipo_urbidermis->the_post();
-                                $especializacion = get_the_term_list( $equipo_urbidermis->ID, 'Especialización' );
-                            ?>
-                            
-                            <div class="miembro col-6 col-lg-3 d-flex flex-column">
-                                <a href="<?php the_permalink(); ?>">
-
-                                    <div class="img-wrap-miembro">
-                                        <?php img_with_alt_featured(); ?>
-                                    </div>
-
-                                    <div class="miembro-info p-1 p-lg-3">
-                                        <p class="text-center fs-1 fw-500 mb-0"><?php the_title(); ?></p>
-                                        <p class="text-center fs-1 mb-0"><?php echo strip_tags($especializacion); ?></p>
-                                    </div>
-
-                                </a>
+                    while ( $equipo_urbidermis->have_posts() ) {
+                        
+                        $equipo_urbidermis->the_post();
+                        $especializacion = get_the_term_list( $equipo_urbidermis->ID, 'Especialización' ); ?>
+                    
+                        <div class="miembro miembro-<?php echo $miembro_counter; ?> col-6 col-lg-3 d-flex flex-column cursor-pointer">
+                            <div class="img-wrap-miembro">
+                                <?php img_with_alt_featured(); ?>
                             </div>
 
-                        <?php } ?>
+                            <div class="miembro-info p-1 p-lg-3">
+                                <p class="text-center fs-1 fw-500 mb-0"><?php the_title(); ?></p>
+                                <p class="text-center fs-1 mb-0"><?php echo strip_tags($especializacion); ?></p>
+                            </div>
+                        </div>
 
-                        <?php } else {
-                        // no posts found
-                        }
+                        <div class="modal-miembro modal-miembro-<?php echo $miembro_counter; ?> position-fixed bg-beige w-100 <?php if (!wp_is_mobile()) echo 'w-50'; ?> height-200">
+                            <div class="wrapper h-100">
+                                <div class="container-fluid h-100">
+                                    <div class="py-5 py-lg-5 d-lg-flex flex-lg-column h-100">
 
-                        wp_reset_postdata(); ?>
+                                        <div class="d-flex position-relative">
+                                            <div class="ml-auto">
+                                                <span class="close-miembro-modal close-miembro-modal-<?php echo $miembro_counter; ?> fal fa-times fs-xs cursor-pointer"></span>
+                                            </div>
+                                        </div>
 
-                    </div>
-                </div>
+                                        <div>
+                                            <p class="fs-l mb-lg-0"><?php the_title(); ?></p>
+                                        </div>
+
+                                        <div>
+                                            <p class="especializacion mb-0 mt-2 mt-lg-0 m-lg-0"><?php echo $especializacion; ?></p>
+                                        </div>
+
+                                        <div class="w-100 w-lg-75 px-0 pt-5 pb-4 pb-lg-0">
+                                            <p class="fw-400 fs-xxs fs-lg-11 lh-25"><?php the_field("descripcion_miembro_1"); ?></p>
+                                            <p class="fw-400 fs-xxs fs-lg-11 lh-25 mb-0"><?php the_field("descripcion_miembro_2"); ?></p>
+                                        </div>
+
+                                        <div>
+                                            <p class="fs-xxs fs-lg-11 lh-25 mb-0">Conecta con <?php the_title(); ?> a través de <span class="fab fa-linkedin-in"></span></p>
+                                        </div>
+
+                                        <div class="py-5 w-100">
+                                            <p class="leer-articulos-miembro-<?php echo $miembro_counter; ?> btn btn-round mr-lg-3 d-lg-inline mx-auto">Leer artículos</p>
+                                            <p class="ver-proyectos-miembro-<?php echo $miembro_counter; ?> btn btn-round d-lg-inline mx-auto">Ver proyectos en los que ha participado</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sub-modal-articulos sub-modal-articulos-<?php echo $miembro_counter; ?> position-fixed bg-beige <?php if (!wp_is_mobile()) echo 'w-50'; ?> height-200">
+                            <div class="wrapper h-100">
+                                <div class="container-fluid h-100">
+                                    <div class="w-100 py-5 py-lg-5 d-flex flex-column">
+
+                                        <div class="d-flex position-relative">
+                                            <div class="ml-auto">
+                                                <span class="close-sub-modal-articulos-<?php echo $miembro_counter; ?> fal fa-chevron-right fs-xs cursor-pointer"></span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <p class="fs-21 lh-40 mb-0">Artículos<br>de <?php the_title(); ?></p>
+                                            <p class="especializacion mb-0 mt-2 mt-lg-0 m-lg-0"><?php echo $especializacion; ?></p>
+                                        </div>
+
+                                        <?php
+
+                                            $args_article = array(
+                                                'post_type' => 'post',
+                                                'orderby' => 'rand',
+                                                'meta_query' => array(
+                                                    array(
+                                                        'key' => 'miembro_escritor',
+                                                        'value' => 725,
+                                                        'compare' => '='
+                                                    )
+                                                )
+                                            );
+
+                                            $articles_query = new WP_Query($args_article);
+
+                                        ?>
+
+                                        <div class="row ovy-scroll">
+
+                                            <?php if ($articles_query->have_posts()) : 
+                                                while ($articles_query->have_posts()) : $articles_query->the_post(); ?>
+
+                                                    <div class="mt-4 col-6 d-flex flex-column">
+                                                        <div class="miembro-article-box-shadow">
+                                                            <div class="miembro-article-top p-2">
+                                                                <p class="fs-xxs mb-0"><?php the_title(); ?></p>  
+                                                            </div>
+                                                            <div class="miembro-article-bottom">
+                                                                <?php img_with_alt_featured(); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                <?php endwhile; endif; ?>
+                                        </div>
+
+                                        <?php if (!wp_is_mobile()) { ?>
+                                            <div>
+                                                <p>Leer más artículos</p>
+                                            </div>
+                                        <?php } ?>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sub-modal-proyectos sub-modal-proyectos-<?php echo $miembro_counter; ?> position-fixed bg-beige <?php if (!wp_is_mobile()) echo 'w-50'; ?> height-200">
+                            <div class="wrapper h-100">
+                                <div class="container-fluid h-100">
+                                    <div class="w-100 py-5 py-lg-5 d-flex flex-column">
+
+                                        <div class="d-flex position-relative">
+                                            <div class="ml-auto">
+                                                <span class="close-sub-modal-proyectos-<?php echo $miembro_counter; ?> fal fa-chevron-right fs-xs cursor-pointer"></span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <p class="fs-21 lh-40 mb-0">Proyectos<br>de <?php the_title(); ?></p>
+                                            <p class="especializacion mb-0 mt-2 mt-lg-0 m-lg-0"><?php echo $especializacion; ?></p>
+                                        </div>
+
+                                        <?php
+
+                                            $args_proyecto = array(
+                                                'post_type' => 'proyecto',
+                                                'orderby' => 'rand',
+                                                'meta_query' => array(
+                                                    array(
+                                                        'key' => 'miembros_colaboradores_$_miembro_colaborador',
+                                                        'value' => 725,
+                                                        'compare' => '='
+                                                   )
+                                                )
+                                            );
+
+                                            $proyectos_query = new WP_Query($args_proyecto);
+
+                                        ?>
+
+                                        <div class="row ovy-scroll">
+
+                                            <?php if ($proyectos_query->have_posts()) : 
+                                                while ($proyectos_query->have_posts()) : $proyectos_query->the_post(); ?>
+
+                                                    <div class="mt-4 col-6 d-flex flex-column">
+                                                        <div class="miembro-proyecto-bottom">
+                                                            <?php img_with_alt_featured(); ?>
+                                                        </div>
+                                                        <div class="miembro-proyecto-top p-2">
+                                                            <p class="fs-xxs fw-500 mb-0"><?php the_title(); ?></p>
+                                                            <p class="fs-xxs mb-0">"Tipologia"</p> 
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                <?php endwhile; endif; ?>
+                                        </div>
+
+                                        <?php if (!wp_is_mobile()) { ?>
+                                            <div>
+                                                <p>Ver más proyectos</p>
+                                            </div>
+                                        <?php } ?>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+
+                            jQuery(document).ready(function ($) {
+
+                                $(".miembro-<?php echo $miembro_counter; ?>").click(function() {
+                                    $(".modal-miembro-<?php echo $miembro_counter; ?>").show('slide', {direction: 'right'}, 500)
+                                })
+                                $(".close-miembro-modal-<?php echo $miembro_counter; ?>").click(function() {
+                                    $(".modal-miembro-<?php echo $miembro_counter; ?>").hide('slide', {direction: 'right'}, 500)
+                                })
+
+                                $(".leer-articulos-miembro-<?php echo $miembro_counter; ?>").click(function() {
+                                    $(".sub-modal-articulos-<?php echo $miembro_counter; ?>").show('slide', {direction: 'right'}, 500)
+                                })
+                                $(".close-sub-modal-articulos-<?php echo $miembro_counter; ?>").click(function() {
+                                    $(".sub-modal-articulos-<?php echo $miembro_counter; ?>").hide('slide', {direction: 'right'}, 500)
+                                })
+
+                                $(".ver-proyectos-miembro-<?php echo $miembro_counter; ?>").click(function() {
+                                    $(".sub-modal-proyectos-<?php echo $miembro_counter; ?>").show('slide', {direction: 'right'}, 500)
+                                })
+                                $(".close-sub-modal-proyectos-<?php echo $miembro_counter; ?>").click(function() {
+                                    $(".sub-modal-proyectos-<?php echo $miembro_counter; ?>").hide('slide', {direction: 'right'}, 500)
+                                })
+
+                            })
+
+                        </script>
+
+                    <?php $miembro_counter ++; } ?>
+
+                <?php } else {
+                // no posts found
+                }
+                wp_reset_postdata(); ?>
             
-                <div class="col-12">
-
+                <!-- EQUIPO BELLOCH -->
+                <div class="col-12 pb-lg-5">
                     <?php
                         $term = get_term(158); //Example term ID
                         $empresa = $term->name; //gets term name
                     ?>
 
                     <p class="fs-13 pt-5 mb-0">Equipo de <?php echo strip_tags($empresa); ?></p>
+                </div> 
                     
-                    <div class="col-12 px-0 equipo d-flex flex-wrap">
+                <?php if ( $equipo_belloch->have_posts() ) {
 
-                        <?php if ( $equipo_belloch->have_posts() ) {
+                    while ( $equipo_belloch->have_posts() ) {
+                        
+                        $equipo_belloch->the_post();
+                        $especializacion = get_the_term_list( $equipo_belloch->ID, 'Especialización' );
+                    ?>
+                    
+                    <div class="miembro col-6 col-lg-3 d-flex flex-column cursor-pointer">
+                        <a href="<?php the_permalink(); ?>">
 
-                            while ( $equipo_belloch->have_posts() ) {
-                                
-                                $equipo_belloch->the_post();
-                                $especializacion = get_the_term_list( $equipo_belloch->ID, 'Especialización' );
-                            ?>
-                            
-                            <div class="miembro col-6 col-lg-3 d-flex flex-column">
-                                <a href="<?php the_permalink(); ?>">
-
-                                    <div class="img-wrap-miembro">
-                                        <?php img_with_alt_featured(); ?>
-                                    </div>
-
-                                    <div class="miembro-info p-1 p-lg-3">
-                                        <p class="text-center fs-1 fw-500 mb-0"><?php the_title(); ?></p>
-                                        <p class="text-center fs-1 mb-0"><?php echo strip_tags($especializacion); ?></p>
-                                    </div>
-
-                                </a>
+                            <div class="img-wrap-miembro">
+                                <?php img_with_alt_featured(); ?>
                             </div>
 
-                        <?php } ?>
+                            <div class="miembro-info p-1 p-lg-3">
+                                <p class="text-center fs-1 fw-500 mb-0"><?php the_title(); ?></p>
+                                <p class="text-center fs-1 mb-0"><?php echo strip_tags($especializacion); ?></p>
+                            </div>
 
-                        <?php } else {
-                        // no posts found
-                        }
-
-                        wp_reset_postdata(); ?>
+                        </a>
                     </div>
-                </div>
 
-                <div class="col-12">
+                <?php } ?>
 
+                <?php } else {
+                // no posts found
+                }
+                wp_reset_postdata(); ?>
+                
+                <!-- EQUIPO EXTERNO -->
+                <div class="col-12 pb-lg-5">
                     <?php
                         $term = get_term(160); //Example term ID
                         $empresa = $term->name; //gets term name
                     ?>
 
                     <p class="fs-13 pt-5 mb-0"><?php echo strip_tags($empresa); ?></p>
+                </div>
 
-                    <div class="col-12 px-0 equipo d-flex flex-wrap">
+                <?php if ( $equipo_externo->have_posts() ) {
+
+                    while ( $equipo_externo->have_posts() ) {
+                        
+                        $equipo_externo->the_post();
+                        $especializacion = get_the_term_list( $equipo_externo->ID, 'Especialización' );
+                    ?>
                     
-                        <?php if ( $equipo_externo->have_posts() ) {
+                    <div class="miembro col-6 col-lg-3 d-flex flex-column cursor-pointer">
+                        <a href="<?php the_permalink(); ?>">
 
-                            while ( $equipo_externo->have_posts() ) {
-                                
-                                $equipo_externo->the_post();
-                                $especializacion = get_the_term_list( $equipo_externo->ID, 'Especialización' );
-                            ?>
-                            
-                            <div class="miembro col-6 col-lg-3 d-flex flex-column">
-                                <a href="<?php the_permalink(); ?>">
-
-                                    <div class="img-wrap-miembro">
-                                        <?php img_with_alt_featured(); ?>
-                                    </div>
-
-                                    <div class="miembro-info p-1 p-lg-3">
-                                        <p class="text-center fs-1 fw-500 mb-0"><?php the_title(); ?></p>
-                                        <p class="text-center fs-1 mb-0"><?php echo strip_tags($especializacion); ?></p>
-                                    </div>
-
-                                </a>
+                            <div class="img-wrap-miembro">
+                                <?php img_with_alt_featured(); ?>
                             </div>
 
-                        <?php } ?>
+                            <div class="miembro-info p-1 p-lg-3">
+                                <p class="text-center fs-1 fw-500 mb-0"><?php the_title(); ?></p>
+                                <p class="text-center fs-1 mb-0"><?php echo strip_tags($especializacion); ?></p>
+                            </div>
 
-                        <?php } else {
-                        // no posts found
-                        }
-
-                        wp_reset_postdata(); ?>
+                        </a>
                     </div>
-                </div>
+
+                <?php } ?>
+
+                <?php } else {
+                // no posts found
+                }
+                wp_reset_postdata(); ?>    
                 
             </div>
         </div>
@@ -239,7 +420,7 @@ get_header('no-margin');
                             'big_title',
                             'etiqueta_big_title',
                             'texto_big_title',
-                            'equipo-big-title fs-37 fs-lg-5 d-block m-auto m-lg-auto'
+                            'equipo-big-title w-lg-25 fs-37 fs-lg-5 d-block m-auto m-lg-auto'
                         )
                     ?>
                 </div>

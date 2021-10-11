@@ -375,10 +375,6 @@ jQuery(document).ready(function ($) {
             }
         }
         
-        
-            
-
-        
     
         $(".fa").not($(this).find(".fa")).removeClass("fa-chevron-up")
         $(".fa").not($(this).find(".fa")).addClass("fa-chevron-down")
@@ -390,56 +386,26 @@ jQuery(document).ready(function ($) {
     $(".background-wrap").css('height', '50%')
     $(".range").change(function () {
     
-        if ($(".range").val() < 33) {
+        if ($(".range").val() < 50) {
     
-            $(".grid-project-wrap").removeClass("col-6 col-4").addClass("col-12")
+            $(".grid-project-wrap").removeClass("col-lg-4").addClass("col-lg-24")
 
-            $(".project-title").css('display', 'block')
-            $(".project-title").css('font-size', '1.1em')
-            $(".project-title").css('top', '-25px')
-
-            //$(".range").removeClass('mb-4').addClass('mb-3')
-
-            $(".grid-row").removeClass('mb-4')
-
-            $(".grid-project-wrap").addClass('py-3')
-
-            $(".grid-project-wrap-link").removeClass('p-2').addClass('p-4')
-            $(".grid-project-wrap-link").parent().css('height', '50%')
+            $(".list-flex").hide()
+            $(".grid-flex").show()
         }
     
-        if ($(".range").val() >= 33) {
+        if ($(".range").val() == 50) {
     
-            $(".grid-project-wrap").removeClass("col-4 col-12").addClass("col-6")
-            $(".grid-project-wrap").css('padding', '0')
+            $(".grid-project-wrap").removeClass("col-lg-24").addClass("col-lg-4")
 
-            $(".project-title").css('display', 'block')
-            $(".project-title").css('font-size', '.75em')
-            $(".project-title").css('top', '-15px')
-    
-            $(".grid-flex").removeClass("p-0")
-
-            //$(".range").removeClass('mb-5').addClass('mb-3')
-
-            $(".grid-row").removeClass('mb-4')
-
-            $(".grid-project-wrap").removeClass('py-3')
-
-            $(".grid-project-wrap-link").removeClass('p-2').addClass('p-4')
-            $(".grid-project-wrap-link").parent().css('height', '50%')
+            $(".list-flex").hide()
+            $(".grid-flex").show()
         }
     
-        if ($(".range").val() >= 66) {
-    
-            $(".grid-project-wrap").removeClass("col-6 col-12").addClass("col-4")
-            $(".project-title").css('display', 'none')
+        if ($(".range").val() > 50) {
 
-            $(".grid-row").addClass('mb-4')
-
-            $(".grid-project-wrap-link").removeClass('p-4').addClass('p-2')
-            $(".grid-project-wrap-link").parent().css('height', '100%')
-
-
+            $(".grid-flex").hide()
+            $(".list-flex").show()
         }
     })    
 })

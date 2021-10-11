@@ -347,6 +347,12 @@ function delete_post_type2(){
 }
 add_action('init','delete_post_type');
 
+function wpza_replace_repeater_field( $where ) {
+    $where = str_replace( "meta_key = 'miembros_colaboradores", "meta_key LIKE 'miembro_colaborador", $where );
+    return $where;
+}
+add_filter( 'posts_where', 'wpza_replace_repeater_field' );
+
 function console_log( $data ){
     echo '<script>';
     echo 'console.log('. json_encode( $data ) .')';
