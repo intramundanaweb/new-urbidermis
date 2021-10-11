@@ -55,6 +55,11 @@ Page: 404
 
 @media (min-width: 992px) {
 
+    .col-lg-24 {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+
     .w-lg-25 {
         width: 25%!important;
     }
@@ -77,6 +82,10 @@ Page: 404
 
     .w-lg-100 {
         width: 100%!important;
+    }
+
+    .ovy-lg-scroll {
+        overflow-y: auto;
     }
 
 }

@@ -77,7 +77,7 @@ get_header('no-margin');
                             $articles_query = new WP_Query($args_article);
                             //// ?>
                         
-                            <div class="autor-<?php echo $autor_counter; ?> col-6 col-lg-3 d-flex flex-column mb-4">
+                            <div class="autor-<?php echo $autor_counter; ?> col-6 col-lg-3 d-flex flex-column mb-4 cursor-pointer">
                                 
                                 <div class="img-wrap-autor">
                                     <?php img_with_alt_featured(); ?>
@@ -216,13 +216,7 @@ get_header('no-margin');
                                         </div>
 
                                     </div>
-                                
-                                    
-                                    
-                                    
-                                        
-                                    
-                                    
+
                                 </div>
 
                             <?php } ?>
@@ -253,13 +247,11 @@ get_header('no-margin');
                                         $(".sub-modal-galeria-<?php echo $autor_counter; ?>").hide('slide', {direction: 'right'}, 500)
                                     })
 
-                                    
-
                                 })
 
                             </script>
                             
-                            <?php $autor_counter++; } ?>
+                        <?php $autor_counter++; } ?>
 
                     <?php } else {
                         // no posts found

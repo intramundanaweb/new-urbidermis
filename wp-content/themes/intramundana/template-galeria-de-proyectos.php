@@ -168,7 +168,7 @@ get_header('no-margin');
                 <div class="col-12 px-0 px-lg-3">
 
                     <!-- UPPER MENU -->
-                    <div class="upper-menu col-12 d-flex justify-content-between mt-5 mb-3 px-4 px-lg-0">
+                    <div class="upper-menu col-12 d-flex justify-content-between mt-5 mb-3 px-4 px-lg-0 d-none d-lg-none">
 
                         <!-- SWITCH BUTTON -->
                         <div class="switch-wrapper d-flex d-lg-flex">
@@ -191,11 +191,9 @@ get_header('no-margin');
 
                     <div class="active-filters w-100 d-flex flex-wrap justify-content-end d-lg-none px-4"></div>
 
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="px-4">
-                            <input type="range" min="1" max="100" value="0" class="range mt-3 mb-4 bg-black w-100 p-0"></input>
-                        </div>
-                    <?php endif; ?>
+                    <div class="px-4 px-lg-0 py-lg-5">
+                        <input type="range" min="0" max="100" value="0" step="50" class="range mt-3 mb-4 bg-black w-100 p-0"></input>
+                    </div>                    
 
                     <!-- FILTER BOX -->
                     <?php if(! wp_is_mobile() ) : ?>
@@ -269,13 +267,13 @@ get_header('no-margin');
                                     $tipologia = get_the_term_list( $projects_query->ID, 'tipo' );
                                     $producto = get_the_term_list( $projects_query->ID, 'producto' ); ?>
 
-                                    <div class="grid-project-wrap col-12 col-lg-2">
+                                    <div class="grid-project-wrap col-12 col-lg-24">
                                         
                                         <?php if (( get_field('tipo_de_proyecto') == 'extendido' ) && wp_is_mobile()) { ?>
                                             <div class="background-wrap bg-blue-light">
                                             <a class="d-block project-<?php echo $counter_grid; ?> p-4 grid-project-wrap-link" href="#">
                                         <?php } else { ?>
-                                            <a class="d-block project-<?php echo $counter_grid; ?> p-4" href="#">
+                                            <a class="d-block project-<?php echo $counter_grid; ?>" href="#">
                                         <?php } ?>
                                                 <div class="grid-project flex-column" data-pais="<?php echo strip_tags($pais); ?>" data-ciudad="<?php echo strip_tags($ciudad); ?>" data-tipologia="<?php echo strip_tags($tipologia); ?>" data-producto="<?php echo strip_tags($producto); ?>">
                                                     <div class="image-wrap">
