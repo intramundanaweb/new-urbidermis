@@ -270,7 +270,7 @@ require get_template_directory() . '/inc/shortcodes.php';
  * *******************************************************
  * *******************************************************
 */
-require get_template_directory() . '/inc/country-code.php';
+//require get_template_directory() . '/inc/country-code.php';
 
 /*********************************************************
  * *******************************************************
@@ -278,7 +278,7 @@ require get_template_directory() . '/inc/country-code.php';
  * *******************************************************
  * *******************************************************
 */
-require get_template_directory() . '/inc/add-last-nav-item.php';
+//require get_template_directory() . '/inc/add-last-nav-item.php';
 
 /*********************************************************
  * *******************************************************
